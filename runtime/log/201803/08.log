@@ -1,0 +1,3007 @@
+---------------------------------------------------------------
+[ 2018-03-08T16:41:16+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.030001s][吞吐率：33.33req/s] [内存消耗：651.48kb] [文件加载：43]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [2]scandir(C:\Users\Administrator\web\tpflow/route/,C:\Users\Administrator\web\tpflow/route/): ϵͳ�Ҳ���ָ�����ļ��� (code: 2)[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\App.php:438]
+---------------------------------------------------------------
+[ 2018-03-08T16:42:02+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.034002s][吞吐率：29.41req/s] [内存消耗：651.82kb] [文件加载：43]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [2]scandir(C:\Users\Administrator\web\tpflow/route/,C:\Users\Administrator\web\tpflow/route/): ϵͳ�Ҳ���ָ�����ļ��� (code: 2)[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\App.php:438]
+---------------------------------------------------------------
+[ 2018-03-08T16:42:02+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.030002s][吞吐率：33.33req/s] [内存消耗：651.82kb] [文件加载：43]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [2]scandir(C:\Users\Administrator\web\tpflow/route/,C:\Users\Administrator\web\tpflow/route/): ϵͳ�Ҳ���ָ�����ļ��� (code: 2)[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\App.php:438]
+---------------------------------------------------------------
+[ 2018-03-08T16:42:03+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.030001s][吞吐率：33.33req/s] [内存消耗：651.82kb] [文件加载：43]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [2]scandir(C:\Users\Administrator\web\tpflow/route/,C:\Users\Administrator\web\tpflow/route/): ϵͳ�Ҳ���ָ�����ļ��� (code: 2)[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\App.php:438]
+---------------------------------------------------------------
+[ 2018-03-08T16:42:03+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.030002s][吞吐率：33.33req/s] [内存消耗：651.82kb] [文件加载：43]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [2]scandir(C:\Users\Administrator\web\tpflow/route/,C:\Users\Administrator\web\tpflow/route/): ϵͳ�Ҳ���ָ�����ļ��� (code: 2)[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\App.php:438]
+---------------------------------------------------------------
+[ 2018-03-08T16:42:03+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.030002s][吞吐率：33.33req/s] [内存消耗：651.82kb] [文件加载：43]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [2]scandir(C:\Users\Administrator\web\tpflow/route/,C:\Users\Administrator\web\tpflow/route/): ϵͳ�Ҳ���ָ�����ļ��� (code: 2)[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\App.php:438]
+---------------------------------------------------------------
+[ 2018-03-08T16:42:28+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.036002s][吞吐率：27.78req/s] [内存消耗：940.23kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:42:29+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：940.23kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:42:30+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.032002s][吞吐率：31.25req/s] [内存消耗：940.23kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:42:30+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.032001s][吞吐率：31.25req/s] [内存消耗：940.23kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:42:55+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：944.41kb] [文件加载：53]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:43:50+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.041002s][吞吐率：24.39req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:44:58+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.038003s][吞吐率：26.31req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:01+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.035002s][吞吐率：28.57req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:01+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.032002s][吞吐率：31.25req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:01+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:01+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.034002s][吞吐率：29.41req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:17+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.034002s][吞吐率：29.41req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:18+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.033001s][吞吐率：30.30req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:18+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.034001s][吞吐率：29.41req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:19+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:45:19+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：950.01kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:05+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.036002s][吞吐率：27.78req/s] [内存消耗：945.83kb] [文件加载：53]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined method app\home\Controller\Index::success()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:8]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:29+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.038002s][吞吐率：26.31req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:30+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.037003s][吞吐率：27.02req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:30+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.035002s][吞吐率：28.57req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:30+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.036002s][吞吐率：27.78req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:30+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:30+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.036003s][吞吐率：27.78req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:31+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,209.63kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\home\Controller\U()[C:\Users\Administrator\web\tpflow\application\Home\Controller\Index.php:9]
+---------------------------------------------------------------
+[ 2018-03-08T16:46:38+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.041002s][吞吐率：24.39req/s] [内存消耗：1,356.32kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:46:41+08:00 ] 127.0.0.1 GET /demo.html
+[ info ] 127.0.0.4/demo.html [运行时间：0.032002s][吞吐率：31.25req/s] [内存消耗：942.53kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/home',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:46:56+08:00 ] 127.0.0.1 GET /home
+[ info ] 127.0.0.4/home [运行时间：0.037003s][吞吐率：27.02req/s] [内存消耗：1,184.98kb] [文件加载：62]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:46:59+08:00 ] 127.0.0.1 GET /home/index/demo.html
+[ info ] 127.0.0.4/home/index/demo.html [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,208.17kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/home',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:47:40+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.034002s][吞吐率：29.41req/s] [内存消耗：939.83kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:48:01+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.046003s][吞吐率：21.74req/s] [内存消耗：1,183.39kb] [文件加载：62]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:48:04+08:00 ] 127.0.0.1 GET /index/index/demo.html
+[ info ] 127.0.0.4/index/index/demo.html [运行时间：0.039002s][吞吐率：25.64req/s] [内存消耗：1,208.20kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:48:55+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.038002s][吞吐率：26.31req/s] [内存消耗：1,182.74kb] [文件加载：62]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:48:58+08:00 ] 127.0.0.1 GET /index/demo.html
+[ info ] 127.0.0.4/index/demo.html [运行时间：0.040003s][吞吐率：25.00req/s] [内存消耗：1,225.03kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]Undefined property: app\index\Controller\Demo::$_obj_model[C:\Users\Administrator\web\tpflow\application\Index\Controller\Demo.php:10]
+---------------------------------------------------------------
+[ 2018-03-08T16:49:11+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.038002s][吞吐率：26.31req/s] [内存消耗：1,182.75kb] [文件加载：62]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:49:14+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.040002s][吞吐率：25.00req/s] [内存消耗：1,225.21kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]Undefined property: app\index\Controller\Demo::$_obj_model[C:\Users\Administrator\web\tpflow\application\Index\Controller\Demo.php:10]
+---------------------------------------------------------------
+[ 2018-03-08T16:50:16+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.041002s][吞吐率：24.39req/s] [内存消耗：1,224.04kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\index\Controller\D()[C:\Users\Administrator\web\tpflow\application\Index\Controller\Demo.php:13]
+---------------------------------------------------------------
+[ 2018-03-08T16:50:22+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.056003s][吞吐率：17.86req/s] [内存消耗：1,913.51kb] [文件加载：66]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002001s ] mysql:host=127.0.0.1;port=3306;dbname=pms;charset=utf8
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'pms.pms_flow' doesn't exist[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\db\Connection.php:675]
+---------------------------------------------------------------
+[ 2018-03-08T16:51:32+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.063003s][吞吐率：15.87req/s] [内存消耗：1,942.14kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `leipi_flow` WHERE  `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function app\index\Controller\import()[C:\Users\Administrator\web\tpflow\application\Index\Controller\Demo.php:26]
+---------------------------------------------------------------
+[ 2018-03-08T16:51:56+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.045003s][吞吐率：22.22req/s] [内存消耗：1,883.23kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义变量: p[C:\Users\Administrator\web\tpflow\application\Index\Controller\Demo.php:23]
+---------------------------------------------------------------
+[ 2018-03-08T16:52:14+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.058003s][吞吐率：17.24req/s] [内存消耗：1,928.66kb] [文件加载：63]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T16:52:22+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.057003s][吞吐率：17.54req/s] [内存消耗：1,942.52kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]模板文件不存在:C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\view\driver\Think.php:80]
+---------------------------------------------------------------
+[ 2018-03-08T16:52:43+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.072005s][吞吐率：13.89req/s] [内存消耗：1,942.52kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]模板文件不存在:C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\view\driver\Think.php:80]
+---------------------------------------------------------------
+[ 2018-03-08T16:52:44+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.065004s][吞吐率：15.38req/s] [内存消耗：1,942.52kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]模板文件不存在:C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\view\driver\Think.php:80]
+---------------------------------------------------------------
+[ 2018-03-08T16:52:44+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：1,942.52kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]模板文件不存在:C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\view\driver\Think.php:80]
+---------------------------------------------------------------
+[ 2018-03-08T16:52:44+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.067004s][吞吐率：14.92req/s] [内存消耗：1,942.52kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]模板文件不存在:C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html[C:\Users\Administrator\web\tpflow\ThinkPHP\library\think\view\driver\Think.php:80]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:02+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.084004s][吞吐率：11.90req/s] [内存消耗：2,073.34kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.010001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:25+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:26+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:26+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:26+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.071004s][吞吐率：14.08req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001001s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:45+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.073004s][吞吐率：13.70req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:53:47+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:54:13+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:54:13+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.063004s][吞吐率：15.87req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:54:13+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.073004s][吞吐率：13.70req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:54:14+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：1,954.22kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:49]
+---------------------------------------------------------------
+[ 2018-03-08T16:54:51+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.072004s][吞吐率：13.89req/s] [内存消耗：2,114.45kb] [文件加载：70]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+[ error ] [8]未定义变量: vo[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:64]
+---------------------------------------------------------------
+[ 2018-03-08T16:55:07+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.069004s][吞吐率：14.49req/s] [内存消耗：2,114.55kb] [文件加载：70]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [8]未定义数组索引: form_name[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:66]
+---------------------------------------------------------------
+[ 2018-03-08T16:55:48+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.062003s][吞吐率：16.13req/s] [内存消耗：1,997.77kb] [文件加载：69]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [8]未定义数组索引: form_name[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:66]
+---------------------------------------------------------------
+[ 2018-03-08T16:56:04+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.057003s][吞吐率：17.54req/s] [内存消耗：2,103.16kb] [文件加载：68]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T16:56:23+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.062003s][吞吐率：16.13req/s] [内存消耗：1,980.05kb] [文件加载：66]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T16:56:34+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.063004s][吞吐率：15.87req/s] [内存消耗：1,977.73kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T16:57:17+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.059003s][吞吐率：16.95req/s] [内存消耗：2,087.91kb] [文件加载：68]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [8]未定义变量: _cjv[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:15]
+---------------------------------------------------------------
+[ 2018-03-08T16:57:47+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.055003s][吞吐率：18.18req/s] [内存消耗：2,087.76kb] [文件加载：68]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [8]未定义变量: _site_url[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:24]
+---------------------------------------------------------------
+[ 2018-03-08T16:58:26+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：2,081.90kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:41]
+---------------------------------------------------------------
+[ 2018-03-08T16:58:42+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.067004s][吞吐率：14.92req/s] [内存消耗：2,079.65kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1fe6e07375d23c6ba6a6a6e57b7a0676.php:41]
+---------------------------------------------------------------
+[ 2018-03-08T16:58:49+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.055003s][吞吐率：18.18req/s] [内存消耗：2,111.13kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T16:58:49+08:00 ] 127.0.0.1 GET /index/demo/__PUBLIC__/css/site.css
+[ info ] 127.0.0.4/index/demo/__PUBLIC__/css/site.css [运行时间：0.039003s][吞吐率：25.64req/s] [内存消耗：1,219.77kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T16:58:50+08:00 ] 127.0.0.1 GET /index/demo/__PUBLIC__/css/bootstrap/css/bootstrap.css
+[ info ] 127.0.0.4/index/demo/__PUBLIC__/css/bootstrap/css/bootstrap.css [运行时间：0.038002s][吞吐率：26.31req/s] [内存消耗：1,219.81kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:00:06+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.081005s][吞吐率：12.34req/s] [内存消耗：2,111.19kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:00:24+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.077004s][吞吐率：12.99req/s] [内存消耗：2,109.94kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:00:26+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.041002s][吞吐率：24.39req/s] [内存消耗：1,183.48kb] [文件加载：62]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:00:30+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：1,983.76kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:00:55+08:00 ] 127.0.0.1 GET /flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/flowdesign/index/flow_id/4.html [运行时间：0.031002s][吞吐率：32.26req/s] [内存消耗：942.73kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:01:21+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064003s][吞吐率：15.62req/s] [内存消耗：2,109.94kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:01:22+08:00 ] 127.0.0.1 GET /index/flow_id/3.html
+[ info ] 127.0.0.4/index/flow_id/3.html [运行时间：0.031002s][吞吐率：32.26req/s] [内存消耗：945.27kb] [文件加载：53]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:01:32+08:00 ] 127.0.0.1 GET /index/flow_id/3.html
+[ info ] 127.0.0.4/index/flow_id/3.html [运行时间：0.032001s][吞吐率：31.25req/s] [内存消耗：945.49kb] [文件加载：53]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:01:36+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.065003s][吞吐率：15.38req/s] [内存消耗：2,109.94kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:02:14+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.066003s][吞吐率：15.15req/s] [内存消耗：2,109.92kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:02:16+08:00 ] 127.0.0.1 GET /index/flowdesign//flow_id/4
+[ info ] 127.0.0.4/index/flowdesign//flow_id/4 [运行时间：0.034002s][吞吐率：29.41req/s] [内存消耗：1,017.32kb] [文件加载：54]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [1]Class 'Home\Controller\HomeController' not found[C:\Users\Administrator\web\tpflow\application\Index\Controller\Flowdesign.php:4]
+---------------------------------------------------------------
+[ 2018-03-08T17:02:59+08:00 ] 127.0.0.1 GET /index/flowdesign//flow_id/4
+[ info ] 127.0.0.4/index/flowdesign//flow_id/4 [运行时间：0.041003s][吞吐率：24.39req/s] [内存消耗：1,276.05kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:03:18+08:00 ] 127.0.0.1 GET /index/flowdesign//flow_id/4
+[ info ] 127.0.0.4/index/flowdesign//flow_id/4 [运行时间：0.036002s][吞吐率：27.78req/s] [内存消耗：1,276.05kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:03:20+08:00 ] 127.0.0.1 GET /index/flowdesign//flow_id/4
+[ info ] 127.0.0.4/index/flowdesign//flow_id/4 [运行时间：0.038002s][吞吐率：26.31req/s] [内存消耗：1,275.86kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:03:26+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：2,109.92kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:03:29+08:00 ] 127.0.0.1 GET /index/demo/flowdesign/flow_id/4.html
+[ info ] 127.0.0.4/index/demo/flowdesign/flow_id/4.html [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,220.49kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:03:56+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.063004s][吞吐率：15.87req/s] [内存消耗：2,109.93kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:04:06+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：2,109.93kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\demo\index.html [ array (
+  0 => 'page',
+  1 => 'list',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`form_id`,`flow_name`,`flow_desc`,`updatetime`,`dateline` FROM `leipi_flow` WHERE  `is_del` = 0 ORDER BY id desc [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:04:07+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.040002s][吞吐率：25.00req/s] [内存消耗：1,277.88kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\index\Controller\I()[C:\Users\Administrator\web\tpflow\application\Index\Controller\Flowdesign.php:17]
+---------------------------------------------------------------
+[ 2018-03-08T17:04:17+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,278.20kb] [文件加载：59]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Call to undefined function app\index\Controller\D()[C:\Users\Administrator\web\tpflow\application\Index\Controller\Flowdesign.php:13]
+---------------------------------------------------------------
+[ 2018-03-08T17:04:35+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：2,001.80kb] [文件加载：64]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ error ] [0]致命错误: Call to undefined function app\index\Controller\D()[C:\Users\Administrator\web\tpflow\application\Index\Controller\Flowdesign.php:38]
+---------------------------------------------------------------
+[ 2018-03-08T17:04:43+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.068004s][吞吐率：14.71req/s] [内存消耗：2,103.27kb] [文件加载：63]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:05:00+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.076004s][吞吐率：13.16req/s] [内存消耗：2,295.40kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001000s ]
+[ error ] [0]致命错误: Call to undefined function U()[C:\Users\Administrator\web\tpflow\runtime\temp\1860b22eb9281bcf9a8078d9737eae1e.php:32]
+---------------------------------------------------------------
+[ 2018-03-08T17:06:44+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.089006s][吞吐率：11.24req/s] [内存消耗：2,340.13kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001001s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:06:44+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/flowdesign/flowdesign.css
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/flowdesign/flowdesign.css [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,269.82kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:44+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/jquery.contextmenu.r2.js
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/jquery.contextmenu.r2.js [运行时间：0.034002s][吞吐率：29.41req/s] [内存消耗：1,269.55kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:44+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/jquery.multiselect2side/js/jquery.multiselect2side.js
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/jquery.multiselect2side/js/jquery.multiselect2side.js [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：1,269.62kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:44+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/flowdesign/leipi.flowdesign.v3.js
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/flowdesign/leipi.flowdesign.v3.js [运行时间：0.033002s][吞吐率：30.30req/s] [内存消耗：1,269.55kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:45+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/jquery.multiselect2side/css/jquery.multiselect2side.css
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/jquery.multiselect2side/css/jquery.multiselect2side.css [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,269.95kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:45+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/jsPlumb/jquery.jsPlumb-1.3.16-all-min.js
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/jsPlumb/jquery.jsPlumb-1.3.16-all-min.js [运行时间：0.040002s][吞吐率：25.00req/s] [内存消耗：1,269.56kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:45+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/jquery-ui/jquery-ui-1.9.2-min.js
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/jquery-ui/jquery-ui-1.9.2-min.js [运行时间：0.039002s][吞吐率：25.64req/s] [内存消耗：1,269.55kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:06:45+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/__PUBLIC__/js/jquery-1.7.2.min.js
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/__PUBLIC__/js/jquery-1.7.2.min.js [运行时间：0.038002s][吞吐率：26.31req/s] [内存消耗：1,269.55kb] [文件加载：60]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:07:27+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.083004s][吞吐率：12.05req/s] [内存消耗：2,340.13kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.001001s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001001s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:07:27+08:00 ] 127.0.0.1 GET /Public/images/grid.png
+[ info ] 127.0.0.4/Public/images/grid.png [运行时间：0.029002s][吞吐率：34.48req/s] [内存消耗：942.20kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/static/work/js/flowdesign/flowdesign.css',
+  'accept' => 'image/webp,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:07:44+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：2,340.13kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:07:44+08:00 ] 127.0.0.1 GET /Public/images/grid.png
+[ info ] 127.0.0.4/Public/images/grid.png [运行时间：0.031002s][吞吐率：32.26req/s] [内存消耗：942.20kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/static/work/js/flowdesign/flowdesign.css',
+  'accept' => 'image/webp,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:08:17+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.069004s][吞吐率：14.49req/s] [内存消耗：2,336.12kb] [文件加载：67]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/demo/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:08:17+08:00 ] 127.0.0.1 GET /Public/images/grid.png
+[ info ] 127.0.0.4/Public/images/grid.png [运行时间：0.030002s][吞吐率：33.33req/s] [内存消耗：942.20kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/static/work/js/flowdesign/flowdesign.css',
+  'accept' => 'image/webp,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:08:25+08:00 ] 127.0.0.1 POST /Flowdesign/delete_process.html
+[ info ] 127.0.0.4/Flowdesign/delete_process.html [运行时间：0.025001s][吞吐率：40.00req/s] [内存消耗：870.84kb] [文件加载：47]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://127.0.0.4',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '23',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+  'flow_id' => '4',
+  'process_id' => '69',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:08:27+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.073004s][吞吐率：13.70req/s] [内存消耗：2,185.53kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:08:27+08:00 ] 127.0.0.1 GET /Public/images/grid.png
+[ info ] 127.0.0.4/Public/images/grid.png [运行时间：0.031001s][吞吐率：32.26req/s] [内存消耗：942.60kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/static/work/js/flowdesign/flowdesign.css',
+  'accept' => 'image/webp,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-08T17:08:42+08:00 ] 127.0.0.1 GET /index/flowdesign/index/flow_id/4.html
+[ info ] 127.0.0.4/index/flowdesign/index/flow_id/4.html [运行时间：0.080004s][吞吐率：12.50req/s] [内存消耗：2,185.53kb] [文件加载：65]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/index/flowdesign/index/flow_id/4.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\flowdesign\index.html [ array (
+  0 => 'one',
+  1 => 'process_data',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow` WHERE  `id` = 4  AND `is_del` = 0 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `flow_id` = 4  AND `is_del` = 0 ORDER BY id asc [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-08T17:08:42+08:00 ] 127.0.0.1 GET /Public/images/grid.png
+[ info ] 127.0.0.4/Public/images/grid.png [运行时间：0.031002s][吞吐率：32.26req/s] [内存消耗：942.20kb] [文件加载：52]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.8,nb;q=0.6',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'referer' => 'http://127.0.0.4/static/work/js/flowdesign/flowdesign.css',
+  'accept' => 'image/webp,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File

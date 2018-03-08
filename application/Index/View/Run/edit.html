@@ -1,0 +1,78 @@
+<extend name="Public/base" />
+
+<block name="title">
+    <title>流程设计器 实例演示 Flowdesign.leipi.org</title>
+    <meta name="keyword" content="流程设计器实例演示,Web Flowdesign,Flowdesigner,专业流程设计器,WEB流程设计器">
+    <meta name="description" content="流程设计器实例演示，国内最容易使用和开发的流程设计器，你可以在此基础上任意修改使功能无限强大！">
+</block>
+<block name="head">
+</block><!--end head-->
+
+<block name="body">
+
+
+<div class="bs-header" id="content">
+  <div class="container">
+
+    <h1>办理工作</h1>
+    <p>
+       填好表后请记得保存或转交给下一步经办人喔。
+    </p>
+    
+  </div>
+</div>
+
+<div class="container">
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="/">流程设计器</a> <span class="divider">/</span></li>
+        <li><a href="{:U('/demo')}">实例</a> <span class="divider">/</span></li>
+        <li class="active"><if condition="empty($run_process)">发起<else/>办理</if></li>
+    </ol>
+</div>
+
+<div class="row">
+<form action="{:U('/run/edit_save')}" method="post">
+<input type="hidden" value="{$run_process.id}" name="run_process">
+
+<p>
+	<h4><i class="icon-play"></i>工作名称</h4>
+    <input type="text" class="span6" placeholder="必填项" name="run_name" value="{$run_one.run_name}">
+</p>
+<hr/>
+<p>
+	<h4><i class="icon-play"></i>填写表单</h4>
+    {$design_content}
+</p>
+<hr/>
+<p>
+	<h4><i class="icon-play"></i>上传附件</h4>
+	未完成...
+</p>
+<hr/>
+<p>
+	<h4><i class="icon-play"></i>会签意见</h4>
+	未完成...
+</p>
+
+
+<hr/>
+<button type="submit" name="submit_to_save" value="save" class="btn btn-primary">确定保存</button>
+<button type="submit" name="submit_to_next" value="next" class="btn btn-info">保存转交下一步</button>
+<button type="submit" name="submit_to_end" value="end" class="btn btn-success">办结</button>
+</form>
+
+
+</div><!--end row-->
+</div><!--end container-->
+
+
+
+
+<block name="footer_js">
+
+<!-- script end -->
+
+
+</block><!--end footer_js-->

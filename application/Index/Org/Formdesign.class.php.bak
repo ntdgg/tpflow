@@ -1,0 +1,495 @@
+<?php
+    
+class Formdesign
+{
+    /*
+        PHP 解析表单
+        template 表单设计器里的Html内容
+        fields 字段总数
+    */
+    public function  parse_form($template,$fields=0)
+    {
+        //获取标签
+        $preg =  "/<(img|input|textarea|select).*?(<\/select>|<\/textarea>|\/>)/s";
+        //获取属性  修改为可变 的匹配
+        $preg_attr ="/(\w+)=\"(.?|.+?)\"/s";
+        preg_match_all($preg,$template,$temparr);
+ 
+        $template_parse =$template;  
+        
+        $template_data = $add_fields = array();
+        if($temparr)
+        {
+            foreach($temparr[0] as $key=>$value)
+            {
+                
+                preg_match_all($preg_attr,$value,$parse_attr);
+                $tag = $temparr[1][$key];
+               
+                $attr_arr_all = array();
+                $name = $leipiplugins = $select_dot = '';
+                $is_new=false;
+                foreach($parse_attr[1] as $k=>$attr)
+                {
+                    $attr = trim($attr);
+                    if($attr)
+                    {
+                        
+                        $val = $parse_attr[2][$k];
+                        if($attr=='name')
+                        {
+                            if($val=='leipiNewField')
+                            {
+                                $is_new=true;
+                                $fields++;
+                                $val = 'data_'.$fields;
+                            }
+                            $name = $val;
+                        }else if($attr=='leipiplugins')
+                        {
+                            $leipiplugins = $val;
+                        }
+                        
+                        if($tag=='select' && $attr=='value')
+                        {
+                            $attr_arr_all[$attr] .= $select_dot . $val;
+                            $select_dot = ',';
+                        }else
+                        {
+                            $attr_arr_all[$attr] = $val;
+                        }
+                    }
+                }
+                if(!$name) continue;
+                
+                $attr_arr_all['itemid'] = $fields;
+                //$attr_arr_all['tag'] = $tag;
+                $attr_arr_all['content'] = $is_new ? str_replace('leipiNewField',$name,$value) : $value;
+                $template_data[] = $attr_arr_all;
+                $template = self::str_replace_once($value,$attr_arr_all['content'],$template);
+                $template_parse = self::str_replace_once($value,'{'.$name.'}',$template_parse);
+                if($is_new)
+                {
+                    $add_fields[] = array(
+                        'name'=>$name,
+                        'leipiplugins'=>$leipiplugins
+                    );
+                }
+            }
+        }
+
+
+        $parse_form = array(
+            'fields'=>$fields,
+            'template'=>$template,
+            'parse'=>$template_parse,
+            'data'=>$template_data,
+            'add_fields'=>$add_fields,
+        );
+        return $parse_form;
+        
+        
+    }
+    
+    public function str_replace_once($needle,$replace,$haystack)
+    {
+        $pos = strpos($haystack,$needle);
+        if($pos === false)
+        {
+            return $haystack;
+        }else
+        {
+            return substr_replace($haystack,$replace,$pos,strlen($needle));
+        }
+    }
+    //字段类型 的sql 
+    public function field_type_sql($leipiplugins)
+    {
+        if($leipiplugins=='textarea')
+        {
+            return 'text NOT NULL';
+        }else if($leipiplugins == 'checkbox')
+        {
+            return 'tinyint(1) UNSIGNED NOT NULL DEFAULT 0';
+        }else
+        {
+            return 'varchar(255) NOT NULL DEFAULT \'\'';
+        }
+    }
+     //返回表名
+    public function tname($tname)
+    {
+        $tname = strtolower($tname);
+        return C('DB_PREFIX').$tname;
+    }
+    /*
+    * 创建数据表， 通过fields自动计算字段增长
+    * 表中存取数据利用 foreign_id 进行
+    */
+    public function parse_table($formid,$add_fields)
+    {
+        
+        $tname = self::tname("form_data_".$formid);
+        $sql = "select count(*) from ".$tname." where id = '1'";
+        $exist =  M()->execute($sql);
+        if($exist ===false)
+        {
+            $fields = '';
+            foreach($add_fields as $value)
+            {
+                $fields .='`'.$value['name'].'` '.self::field_type_sql($value['leipiplugins']).',';
+            }
+            
+            $sql = "CREATE TABLE `".$tname."` (
+              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `uid` int(10) unsigned NOT NULL DEFAULT '0',
+              `foreign_id` int(10) unsigned NOT NULL DEFAULT '0',
+              ".$fields."
+              `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
+              `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
+              `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+              PRIMARY KEY (`id`),
+              KEY `uid` (`uid`),
+              KEY `foreign_id` (`foreign_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+            
+            $create =  M()->execute($sql);
+            if($create !== false)
+                $create = true;
+            return $create;    
+        }else
+        {
+            $fields = D("form_data_".$formid)->getDbFields();
+            $dot = '';
+            $sql = "ALTER TABLE `".$tname."` ";
+            foreach($add_fields as $value)
+            {
+                if(!in_array($value['name'],$fields))
+                {
+                    $sql.= $dot . "ADD COLUMN `".$value['name']."` ".self::field_type_sql($value['leipiplugins']);
+                    $dot = ',';
+                }
+            }
+            $sql .=';'; 
+            if($dot!='')
+            {
+                $create =  M()->execute($sql);
+                if($create !== false)
+                    $create = true;
+                return $create;    
+            }
+        }
+        return true;
+    }
+    
+    /*
+    * 编译字段
+    * $controller = array(
+    *   'action'=>'edit,view,preview', //编辑 或 查看  、预览  两种不同情况解析
+    *   'user'=>array(
+    *           'uid'=>9527,
+    *           'real_name'=>'唐伯虎',
+    *           'dept'=>'华府',
+    *       ),
+    *   'else'='其它要传进来的数据',
+    * );
+    */
+    public function unparse_form($form,$form_data=array(),$controller=array())
+    {
+        $tpl_data = unserialize($form['content_data']);
+        $tpl = $form['content_parse'];
+        foreach($tpl_data as $key=>$value)
+        {
+            $temp_html = '';
+            
+            $value['value'] = isset($form_data[$value['name']]) ? $form_data[$value['name']] : $value['value'];//通用
+            
+            switch($value['leipiplugins'])
+            {
+                case 'text':
+                    $temp_html = '<input type="text" value="'.$value['value'].'"  name="'.$value['name'].'"  style="'.$value['style'].'"/>';
+                    break;
+                case 'textarea':
+                        $temp_html = '<textarea  name="'.$value['name'].'" value="'.$value['value'].'" style="'.$value['style'].'">';
+                        $temp_html.=$value['value'];
+                        $temp_html .= '</textarea>';
+                    break;
+                case 'radio':
+                        $value['orgradios'] = trim($value['orgradios'],'`');
+                        $value['orgradios'] = explode('`',$value['orgradios']);
+                        
+
+                        $value['orgchecked'] = isset($form_data[$value['name']]) ? $form_data[$value['name']] : $value['orgchecked'];
+                        
+                        foreach($value['orgradios'] as $val)
+                        {
+                            $checked = '';
+                            if(isset($value['orgchecked']))//原 默认值
+                            {
+                               $checked =  $value['orgchecked'] == $val ? 'checked="checked"' : '';
+                            }
+                            $temp_html .='<label class="radio inline"><input type="radio" name="'.$value['name'].'" value="'.$val.'" '.$checked.'>'.$val.'</label>';
+                        }
+                    break;
+                
+                case 'checkbox':
+               
+                    $checked = '';
+                    if(isset($form_data[$value['name']]))
+                    {
+                        if($form_data[$value['name']]>0)
+                            $checked = 'checked="checked"';
+                    }else if(isset($value['checked']))
+                    {
+                        $checked = 'checked="checked"';
+                    }
+                        
+                    $temp_html = '<input type="checkbox"  name="'.$value['name'].'" '.$checked.'/>';
+                    break;
+               case 'select':
+               
+                    //设置过默认值  清空它  
+                    if(isset($value['value']))
+                    {
+                        if(isset($value['selected']))
+                        {
+                            $value['content'] = str_replace('selected="selected"','',$value['content']);
+                        }
+                        //重新定义默认值 
+                        $value['content'] = str_replace('value="'.$value['value'].'"','value="'.$value['value'].'" selected="selected"',$value['content']);
+                    } 
+                   
+                    $temp_html = $value['content']; 
+                    
+                    
+                    break;
+               case 'macros':
+                    $temp_html = self::macros_parse($value,$form_data[$value['name']],$controller);
+                    break;
+               case 'progressbar':
+                    if($controller['action']=='edit')
+                    {
+                        $value['value'] = floatval($value['value']);
+                        $value['value'] = $value['value']>0 ? $value['value'] : floatval($value['orgvalue']);
+                        $temp_html ='进度 <input type="text" style="width:40px" name="'.$value['name'].'" value="'.$value['value'].'"/> %'; 
+                    }else if($controller['action']=='view')
+                    {
+                        $temp_html = '<div class="progress progress-striped"><div class="bar '.$value['orgsigntype'].'" style="width: '.$value['value'].'%;"></div></div>';
+                    }else if($controller['action']=='preview')
+                    {
+                        $temp_html = '<div class="progress progress-striped"><div class="bar '.$value['orgsigntype'].'" style="width: '.$value['orgvalue'].'%;"></div></div>';
+                    }
+                   
+                    break;
+               case 'qrcode'://未处理生成二维码
+               
+                    $orgtype = '';
+                    if($value['orgtype']=='text')
+                    {
+                        $orgtype = '文本';
+                    }else if($value['orgtype']=='url')
+                    {
+                        $orgtype = '超链接';
+                    }else if($value['orgtype']=='tel')
+                    {
+                        $orgtype = '电话';
+                    }
+                    if($value['value'])
+                        $qrcode_value = unserialize($value['value']);
+                        //print_R($qrcode_value);exit;  //array(value,qrcode_url)
+                    if($controller['action']=='edit')
+                    {
+                        $temp_html = $orgtype.'二维码 <input type="text" name="'.$value['name'].'" value="'.$qrcode_value['value'].'"/>'; 
+                    }else if($controller['action']=='view')
+                    {
+                        $style = '';
+                        if($value['orgwidth']>0)
+                        {
+                            $style .= 'width:'.$value['orgwidth'].'px;';
+                        }
+                        if($value['orgheight']>0)
+                        {
+                            $style .= 'height:'.$value['orgheight'].'px;';
+                        }
+                        $temp_html = '<img src="'.$qrcode_value['qrcode_url'].'" title="'.$qrcode_value['value'].'" style="'.$style.'"/>'; 
+                    }else if($controller['action']=='preview')
+                    {
+                        $style = '';
+                        if($value['orgwidth']>0)
+                        {
+                            $style .= 'width:'.$value['orgwidth'].'px;';
+                        }
+                        if($value['orgheight']>0)
+                        {
+                            $style .= 'height:'.$value['orgheight'].'px;';
+                        }
+                        $temp_html = '<img src="'.$value['src'].'" title="'.$value['orgtype'].'" style="'.$style.'"/>'; 
+                    }
+                    
+                    break;
+                default:
+                    $temp_html = $value['content']; 
+            }
+            $tpl = str_replace('{'.$value['name'].'}',$temp_html,$tpl);
+        }
+       
+       return $tpl;
+       
+    }
+    
+    public function macros_parse($data,$def_value='',$controller=array())
+    {
+        
+        $tpl = $data['content'];
+        $date_format = '';
+        switch($data['orgtype'])
+        {
+            case 'sys_date':
+                $date_format = 'Y-m-d';break;
+            case 'sys_date_cn':
+                $date_format = 'Y年n月j日';break;
+            case 'sys_date_cn_short3':
+                $date_format = 'Y年';break;
+            case 'sys_date_cn_short4':
+                $date_format = 'Y';break;
+            case 'sys_date_cn_short1':
+                $date_format = 'Y年m月';break;
+            case 'sys_date_cn_short2':
+                $date_format = 'm月d日';break;
+            case 'sys_time':
+                $date_format = 'H:i:s';break;
+            case 'sys_date':
+                $date_format = 'Y-m-d';break;
+            case 'sys_datetime':
+                $date_format = 'Y-m-d H:i:s';break;
+            case 'sys_week'://周
+                if(!$def_value)
+                {
+                    $dateArray  =   getdate($date);
+                    $wday = $dateArray["wday"];
+                    $week = array("日","一","二","三","四","五","六");
+                    $def_value = '星期'.$week[$wday];
+                }
+                $tpl = str_replace('{macros}',$def_value,$tpl);
+                break;
+            case 'sys_userid':
+                if(!$def_value)
+                    $def_value = $controller['user']['uid'];
+                $tpl = str_replace('{macros}',$def_value,$tpl);
+                break;
+            case 'sys_realname':
+                if(!$def_value)
+                    $def_value = $controller['user']['real_name'];
+                $tpl = str_replace('{macros}',$def_value,$tpl);
+                break;
+            case 'sys_realname':
+                if(!$def_value)
+                    $def_value = $controller['user']['dept'];
+                $tpl = str_replace('{macros}',$def_value,$tpl);
+                break;
+            default:
+                $tpl = str_replace('{macros}','未完善的宏控件',$tpl);
+                break;
+        }
+        //时间
+        if($date_format)
+        {
+            $def_value = str_replace('年','-',$def_value);
+            $def_value = str_replace('月','-',$def_value);
+            $def_value = str_replace('日','',$def_value);
+            $def_value = trim($def_value,'-');
+
+            $timestamp = 0;
+            if($def_value)
+            {
+                if(strlen($def_value)==4)
+                {
+                    $def_value .='-01';
+                }
+                $timestamp = strtotime($def_value);
+               
+            }
+            else
+            {
+                $timestamp = time();
+            }
+            
+            if(!$timestamp)
+            {
+                $tpl = str_replace('{macros}',$def_value,$tpl);//时间转换失败时
+            }else
+            {
+                $tpl = str_replace('{macros}',date($date_format,$timestamp),$tpl);
+            }
+        }
+
+        return $tpl;
+        
+    }
+    
+    
+    
+    
+    //抽出表单提交后 控件的值
+
+    public function unparse_data($form,$post_data,$controller=array())
+    {
+        $tpl_data = unserialize($form['content_data']);
+        $return_data = array();
+        foreach($tpl_data as $key=>$value)
+        {
+            switch($value['leipiplugins'])
+            {
+                //不同的类型，可以加入不同的处理方式
+                case 'checkbox':
+                $return_data[$value['name']] = isset($post_data[$value['name']]) ? 1 : 0;
+                    break;
+                case 'qrcode'://生成二维码
+                    
+                    $qrcode_url = '';
+                    
+                    $qrcode = $post_data[$value['name']] ? trim($post_data[$value['name']]) : '';
+                    if($qrcode)
+                    {
+                        import('@.Org.QRcode');//import 为Thinkphp内置，使用其它框架请换成： include_once     
+                        $qrcode_file = 'Uploads/'.md5($qrcode).'.png';
+                        $qrcode_url = '/'.$qrcode_file;
+                        $qrcode_path = SITE_DIR.$qrcode_file;
+                        
+                        $size = round($value['orgwidth']/25);//QRcode size计算
+                        if($size<=0) $size =1;
+                        if($value['orgtype']=='text')
+                        {
+                            \QRcode::png($qrcode, $qrcode_path, 'L',$size, 2);
+                        }else if($value['orgtype']=='url')
+                        {
+                            \QRcode::png('url:'.$qrcode, $qrcode_path, 'L',$size, 2);
+                        }else if($value['orgtype']=='tel')
+                        {
+                            \QRcode::png('tel:'.$qrcode, $qrcode_path, 'L',$size, 2);
+                        }else
+                        {
+                            $qrcode_url = '';
+                        }
+                        
+                    }
+                    $return_data[$value['name']] =serialize(array(
+                            'value'=>$qrcode,
+                            'qrcode_url'=>$qrcode_url,
+                        ));
+                    break;
+                case 'text':
+                case 'textarea':
+                case 'radio':
+                case 'select':
+                case 'macros':
+                case 'progressbar':
+                default:
+                    $return_data[$value['name']]= $post_data[$value['name']] ? trim($post_data[$value['name']]) : '';
+            }
+            
+        }
+        return $return_data;
+    }
+    
+}
