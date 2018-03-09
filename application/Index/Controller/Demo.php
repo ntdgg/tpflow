@@ -2,6 +2,7 @@
 // 本类由系统自动生成，仅供测试用途
 namespace app\index\Controller;
 use think\Controller;
+use workflow\workflow;
 
 class Demo extends Controller {
     
@@ -14,6 +15,10 @@ class Demo extends Controller {
     }
     
     public function index(){
+		
+		$wf = new workflow();
+		dump($wf->getWorkFlow());
+		
         $map = array(
             'is_del'=>0,
         );

@@ -1,4 +1,38 @@
-{include file='pub/base' /}
+<?php /*a:2:{s:54:"D:\tpflow\application/index/view\flowdesign\index.html";i:1520595858;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/static/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/blue/skin.css" id="blue" />
+<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/common.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/static/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="/static/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/common.js"></script>
+<script type="text/javascript" src="/static/lib/laydate5.0.9/laydate.js"></script>
+<title>PMS</title>
+</head>
+<body>
 <html>
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -77,7 +111,7 @@
 <!--flowdesign-->
 <script type="text/javascript" src="/static/work/js/flowdesign/leipi.flowdesign.v3.js?"></script>
 <script type="text/javascript">
-var the_flow_id ='{$one.id}';
+var the_flow_id ='<?php echo htmlentities($one['id']); ?>';
 function callbackSuperDialog(selectValue){
      var aResult = selectValue.split('@leipi@');
      $('#'+window._viewField).val(aResult[0]);
@@ -136,7 +170,7 @@ $(function(){
     }
 
     /*步骤数据*/
-    var processData = {$process_data|raw};
+    var processData = <?php echo $process_data; ?>;
     /*创建流程设计器*/
     var _canvas = $("#flowdesign_canvas").Flowdesign({
                       "processData":processData
@@ -144,7 +178,7 @@ $(function(){
                       ,canvasMenus:{
                         "cmAdd": function(t) {
                             var mLeft = $("#jqContextMenu").css("left"),mTop = $("#jqContextMenu").css("top");
-                            var url = "{:url('add_process')}";
+                            var url = "<?php echo url('add_process'); ?>";
                             $.post(url,{"flow_id":the_flow_id,"left":mLeft,"top":mTop},function(data){
 							
                                 if(data.status==1)
@@ -160,7 +194,7 @@ $(function(){
                         },
                         "cmSave": function(t) {
                             var processInfo = _canvas.getProcessInfo();//连接信息
-                            var url = "{:url('save_canvas')}";
+                            var url = "<?php echo url('save_canvas'); ?>";
                             $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
 								layer.msg(data.msg);
                             },'json');
@@ -180,13 +214,13 @@ $(function(){
                               if(confirm("你确定删除步骤吗？"))
                               {
                                     var activeId = _canvas.getActiveId();//右键当前的ID
-                                    var url = "{:url('delete_process')}";
+                                    var url = "<?php echo url('delete_process'); ?>";
                                     $.post(url,{"flow_id":the_flow_id,"process_id":activeId},function(data){
                                         if(data.status==1)
                                         {
                                             _canvas.delProcess(activeId);
                                             var processInfo = _canvas.getProcessInfo();//连接信息
-                                            var url = "{:url('save_canvas')}";
+                                            var url = "<?php echo url('save_canvas'); ?>";
                                             $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
                                                 location.reload();
                                             },'json');
@@ -200,22 +234,22 @@ $(function(){
                           "pmAttribute":function(t)
                           {
                               var activeId = _canvas.getActiveId();//右键当前的ID
-                              var url = "{:url('attribute')}?id="+activeId;
+                              var url = "<?php echo url('attribute'); ?>?id="+activeId;
 							   layer_show('编辑',url,'700','400');
                           },
                           "pmForm": function(t) {
                                 var activeId = _canvas.getActiveId();//右键当前的ID
-								var url = "{:url('attribute')}?op=form&id="+activeId;
+								var url = "<?php echo url('attribute'); ?>?op=form&id="+activeId;
                                 layer_show('编辑',url,'700','400');
                           },
                           "pmJudge": function(t) {
                                 var activeId = _canvas.getActiveId();//右键当前的ID
-								var url = "{:url('attribute')}?op=judge&id="+activeId;
+								var url = "<?php echo url('attribute'); ?>?op=judge&id="+activeId;
                                 layer_show('编辑',url,'700','400');
                           },
                           "pmSetting": function(t) {
                                 var activeId = _canvas.getActiveId();//右键当前的ID
-								var url = "{:url('attribute')}?op=style&id="+activeId;
+								var url = "<?php echo url('attribute'); ?>?op=style&id="+activeId;
                                 layer_show('编辑',url,'700','400');
                           }
                       }
@@ -231,14 +265,14 @@ $(function(){
                       ,fnDbClick:function(){
                           //和 pmAttribute 一样
                           var activeId = _canvas.getActiveId();//右键当前的ID
-                              var url = "{:url('attribute')}?id="+activeId;
+                              var url = "<?php echo url('attribute'); ?>?id="+activeId;
 							   layer_show('编辑',url,'700','400');
                       }
                   });
     /*保存*/
     $("#leipi_save").bind('click',function(){
         var processInfo = _canvas.getProcessInfo();//连接信息
-        var url = "{:url('save_canvas')}";
+        var url = "<?php echo url('save_canvas'); ?>";
         $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
 			layer.msg(data.msg);
         },'json');

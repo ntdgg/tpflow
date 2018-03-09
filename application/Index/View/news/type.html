@@ -1,0 +1,68 @@
+{include file='pub/base' /}
+<article class="page-container">
+		{present name="info.id"}
+			<form action="{:url('type_edit')}" method="post" name="form" id="form">
+			<input type="hidden" name="id" value="{$info.id}">
+		{else /}
+			<form action="{:url('type')}" method="post" name="form" id="form">
+		{/present}
+		<table class="table table-border table-bordered table-bg">
+			<tr>
+			<td style='width:70px'>类别名称：</td><td style='width:200px'>
+			<input type="text" class="input-text" value="{$info.type ?? ''}" name="type"></td>
+			<td colspan="2">
+					<button onClick="article_save_submit();" class="btn btn-primary radius size-S" type="submit">
+					<i class="Hui-iconfont">&#xe632;</i> 保存</button>
+			</td>
+			</tr>
+			</table>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				</div>
+		</div>
+	</form>
+	<table class="table table-border table-bordered table-bg">
+			<tr>
+			<td style='width:200px'>类别名称</td>
+			<td style='width:130px'>
+				操作
+			</td>
+			
+			</tr>
+			{volist name='list' id='k'}
+			<tr>
+			<td style='width:70px'>{$k.type}</td>
+			<td style='width:330px'>
+			<a class='btn btn-primary radius size-S' href='{:url("type",["tid"=>$k.id])}'>修改</a> 
+			<a class='btn btn-primary radius size-S' onclick="admin_del(this,'{$k.id}')">删除</a></td>
+			</tr>
+			{/volist}
+			</table>
+</article>
+
+
+</body>
+</html>
+<script type="text/javascript">
+
+/*管理员-删除*/
+function admin_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '{:url("type_del")}.?id='+id+'',
+			dataType: 'json',
+			success: function(data){
+				if(data.code==0){
+					$(obj).parents("tr").remove();
+				}
+				layer.msg(data.msg,{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+
+</script>

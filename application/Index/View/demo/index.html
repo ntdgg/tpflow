@@ -59,7 +59,7 @@
         <td>默认</td>
         <td>{:date('Y/m/d H:i',$vo['dateline'])}</td>
         <td>
-        <a href="{:url('/run/add/flow_id/'.$vo['id'])}" onclick="return confirm('你确定使用该流程发起一个工作流程吗？') ? true : false;"  target="_blank" title="使用该流程发起工作"><span class="glyphicon glyphicon-eye-open"></span> 发起</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{:url('/index/run/add',['flow_id'=>$vo['id']])}" onclick="return confirm('你确定使用该流程发起一个工作流程吗？') ? true : false;"  target="_blank" title="使用该流程发起工作"><span class="glyphicon glyphicon-eye-open"></span> 发起</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="{:url('/run/index/flow_id/'.$vo['id'])}"  target="_blank" ><span class="glyphicon glyphicon-eye-open"></span> 发起记录</a>&nbsp;&nbsp;&nbsp;&nbsp;
         <if condition="$vo.fields gt 0">
             <a href="{:url('/demodata/index/flow_id/'.$vo['id'])}" target="_blank"><span class="glyphicon glyphicon-list"></span> 流程数据</a>&nbsp;&nbsp;&nbsp;&nbsp;

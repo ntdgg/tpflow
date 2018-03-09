@@ -18,7 +18,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -114,6 +114,17 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
+	'FORM_PLUGINS'=>array(//表单控件类型  流程步骤属性设置中要用到
+        'text'=>'文本框',
+        'textarea'=>'多行文本',
+        'select'=>'下拉菜单',
+        'radios'=>'单选框',
+        'checkboxs'=>'复选框',
+        'macros'=>'宏控件',
+        'progressbar'=>'进度条',
+        'qrcode'=>'二维码',
+        'listctrl'=>'列表控件',
+    ),
 	
 
 ];
