@@ -16,9 +16,7 @@ class Demo extends Controller {
     
     public function index(){
 		
-		$wf = new workflow();
-		dump($wf->getWorkFlow());
-		
+	
         $map = array(
             'is_del'=>0,
         );
@@ -107,11 +105,11 @@ class Demo extends Controller {
     //用户选择控件
     public function super_dialog()
     {
-        $op = trim(I('get.op'));//选择方式  user 用户  dept部门  role 角色
+        $op = trim(input('op'));//选择方式  user 用户  dept部门  role 角色
         if(!$op) $op = 'user';
         
         $this->assign('op',$op);
-        $this->display();
+        return $this->fetch();
     }
     
 

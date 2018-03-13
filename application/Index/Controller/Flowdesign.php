@@ -322,7 +322,7 @@ class Flowdesign extends Controller {
             'id'=>$process_id,
             'is_del'=>0,
         );
-        $one = $process_model->where($map)->find();
+        $one = db('flow_process')->where($map)->find();
         if(!$one)
         {
             exit('T_T 未找到步骤信息');
@@ -333,7 +333,7 @@ class Flowdesign extends Controller {
             'is_del'=>0,
         );
         
-        $flow_one = $flow_model->where($map)->find();
+        $flow_one = db('flow')->where($map)->find();
         if(!$flow_one)
         {
             exit('T_T 未找到流程信息');
@@ -369,36 +369,21 @@ class Flowdesign extends Controller {
         $one['write_fields'] = $one['write_fields']=='' ? array() : explode(',',$one['write_fields']);//可写字段
         $one['secret_fields'] = $one['secret_fields']=='' ? array() : explode(',',$one['secret_fields']);//保密 隐藏的字段
         //$one['lock_fields'] = $one['lock_fields']=='' ? array() : explode(',',$one['lock_fields']);//锁定 字段
-        
-        
         $form_one['content_data'] = $form_one['content_data']=='' ? array() : unserialize($form_one['content_data']);
-        
         $one['out_condition'] = self::parse_out_condition($one['out_condition'],$form_one['content_data']);//json
-
-      
-        
-        
-        
         //备选步骤  同一个流程全部步骤
         $map = array(
             'flow_id'=>$one['flow_id'],//流程ID
             //'id'=>array('neq',$one['id']),//不用排除当前步骤ID    子流程结束后 返回步骤  要用
             'is_del'=>0,
         );
-        $process_to_list = $process_model->field('id,process_name,process_type')->where($map)->select();
-
-        
-        //子流程 列表
+        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where($map)->select();
+		
+        //子流程 列表 process_to_list
         $map = array(
             'is_del'=>0,
         );
-        $child_flow_list = $flow_model->field('id,flow_name')->where($map)->select();
-        
-        
-        
-        
-        
-        
+        $child_flow_list = db('flow')->field('id,flow_name')->where($map)->select();
         //赋值到模板上
         $this->assign('op',$op);
         $this->assign('one',$one);
@@ -497,7 +482,7 @@ class Flowdesign extends Controller {
         //常规
         $process_name = trim(input('post.process_name'));//步骤名称
         $process_type = trim(input('post.process_type'));//类型
-        $process_to = ids_parse(input('post.process_to'));//下一步
+        $process_to = ids_parse(input('post.process_to/a'));//下一步
         $child_id = intval(input('post.child_id'));//子流程ID
         $child_after = intval(input('post.child_after'));//子流程结束后动作
         $child_back_process = intval(input('post.child_back_process'));//结束返回

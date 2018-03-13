@@ -1,0 +1,90 @@
+---------------------------------------------------------------
+[ 2018-03-10T14:54:31+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.095002s][吞吐率：10.53req/s] [内存消耗：1,074.45kb] [文件加载：57]
+[ info ] [ LANG ] D:\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-10T14:54:35+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.053101s][吞吐率：18.83req/s] [内存消耗：1,132.71kb] [文件加载：59]
+[ info ] [ LANG ] D:\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+[ error ] [0]类型错误: Too few arguments to function workflow\workflow::getWorkFlow(), 0 passed in D:\tpflow\application\Index\Controller\Demo.php on line 20 and exactly 1 expected[D:\tpflow\extend\workflow\workflow.php:33]
+---------------------------------------------------------------
+[ 2018-03-10T21:08:21+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.107006s][吞吐率：9.35req/s] [内存消耗：1,074.45kb] [文件加载：57]
+[ info ] [ LANG ] D:\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\tpflow\ThinkPHP/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-10T21:08:25+08:00 ] 127.0.0.1 GET /index/demo/index.html
+[ info ] 127.0.0.4/index/demo/index.html [运行时间：0.085005s][吞吐率：11.76req/s] [内存消耗：1,132.71kb] [文件加载：59]
+[ info ] [ LANG ] D:\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+[ error ] [0]类型错误: Too few arguments to function workflow\workflow::getWorkFlow(), 0 passed in D:\tpflow\application\Index\Controller\Demo.php on line 20 and exactly 1 expected[D:\tpflow\extend\workflow\workflow.php:33]

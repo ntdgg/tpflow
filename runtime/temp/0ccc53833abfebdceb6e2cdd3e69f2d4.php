@@ -1,3 +1,4 @@
+<?php /*a:1:{s:55:"D:\tpflow\application/index/view\demo\super_dialog.html";i:1520752351;}*/ ?>
 <extend name="Public/base_modal" />
 
 <block name="head">
@@ -83,9 +84,9 @@
     <button class="btn" type="button" id="dialog_close">取消</button>
 </div>
 <div  class="pull-left offset2">
-    <input type="radio" {if condition="$op eq 'user'"}checked="checked"{/if}>用户
-    <input type="radio" {if condition="$op eq 'dept'"}checked="checked"{/if}>部门
-    <input type="radio" {if condition="$op eq 'role'"}checked="checked"{/if}>角色
+    <input type="radio" <?php if($op == 'user'): ?>checked="checked"<?php endif; ?>>用户
+    <input type="radio" <?php if($op == 'dept'): ?>checked="checked"<?php endif; ?>>部门
+    <input type="radio" <?php if($op == 'role'): ?>checked="checked"<?php endif; ?>>角色
 </div>
 
 </div>

@@ -1,4 +1,4 @@
-<?php /*a:2:{s:48:"D:\tpflow\application/index/view\news\index.html";i:1520600205;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
+<?php /*a:2:{s:48:"D:\tpflow\application/index/view\news\index.html";i:1520945063;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -58,6 +58,7 @@
 				<th width="80">新闻类型</th>
 				<th width="150">新闻标题</th>
 				<th width="150">发布时间</th>
+				<th width="150">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -71,10 +72,19 @@
 				<i class="Hui-iconfont" style='color:red'>&#xe684;</i>
 				<?php endif; ?><?php echo htmlentities($k['new_title']); ?></td>
 				<td><?php echo htmlentities(date('Y-m-d H:i',!is_numeric($k['add_time'])? strtotime($k['add_time']) : $k['add_time'])); ?></td>
+				<td>
+				<?php if($k['flowinfo']['bill_st'] == -1): ?>
+					保存
+					<?php else: ?>
+					<?php echo htmlentities($k['flowinfo']['bill_state']); ?></br>
+					<?php echo htmlentities($k['flowinfo']['bill_check']); ?>
+					<?php echo htmlentities($k['flowinfo']['bill_time']); endif; ?></td>
 				<td class="td-manage">
 				<div class="btn-group">
 					<span class="btn  radius size-S" data-title="查看" data-href="<?php echo url('view',['id'=>$k['id']]); ?>" onclick="Hui_admin_tab(this)"><i class="Hui-iconfont">查看</span>
-					<span class="btn  radius size-S" onclick="layer_show('发起工作流','<?php echo url('/index/flow/start/',['wf_type'=>'news','wf_title'=>$k['new_title'],'wf_f_id'=>$k['id']]); ?>','450','350')">发起</span>
+					<?php if($k['flowinfo']['bill_st'] == -1): ?>
+					<span class="btn  radius size-S" onclick="layer_show('发起工作流','<?php echo url('/index/flow/start/',['wf_type'=>'news','wf_title'=>$k['new_title'],'wf_fid'=>$k['id']]); ?>','450','350')">发起</span>
+					<?php endif; ?>
 					<span class="btn  radius size-S" onclick="layer_show('修改','<?php echo url('edit',['id'=>$k['id']]); ?>','850','500')">修改</span>
 					 <span class="btn  radius size-S" onclick="admin_del(this,'<?php echo htmlentities($k['id']); ?>')" >删除</span>
 				</div>

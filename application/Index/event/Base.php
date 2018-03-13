@@ -25,7 +25,7 @@ class Base
                 ->where($map)
                 ->order($order_by)
 				->limit($limit)
-				->paginate(config("ctrl.pagenum"));
+				->paginate('10');
         return $list;
 	}
 	/*

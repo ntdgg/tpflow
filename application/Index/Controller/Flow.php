@@ -6,7 +6,7 @@ use workflow\workflow;
 use think\facade\Session;
 
 class Flow extends Controller {
-    
+    /*发起流程，选择工作流*/
 	public function start()
 	{
 		$wf_type = input('wf_type');
@@ -17,15 +17,27 @@ class Flow extends Controller {
 		$this->assign('info',$info);
 		return $this->fetch();
 	}
+	/*正式发起工作流*/
 	public function statr_save()
 	{
-		 Session::set('uid',1);
+		Session::set('uid',1);
 		$wf_type = input('wf_type');
 		$wf_id = input('wf_id');
 		$wf_fid = input('wf_fid');
 		$workflow = new workflow();
 		$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
-		dump($flow);
+		if($flow['code']==1){
+			$this->success('Success',url('news/index'));
+		}
+	}
+	/*工作流状态信息*/
+	public function get_flowinfo()
+	{
+		$wf_type = input('wf_type');
+		$wf_fid = input('wf_fid');
+		$workflow = new workflow();
+		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
+		dump($flowinfo);
 		
 	}
 }

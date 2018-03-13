@@ -1,5 +1,5 @@
 <?php
-namespace ltworkflow;
+namespace workflow;
 
 $db['default'] = array(
 	'dsn'	=> '',

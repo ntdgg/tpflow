@@ -24,6 +24,7 @@
 				<th width="80">新闻类型</th>
 				<th width="150">新闻标题</th>
 				<th width="150">发布时间</th>
+				<th width="150">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -37,10 +38,21 @@
 				<i class="Hui-iconfont" style='color:red'>&#xe684;</i>
 				{/eq}{$k.new_title}</td>
 				<td>{$k.add_time|date='Y-m-d H:i'}</td>
+				<td>
+				{if condition='$k.flowinfo.bill_st eq -1'}
+					保存
+					{else/}
+					{$k.flowinfo.bill_state}</br>
+					{$k.flowinfo.bill_check}
+					{$k.flowinfo.bill_time}
+					
+				{/if}</td>
 				<td class="td-manage">
 				<div class="btn-group">
 					<span class="btn  radius size-S" data-title="查看" data-href="{:url('view',['id'=>$k.id])}" onclick="Hui_admin_tab(this)"><i class="Hui-iconfont">查看</span>
+					{if condition='$k.flowinfo.bill_st eq -1'}
 					<span class="btn  radius size-S" onclick="layer_show('发起工作流','{:url('/index/flow/start/',['wf_type'=>'news','wf_title'=>$k.new_title,'wf_fid'=>$k.id])}','450','350')">发起</span>
+					{/if}
 					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$k.id])}','850','500')">修改</span>
 					 <span class="btn  radius size-S" onclick="admin_del(this,'{$k.id}')" >删除</span>
 				</div>

@@ -1,4 +1,4 @@
-<?php /*a:1:{s:58:"D:\tpflow\application/index/view\flowdesign\attribute.html";i:1520593743;}*/ ?>
+<?php /*a:1:{s:58:"D:\tpflow\application/index/view\flowdesign\attribute.html";i:1520861909;}*/ ?>
 
 <html>
  <head>
@@ -60,9 +60,8 @@
           <div class="offset1">
           <!--未按顺序的bug 2012-12-12-->
             <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
-            <?php if(is_array($process_to_list) || $process_to_list instanceof \think\Collection || $process_to_list instanceof \think\Paginator): $i = 0; $__LIST__ = $process_to_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                {if condition="$vo['id'] neq $one['id']"}
-                    <option value="<?php echo htmlentities($vo['id']); ?>" <?php if(in_array($vo['id'],$one['process_to'])): ?>><?php echo htmlentities($vo['process_name']); ?></option>
+            <?php if(is_array($process_to_list) || $process_to_list instanceof \think\Collection || $process_to_list instanceof \think\Paginator): $i = 0; $__LIST__ = $process_to_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['id'] != $one['id']): ?>
+                    <option value="<?php echo htmlentities($vo['id']); ?>" <?php if(in_array($vo['id'],$one['process_to'])): ?>selected="selected"<?php endif; ?>><?php echo htmlentities($vo['process_name']); ?></option>
                 <?php endif; endforeach; endif; else: echo "" ;endif; ?>
             </select>
           </div>
@@ -112,7 +111,7 @@
           </div>
 
         </div><!-- child_flow end -->
-
+ </div>
 <!-- attrBasic end -->
     <div class="tab-pane <?php if($op == 'form'): ?>active<?php endif; ?>" id="attrForm">
 
@@ -156,9 +155,9 @@
             <div class="controls">
               <select name="auto_person" id="auto_person_id">
                 <option value="0">不自动选人</option>
-                <option value="1" <?php if($one['auto_person'] == 1): ?>selected="selected"<?php endif; ?>>发起人</option>
+               <!-- <option value="1" <?php if($one['auto_person'] == 1): ?>selected="selected"<?php endif; ?>>发起人</option>
                 <option value="2" <?php if($one['auto_person'] == 2): ?>selected="selected"<?php endif; ?>>发起人的部门主管</option>
-                <option value="3" <?php if($one['auto_person'] == 3): ?>selected="selected"<?php endif; ?>>处理人的部门主管</option>
+                <option value="3" <?php if($one['auto_person'] == 3): ?>selected="selected"<?php endif; ?>>处理人的部门主管</option> -->
                 <option value="5" <?php if($one['auto_person'] == 5): ?>selected="selected"<?php endif; ?>>指定角色</option>
                 <option value="4" <?php if($one['auto_person'] == 4): ?>selected="selected"<?php endif; ?>>指定人员</option>
               </select>
@@ -175,15 +174,14 @@
                 <label class="control-label">指定主办人</label>
                 <div class="controls">
                     <input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="<?php echo htmlentities($one['auto_sponsor_ids']); ?>">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定主办人" name="auto_sponsor_text" id="auto_user_text" value="<?php echo isset($one['auto_user_text']) ? htmlentities($one['auto_user_text']) : ''; ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/demo/super_dialog/op/user'); ?>','auto_user_text','auto_sponsor_ids');">选择</a>
-                    
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定主办人" name="auto_sponsor_text" id="auto_sponsor_text" value="<?php echo isset($one['auto_sponsor_text']) ? htmlentities($one['auto_sponsor_text']) : ''; ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/index/demo/super_dialog',['op'=>'user']); ?>','auto_sponsor_text','auto_sponsor_ids');">选择</a>
                 </div> 
               </div>
               <div class="control-group">
                 <label class="control-label">指定经办人</label>
                 <div class="controls">
                     <input type="hidden" name="auto_respon_ids" id="auto_respon_ids" value="<?php echo htmlentities($one['auto_respon_ids']); ?>">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定经办人" name="auto_respon_text" id="auto_userop_text" value="<?php echo isset($one['auto_userop_text']) ? htmlentities($one['auto_userop_text']) : ''; ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/demo/super_dialog/op/user'); ?>','auto_userop_text','auto_respon_ids');">选择</a>
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定经办人" name="auto_respon_text" id="auto_userop_text" value="<?php echo isset($one['auto_userop_text']) ? htmlentities($one['auto_userop_text']) : ''; ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/index/demo/super_dialog',['op'=>'user']); ?>','auto_userop_text','auto_respon_ids');">选择</a>
                 </div> 
               </div>
             </div>
@@ -192,7 +190,7 @@
                 <label class="control-label">指定角色</label>
                 <div class="controls">
                     <input type="hidden" name="auto_role_ids" id="auto_role_value" value="<?php echo isset($one['auto_role']) ? htmlentities($one['auto_role']) : ''; ?>">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="<?php echo isset($one['auto_role_text']) ? htmlentities($one['auto_role_text']) : ''; ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/demo/super_dialog/op/role'); ?>','auto_role_text','auto_role_value');">选择</a>
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="<?php echo isset($one['auto_role_text']) ? htmlentities($one['auto_role_text']) : ''; ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/index/demo/super_dialog',['op'=>'role']); ?>','auto_role_text','auto_role_value');">选择</a>
                 </div> 
               </div>
             </div>
@@ -204,7 +202,7 @@
             <label class="control-label">授权人员</label>
             <div class="controls">
                 <input type="hidden" name="range_user_ids" id="range_user_ids" value="<?php echo htmlentities($one['range_user_ids']); ?>">
-                <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择人员" name="range_user_text" id="range_user_text" value="<?php echo htmlentities($one['range_user_text']); ?>"> <a href="javascript:void(0);" class="btn" onclick="superDialog('<?php echo url('/demo/super_dialog/op/user'); ?>','range_user_text','range_user_ids');">选择</a>
+                <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择人员" name="range_user_text" id="range_user_text" value="<?php echo htmlentities($one['range_user_text']); ?>"> <a href="javascript:void(0);" class="btn" onclick="layer_show('授权人员',<?php echo url('/demo/super_dialog/op/user'); ?>','range_user_text','range_user_ids');">选择</a>
             </div> 
           </div>
 
@@ -483,6 +481,42 @@
 <script type="text/javascript">
 
 var _out_condition_data = [];
+function callbackSuperDialog(selectValue){
+     var aResult = selectValue.split('@leipi@');
+     $('#'+window._viewField).val(aResult[0]);
+     $('#'+window._hidField).val(aResult[1]);
+    //document.getElementById(window._hidField).value = aResult[1];
+    
+}
+/**
+ * 弹出窗选择用户部门角色
+ * showModalDialog 方式选择用户
+ * URL 选择器地址
+ * viewField 用来显示数据的ID
+ * hidField 隐藏域数据ID
+ * isOnly 是否只能选一条数据
+ * dialogWidth * dialogHeight 弹出的窗口大小
+ */
+function superDialog(URL,viewField,hidField,isOnly,dialogWidth,dialogHeight)
+{
+    dialogWidth || (dialogWidth = 620)
+    ,dialogHeight || (dialogHeight = 520)
+    ,loc_x = 500
+    ,loc_y = 40
+    ,window._viewField = viewField
+    ,window._hidField= hidField;
+    // loc_x = document.body.scrollLeft+event.clientX-event.offsetX;
+    //loc_y = document.body.scrollTop+event.clientY-event.offsetY;
+    if(window.ActiveXObject){ //IE  
+        var selectValue = window.showModalDialog(URL,self,"edge:raised;scroll:1;status:0;help:0;resizable:1;dialogWidth:"+dialogWidth+"px;dialogHeight:"+dialogHeight+"px;dialogTop:"+loc_y+"px;dialogLeft:"+loc_x+"px");
+        if(selectValue){
+            callbackSuperDialog(selectValue);
+        }
+    }else{  //非IE 
+        var selectValue = window.open(URL, 'newwindow','height='+dialogHeight+',width='+dialogWidth+',top='+loc_y+',left='+loc_x+',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
+    
+    }
+}
 </script>
 
 <script type="text/javascript" src="/static/work/js/jquery-1.7.2.min.js?"></script>
