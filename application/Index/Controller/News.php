@@ -40,7 +40,6 @@ class News extends Admin
 			$item['flowinfo'] = $flowinfo;
 			return $item;
 		});
-		//dump($list);
 		$this->assign('list', $list);
 		return $this->fetch();
     }

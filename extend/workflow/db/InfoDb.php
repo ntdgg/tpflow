@@ -20,7 +20,7 @@ class InfoDB{
 		if ($wf_fid == '' || $wf_type == '' ) {
 			return false;
 		}
-		$wf_sql = "select id from ".self::$prefix.$wf_type." where id='".$wf_fid."'";
+		$wf_sql = "select * from ".self::$prefix.$wf_type." where id='".$wf_fid."'";
 		$data =Db::query ($wf_sql );
 		if($data){
 			return  $data;
@@ -107,7 +107,7 @@ class InfoDB{
         }
         return $run_cache;
 	}
-	public function AddrunLog($uid,$run_id,$content,$from_id,$from_table,$run_flow=0)
+	public static function AddrunLog($uid,$run_id,$content,$from_id,$from_table,$run_flow=0)
 	{
 		$run_log = array(
                 'uid'=>$uid,
@@ -134,10 +134,13 @@ class InfoDB{
 	 */
 	public static function workflowInfo($wf_fid,$wf_type) {
 		$workflow = [];
-		$sql = "select * from  ".self::$prefix."run where from_id='$wf_fid' and from_table='$wf_type' and is_del=0 limit 1";
-		$result = Db::query($sql);
 		require ( BEASE_URL . '/config/config.php');//  
-		if ($result) {
+		$sql = "select * from  ".self::$prefix."run where from_id='$wf_fid' and from_table='$wf_type' and is_del=0 and status=0";
+		
+		$sql2 = "select * from  ".self::$prefix."run where from_id='$wf_fid' and from_table='$wf_type' and is_del=0 ";
+		if(count(Db::query($sql2)) > '0'){
+			$result = Db::query($sql);	
+			if ($result) {
 				$workflow ['bill_st'] = $result[0]['status'];
 				$workflow ['flow_id'] = $result[0]['flow_id'];
 				$workflow ['run_id'] = $result[0]['id'];
@@ -147,11 +150,20 @@ class InfoDB{
 				$workflow ['process'] = ProcessDb::GetProcessInfo($result[0]['run_flow_process']);
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 			} else {
-				$workflow ['bill_st'] = -1;
-				$workflow ['bill_state'] =$flowstatus[-1];
+				$workflow ['bill_st'] = 1;
+				$workflow ['bill_state'] =$flowstatus[1];
 				$workflow ['bill_check'] = '';
 				$workflow ['bill_time'] = '';
 			}
+			
+		}else{
+			$workflow ['bill_st'] = -1;
+			$workflow ['bill_state'] =$flowstatus[-1];
+			$workflow ['bill_check'] = '';
+			$workflow ['bill_time'] = '';
+		}
+		
+		
 		return $workflow;
 	}
 	/**

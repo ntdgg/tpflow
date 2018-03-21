@@ -1,4 +1,4 @@
-<?php /*a:2:{s:48:"D:\tpflow\application/index/view\flow\start.html";i:1520600258;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
+<?php /*a:2:{s:48:"D:\tpflow\application/index/view\flow\start.html";i:1521642638;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -35,7 +35,9 @@
 <body>
   <link rel="stylesheet" href="/static/lib/multiple-select/multiple-select.css" />
 <article class="page-container">
-		
+		<form action="<?php echo url('statr_save'); ?>" method="post" name="form" id="form">
+		<input type='hidden' value='<?php echo htmlentities($info['wf_type']); ?>' name='wf_type'>
+		<input type='hidden' value='<?php echo htmlentities($info['wf_fid']); ?>' name='wf_fid'>
 		<table class="table table-border table-bordered table-bg">
 			<tr>
 			<td style='width:75px'>项目名称：</td>
@@ -44,7 +46,7 @@
 			<tr>
 			<td>选择工作流：</td><td>
 			<span class="select-box">
-				<select name="new_type"  class="select"  datatype="*" >
+				<select name="wf_id"  class="select"  datatype="*" >
 					<option value="0">请选择工作流</option>
 					<?php if(is_array($flow) || $flow instanceof \think\Collection || $flow instanceof \think\Paginator): $i = 0; $__LIST__ = $flow;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$k): $mod = ($i % 2 );++$i;?>
 					<option value="<?php echo htmlentities($k['id']); ?>"><?php echo htmlentities($k['flow_name']); ?></option>
@@ -71,7 +73,9 @@
 			</td>
 			</tr>
 			<tr>
-			<td colspan='2' class='text-c'><button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+			<td colspan='2' class='text-c'>
+			
+			<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
 				<button  class="btn btn-default radius" type="button" onclick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td>、
 			</tr>
 		</table>
@@ -85,9 +89,6 @@
 </article>
 
 
-<script type="text/javascript" src="/static/lib/ueditor/1.4.3/ueditor.config.js"></script> 
-<script type="text/javascript" src="/static/lib/ueditor/1.4.3/ueditor.all.min.js"> </script> 
-<script type="text/javascript" src="/static/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("[name='new_top'][value='<?php echo isset($info['new_top']) ? htmlentities($info['new_top']) : ''; ?>']").attr("checked",true);
@@ -106,7 +107,7 @@ $(function(){
                 ajax_progress(ret);
             }
         });
-	var ue = UE.getEditor('editor');
+
 });
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

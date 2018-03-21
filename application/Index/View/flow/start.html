@@ -1,7 +1,9 @@
 {include file='pub/base' /}
   <link rel="stylesheet" href="__LIB__/multiple-select/multiple-select.css" />
 <article class="page-container">
-		
+		<form action="{:url('statr_save')}" method="post" name="form" id="form">
+		<input type='hidden' value='{$info.wf_type}' name='wf_type'>
+		<input type='hidden' value='{$info.wf_fid}' name='wf_fid'>
 		<table class="table table-border table-bordered table-bg">
 			<tr>
 			<td style='width:75px'>项目名称：</td>
@@ -10,7 +12,7 @@
 			<tr>
 			<td>选择工作流：</td><td>
 			<span class="select-box">
-				<select name="new_type"  class="select"  datatype="*" >
+				<select name="wf_id"  class="select"  datatype="*" >
 					<option value="0">请选择工作流</option>
 					{volist name='flow' id='k'}
 					<option value="{$k.id}">{$k.flow_name}</option>
@@ -37,7 +39,9 @@
 			</td>
 			</tr>
 			<tr>
-			<td colspan='2' class='text-c'><button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+			<td colspan='2' class='text-c'>
+			
+			<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
 				<button  class="btn btn-default radius" type="button" onclick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td>、
 			</tr>
 		</table>
@@ -51,9 +55,6 @@
 </article>
 
 
-<script type="text/javascript" src="__LIB__/ueditor/1.4.3/ueditor.config.js"></script> 
-<script type="text/javascript" src="__LIB__/ueditor/1.4.3/ueditor.all.min.js"> </script> 
-<script type="text/javascript" src="__LIB__/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("[name='new_top'][value='{$info.new_top ?? ''}']").attr("checked",true);
@@ -72,7 +73,7 @@ $(function(){
                 ajax_progress(ret);
             }
         });
-	var ue = UE.getEditor('editor');
+
 });
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

@@ -10,7 +10,7 @@ class Flow extends Controller {
 	public function start()
 	{
 		$wf_type = input('wf_type');
-		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid')];
+		$info = ['wf_type'=>input('wf_type'),'wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid')];
 		$workflow = new workflow();
 		$flow = $workflow->getWorkFlow($wf_type);
 		$this->assign('flow',$flow);
@@ -26,6 +26,7 @@ class Flow extends Controller {
 		$wf_fid = input('wf_fid');
 		$workflow = new workflow();
 		$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
+		dump($flow);
 		if($flow['code']==1){
 			$this->success('Success',url('news/index'));
 		}
@@ -42,13 +43,11 @@ class Flow extends Controller {
 	}
 	public function do_check()
 	{
-		
 		$wf_fid = input('wf_fid');
 		$wf_type = input('wf_type');
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>$wf_fid,'wf_type'=>$wf_type];
 		$workflow = new workflow();
 		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);		
-		dump($flowinfo);
 		$this->assign('info',$info);
 		$this->assign('flowinfo',$flowinfo);
 		$this->assign('bill_url','/news/view?id=2');
@@ -56,6 +55,7 @@ class Flow extends Controller {
 	}
 	public function do_check_save()
 	{
+		Session::set('uid',1);
 		$data = $this->request->post();
 		$workflow = new workflow();
 		$flowinfo = $workflow->workdoaction($data);

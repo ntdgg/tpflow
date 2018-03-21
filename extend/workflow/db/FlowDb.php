@@ -74,4 +74,19 @@ class FlowDb{
 			return  false;
 		}
 	}
+	
+	public static function getnexprocess($ids)
+	{
+		if ($ids == '') {
+			return false;
+		}
+		$wf_sql = "select * from ".self::$prefix."flow_process where  id in('".$ids."')";
+		$data =Db::query ($wf_sql );
+		dump($data);
+		if($data){
+			return  $data;
+			}else{
+			return  false;
+		}
+	}
 }

@@ -43,8 +43,6 @@
 					保存
 					{else/}
 					{$k.flowinfo.bill_state}</br>
-					
-					
 				{/if}</td>
 				<td class="td-manage">
 				<div class="btn-group">
@@ -52,7 +50,9 @@
 					{if condition='$k.flowinfo.bill_st eq -1'}
 					<span class="btn  radius size-S" onclick="layer_show('发起工作流','{:url('/index/flow/start/',['wf_type'=>'news','wf_title'=>$k.new_title,'wf_fid'=>$k.id])}','450','350')">发起</span>
 					{/if}
+					{if condition='$k.flowinfo.bill_st eq 0'}
 					<span class="btn  radius size-S" onclick="layer_show('审核','{:url('/index/flow/do_check/',['wf_type'=>'news','wf_title'=>$k.new_title,'wf_fid'=>$k.id])}','850','650')">审核</span>
+					{/if}
 					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$k.id])}','850','500')">修改</span>
 					 <span class="btn  radius size-S" onclick="admin_del(this,'{$k.id}')" >删除</span>
 				</div>

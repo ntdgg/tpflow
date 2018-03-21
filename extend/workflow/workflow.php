@@ -111,7 +111,7 @@ $configContext->setEmailObj(@$email);
 			$taskService = new TaskService();//工作流服务
 			$wf_actionid = $config['submit_to_save'];
 			if ($wf_actionid == "ok") {//提交处理
-				$taskService->doTask($config);
+				$ret = $taskService->doTask($config);
 			} else if ($wf_actionid == "back") {//退回处理
 				$taskService->reject();
 			} else if ($wf_actionid == "sing") {//会签
@@ -119,7 +119,7 @@ $configContext->setEmailObj(@$email);
 			} else { //通过
 				throw new \Exception ( "参数出错！" );
 			}
-			return $config;
+			return $ret;
 		}
 		
 }
