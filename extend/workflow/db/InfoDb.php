@@ -1,29 +1,22 @@
 <?php
 namespace workflow;
-
+/**
+ * 信息处理
+ */
 use think\Db;
 use think\facade\Session;
 
 class InfoDB{
 	
 	public static $prefix = 'leipi_';
+	
 	/**
-	 * 获取类别工作流
-	 * @param $wf_type
+	 * 判断业务是否存在，避免已经删除导致错误
+	 * @param $wf_fid  业务id
+	 * @param $wf_type 业务表名
 	 */
-	public static function getWorkflowByType($wf_type) {
-		$workflow = array ();
-		if ($wf_type == '') {
-			return $workflow;
-		}
-		$wf_sql = "select flow_name,id from ".self::$prefix."flow where is_del=0  and type='".$wf_type."'";
-		return  Db::query ($wf_sql );
-	}
-	/**
-	 * 获取类别工作流
-	 * @param $wf_type
-	 */
-	public static function getbill($wf_fid,$wf_type) {
+	public static function getbill($wf_fid,$wf_type) 
+	{
 		if ($wf_fid == '' || $wf_type == '' ) {
 			return false;
 		}
@@ -36,45 +29,12 @@ class InfoDB{
 		}
 	}
 	/**
-	 * 获取类别工作流
-	 * @param $wf_type
+	 * 添加工作流
+	 * @param $wf_id  流程主ID
+	 * @param $wf_process 流程信息
+	 * @param $wf_fid  业务id
+	 * @param $wf_type 业务表名
 	 */
-	public static function getWorkflow($wf_id) {
-		if ($wf_id == '') {
-			return false;
-		}
-		$wf_sql = "select flow_name,id from ".self::$prefix."flow where is_del=0  and id='".$wf_id."'";
-		$data =Db::query ($wf_sql );
-		if($data){
-			return  $data;
-			}else{
-			return  false;
-		}
-	}
-	/**
-	 * 获取类别工作流
-	 * @param $wf_type
-	 */
-	public static function getWorkflowProcess($wf_id) {
-		$wf_sql = "select * from ".self::$prefix."flow_process where is_del=0  and flow_id='".$wf_id."'";
-		$flow_process = Db::query ($wf_sql );
-		//找到 流程第一步
-        $flow_process_first = array();
-        foreach($flow_process as $value)
-        {
-            if($value['process_type'] == 'is_one')
-            {
-                $flow_process_first = $value;
-                break;
-            }
-        }
-		if(!$flow_process_first)
-        {
-            return  false;
-        }
-		return $flow_process_first;
-	}
-	
 	public static function addWorkflowRun($wf_id,$wf_process,$wf_fid,$wf_type)
 	{
 		$data = array(
@@ -95,6 +55,13 @@ class InfoDB{
         }
         return $run_id;
 	}
+	/**
+	 * 添加运行步骤信息
+	 * @param $wf_id  流程主ID
+	 * @param $wf_process 流程信息
+	 * @param $run_id  运行的id
+	 * @param $wf_type 业务表名
+	 */
 	public static function addWorkflowProcess($wf_id,$wf_process,$run_id)
 	{
 		$data = array(
@@ -118,7 +85,10 @@ class InfoDB{
             return  false;
         }
         return $process_id;
-	}	
+	}
+	/**
+	 * 缓存信息
+	 */
 	public static function addWorkflowCache($run_id,$wf,$flow_process,$wf_fid)
 	{
 	$run_cache = array(
@@ -137,23 +107,45 @@ class InfoDB{
         }
         return $run_cache;
 	}
+	public function AddrunLog($uid,$run_id,$content,$from_id,$from_table,$run_flow=0)
+	{
+		$run_log = array(
+                'uid'=>$uid,
+				'from_id'=>$from_id,
+				'from_table'=>$from_table,
+                'run_id'=>$run_id,
+                'content'=>$content,
+                'run_flow'=>$run_flow,//从 serialize 改用  json_encode 兼容其它语言
+                'dateline'=>time()
+            );
+			 $run_log = db('run_log')->insertGetId($run_log);
+			 if(!$run_log)
+				{
+					return  false;
+				}
+				return $run_log;
+	}
+	
 	/**
-	 * 根据单据ID获取流程信息
+	 * 根据单据ID，单据表 获取流程信息
 	 *
-	 * @param string $etuid	实例id
-	 * @param string $ssn	工资号
-	 * @return array() 流程信息
+	 * @param $run_id  运行的id
+	 * @param $wf_type 业务表名
 	 */
 	public static function workflowInfo($wf_fid,$wf_type) {
 		$workflow = [];
 		$sql = "select * from  ".self::$prefix."run where from_id='$wf_fid' and from_table='$wf_type' and is_del=0 limit 1";
 		$result = Db::query($sql);
-		require ( BEASE_URL . '/config/config.php');
+		require ( BEASE_URL . '/config/config.php');//  
 		if ($result) {
 				$workflow ['bill_st'] = $result[0]['status'];
+				$workflow ['flow_id'] = $result[0]['flow_id'];
+				$workflow ['run_id'] = $result[0]['id'];
+				$workflow ['run_flow_process'] = $result[0]['run_flow_process'];
 				$workflow ['bill_state'] = $flowstatus[$result[0]['status']];
-				$workflow ['bill_check'] = '审批人';
-				$workflow ['bill_time'] = 'time';
+				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result[0]['flow_id']);
+				$workflow ['process'] = ProcessDb::GetProcessInfo($result[0]['run_flow_process']);
+				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 			} else {
 				$workflow ['bill_st'] = -1;
 				$workflow ['bill_state'] =$flowstatus[-1];
@@ -161,6 +153,17 @@ class InfoDB{
 				$workflow ['bill_time'] = '';
 			}
 		return $workflow;
+	}
+	/**
+	 * 根据单据ID，单据表 获取流程信息
+	 *
+	 * @param $run_id  运行的id
+	 * @param $wf_type 业务表名
+	 */
+	public static function workrunInfo($run_id) {
+		$sql = "select * from  ".self::$prefix."run where id='$run_id'";
+		$result = Db::query($sql);
+		return $result;
 	}
 	
 	

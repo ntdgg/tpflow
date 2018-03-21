@@ -10,9 +10,13 @@ define ( 'BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 require_once BEASE_URL . '/config/config.php';
 //数据库操作
 require_once BEASE_URL . '/db/InfoDB.php';
+require_once BEASE_URL . '/db/FlowDb.php';
+require_once BEASE_URL . '/db/ProcessDb.php';
 //类库
+
 require_once BEASE_URL . '/class/ConfigContext.php';
 require_once BEASE_URL . '/class/InterfaceNotice.php';
+require_once BEASE_URL . '/class/TaskService.php';
 
 //配置全局类
 $configContext = ConfigContext::getInstance();
@@ -29,7 +33,7 @@ $configContext->setEmailObj(@$email);
 		 */
 		function getWorkFlow($type)
 		{
-			return InfoDB::getWorkflowByType($type);
+			return FlowDb::getWorkflowByType($type);
 		}
 		/**
 		 *流程发起
@@ -38,7 +42,7 @@ $configContext->setEmailObj(@$email);
 		function startworkflow($wf_id,$wf_fid,$wf_type)
 		{
 			//判断流程是否存在
-			$wf = InfoDB::getWorkflow($wf_id);
+			$wf = FlowDb::getWorkflow($wf_id);
 			if(!$wf){
 				return ['msg'=>'未找到工作流！','code'=>'-1'];
 			}
@@ -49,7 +53,7 @@ $configContext->setEmailObj(@$email);
 			}
 			
 			//根据流程获取流程第一个步骤
-			$wf_process = InfoDB::getWorkflowProcess($wf_id);
+			$wf_process = ProcessDb::getWorkflowProcess($wf_id);
 			if(!$wf_process){
 				return ['msg'=>'流程设计出错，未找到第一步流程，请联系管理员！','code'=>'-1'];
 			}
@@ -68,6 +72,9 @@ $configContext->setEmailObj(@$email);
 			if(!$run_cache){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
+			
+			$run_log = InfoDB::AddrunLog(1,$wf_run[0]['id'],$wf_fid,$wf_type,'工作流发起');
+			
 			$configContext = ConfigContext::getInstance();
 			//发起消息通知
 			$email = $configContext->getEmailObj('default');
@@ -83,13 +90,36 @@ $configContext->setEmailObj(@$email);
 		  **/
 		function workflowInfo($wf_fid,$wf_type)
 		{
-			
 			$workflowInfo = array ();
 			if ($wf_fid == '' || $wf_type == '') {
 				return ['msg'=>'单据编号，单据表不可为空！','code'=>'-1'];
 			}
 			$wf = InfoDB::workflowInfo($wf_fid,$wf_type);
-			
 			return $wf;
 		}
+		/*
+		 * 获取下一步骤信息
+		 *
+		 *
+		 *
+		 **/
+		function workdoaction($config)
+		{
+			if( @$config['run_id']=='' || @$config['run_flow_process']==''){
+		       	throw new \Exception ( "config参数信息不全！" );
+			}
+			$taskService = new TaskService();//工作流服务
+			$wf_actionid = $config['submit_to_save'];
+			if ($wf_actionid == "ok") {//提交处理
+				$taskService->doTask($config);
+			} else if ($wf_actionid == "back") {//退回处理
+				$taskService->reject();
+			} else if ($wf_actionid == "sing") {//会签
+				$taskService->freeRoute();
+			} else { //通过
+				throw new \Exception ( "参数出错！" );
+			}
+			return $config;
+		}
+		
 }

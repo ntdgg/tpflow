@@ -40,4 +40,25 @@ class Flow extends Controller {
 		dump($flowinfo);
 		
 	}
+	public function do_check()
+	{
+		
+		$wf_fid = input('wf_fid');
+		$wf_type = input('wf_type');
+		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>$wf_fid,'wf_type'=>$wf_type];
+		$workflow = new workflow();
+		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);		
+		dump($flowinfo);
+		$this->assign('info',$info);
+		$this->assign('flowinfo',$flowinfo);
+		$this->assign('bill_url','/news/view?id=2');
+		return $this->fetch();
+	}
+	public function do_check_save()
+	{
+		$data = $this->request->post();
+		$workflow = new workflow();
+		$flowinfo = $workflow->workdoaction($data);
+		dump($flowinfo);
+	}
 }

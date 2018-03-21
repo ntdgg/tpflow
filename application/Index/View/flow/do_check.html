@@ -1,0 +1,87 @@
+{include file='pub/base' /}
+<link rel="stylesheet" href="__LIB__/multiple-select/multiple-select.css" />
+<div class="page-container" style='width:98%'>
+<form action="{:url('do_check_save')}" method="post" name="form" id="form">
+<input type="hidden" value="{$info.wf_title}" name="wf_title">
+<input type="hidden" value="{$info.wf_fid}" name="wf_fid">
+<input type="hidden" value="{$info.wf_type}" name="wf_type">
+<input type="hidden" value="{$flowinfo.flow_id}" name="flow_id">
+<input type="hidden" value="{$flowinfo.run_flow_process}" name="run_flow_process">
+<input type="hidden" value="{$flowinfo.run_id}" name="run_id">
+		<table class="table table-border table-bordered table-bg" style='width:98%'>
+			<thead>
+			<tr>
+			<th style='width:38%' class='text-c'>单据审批</th>
+			<th style='width:59%' class='text-c'>审批记录</th>
+			</tr>
+			<tr>
+			</thead>
+			<td style='height:80px'>
+				<table class="table table-border table-bordered table-bg">
+				<tr>
+				<th style='width:30px'>审批意见</th>
+				<th><textarea name='check_con'  datatype="*" style="width:100%;height:75px;"></textarea> </th>
+				</tr>
+				<tr>
+				<td colspan=2 class='text-c'>
+				<button name="submit_to_save" class="btn btn-primary radius" value='ok' type="submit">提交</button> 
+				<button name="submit_to_save" class="btn btn-primary radius" value='back' type="submit">回退</button> 
+				<button name="submit_to_save" class="btn btn-primary radius" value='sing' type="submit">会签</button>
+				</td>
+				</tr>
+				</table>
+			</td>
+			<td>
+			{volist name='$flowinfo.log' id='k'}
+				{$k.user}-{$k.content}-{$k.dateline}
+			{/volist}
+			</td>
+			</tr>
+		</table>
+</form>		
+		<table class="table table-border table-bordered mt-20" style='width:98%'>
+		<tr><td>
+		
+		<iframe src="{:url('news/view',['id'=>2])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+		
+		</td></tr>
+		</table>
+	
+</div>
+
+
+<script type="text/javascript" src="__LIB__/ueditor/1.4.3/ueditor.config.js"></script> 
+<script type="text/javascript" src="__LIB__/ueditor/1.4.3/ueditor.all.min.js"> </script> 
+<script type="text/javascript" src="__LIB__/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("[name='new_top'][value='{$info.new_top ?? ''}']").attr("checked",true);
+	$("[name='new_type']").find("[value='{$info.new_type ?? '0'}']").attr("selected",true);
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form").Validform({
+            tiptype:2,
+            ajaxPost:false,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+        });
+	 
+});
+function iFrameHeight() {   
+		var ifm= document.getElementById("iframepage");   
+		var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;   
+		if(ifm != null && subWeb != null) {
+		   ifm.height = subWeb.body.scrollHeight;
+		   ifm.width = '100%';
+		}   
+} 
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -1,4 +1,4 @@
-<?php /*a:2:{s:48:"D:\tpflow\application/index/view\news\index.html";i:1520945063;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
+<?php /*a:2:{s:48:"D:\tpflow\application/index/view\news\index.html";i:1521292257;s:46:"D:\tpflow\application/index/view\pub\base.html";i:1516702710;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -77,14 +77,16 @@
 					保存
 					<?php else: ?>
 					<?php echo htmlentities($k['flowinfo']['bill_state']); ?></br>
-					<?php echo htmlentities($k['flowinfo']['bill_check']); ?>
-					<?php echo htmlentities($k['flowinfo']['bill_time']); endif; ?></td>
+					
+					
+				<?php endif; ?></td>
 				<td class="td-manage">
 				<div class="btn-group">
 					<span class="btn  radius size-S" data-title="查看" data-href="<?php echo url('view',['id'=>$k['id']]); ?>" onclick="Hui_admin_tab(this)"><i class="Hui-iconfont">查看</span>
 					<?php if($k['flowinfo']['bill_st'] == -1): ?>
 					<span class="btn  radius size-S" onclick="layer_show('发起工作流','<?php echo url('/index/flow/start/',['wf_type'=>'news','wf_title'=>$k['new_title'],'wf_fid'=>$k['id']]); ?>','450','350')">发起</span>
 					<?php endif; ?>
+					<span class="btn  radius size-S" onclick="layer_show('审核','<?php echo url('/index/flow/do_check/',['wf_type'=>'news','wf_title'=>$k['new_title'],'wf_fid'=>$k['id']]); ?>','850','650')">审核</span>
 					<span class="btn  radius size-S" onclick="layer_show('修改','<?php echo url('edit',['id'=>$k['id']]); ?>','850','500')">修改</span>
 					 <span class="btn  radius size-S" onclick="admin_del(this,'<?php echo htmlentities($k['id']); ?>')" >删除</span>
 				</div>
