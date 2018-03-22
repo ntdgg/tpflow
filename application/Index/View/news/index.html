@@ -1,21 +1,10 @@
 {include file='pub/base' /}
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 
-<span class="c-gray en">&gt;</span> 企业办公 
-<span class="c-gray en">&gt;</span> 公司新闻 
-<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  Tpflow 工作流插件示例 
+<a href="{:url('index/index')}"  class="btn btn-primary radius"> 返回</a>
+
+<a href="javascript:;" onclick="layer_show('新增新闻','{:url('add')}','850','500')" class="btn btn-primary radius">
+	<i class="Hui-iconfont">&#xe600;</i> 新增新闻</a></nav>
 <div class="page-container">
-	<form class="mb-20" method="post" action="{:url('index')}">
-	<div class="text-l ml-40">
-		<input type="text" name='new_title' class="input-text" style="width:250px" placeholder="标题" >
-		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜新闻</button>
-		<span> 
-	<a href="javascript:;" onclick="layer_show('新增新闻','{:url('add')}','850','500')" class="btn btn-primary radius">
-	<i class="Hui-iconfont">&#xe600;</i> 新增新闻</a></span>
-	<span> 
-	<a href="javascript:;" onclick="layer_show('类别管理','{:url('type')}','450','500')" class="btn btn-primary radius">
-	<i class="Hui-iconfont">&#xe6f5;</i> 类别管理</a></span>
-	</div>
-	</form>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr class="text-c">
@@ -54,43 +43,13 @@
 					<span class="btn  radius size-S" onclick="layer_show('审核','{:url('/index/flow/do_check/',['wf_type'=>'news','wf_title'=>$k.new_title,'wf_fid'=>$k.id])}','850','650')">审核</span>
 					{/if}
 					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$k.id])}','850','500')">修改</span>
-					 <span class="btn  radius size-S" onclick="admin_del(this,'{$k.id}')" >删除</span>
 				</div>
-				
-				
 				</td>
-				
-				
-				
 			</tr>
 			{/volist}
 		</tbody>
 	</table>
 </div>
 <div class="page-bootstrap">{$list|raw}</div>
-
-<script type="text/javascript">
-
-/*管理员-删除*/
-function admin_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '{:url("del")}.?id='+id+'',
-			dataType: 'json',
-			success: function(data){
-				if(data.code==0){
-					$(obj).parents("tr").remove();
-				}
-				layer.msg(data.msg,{icon:1,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
-}
-
-</script>
 </body>
 </html>

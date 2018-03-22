@@ -6,7 +6,7 @@ use think\Controller;
 class Index  extends Controller{
     public function index(){
 	    
-       $this->success("马上带你进入示例",url('/index/demo/index'));
+      return $this->fetch();
     }
   
    
