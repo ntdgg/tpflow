@@ -73,7 +73,7 @@ $configContext->setEmailObj(@$email);
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
 			
-			$run_log = InfoDB::AddrunLog(1,$wf_run[0]['id'],$wf_fid,$wf_type,'工作流发起');
+			$run_log = InfoDB::AddrunLog(1,$wf_run,$wf_fid,$wf_type,'工作流发起');
 			
 			$configContext = ConfigContext::getInstance();
 			//发起消息通知

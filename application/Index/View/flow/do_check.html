@@ -1,7 +1,7 @@
 {include file='pub/base' /}
 <link rel="stylesheet" href="__LIB__/multiple-select/multiple-select.css" />
 <div class="page-container" style='width:98%'>
-<form action="{:url('do_check_save')}" method="post" name="form" id="form">
+<form action="{:url('do_check_save')}" method="post" name="form" id="forms">
 <input type="hidden" value="{$info.wf_title}" name="wf_title">
 <input type="hidden" value="{$info.wf_fid}" name="wf_fid">
 <input type="hidden" value="{$info.wf_type}" name="wf_type">
@@ -24,9 +24,10 @@
 				</tr>
 				<tr>
 				<td colspan=2 class='text-c'>
-				<button name="submit_to_save" class="btn btn-primary radius" value='ok' type="submit">提交</button> 
-				<button name="submit_to_save" class="btn btn-primary radius" value='back' type="submit">回退</button> 
-				<button name="submit_to_save" class="btn btn-primary radius" value='sing' type="submit">会签</button>
+				<input id='submit_to_save' name='submit_to_save' value='' type='hidden'>
+				<a class="btn btn-primary radius" onclick='tj("ok")' >提交</a> 
+				<a class="btn btn-primary radius" onclick='tj("back")'value='back' >回退</a> 
+				<a class="btn btn-primary radius" onclick='tj("sing")' value='sing' >会签</a>
 				</td>
 				</tr>
 				</table>
@@ -42,30 +43,18 @@
 		<table class="table table-border table-bordered mt-20" style='width:98%'>
 		<tr><td>
 		
-		<iframe src="{:url('news/view',['id'=>2])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+		<iframe src="{:url('news/view',['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
 		
 		</td></tr>
 		</table>
 	
 </div>
 
-
-<script type="text/javascript" src="__LIB__/ueditor/1.4.3/ueditor.config.js"></script> 
-<script type="text/javascript" src="__LIB__/ueditor/1.4.3/ueditor.all.min.js"> </script> 
-<script type="text/javascript" src="__LIB__/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("[name='new_top'][value='{$info.new_top ?? ''}']").attr("checked",true);
-	$("[name='new_type']").find("[value='{$info.new_type ?? '0'}']").attr("selected",true);
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form").Validform({
+	$("#forms").Validform({
             tiptype:2,
-            ajaxPost:false,
+            ajaxPost:true,
             showAllError:true,
             callback:function(ret){
                 ajax_progress(ret);
@@ -73,6 +62,10 @@ $(function(){
         });
 	 
 });
+function tj(value){
+	$('#submit_to_save').val(value);
+	$('#forms').submit();
+} 
 function iFrameHeight() {   
 		var ifm= document.getElementById("iframepage");   
 		var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;   

@@ -82,7 +82,7 @@ class FlowDb{
 		}
 		$wf_sql = "select * from ".self::$prefix."flow_process where  id in('".$ids."')";
 		$data =Db::query ($wf_sql );
-		dump($data);
+	
 		if($data){
 			return  $data;
 			}else{

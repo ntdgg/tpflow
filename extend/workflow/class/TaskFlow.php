@@ -66,7 +66,7 @@ class TaskFlow{
 			if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
-		$run_log = InfoDB::AddrunLog(1,$wf_run[0]['id'],$wf_fid,$wf_type,'工作流发起');
+		$run_log = InfoDB::AddrunLog(1,$wf_run,'审批意见',$wf_fid,$wf_type);
 	}
 	
 	

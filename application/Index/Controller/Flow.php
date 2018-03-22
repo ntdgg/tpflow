@@ -26,9 +26,8 @@ class Flow extends Controller {
 		$wf_fid = input('wf_fid');
 		$workflow = new workflow();
 		$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
-		dump($flow);
 		if($flow['code']==1){
-			$this->success('Success',url('news/index'));
+			return msg_return('Success!');
 		}
 	}
 	/*工作流状态信息*/
@@ -38,7 +37,6 @@ class Flow extends Controller {
 		$wf_fid = input('wf_fid');
 		$workflow = new workflow();
 		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
-		dump($flowinfo);
 		
 	}
 	public function do_check()
@@ -56,9 +54,9 @@ class Flow extends Controller {
 	public function do_check_save()
 	{
 		Session::set('uid',1);
-		$data = $this->request->post();
+		$data = $this->request->param();
 		$workflow = new workflow();
 		$flowinfo = $workflow->workdoaction($data);
-		dump($flowinfo);
+		return msg_return('Success!');
 	}
 }
