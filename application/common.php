@@ -35,40 +35,6 @@ function ids_parse($str,$dot_tmp=',')
     if(!$idstr) $idstr=0;
     return $idstr;
 }
-function client_check()
-{
-	if(!cache('checkd')){
-	$check_host = 'http://www.cojz8.com/yanzheng/update.php';
-	$client_check = $check_host . '?a=client_check&u=' . $_SERVER['HTTP_HOST'];
-	$check_info=file_get_contents($client_check);
-	$info= explode(",",$check_info);
-	if($info['0']=='1'){
-		echo "<html lang=\"en\">\n";
-		echo "<head>\n";
-		echo "       <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
-		echo "       <title>提示：".$info['2']."。</title>\n";
-		echo "       <link href=\"static/lib/Hui-iconfont/1.0.8/iconfont.css\" rel=\"stylesheet\" type=\"text/css\" />\n";
-		echo "       <link href=\"static/h-ui/css/H-ui.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n";
-		echo "       <link href=\"static/h-ui.admin/css/H-ui.admin.css\" rel=\"stylesheet\" type=\"text/css\" />\n";
-		echo " 		<title>没有权限</title>\n";
-		echo " </head>\n";
-		echo " <body>\n";
-		echo " <section class='container-fluid page-404 minWP text-c'>\n";
-		echo " 	<p class='error-title'><i class='Hui-iconfont va-m' style='font-size:80px'>&#xe688;</i>\n";
-		echo " 		<span class='va-m'> 授权出错！</span>\n";
-		echo " 	</p>\n";
-		echo " 	<p class='error-description'>".$info['2']."</p>\n";
-		echo " 	<p class='error-info'>您可以：致电:".$info['1'].";QQ:".$info['3']."\n";
-		echo " 	</p>\n";
-		echo " </section>\n";
-		echo " </body>\n";
-		echo " </html>\n";
-	   die;
-		}else{
-			cache('checkd','true',86400);
-		}
-	}
-}
 // 数组保存到文件
 function arr2file($filename, $arr='')
 {
