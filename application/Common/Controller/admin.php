@@ -17,7 +17,6 @@ class Admin extends Controller
     public function initialize()
     {
 		parent::initialize();
-		//client_check();
 		// 后台用户权限检查
 		 // 用户ID
         defined('UID') or define('UID', Session::get(Config::get('rbac.user_auth_key')));
