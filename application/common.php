@@ -46,6 +46,10 @@ function arr2file($filename, $arr='')
     $con = "<?php\nreturn $con;\n?>";//\n!defined('IN_MP') && die();\nreturn $con;\n
     write_file($filename, $con);
 }
+function get_commonval($table,$id,$val)
+{
+	return Db($table)->where('id',$id)->value($val);
+}
 //文件写入
 function write_file($l1, $l2='')
 {
@@ -75,5 +79,4 @@ function msg_return($msg = "操作成功！", $code = 0,$data = [],$redirect = '
     ];
     $ret = array_merge($ret, $extend);
     return Response::create($ret, 'json');
-}
 }
