@@ -1,0 +1,360 @@
+---------------------------------------------------------------
+[ 2018-03-28T11:31:51+08:00 ] 127.0.0.1 GET /index/news/index.html
+[ info ] 127.0.0.4/index/news/index.html [运行时间：0.089005s][吞吐率：11.24req/s] [内存消耗：2,215.64kb] [文件加载：80]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\ThinkPHP/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=v4ir7mvo0emf52o0ud2fb0chk7',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip,deflate,sdch',
+  'referer' => 'http://127.0.0.4/index/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application/index/view\news\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_news` [ RunTime:0.009001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_news` LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` ORDER BY id desc LIMIT 0,10 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='3' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  (  new_type= '1' )  AND `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='5'  and from_table='news' [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='4' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='4'  and from_table='news' [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-03-28T11:38:02+08:00 ] 127.0.0.1 GET /index/news/index.html
+[ info ] 127.0.0.4/index/news/index.html [运行时间：0.086005s][吞吐率：11.63req/s] [内存消耗：2,266.18kb] [文件加载：81]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=v4ir7mvo0emf52o0ud2fb0chk7',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip,deflate,sdch',
+  'referer' => 'http://127.0.0.4/index/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application\index\view\news\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_news` [ RunTime:0.011001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_news` LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` ORDER BY id desc LIMIT 0,10 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='3' [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 5 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  (  new_type= '1' )  AND `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='5'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='4' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='4'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-28T11:38:03+08:00 ] 127.0.0.1 GET /index/news/index.html
+[ info ] 127.0.0.4/index/news/index.html [运行时间：0.083005s][吞吐率：12.05req/s] [内存消耗：2,144.04kb] [文件加载：79]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=v4ir7mvo0emf52o0ud2fb0chk7',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip,deflate,sdch',
+  'referer' => 'http://127.0.0.4/index/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application\index\view\news\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_news` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_news` LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` ORDER BY id desc LIMIT 0,10 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='3' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 5 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  (  new_type= '1' )  AND `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='5'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='4' [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.001001s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='4'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-28T11:38:04+08:00 ] 127.0.0.1 GET /index/news/index.html
+[ info ] 127.0.0.4/index/news/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：2,144.04kb] [文件加载：79]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=v4ir7mvo0emf52o0ud2fb0chk7',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip,deflate,sdch',
+  'referer' => 'http://127.0.0.4/index/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application\index\view\news\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_news` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_news` LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` ORDER BY id desc LIMIT 0,10 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001001s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='3' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  (  new_type= '1' )  AND `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='5'  and from_table='news' [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='4' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='4'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-28T11:38:04+08:00 ] 127.0.0.1 GET /index/news/index.html
+[ info ] 127.0.0.4/index/news/index.html [运行时间：0.082005s][吞吐率：12.19req/s] [内存消耗：2,144.04kb] [文件加载：79]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=v4ir7mvo0emf52o0ud2fb0chk7',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip,deflate,sdch',
+  'referer' => 'http://127.0.0.4/index/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application\index\view\news\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_news` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_news` LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` ORDER BY id desc LIMIT 0,10 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='3' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.010000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  (  new_type= '1' )  AND `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='5'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='4' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='4'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-03-28T11:38:04+08:00 ] 127.0.0.1 GET /index/news/index.html
+[ info ] 127.0.0.4/index/news/index.html [运行时间：0.079005s][吞吐率：12.66req/s] [内存消耗：2,144.04kb] [文件加载：79]
+[ info ] [ LANG ] C:\Users\Administrator\web\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=v4ir7mvo0emf52o0ud2fb0chk7',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip,deflate,sdch',
+  'referer' => 'http://127.0.0.4/index/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] C:\Users\Administrator\web\tpflow\application\index\view\news\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_news` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_news` LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` ORDER BY id desc LIMIT 0,10 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='5' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='3' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_flow_process` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 5 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  (  new_type= '1' )  AND `id` = 5 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='5'  and from_table='news' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='4' and from_table='news' and is_del=0 and status=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select flow_name from leipi_flow where id='4' [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `process_name`,`process_type`,`process_to`,`auto_person`,`auto_sponsor_ids`,`auto_sponsor_text`,`is_sing`,`sign_look`,`is_back` FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_news` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_flow_process` WHERE  `id` = 70 LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from leipi_run_log where from_id='4'  and from_table='news' [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='3' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='2' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] select * from  leipi_run where from_id='1' and from_table='news' and is_del=0 and status=0 [ RunTime:0.001000s ]

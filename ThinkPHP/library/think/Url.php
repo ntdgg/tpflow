@@ -103,8 +103,6 @@ class Url
         if (!empty($rule) && $match = $this->getRuleUrl($rule, $vars)) {
             // 匹配路由命名标识
             $url = $match[0];
-            // 替换可选分隔符
-            $url = preg_replace(['/(\W)\?$/', '/(\W)\?/'], ['', '\1'], $url);
 
             if (!empty($match[1])) {
                 $host = $this->app['config']->get('app_host') ?: $this->app['request']->host();
@@ -125,10 +123,8 @@ class Url
 
             if ($alias) {
                 // 别名路由解析
-                foreach ($alias as $key => $val) {
-                    if (is_array($val)) {
-                        $val = $val[0];
-                    }
+                foreach ($alias as $key => $item) {
+                    $val = $item->gerRoute();
 
                     if (0 === strpos($url, $val)) {
                         $url        = $key . substr($url, strlen($val));
@@ -225,21 +221,25 @@ class Url
             $url = substr($url, 1);
         } else {
             // 解析到 模块/控制器/操作
-            $module = $request->module();
-            $module = $module ? $module . '/' : '';
-
-            $controller = Loader::parseName($request->controller());
+            $module     = $request->module();
+            $module     = $module ? $module . '/' : '';
+            $controller = $request->controller();
 
             if ('' == $url) {
-                // 空字符串输出当前的 模块/控制器/操作
-                $url = $module . $controller . '/' . $request->action();
+                $action = $request->action();
             } else {
                 $path       = explode('/', $url);
-                $action     = $this->app['config']->get('url_convert') ? strtolower(array_pop($path)) : array_pop($path);
-                $controller = empty($path) ? $controller : ($this->app['config']->get('url_convert') ? Loader::parseName(array_pop($path)) : array_pop($path));
+                $action     = array_pop($path);
+                $controller = empty($path) ? $controller : array_pop($path);
                 $module     = empty($path) ? $module : array_pop($path) . '/';
-                $url        = $module . $controller . '/' . $action;
             }
+
+            if ($this->app['config']->get('url_convert')) {
+                $action     = strtolower($action);
+                $controller = Loader::parseName($controller);
+            }
+
+            $url = $module . $controller . '/' . $action;
         }
 
         return $url;
@@ -318,20 +318,21 @@ class Url
         foreach ($rule as $item) {
             list($url, $pattern, $domain, $suffix) = $item;
             if (empty($pattern)) {
-                return [$url, $domain, $suffix];
+                return [rtrim($url, '?/-'), $domain, $suffix];
             }
 
             $type = $this->app['config']->get('url_common_param');
 
             foreach ($pattern as $key => $val) {
                 if (isset($vars[$key])) {
-                    $url = str_replace(['[:' . $key . ']', '[:' . $key . '$]', '<' . $key . '?>$', '<' . $key . '?>', ':' . $key . '$', ':' . $key . '', '<' . $key . '>$', '<' . $key . '>'], $type ? $vars[$key] : urlencode($vars[$key]), $url);
+                    $url = str_replace(['[:' . $key . ']', '<' . $key . '?>', ':' . $key, '<' . $key . '>'], $type ? $vars[$key] : urlencode($vars[$key]), $url);
                     unset($vars[$key]);
-
-                    $result = [$url, $domain, $suffix];
+                    $url    = str_replace(['/?', '-?'], ['/', '-'], $url);
+                    $result = [rtrim($url, '?/-'), $domain, $suffix];
                 } elseif (2 == $val) {
-                    $url    = str_replace(['/[:' . $key . ']', '/[:' . $key . '$]', '[:' . $key . ']', '[:' . $key . '$]', '<' . $key . '?>$', '<' . $key . '?>'], '', $url);
-                    $result = [$url, $domain, $suffix];
+                    $url    = str_replace(['/[:' . $key . ']', '[:' . $key . ']', '<' . $key . '?>'], '', $url);
+                    $url    = str_replace(['/?', '-?'], ['/', '-'], $url);
+                    $result = [rtrim($url, '?/-'), $domain, $suffix];
                 } else {
                     break;
                 }

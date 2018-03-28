@@ -43,7 +43,7 @@ class File extends Driver
         }
 
         if (empty($this->options['path'])) {
-            $this->options['path'] = Container::get('app')->getRuntimePath() . 'cache/';
+            $this->options['path'] = Container::get('app')->getRuntimePath() . 'cache' . DIRECTORY_SEPARATOR;
         } elseif (substr($this->options['path'], -1) != DIRECTORY_SEPARATOR) {
             $this->options['path'] .= DIRECTORY_SEPARATOR;
         }
@@ -72,9 +72,10 @@ class File extends Driver
      * 取得变量的存储文件名
      * @access protected
      * @param  string $name 缓存变量名
+     * @param  bool   $auto 是否自动创建目录
      * @return string
      */
-    protected function getCacheKey($name)
+    protected function getCacheKey($name, $auto = false)
     {
         $name = hash($this->options['hash_type'], $name);
 
@@ -90,7 +91,7 @@ class File extends Driver
         $filename = $this->options['path'] . $name . '.php';
         $dir      = dirname($filename);
 
-        if (!is_dir($dir)) {
+        if ($auto && !is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
@@ -166,7 +167,7 @@ class File extends Driver
         }
 
         $expire   = $this->getExpireTime($expire);
-        $filename = $this->getCacheKey($name);
+        $filename = $this->getCacheKey($name, true);
 
         if ($this->tag && !is_file($filename)) {
             $first = true;
@@ -241,7 +242,10 @@ class File extends Driver
     {
         $this->writeTimes++;
 
-        return $this->unlink($this->getCacheKey($name));
+        try {
+            return $this->unlink($this->getCacheKey($name));
+        } catch (\Exception $e) {
+        }
     }
 
     /**
@@ -268,7 +272,7 @@ class File extends Driver
 
         foreach ($files as $path) {
             if (is_dir($path)) {
-                $matches = glob($path . '/*.php');
+                $matches = glob($path . DIRECTORY_SEPARATOR . '*.php');
                 if (is_array($matches)) {
                     array_map('unlink', $matches);
                 }

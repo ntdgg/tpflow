@@ -99,6 +99,12 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
     protected $queryInstance;
 
     /**
+     * 错误信息
+     * @var mixed
+     */
+    protected $error;
+
+    /**
      * 架构函数
      * @access public
      * @param  array|object $data 数据
@@ -195,7 +201,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
     {
         // 设置当前模型 确保查询返回模型对象
         $class = $this->query;
-        $query = (new $class())->connect($this->connection)->model($this);
+        $query = (new $class())->connect($this->connection)->model($this)->json($this->json);
 
         // 设置当前数据表和模型名
         if (!empty($this->table)) {
@@ -241,7 +247,9 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             // 软删除
             if (method_exists($this, 'getDeleteTimeField')) {
                 $field = $this->getDeleteTimeField(true);
-                $query->useSoftDelete($field);
+                if ($field) {
+                    $query->useSoftDelete($field);
+                }
             }
 
             // 全局作用域
@@ -381,7 +389,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
     /**
      * 检查数据是否允许写入
      * @access protected
-     * @param  array   $autoFields 自动完成的字段列表
+     * @param  array   $append 自动完成的字段列表
      * @return array
      */
     protected function checkAllowFields(array $append = [])
@@ -470,13 +478,11 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             $where = $array;
         }
 
-        if (!empty($this->relationWrite)) {
-            foreach ($this->relationWrite as $name => $val) {
-                if (is_array($val)) {
-                    foreach ($val as $key) {
-                        if (isset($data[$key])) {
-                            unset($data[$key]);
-                        }
+        foreach ((array) $this->relationWrite as $name => $val) {
+            if (is_array($val)) {
+                foreach ($val as $key) {
+                    if (isset($data[$key])) {
+                        unset($data[$key]);
                     }
                 }
             }
@@ -764,10 +770,11 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      * @param  mixed     $data  主键值或者查询条件（闭包）
      * @param  mixed     $with  关联预查询
      * @param  bool      $cache 是否缓存
+     * @param  bool      $failException 是否抛出异常
      * @return static|null
      * @throws exception\DbException
      */
-    public static function get($data, $with = [], $cache = false)
+    public static function get($data, $with = [], $cache = false, $failException = false)
     {
         if (is_null($data)) {
             return;
@@ -780,7 +787,21 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
 
         $query = static::parseQuery($data, $with, $cache);
 
-        return $query->find($data);
+        return $query->failException($failException)->find($data);
+    }
+
+    /**
+     * 查找单条记录 如果不存在直接抛出异常
+     * @access public
+     * @param  mixed     $data  主键值或者查询条件（闭包）
+     * @param  mixed     $with  关联预查询
+     * @param  bool      $cache 是否缓存
+     * @return static|null
+     * @throws exception\DbException
+     */
+    public static function getOrFail($data, $with = [], $cache = false)
+    {
+        return self::get($data, $with, $cache, true);
     }
 
     /**
@@ -838,13 +859,15 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      */
     public static function destroy($data)
     {
+        if (empty($data) && 0 !== $data) {
+            return 0;
+        }
+
         $model = new static();
 
         $query = $model->db();
 
-        if (empty($data) && 0 !== $data) {
-            return 0;
-        } elseif (is_array($data) && key($data) !== 0) {
+        if (is_array($data) && key($data) !== 0) {
             $query->where($data);
             $data = null;
         } elseif ($data instanceof \Closure) {
@@ -863,6 +886,16 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         }
 
         return $count;
+    }
+
+    /**
+     * 获取错误信息
+     * @access public
+     * @return mixed
+     */
+    public function getError()
+    {
+        return $this->error;
     }
 
     /**
@@ -914,9 +947,9 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
     {
         if (array_key_exists($name, $this->data) || array_key_exists($name, $this->relation)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
