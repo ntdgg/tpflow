@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1_3306
+Source Server         : pms
 Source Server Version : 50553
 Source Host           : 127.0.0.1:3306
 Source Database       : tpflow
@@ -10,39 +10,38 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-03-28 16:12:30
+Date: 2018-03-28 23:13:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `leipi_flow`
+-- Table structure for leipi_flow
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_flow`;
 CREATE TABLE `leipi_flow` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(255) DEFAULT NULL COMMENT '流程类别',
-  `cat_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类',
-  `form_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `flow_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '流程类型0为固定流程1自由流程',
   `flow_name` varchar(255) NOT NULL DEFAULT '' COMMENT '流程名称',
   `flow_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
   `sort_order` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0不可用1正常',
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(11) DEFAULT NULL,
+  `add_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_flow
 -- ----------------------------
-INSERT INTO `leipi_flow` VALUES ('3', 'news', '0', '52', '0', '新闻审批工作流-多条件判断型', '新闻审批工作流-多条件判断型', '0', '0', '0', '1416930127', '1416927611');
-INSERT INTO `leipi_flow` VALUES ('4', 'news', '0', '53', '0', '新闻审批工作流-直线型', '新闻审批工作流-直线型', '0', '0', '0', '1418223212', '1416927633');
+INSERT INTO `leipi_flow` VALUES ('3', 'news', '新闻审批工作流-多条件判断型', '新闻审批工作流-多条件判断型', '0', '0', '0', null, null);
+INSERT INTO `leipi_flow` VALUES ('4', 'news', '新闻审批工作流-直线型', '新闻审批工作流-直线型', '0', '0', '0', null, null);
+INSERT INTO `leipi_flow` VALUES ('5', 'news', '测试工作流添加', '2', '1', '0', '0', '1', '1522242396');
+INSERT INTO `leipi_flow` VALUES ('6', 'paper', '合同信息审批', '合同信息审批21', '2', '0', '0', '1', '1522242419');
 
 -- ----------------------------
--- Table structure for `leipi_flow_process`
+-- Table structure for leipi_flow_process
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_flow_process`;
 CREATE TABLE `leipi_flow_process` (
@@ -90,7 +89,7 @@ CREATE TABLE `leipi_flow_process` (
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_flow_process
@@ -102,9 +101,15 @@ INSERT INTO `leipi_flow_process` VALUES ('73', '3', '开始', 'is_one', '74,75',
 INSERT INTO `leipi_flow_process` VALUES ('74', '3', '市场部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '600', '143', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
 INSERT INTO `leipi_flow_process` VALUES ('75', '3', '工程部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '578', '333', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
 INSERT INTO `leipi_flow_process` VALUES ('76', '3', '行政部确认', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '829', '207', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
+INSERT INTO `leipi_flow_process` VALUES ('77', '6', '项目中心初审', 'is_one', '78', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '375', '234', '{\"width\":150,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522246153', '0');
+INSERT INTO `leipi_flow_process` VALUES ('78', '6', '新建步骤', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '650', '326', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246154', '0');
+INSERT INTO `leipi_flow_process` VALUES ('79', '5', '新建步骤', 'is_one', '80,81', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"80\":{\"condition\":[\"uid= \'1\'\"],\"condition_desc\":\"\"},\"81\":{\"condition\":[\"uid= \'2\'\"],\"condition_desc\":\"\"}}', '255', '249', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522246614', '0');
+INSERT INTO `leipi_flow_process` VALUES ('80', '5', '新建步骤', 'is_step', '82', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '575', '117', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
+INSERT INTO `leipi_flow_process` VALUES ('81', '5', '新建步骤', 'is_step', '82', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '591', '337', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
+INSERT INTO `leipi_flow_process` VALUES ('82', '5', '新建步骤', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '845', '265', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
 
 -- ----------------------------
--- Table structure for `leipi_foreign_test`
+-- Table structure for leipi_foreign_test
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_foreign_test`;
 CREATE TABLE `leipi_foreign_test` (
@@ -127,7 +132,7 @@ INSERT INTO `leipi_foreign_test` VALUES ('16', '54', '22', '0', '1410971141', '1
 INSERT INTO `leipi_foreign_test` VALUES ('17', '54', 'ww', '0', '1410971511', '1410971183');
 
 -- ----------------------------
--- Table structure for `leipi_form`
+-- Table structure for leipi_form
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_form`;
 CREATE TABLE `leipi_form` (
@@ -152,17 +157,17 @@ INSERT INTO `leipi_form` VALUES ('53', '请假申请', '但', '<p style=\"text-a
 INSERT INTO `leipi_form` VALUES ('54', 'test', 'test', '<p style=\"text-align: center;\">表单</p><table><tbody><tr class=\"firstRow\"><td style=\"word-break: break-all;\" valign=\"top\" width=\"216\">用户名<br/></td><td valign=\"top\" width=\"216\"><input orgtype=\"text\" orgwidth=\"150\" orgalign=\"left\" style=\"text-align: left; width: 150px;\" orghide=\"0\" leipiplugins=\"text\" value=\"\" title=\"用户名\" name=\"data_1\" type=\"text\"/></td><td style=\"word-break: break-all;\" valign=\"top\" width=\"216\">年龄<br/></td><td valign=\"top\" width=\"216\"><input orgtype=\"text\" orgwidth=\"150\" orgalign=\"left\" style=\"text-align: left; width: 150px;\" orghide=\"0\" leipiplugins=\"text\" value=\"\" title=\"年龄\" name=\"data_2\" type=\"text\"/></td></tr><tr><td rowspan=\"1\" colspan=\"1\" valign=\"top\">{|-<span leipiplugins=\"radios\" name=\"data_7\" title=\"22\"><input type=\"radio\" name=\"data_7\" value=\"33\"  />33&nbsp;<input type=\"radio\" name=\"data_7\" value=\"44\"  />44&nbsp;</span>-|}</td><td rowspan=\"1\" colspan=\"1\" valign=\"top\"><br/></td><td rowspan=\"1\" colspan=\"1\" valign=\"top\"><br/></td><td rowspan=\"1\" colspan=\"1\" valign=\"top\"><br/></td></tr></tbody></table><p><input name=\"data_8\" leipiplugins=\"listctrl\" type=\"text\" value=\"{列表控件}\" readonly=\"readonly\" title=\"列表控件1\" orgtitle=\"11`22`33`\" orgcoltype=\"text`int`textarea`\" orgunit=\"个`个`个`\" orgsum=\"0`1`0`\" orgcolvalue=\"```\" orgwidth=\"500px\" style=\"width: 500px;\"/></p>', '<p style=\"text-align: center;\">表单</p><table><tbody><tr class=\"firstRow\"><td style=\"word-break: break-all;\" valign=\"top\" width=\"216\">用户名<br/></td><td valign=\"top\" width=\"216\">{data_1}</td><td style=\"word-break: break-all;\" valign=\"top\" width=\"216\">年龄<br/></td><td valign=\"top\" width=\"216\">{data_2}</td></tr><tr><td rowspan=\"1\" colspan=\"1\" valign=\"top\">{data_7}</td><td rowspan=\"1\" colspan=\"1\" valign=\"top\"><br/></td><td rowspan=\"1\" colspan=\"1\" valign=\"top\"><br/></td><td rowspan=\"1\" colspan=\"1\" valign=\"top\"><br/></td></tr></tbody></table><p>{data_8}</p>', 'a:4:{i:0;a:11:{s:7:\"orgtype\";s:4:\"text\";s:8:\"orgwidth\";s:3:\"150\";s:8:\"orgalign\";s:4:\"left\";s:5:\"style\";s:31:\"text-align: left; width: 150px;\";s:7:\"orghide\";s:1:\"0\";s:12:\"leipiplugins\";s:4:\"text\";s:5:\"value\";s:0:\"\";s:5:\"title\";s:9:\"用户名\";s:4:\"name\";s:6:\"data_1\";s:4:\"type\";s:4:\"text\";s:7:\"content\";s:179:\"<input orgtype=\"text\" orgwidth=\"150\" orgalign=\"left\" style=\"text-align: left; width: 150px;\" orghide=\"0\" leipiplugins=\"text\" value=\"\" title=\"用户名\" name=\"data_1\" type=\"text\"/>\";}i:1;a:11:{s:7:\"orgtype\";s:4:\"text\";s:8:\"orgwidth\";s:3:\"150\";s:8:\"orgalign\";s:4:\"left\";s:5:\"style\";s:31:\"text-align: left; width: 150px;\";s:7:\"orghide\";s:1:\"0\";s:12:\"leipiplugins\";s:4:\"text\";s:5:\"value\";s:0:\"\";s:5:\"title\";s:6:\"年龄\";s:4:\"name\";s:6:\"data_2\";s:4:\"type\";s:4:\"text\";s:7:\"content\";s:176:\"<input orgtype=\"text\" orgwidth=\"150\" orgalign=\"left\" style=\"text-align: left; width: 150px;\" orghide=\"0\" leipiplugins=\"text\" value=\"\" title=\"年龄\" name=\"data_2\" type=\"text\"/>\";}i:2;a:6:{s:12:\"leipiplugins\";s:6:\"radios\";s:4:\"name\";s:6:\"data_7\";s:5:\"title\";s:2:\"22\";s:5:\"value\";s:5:\"33,44\";s:7:\"content\";s:172:\"<span leipiplugins=\"radios\" name=\"data_7\" title=\"22\"><input type=\"radio\" name=\"data_7\" value=\"33\"  />33&nbsp;<input type=\"radio\" name=\"data_7\" value=\"44\"  />44&nbsp;</span>\";s:7:\"options\";a:2:{i:0;a:3:{s:4:\"type\";s:5:\"radio\";s:4:\"name\";s:6:\"data_7\";s:5:\"value\";s:2:\"33\";}i:1;a:3:{s:4:\"type\";s:5:\"radio\";s:4:\"name\";s:6:\"data_7\";s:5:\"value\";s:2:\"44\";}}}i:3;a:14:{s:4:\"name\";s:6:\"data_8\";s:12:\"leipiplugins\";s:8:\"listctrl\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:14:\"{列表控件}\";s:8:\"readonly\";s:8:\"readonly\";s:5:\"title\";s:13:\"列表控件1\";s:8:\"orgtitle\";s:9:\"11`22`33`\";s:10:\"orgcoltype\";s:18:\"text`int`textarea`\";s:7:\"orgunit\";s:12:\"个`个`个`\";s:6:\"orgsum\";s:6:\"0`1`0`\";s:11:\"orgcolvalue\";s:3:\"```\";s:8:\"orgwidth\";s:5:\"500px\";s:5:\"style\";s:13:\"width: 500px;\";s:7:\"content\";s:272:\"<input name=\"data_8\" leipiplugins=\"listctrl\" type=\"text\" value=\"{列表控件}\" readonly=\"readonly\" title=\"列表控件1\" orgtitle=\"11`22`33`\" orgcoltype=\"text`int`textarea`\" orgunit=\"个`个`个`\" orgsum=\"0`1`0`\" orgcolvalue=\"```\" orgwidth=\"500px\" style=\"width: 500px;\"/>\";}}', '8', '0', '1419990904', '1408069450');
 
 -- ----------------------------
--- Table structure for `leipi_news`
+-- Table structure for leipi_news
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_news`;
 CREATE TABLE `leipi_news` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `add_time` int(11) DEFAULT NULL,
-  `new_title` varchar(255) DEFAULT NULL,
-  `new_type` int(11) DEFAULT NULL,
-  `new_top` int(11) NOT NULL DEFAULT '0',
-  `new_con` longtext,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  `add_time` int(11) DEFAULT NULL COMMENT '新增时间',
+  `new_title` varchar(255) DEFAULT NULL COMMENT '新闻标题',
+  `new_type` int(11) DEFAULT NULL COMMENT '新闻类别',
+  `new_top` int(11) NOT NULL DEFAULT '0' COMMENT '是否置顶',
+  `new_con` longtext COMMENT '新闻内容',
   `new_user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -178,7 +183,7 @@ INSERT INTO `leipi_news` VALUES ('5', '1', '1522202968', '123', '1', '1', '<p>12
 INSERT INTO `leipi_news` VALUES ('6', '1', '1522222984', '系统再次测试多重审批流', '2', '1', '&lt;p&gt;系统再次测试多重审批流&lt;/p&gt;', null);
 
 -- ----------------------------
--- Table structure for `leipi_news_type`
+-- Table structure for leipi_news_type
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_news_type`;
 CREATE TABLE `leipi_news_type` (
@@ -198,7 +203,7 @@ INSERT INTO `leipi_news_type` VALUES ('3', '上级要闻', '1', null);
 INSERT INTO `leipi_news_type` VALUES ('4', '职称考试', '1', null);
 
 -- ----------------------------
--- Table structure for `leipi_run`
+-- Table structure for leipi_run
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run`;
 CREATE TABLE `leipi_run` (
@@ -249,7 +254,7 @@ INSERT INTO `leipi_run` VALUES ('754', '0', 'news', '6', '0', '0', '1', '3', '0'
 INSERT INTO `leipi_run` VALUES ('755', '0', 'news', '6', '0', '0', '1', '3', '0', '6', '3', '76', '', '1522223033', '1', '0', '0', '1522223026');
 
 -- ----------------------------
--- Table structure for `leipi_run_cache`
+-- Table structure for leipi_run_cache
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_cache`;
 CREATE TABLE `leipi_run_cache` (
@@ -281,7 +286,7 @@ INSERT INTO `leipi_run_cache` VALUES ('1921', '750', '5', '5', '', '[{\"id\":5,\
 INSERT INTO `leipi_run_cache` VALUES ('1922', '753', '6', '6', '', '[{\"id\":6,\"uid\":1,\"add_time\":1522222984,\"new_title\":\"\\u7cfb\\u7edf\\u518d\\u6b21\\u6d4b\\u8bd5\\u591a\\u91cd\\u5ba1\\u6279\\u6d41\",\"new_type\":2,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\u7cfb\\u7edf\\u518d\\u6b21\\u6d4b\\u8bd5\\u591a\\u91cd\\u5ba1\\u6279\\u6d41&lt;\\/p&gt;\",\"new_user\":null}]', '{\"id\":73,\"flow_id\":3,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"74,75\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":1,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":0,\"auto_unlock\":1,\"auto_sponsor_ids\":\"\",\"auto_sponsor_text\":\"\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":1,\"is_back\":1,\"out_condition\":\"{\\\"74\\\":{\\\"condition\\\":[\\\"new_type= \'1\'\\\"],\\\"condition_desc\\\":\\\"\\\"},\\\"75\\\":{\\\"condition\\\":[\\\"new_type= \'2\'\\\"],\\\"condition_desc\\\":\\\"\\\"}}\",\"setleft\":331,\"settop\":187,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1521687318,\"dateline\":0}', '0', '0', '1522222995');
 
 -- ----------------------------
--- Table structure for `leipi_run_log`
+-- Table structure for leipi_run_log
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_log`;
 CREATE TABLE `leipi_run_log` (
@@ -311,7 +316,7 @@ INSERT INTO `leipi_run_log` VALUES ('6', '1', '6', 'news', '754', '0', '审批�
 INSERT INTO `leipi_run_log` VALUES ('7', '1', '6', 'news', '755', '0', '审批意见', '', '1522223026');
 
 -- ----------------------------
--- Table structure for `leipi_run_process`
+-- Table structure for leipi_run_process
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_process`;
 CREATE TABLE `leipi_run_process` (
@@ -367,7 +372,7 @@ INSERT INTO `leipi_run_process` VALUES ('1502', '1', '754', '3', '75', '0', '0',
 INSERT INTO `leipi_run_process` VALUES ('1503', '1', '755', '3', '76', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522223026', '1522223026', '0', '0', '0', '1522223026');
 
 -- ----------------------------
--- Table structure for `leipi_run_sign`
+-- Table structure for leipi_run_sign
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_sign`;
 CREATE TABLE `leipi_run_sign` (

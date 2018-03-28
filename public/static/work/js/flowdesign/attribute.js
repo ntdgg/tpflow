@@ -143,7 +143,7 @@ function saveAttribute(data)
                 return;
             }
             var sNewText = "" + sField + "" + sCon + " '" + sValue + "'";
-            var sNewText_text = "" + sField_text + "" + sCon + " '" + sValue + "'";
+            var sNewText_text = "" + sField + "" + sCon + " '" + sValue + "'";
             for( var i=0;i<oObj.options.length;i++ ){
                 if( oObj.options[i].value.indexOf(sNewText)>=0 ){
                     alert("条件重复");
@@ -236,21 +236,6 @@ function saveAttribute(data)
                             }
                         });
                     }
-                    /*
-                    //flow_id 是流程设计的ID，  process_id 是步骤ID
-                    if(get_con_url)
-                    {
-                        $.post(get_con_url,{"flow_id":flow_id,"process_id":process_id},function(data){
-                            $.each(data,function(i,n){
-                                if(i==id && _id('conList_'+i )){
-                                    $('#conList_'+i).append(n.condition);
-                                    $('#process_in_desc_'+i).val(n.condition_desc);
-                                }
-                            })
-                        },'json');
-                    }*/
-
-
                 }
             });
             if(ids)

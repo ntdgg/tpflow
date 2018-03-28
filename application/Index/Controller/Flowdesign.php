@@ -1,43 +1,110 @@
 <?php
-// 本类由系统自动生成，仅供测试用途
 namespace app\index\Controller;
 use think\Controller;
+use think\Db;
 
 class Flowdesign extends Controller {
-    
-	public $_obj_model='';
-    protected function model()
+	/**
+	 *前置方法
+	 */
+	protected $beforeActionList = [
+        'type'  =>  ['only'=>'add,edit,lists'],
+    ];
+	/**
+	 *前置方法角色及类别部署
+	 */
+	protected function type()
     {
-        if($this->_obj_model)
-            return $this->_obj_model;
-        return $this->_obj_model = db('flow');
+        $wf_type = [
+			'news'=>'新闻信息',
+			'cnt'=>'合同信息',
+			'paper'=>'证件信息'
+		];
+		$this->assign('type', $wf_type);
     }
-    
+    /**
+	 * 流程设计首页
+	 * @param $map 查询参数
+	 */
+    public function lists($map = []){
+        $map = ['is_del'=>0];
+		$list=controller('Base', 'event')->commonlist('flow',$map);
+        $this->assign('list', $list);
+        return  $this->fetch();
+    }
+    /**
+	 * 流程添加
+	 */
+    public function add()
+    {
+		if ($this->request->isPost()) {
+		$data = input('post.');
+		$table = $this->get_db_column_comment($data['type']);
+		if(empty($table)||$table==''){
+			
+			return msg_return($data['type'].'数据表表不存在',1);
+		}
+		$ret=controller('Base', 'event')->commonadd('flow',$data);
+	    if($ret['code']==0){
+			return msg_return('发布成功！');
+			}else{
+			return msg_return($ret['data'],1);
+		}
+	   }
+       return  $this->fetch();
+    }
+	 /**
+	 * 流程修改
+	 */
+	public function edit()
+    {
+        if ($this->request->isPost()) {
+		$data = input('post.');
+	    $ret=controller('Base', 'event')->commonedit('flow',$data);
+		if($ret['code']==0){
+			return msg_return('修改成功！');
+			}else{
+			return msg_return($ret['data'],1);
+		}
+	   }
+	   if(input('id')){
+		 $info = db('flow')->find(input('id'));
+		 $this->assign('info', $info);
+	   }
+       return $this->fetch('add');
+    }
+	/**
+	 * 状态改变
+	 */
+	public function change()
+	{
+		 if ($this->request->isGet()) {
+			$data = [
+				'id'=>input('id'),
+				'status'=>input('status')
+			];
+			$ret=controller('Base', 'event')->commonedit('flow',$data);
+			if($ret['code']==0){
+				$this->success('操作成功',url('Flowdesign/lists'));
+				}else{
+				$this->error('操作失败！',url('Flowdesign/lists'));
+			}
+		 }
+	}
+	/**
+	 * 工作流设计界面
+	 */
     public function index(){
         $flow_id = intval(input('flow_id'));
-
-        if($flow_id<=0)
-        {
+        if($flow_id<=0){
             $this->error('参数有误，请返回重试!');
-        }
-        $map = array(
-            'id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $one = $this->model()->where($map)->find();
-        if(!$one)
-        {
+		}
+        $one = db('flow')->find($flow_id);
+        if(!$one){
             $this->error('未找到数据，请返回重试!');
         }
-        
-        //获取步骤
-        $map = array(
-            'flow_id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $list = db('flow_process')->where($map)->order('id asc')->select();
-        //改变步骤格式，适应 js
-        $process_data = array();
+        $list = db('flow_process')->where('flow_id',$flow_id)->where('is_del',0)->order('id asc')->select();
+        $process_data = [];
         $process_total = 0;
         foreach($list as $value)
         {
@@ -52,33 +119,20 @@ class Flowdesign extends Controller {
                 'style'=>'width:'.$style['width'].'px;height:'.$style['height'].'px;line-height:'.$style['height'].'px;color:'.$style['color'].';left:'.$value['setleft'].'px;top:'.$value['settop'].'px;',
             );
         }
-        //传到模板渲染
         $this->assign('one', $one);
-        $this->assign('process_data', json_encode(array(
-                                                        'total'=>$process_total,
-                                                        'list'=>$process_data
-                                                        )));
-        //显示页面
+        $this->assign('process_data', json_encode(array('total'=>$process_total,'list'=>$process_data)));
         return $this->fetch();
-       
     }
-    
-  //删除步骤
+    /**
+	 * 删除流程
+	 **/
     function delete_process()
     {
         $process_id = input('process_id');
         $flow_id = input('flow_id');
-        
-        if($process_id<=0 or $flow_id<=0)
-        {
-            $data = json(array(
-                'status'=>0,
-                'msg'=>'操作不正确',
-                'info'=>'',
-            ));
-			return $data;
+        if($process_id<=0 or $flow_id<=0){
+            return json(['status'=>0,'msg'=>'操作不正确','info'=>'']);
         }
-        
         $map = array(
             'id'=>$process_id,
             'flow_id'=>$flow_id,
@@ -88,115 +142,62 @@ class Flowdesign extends Controller {
             'updatetime'=>time(),
             'is_del'=>1,
         );
-        
         $process_model = db('flow_process');
-        
         //开启数据库事务 , 确保整个操作 全部正常 才删除成功  
         $process_model->startTrans(); 
-        
         $trans = $process_model->where($map)->update($data);
-	
-		
-        if(!$trans)
-        {
+        if(!$trans){
             $process_model->rollback();
-			
-            $data = json(array(
-                'status'=>0,
-                'msg'=>'删除失败',
-                'info'=>'',
-            ));
+            return json(['status'=>0,'msg'=>'删除失败','info'=>'']);
 			return $data;
         }
-        
         //start  删除成功后，会重新保存设计，此步可省略
         // 修改 同流程中与$process_id有关的 process_to
-       
-       
         $list = db('flow_process')->field('id,process_to')->where('flow_id',$flow_id)->where('is_del',0)->where('','exp',"FIND_IN_SET(".$process_id.",process_to)")->select();
-		
 		if(is_array($list)){
-        foreach($list as $value)
-        {
+        foreach($list as $value){
             //把 process_to 去除 $process_id 再保存
             $arr = explode(',',$value['process_to']);
             $k = array_search($process_id,$arr);
             unset($arr[$k]);
-            
             $process_to = '';
-            if(!empty($arr))
-            {
+            if(!empty($arr)){
                 $process_to = implode(',',$arr);
             }
-
-            $map =array(
-                'id'=>$value['id'],
-            );
             $data = array(
                 'process_to'=>$process_to,
                 'updatetime'=>time(),
             );
-            $trans = db('flow_process')->where($map)->update($data);
-            if(!$trans)//有错误，跳出
-            {
+            $trans = db('flow_process')->where('id',$value['id'])->update($data);
+            if(!$trans){//有错误，跳出
                 break;
             }
         }
-        
         //end  删除成功后，会重新保存设计，此步可省略
         }
-        
         //有错误 回滚
-        if(!$trans)
-        {
+        if(!$trans){
             $process_model->rollback();
-            $data =json(array(
-                'status'=>0,
-                'msg'=>'删除失败，请重试',
-                'info'=>'',
-            ));
-			return $data;
+            return json(['status'=>0,'msg'=>'删除失败，请重试','info'=>'']);
         }
-        
         $process_model->commit();
-        $data = json(array(
-            'status'=>1,
-            'msg'=>'删除成功',
-            'info'=>'',
-        ));
-		return $data;
-        
+        return json(['status'=>1,'msg'=>'删除成功','info'=>'']);
     }
-	//添加步骤
+	/**
+	 * 添加流程
+	 **/
     public function add_process()
     {
-		
-		
         //获取参数
         $flow_id = input('flow_id');
         $left  = input('left');
         $top  = input('top');
-        //查找流程是否存在
-        $map = array(
-            'id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $one = db('flow')->where($map)->find();
-        if(!$one)
-        {
-            $data=json(array(
-                'status'=>0,
-                'msg'=>'添加失败,未找到流程',
-                'info'=>'',
-            ));
-			return $data;
+        $one = db('flow')->find($flow_id);
+        if(!$one){
+          return json(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
         }
         //是否有步骤  设为第一步
-        $map = array(
-            'flow_id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $process_count = db('flow_process')->where($map)->count();
+        $process_count = db('flow_process')->where('flow_id',$flow_id)->where('is_del',0)->count();
         
         $process_type = 'is_step';//正常步骤
         if($process_count<=0)
@@ -219,15 +220,8 @@ class Flowdesign extends Controller {
            'auto_unlock'=>1,//权限：允许更改
         );
         $id = db('flow_process')->insertGetId($data);
-
-        if($id<=0)
-        {
-            $data=json(array(
-                'status'=>0,
-                'msg'=>'添加失败',
-                'info'=>'',
-            ));
-			return $data;
+        if($id<=0){
+            return json(['status'=>0,'msg'=>'添加失败','info'=>'']);
         }
         //返回 json 数据
         $data=array(
@@ -243,43 +237,25 @@ class Flowdesign extends Controller {
             ),
         );
 		return $data;
-
     }
-    
-   /* 保存布局  位置 和 步骤连接*/
+    /**
+	 * 保存布局  位置 和 步骤连接
+	 **/
     public function save_canvas()
     {
         $flow_id = input('flow_id');
         $process_info = trim(input('process_info'));
-        $process_info = json_decode($process_info,true);
-        if($flow_id<=0 or !$process_info)
-        {
-			$data = json(array(
-                'status'=>0,
-                'msg'=>'参数有误，请重试',
-                'info'=>'',
-            ));
-			return $data;
+		$process_info = json_decode(htmlspecialchars_decode($process_info),true);
+        if($flow_id<=0 or !$process_info){
+			return json(['status'=>0,'msg'=>'参数有误，请重试','info'=>'']);
         }
-        
-        //检查流程
-        $map = array(
-            'id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $one = db('flow')->field('id')->where($map)->find();
-        if(!$one)
-        {
-           $data = json(array(
-                'status'=>0,
-                'msg'=>'未找到流程数据',
-                'info'=>'',
-            ));
+        $one = db('flow')->find($flow_id);
+        if(!$one){
+           $data = json(['status'=>0,'msg'=>'未找到流程数据','info'=>'']);
 			return $data;
         }
         //保存数据
-        foreach($process_info as $process_id=>$value)
-        {
+        foreach($process_info as $process_id=>$value){
             $map = array(
                 'id'=>$process_id,
                 'flow_id'=>$flow_id,
@@ -293,12 +269,7 @@ class Flowdesign extends Controller {
             );
             $ret = db('flow_process')->where('id',$process_id)->where('flow_id',$flow_id)->where('is_del',0)->update($datas);
         }
-        
-        $data = json(array(
-                'status'=>1,
-                'msg'=>'^_^ 保存成功',
-                'info'=>'',
-            ));
+        $data = json(['status'=>1,'msg'=>'^_^ 保存成功','info'=>'']);
 		return $data;
     }
     
@@ -306,71 +277,32 @@ class Flowdesign extends Controller {
     //右键属性
     public function attribute()
     {
-        //步骤ID
         $process_id = intval(input('id'));
         $op = trim(input('op'));
-        if(!$op)
-            $op = 'basic';
-        
+        if(!$op)$op = 'basic';
         //连接数据表用的。表 model 
         $flow_model = db('flow');
         $process_model = db('flow_process');
-        $form_model = db('form');
-        
-        //map查询条件  验证步骤
-        $map = array(
-            'id'=>$process_id,
-            'is_del'=>0,
-        );
-        $one = db('flow_process')->where($map)->find();
-        if(!$one)
-        {
+        $one = db('flow_process')->find($process_id);
+        if(!$one){
             exit('T_T 未找到步骤信息');
         }
-        //验证流程
-        $map = array(
-            'id'=>$one['flow_id'],//流程ID
-            'is_del'=>0,
-        );
-        
-        $flow_one = db('flow')->where($map)->find();
-        if(!$flow_one)
-        {
+        $flow_one = db('flow')->find($one['flow_id']);
+        if(!$flow_one){
             exit('T_T 未找到流程信息');
         }
-        
-        if($flow_one['flow_type']==1)
-        {
-            exit('^_^ 亲，自由流程不用设置步骤的喔');
-        }
-        
-        //验证 表单    $flow_one['form_id']
-        $map = array(
-            'id'=>$flow_one['form_id'],
-            'is_del'=>0,
-        );
-        $form_one = $form_model->field('id,form_name,content_data,fields')->where($map)->find();
-        if(!$form_one)
-        {
-            exit('T_T 未找到表单信息');
-        }
-        
+		
         //初始化必须字段
         $one['process_to'] = $one['process_to']=='' ? array() : explode(',',$one['process_to']);
-        
-
         //转出条件 但没 process_to
         if($op=='judge' && empty($one['process_to']))
         {
             exit('T_T 请先设置属性 -> 选择下一步步骤');
         }
-        
         $one['style'] = json_decode($one['style'],true);
         $one['write_fields'] = $one['write_fields']=='' ? array() : explode(',',$one['write_fields']);//可写字段
         $one['secret_fields'] = $one['secret_fields']=='' ? array() : explode(',',$one['secret_fields']);//保密 隐藏的字段
-        //$one['lock_fields'] = $one['lock_fields']=='' ? array() : explode(',',$one['lock_fields']);//锁定 字段
-        $form_one['content_data'] = $form_one['content_data']=='' ? array() : unserialize($form_one['content_data']);
-        $one['out_condition'] = self::parse_out_condition($one['out_condition'],$form_one['content_data']);//json
+        $one['out_condition'] = self::parse_out_condition($one['out_condition'],'');//json
         //备选步骤  同一个流程全部步骤
         $map = array(
             'flow_id'=>$one['flow_id'],//流程ID
@@ -378,7 +310,6 @@ class Flowdesign extends Controller {
             'is_del'=>0,
         );
         $process_to_list = db('flow_process')->field('id,process_name,process_type')->where($map)->select();
-		
         //子流程 列表 process_to_list
         $map = array(
             'is_del'=>0,
@@ -387,14 +318,9 @@ class Flowdesign extends Controller {
         //赋值到模板上
         $this->assign('op',$op);
         $this->assign('one',$one);
-        $this->assign('form_one',$form_one);
-        //这个在配置文件中配置，\Application\Common\Conf\config.php
-        $this->assign('form_plugins',config('FORM_PLUGINS'));
-        
+		$this->assign('from',$this->get_db_column_comment($flow_one['type']));
         $this->assign('process_to_list',$process_to_list);
         $this->assign('child_flow_list',$child_flow_list);
-        
-        //渲染显示模板
 		return $this->fetch();
     }
     
@@ -634,10 +560,31 @@ class Flowdesign extends Controller {
         //回调页面的函数
         echo '<script type="text/javascript">parent.saveAttribute('.json_encode($ajax_return).');</script>';
         exit;
-    }
-
-
-    
-    
-   
+    } 
+	private function get_db_column_comment($table_name = '', $field = true, $table_schema = ''){
+		$database = config('database.');
+		$table_schema = empty($table_schema) ? $database['database'] : $table_schema;
+		$table_name = $database['prefix'] . $table_name;
+		$fieldName = $field === true ? 'allField' : $field;
+		$cacheKeyName = 'db_' . $table_schema . '_' . $table_name . '_' . $fieldName;
+		$param = [
+			$table_name,
+			$table_schema
+		];
+		$columeName = '';
+		if($field !== true){
+			$param[] = $field;
+			$columeName = "AND COLUMN_NAME = ?";
+		}
+		$res = Db::query("SELECT COLUMN_NAME as field,column_comment as comment FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = ? AND table_schema = ? $columeName", $param);
+		$result=array(); 
+		foreach($res as $k =>$value){
+			foreach($value as $key=>$v){  
+				if($value['comment'] !=''){
+					$result[$value['field']]=$value['comment'];
+				}
+			}  
+		}
+		return count($result) == 1 ? reset($result) : $result;
+	}
 }
