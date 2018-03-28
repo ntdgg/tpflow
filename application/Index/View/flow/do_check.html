@@ -8,6 +8,7 @@
 <input type="hidden" value="{$flowinfo.flow_id}" name="flow_id">
 <input type="hidden" value="{$flowinfo.run_flow_process}" name="run_flow_process">
 <input type="hidden" value="{$flowinfo.run_id}" name="run_id">
+<input type="hidden" value="{$flowinfo['nexprocess']['id']}" name="npid">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
 			<tr>
@@ -20,7 +21,11 @@
 				<table class="table table-border table-bordered table-bg">
 				<tr>
 				<th style='width:30px'>审批意见</th>
-				<th><textarea name='check_con'  datatype="*" style="width:100%;height:75px;"></textarea> </th>
+				<th><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </th>
+				</tr>
+				<tr>
+				<th style='width:30px'>下一步骤</th>
+				<th>{$flowinfo['nexprocess']['process_name']}</th>
 				</tr>
 				<tr>
 				<td colspan=2 class='text-c'>

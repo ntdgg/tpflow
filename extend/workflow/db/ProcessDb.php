@@ -19,7 +19,7 @@ class ProcessDb{
 	public static function GetProcessInfo($pid)
 	{
 		$info = Db::table(self::$prefix.'flow_process')
-				->field('process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_sponsor_text,is_sing,sign_look,is_back')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_sponsor_text,is_sing,sign_look,is_back')
 				->find($pid);
 		return $info;
 	}
@@ -32,26 +32,27 @@ class ProcessDb{
 	public static function GetNexProcessInfo($wf_type,$wf_fid,$pid)
 	{
 		$info = Db::table(self::$prefix.$wf_type)->find($wf_fid);
-		
 		$nex = Db::table(self::$prefix.'flow_process')->find($pid);
+		if($nex['process_to'] !=''){
 		$nex_pid = explode(",",$nex['process_to']);
-		
 		$out_condition = json_decode($nex['out_condition'],true);
-		
-		if(count($nex_pid)>=2){
-		//多个审批流
-			foreach($out_condition as $key=>$val){
-				$where =implode(",",$val['condition']);
-				//根据条件寻找匹配符合的工作流id
-				$info = Db::table(self::$prefix.$wf_type)->where($where)->where('id',$wf_fid)->find();
-				if($info){
-					$nexprocessid = $key; //获得下一个流程的id
-					break;	
+			if(count($nex_pid)>=2){
+			//多个审批流
+				foreach($out_condition as $key=>$val){
+					$where =implode(",",$val['condition']);
+					//根据条件寻找匹配符合的工作流id
+					$info = Db::table(self::$prefix.$wf_type)->where($where)->where('id',$wf_fid)->find();
+					if($info){
+						$nexprocessid = $key; //获得下一个流程的id
+						break;	
+					}
 				}
-			}
-			$process = self::GetProcessInfo($nexprocessid);
+				$process = self::GetProcessInfo($nexprocessid);
 			}else{
-			$process ='';
+				$process = self::GetProcessInfo($nex_pid);	
+			}
+		}else{
+			$process = ['id'=>'','process_name'=>'END'];
 		}
 		return $process;
 	}

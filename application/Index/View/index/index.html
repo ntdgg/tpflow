@@ -1,4 +1,5 @@
 {include file='pub/base' /}
+<body onload="prettyPrint()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> Tpflow 工作流插件示例</nav>
 <div class="page-container">
 
@@ -9,9 +10,42 @@
 	<br/>
 	<br/>
 	<h2>API 文档说明</h2>
-		<pre class="prettyprint linenums">your code</pre>
+<h4>选择工作流——>发起流程</h4>
+<pre class="prettyprint linenums">
+@param $wf_type 工作流通常是表名
+@param $wf_id   工作流id
+@param $wf_fid  单据编号
+$workflow = new workflow();
+//获取本类工作流信息
+$flow = $workflow->getWorkFlow($wf_type);
+
+//直接发起工作流
+$wf_type = input('wf_type');
+$wf_id = input('wf_id');
+$wf_fid = input('wf_fid');
+$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
+</pre>
+<h4>审核单据发起——>获取工作流信息，获取下一个工作流信息——>日志记录——>发起消息通知</h4>
+<pre class="prettyprint linenums">
+@param $wf_title 单据名称
+@param $flow_id  工作流id
+@param $npid     下一个工作流id，如果为空，及结束节点
+@param $run_id   运行记录id
+@param $check_con   审批意见
+@param $submit_to_save   按钮值
+@param $run_flow_process 当前运行的进程id
+
+$workflow = new workflow();
+//工作流审核发起，获取当前及下一个审批流信息
+$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
+
+//工作流审核发起保存
+$flowinfo = $workflow->workdoaction($config);
+
+</pre>
 	</table>
 </div>
 
 </body>
 </html>
+<script type="text/javascript" src="http://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>

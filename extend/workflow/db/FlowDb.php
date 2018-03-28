@@ -66,8 +66,9 @@ class FlowDb{
 		if ($id == '') {
 			return false;
 		}
-		$wf_sql = "select * from ".self::$prefix."flow_process where  id='".$id."'";
-		$data =Db::query ($wf_sql );
+		$info = Db::table(self::$prefix.'flow_process')
+				->field('*')
+				->find($id);
 		if($data){
 			return  $data;
 			}else{
