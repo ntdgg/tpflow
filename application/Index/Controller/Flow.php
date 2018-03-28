@@ -45,7 +45,8 @@ class Flow extends Controller {
 		$wf_type = input('wf_type');
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>$wf_fid,'wf_type'=>$wf_type];
 		$workflow = new workflow();
-		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);		
+		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
+		dump($flowinfo);
 		$this->assign('info',$info);
 		$this->assign('flowinfo',$flowinfo);
 		$this->assign('bill_url','/news/view?id=2');
@@ -57,6 +58,7 @@ class Flow extends Controller {
 		$data = $this->request->param();
 		$workflow = new workflow();
 		$flowinfo = $workflow->workdoaction($data);
-		return msg_return('Success!');
+		
+		//return msg_return('Success!');
 	}
 }

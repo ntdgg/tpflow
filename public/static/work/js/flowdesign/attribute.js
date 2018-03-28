@@ -142,8 +142,8 @@ function saveAttribute(data)
                 alert("值中不能含有'号");
                 return;
             }
-            var sNewText = "'" + sField + "' " + sCon + " '" + sValue + "'";
-            var sNewText_text = "'" + sField_text + "' " + sCon + " '" + sValue + "'";
+            var sNewText = "" + sField + "" + sCon + " '" + sValue + "'";
+            var sNewText_text = "" + sField_text + "" + sCon + " '" + sValue + "'";
             for( var i=0;i<oObj.options.length;i++ ){
                 if( oObj.options[i].value.indexOf(sNewText)>=0 ){
                     alert("条件重复");
@@ -201,11 +201,9 @@ function saveAttribute(data)
         $('#conList_' + id).html('');
     }
 
-
-
     //根据基本信息的下一步骤，设置《条件设置》tab的条件列表
     function fnSetCondition(){
-        if($("#process_multiple option:selected").length<=0)
+        if($("#process_multiple option:selected").length<=1)
         {
             $('#tab_attrJudge').hide();
         }else

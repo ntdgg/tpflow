@@ -148,6 +148,7 @@ class InfoDB{
 				$workflow ['bill_state'] = $flowstatus[$result[0]['status']];
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result[0]['flow_id']);
 				$workflow ['process'] = ProcessDb::GetProcessInfo($result[0]['run_flow_process']);
+				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result[0]['run_flow_process']);
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 			} else {
 				$workflow ['bill_st'] = 1;

@@ -119,6 +119,7 @@ $configContext->setEmailObj(@$email);
 			} else { //通过
 				throw new \Exception ( "参数出错！" );
 			}
+			
 			return $ret;
 		}
 		

@@ -20,6 +20,9 @@ class TaskFlow{
 		$submit_to_save = $config['submit_to_save'];
 		$action = FlowDb::getflowprocess($run_flow_process);//获取当前任务
 		
+		dump($action);
+		return $action;
+		exit;
 		if(!empty($action[0]['process_to'])){//判断是否为最后
 			//结束流程
 			 $end = $this->end_flow($run_id);
