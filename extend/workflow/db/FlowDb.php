@@ -8,8 +8,6 @@ use think\Db;
 use think\facade\Session;
 
 class FlowDb{
-	
-	public static $prefix = 'leipi_';
 	/**
 	 * 获取类别工作流
 	 * @param $wf_type
@@ -20,8 +18,8 @@ class FlowDb{
 		if ($wf_type == '') {
 			return $workflow;
 		}
-		$wf_sql = "select flow_name,id from ".self::$prefix."flow where is_del=0  and type='".$wf_type."'";
-		return  Db::query ($wf_sql );
+		$info = Db::name('flow')->where('is_del',0)->where('status',0)->where('type',$wf_type)->select();
+		return  $info;
 	}
 	/**
 	 * 获取流程信息
@@ -32,10 +30,9 @@ class FlowDb{
 		if ($fid == '') {
 			return false;
 		}
-		$wf_sql = "select flow_name from ".self::$prefix."flow where id='".$fid."'";
-		$info = Db::query ($wf_sql );	
+		$info = Db::name('flow')->find($fid);		
 		if($info){
-			return  $info[0]['flow_name'];
+			return  $info['flow_name'];
 			}else{
 			return  false;
 		}
@@ -49,10 +46,9 @@ class FlowDb{
 		if ($wf_id == '') {
 			return false;
 		}
-		$wf_sql = "select flow_name,id from ".self::$prefix."flow where is_del=0  and id='".$wf_id."'";
-		$data =Db::query ($wf_sql );
-		if($data){
-			return  $data;
+		$info = Db::name('flow')->find($wf_id);
+		if($info){
+			return  $info;
 			}else{
 			return  false;
 		}
@@ -66,24 +62,7 @@ class FlowDb{
 		if ($id == '') {
 			return false;
 		}
-		$info = Db::table(self::$prefix.'flow_process')
-				->field('*')
-				->find($id);
-		if($data){
-			return  $data;
-			}else{
-			return  false;
-		}
-	}
-	
-	public static function getnexprocess($ids)
-	{
-		if ($ids == '') {
-			return false;
-		}
-		$wf_sql = "select * from ".self::$prefix."flow_process where  id in('".$ids."')";
-		$data =Db::query ($wf_sql );
-	
+		$info = Db::name('flow_process')->field('*')->find($id);
 		if($data){
 			return  $data;
 			}else{

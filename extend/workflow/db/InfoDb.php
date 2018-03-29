@@ -8,8 +8,6 @@ use think\facade\Session;
 
 class InfoDB{
 	
-	public static $prefix = 'leipi_';
-	
 	/**
 	 * 判断业务是否存在，避免已经删除导致错误
 	 * @param $wf_fid  业务id
@@ -20,11 +18,10 @@ class InfoDB{
 		if ($wf_fid == '' || $wf_type == '' ) {
 			return false;
 		}
-		$wf_sql = "select * from ".self::$prefix.$wf_type." where id='".$wf_fid."'";
-		$data =Db::query ($wf_sql );
-		if($data){
-			return  $data;
-			}else{
+		$info = Db::name($wf_type)->find($wf_fid);
+		if($info){
+			return  $info;
+		}else{
 			return  false;
 		}
 	}
@@ -48,12 +45,12 @@ class InfoDB{
             'run_flow_process'=>$wf_process,
             'dateline'=>time(),
         );
-        $run_id = db('run')->insertGetId($data);
-		if(!$run_id)
-        {
+        $run_id = Db::name('run')->insertGetId($data);
+		if(!$run_id){
             return  false;
-        }
-        return $run_id;
+        }else{
+			 return $run_id;
+		}
 	}
 	/**
 	 * 添加运行步骤信息
@@ -79,7 +76,7 @@ class InfoDB{
             'bl_time'=>time(),
             'dateline'=>time(),
         );
-        $process_id = db('run_process')->insertGetId($data);
+        $process_id = Db::name('run_process')->insertGetId($data);
 		if(!$process_id)
         {
             return  false;
@@ -94,13 +91,13 @@ class InfoDB{
 	$run_cache = array(
                 'run_id'=>$run_id,
                 'form_id'=>$wf_fid,
-                'flow_id'=>$wf[0]['id'],
+                'flow_id'=>$wf['id'],
                 'run_form'=>'',//从 serialize 改用  json_encode 兼容其它语言
                 'run_flow'=>json_encode($wf),
                 'run_flow_process'=>json_encode($flow_process), //这里未缓存 子流程 数据是不完善的， 后期会完善
                 'dateline'=>time()
             );
-     $run_cache = db('run_cache')->insertGetId($run_cache);
+     $run_cache = Db::name('run_cache')->insertGetId($run_cache);
 	 if(!$run_cache)
         {
             return  false;
@@ -118,7 +115,7 @@ class InfoDB{
                 'run_flow'=>$run_flow,//从 serialize 改用  json_encode 兼容其它语言
                 'dateline'=>time()
             );
-			 $run_log = db('run_log')->insertGetId($run_log);
+			 $run_log = Db::name('run_log')->insertGetId($run_log);
 			 if(!$run_log)
 				{
 					return  false;
@@ -135,20 +132,18 @@ class InfoDB{
 	public static function workflowInfo($wf_fid,$wf_type) {
 		$workflow = [];
 		require ( BEASE_URL . '/config/config.php');//  
-		$sql = "select * from  ".self::$prefix."run where from_id='$wf_fid' and from_table='$wf_type' and is_del=0 and status=0";
-		
-		$sql2 = "select * from  ".self::$prefix."run where from_id='$wf_fid' and from_table='$wf_type' and is_del=0 ";
-		if(count(Db::query($sql2)) > '0'){
-			$result = Db::query($sql);	
+		$count = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->count();
+		if($count > '0'){
+			$result = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->where('status',0)->find();
 			if ($result) {
-				$workflow ['bill_st'] = $result[0]['status'];
-				$workflow ['flow_id'] = $result[0]['flow_id'];
-				$workflow ['run_id'] = $result[0]['id'];
-				$workflow ['run_flow_process'] = $result[0]['run_flow_process'];
-				$workflow ['bill_state'] = $flowstatus[$result[0]['status']];
-				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result[0]['flow_id']);
-				$workflow ['process'] = ProcessDb::GetProcessInfo($result[0]['run_flow_process']);
-				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result[0]['run_flow_process']);
+				$workflow ['bill_st'] = $result['status'];
+				$workflow ['flow_id'] = $result['flow_id'];
+				$workflow ['run_id'] = $result['id'];
+				$workflow ['run_flow_process'] = $result['run_flow_process'];
+				$workflow ['bill_state'] = $flowstatus[$result['status']];
+				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
+				$workflow ['process'] = ProcessDb::GetProcessInfo($result['run_flow_process']);
+				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 			} else {
 				$workflow ['bill_st'] = 1;
@@ -156,7 +151,6 @@ class InfoDB{
 				$workflow ['bill_check'] = '';
 				$workflow ['bill_time'] = '';
 			}
-			
 		}else{
 			$workflow ['bill_st'] = -1;
 			$workflow ['bill_state'] =$flowstatus[-1];
@@ -174,8 +168,7 @@ class InfoDB{
 	 * @param $wf_type 业务表名
 	 */
 	public static function workrunInfo($run_id) {
-		$sql = "select * from  ".self::$prefix."run where id='$run_id'";
-		$result = Db::query($sql);
+		$result = Db::name('run')->find($run_id);
 		return $result;
 	}
 	
