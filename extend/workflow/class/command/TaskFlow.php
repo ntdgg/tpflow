@@ -37,14 +37,29 @@ class TaskFlow{
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			} 
+			//更新单据状态
+			$bill_update = InfoDB::UpdateBill($wf_fid,$wf_type);
+			if(!$bill_update){
+				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
+			}
 			//消息通知发起人
 		}
 	}
+	/**
+	 *结束工作流
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
 	public function end_flow($run_id)
 	{
 		$result = Db::execute('update leipi_run set status = 1,endtime='.time().' where id = '.$run_id.' ');
 		return $result;	
 	}
+	/**
+	 *运行记录
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
 	public function Run($wf_id,$wf_process,$wf_fid,$wf_type)
 	{
 		$wf_run = InfoDB::addWorkflowRun($wf_id,$wf_process,$wf_fid,$wf_type);

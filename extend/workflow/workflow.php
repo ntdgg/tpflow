@@ -73,6 +73,12 @@ $configContext->setEmailObj(@$email);
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
 			
+			//更新单据状态
+			$bill_update = InfoDB::UpdateBill($wf_fid,$wf_type);
+			if(!$bill_update){
+				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
+			}
+			
 			$run_log = InfoDB::AddrunLog(1,$wf_run,$wf_fid,$wf_type,'工作流发起');
 			
 			$configContext = ConfigContext::getInstance();
@@ -113,7 +119,7 @@ $configContext->setEmailObj(@$email);
 			if ($wf_actionid == "ok") {//提交处理
 				$ret = $taskService->doTask($config);
 			} else if ($wf_actionid == "back") {//退回处理
-				$taskService->reject();
+				$ret = $taskService->doBack($config);
 			} else if ($wf_actionid == "sing") {//会签
 				$taskService->freeRoute();
 			} else { //通过

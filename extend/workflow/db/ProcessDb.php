@@ -53,6 +53,26 @@ class ProcessDb{
 		}
 		return $process;
 	}
+	/**
+	 * 获取前步骤的流程信息
+	 * @param $runid
+	 */
+	public static function GetPreProcessInfo($runid)
+	{
+		$pre_n = Db::name('run')->find($runid);
+		$pre = Db::name('flow_process')->where('flow_id',$pre_n['flow_id'])->where('id','lt',$pre_n['run_flow_process'])->select();
+		$prearray = [];
+		if(count($pre)>=1){
+			$prearray[0] = '退回制单人修改';
+			foreach($pre as $k => $v){
+				
+				$prearray[$v['id']] = $v['process_name'];
+			}
+			}else{
+			$prearray[0] = '退回制单人修改';	
+		}
+		return $prearray;
+	}
 	
 	/**
 	 * 获取第一个流程

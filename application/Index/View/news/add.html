@@ -4,6 +4,7 @@
 		{present name="info.id"}
 			<form action="{:url('edit')}" method="post" name="form" id="form">
 			<input type="hidden" name="id" value="{$info.id}">
+			<input type="hidden" name="status" value="0">
 		{else /}
 			<form action="{:url('add')}" method="post" name="form" id="form">
 		{/present}

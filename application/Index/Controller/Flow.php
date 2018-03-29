@@ -48,7 +48,6 @@ class Flow extends Controller {
 		$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
 		$this->assign('info',$info);
 		$this->assign('flowinfo',$flowinfo);
-		$this->assign('bill_url','/news/view?id=2');
 		return $this->fetch();
 	}
 	public function do_check_save()
@@ -57,7 +56,6 @@ class Flow extends Controller {
 		$data = $this->request->param();
 		$workflow = new workflow();
 		$flowinfo = $workflow->workdoaction($data);
-		
 		return msg_return('Success!');
 	}
 }

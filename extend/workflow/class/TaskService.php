@@ -19,27 +19,18 @@ class TaskService{
 	 * 普通流程通过
 	 */
 	public function doTask($config){
-		require_once BEASE_URL . '/class/TaskFlow.php';
+		require_once BEASE_URL . '/class/command/TaskFlow.php';
 		$command = new TaskFlow();
 		$command->doTask($config);
 	}
 	/**
 	 * 
-	 * 自由流程通过
-	 */
-	public function doFreeTask(){
-		require_once BEASE_URL . '/service/command/FreeTaskCommand.php';
-		$command = new FreeTaskCommand();
-		$command->execute();
-	}
-	/**
-	 * 
 	 * 驳回
 	 */
-	public function reject(){
-		require_once BEASE_URL . '/service/command/RejectCommand.php';
-		$command = new RejectCommand();
-		$command->execute();
+	public function doBack($config){
+		require_once BEASE_URL . '/class/command/BackFlow.php';
+		$command = new BackFlow();
+		$command->doTask($config);
 	}
 	/**
 	 * 

@@ -144,6 +144,7 @@ class InfoDB{
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
 				$workflow ['process'] = ProcessDb::GetProcessInfo($result['run_flow_process']);
 				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
+				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($result['id']);
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 			} else {
 				$workflow ['bill_st'] = 1;
@@ -171,6 +172,22 @@ class InfoDB{
 		$result = Db::name('run')->find($run_id);
 		return $result;
 	}
+	/**
+	 * 更新单据信息
+	 *
+	 * @param $wf_fid  运行的id
+	 * @param $wf_type 业务表名
+	 * @param $status  单据状态
+	 */
+	public static function UpdateBill($wf_fid,$wf_type,$status = 1)
+	{
+		$result = Db::name($wf_type)->where('id',$wf_fid)->update(['status'=>$status,'uptime'=>time()]);
+		 if(!$result){
+            return  false;
+        }
+        return $result;
+		
+	} 
 	
 	
 }
