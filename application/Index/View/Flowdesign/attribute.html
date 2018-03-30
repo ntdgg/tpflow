@@ -48,6 +48,18 @@
               </label>
             </div>
           </div>
+		   <div id="current_flow">
+          <div class="offset1">
+          <!--未按顺序的bug 2012-12-12-->
+            <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
+            {volist name="process_to_list" id="vo"}
+                {if condition="$vo['id'] neq $one['id']"}
+                    <option value="{$vo.id}" {if condition="in_array($vo['id'],$one['process_to'])"}selected="selected"{/if}>{$vo.process_name}</option>
+                {/if}
+            {/volist}
+            </select>
+          </div>
+        </div><!-- current_flow end -->
 <hr/>
  </div>
     <div class="tab-pane" id="attrPower">

@@ -16,8 +16,14 @@ class ProcessDb{
 	public static function GetProcessInfo($pid)
 	{
 		$info = Db::name('flow_process')
-				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_sponsor_text,is_sing,sign_look,is_back')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,is_sing,sign_look,is_back')
 				->find($pid);
+		if($info['auto_person']==4){ //办理人员
+			$info['todo'] = $info['auto_sponsor_text'];
+		}
+		if($info['auto_person']==5){ //办理角色
+			$info['todo'] = $info['auto_role_text'];
+		}
 		return $info;
 	}
 	/**
@@ -49,7 +55,7 @@ class ProcessDb{
 				$process = self::GetProcessInfo($nex_pid);	
 			}
 		}else{
-			$process = ['id'=>'','process_name'=>'END'];
+			$process = ['id'=>'','process_name'=>'END','todo'=>'结束'];
 		}
 		return $process;
 	}
@@ -65,8 +71,13 @@ class ProcessDb{
 		if(count($pre)>=1){
 			$prearray[0] = '退回制单人修改';
 			foreach($pre as $k => $v){
-				
-				$prearray[$v['id']] = $v['process_name'];
+				if($v['auto_person']==4){ //办理人员
+					$todo = $v['auto_sponsor_text'];
+				}
+				if($v['auto_person']==5){ //办理角色
+					$todo = $v['auto_role_text'];
+				}
+				$prearray[$v['id']] = $v['process_name'].'('.$todo.')';
 			}
 			}else{
 			$prearray[0] = '退回制单人修改';	
@@ -107,7 +118,7 @@ class ProcessDb{
 		$run_log = Db::name('run_log')->where('from_id',$wf_fid)->where('from_table',$wf_type)->select();
 		foreach($run_log as $k=>$v)
         {
-           $run_log[$k]['user'] ='admin';
+           $run_log[$k]['user'] =Db::name('user')->where('id',$v['uid'])->value('username');
         }
 		return $run_log;
 	}

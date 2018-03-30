@@ -17,7 +17,7 @@
 {/if}
 </mark></h4>
 {volist name='user' id='k'}
-	<a href="{:url('login',['id'=>$k.id,'user'=>$k.username])}" class="btn btn-primary radius">{$k.username}</a>
+	<a href="{:url('login',['id'=>$k.id,'user'=>$k.username,'role'=>$k.role])}" class="btn btn-primary radius">{$k.username}</a>
 {/volist}
 <h2>API 文档说明</h2>
 <h4>第一步：工作流设计</h4>

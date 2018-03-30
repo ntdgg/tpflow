@@ -200,9 +200,9 @@ function saveAttribute(data)
     function fnClearCon(id){
         $('#conList_' + id).html('');
     }
-
     //根据基本信息的下一步骤，设置《条件设置》tab的条件列表
     function fnSetCondition(){
+		
         if($("#process_multiple option:selected").length<=1)
         {
             $('#tab_attrJudge').hide();

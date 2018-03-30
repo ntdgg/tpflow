@@ -28,21 +28,12 @@
 				{/eq}{$k.new_title}</td>
 				<td>{$k.add_time|date='Y-m-d H:i'}</td>
 				<td>
-				{$k.status}-1回退修改0 保存中1流程中 2通过
-				<!-- {if condition='$k.flowinfo.bill_st eq -1'}
-					保存
-					{else/}
-					{$k.flowinfo.bill_state}</br>
-				{/if} --></td>
+				{:action('flow/status',['status'=>$k.status])}
+				</td>
 				<td class="td-manage">
 				<div class="btn-group">
 					<span class="btn  radius size-S" data-title="查看" data-href="{:url('view',['id'=>$k.id])}" onclick="Hui_admin_tab(this)"><i class="Hui-iconfont">查看</span>
-					{if condition='$k.status eq 0'}
-					<span class="btn  radius size-S" onclick="layer_show('发起工作流','{:url('/index/flow/start/',['wf_type'=>'news','wf_title'=>$k.new_title,'wf_fid'=>$k.id])}','450','350')">发起</span>
-					{/if}
-					{if condition='$k.status eq 1'}
-					<span class="btn  radius size-S" onclick="layer_show('审核','{:url('/index/flow/do_check/',['wf_type'=>'news','wf_title'=>$k.new_title,'wf_fid'=>$k.id])}','850','650')">审核</span>
-					{/if}
+						{:action('flow/btn',['wf_fid'=>$k.id,'wf_type'=>'news','status'=>$k.status])}
 					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$k.id])}','850','500')">修改</span>
 				</div>
 				</td>

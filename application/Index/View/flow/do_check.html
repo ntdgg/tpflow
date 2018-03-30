@@ -25,7 +25,7 @@
 				</tr>
 				<tr id='nex_process'>
 				<th style='width:30px' >下一步骤</th>
-				<th>{$flowinfo['nexprocess']['process_name']}</th>
+				<th>{$flowinfo['nexprocess']['process_name']}({$flowinfo['nexprocess']['todo']})</th>
 				</tr>
 				<tr style='display:none' id='back_process'>
 				<th style='width:30px'>回退步骤</th>
@@ -54,10 +54,13 @@
 				</tr>
 				</table>
 			</td>
-			<td>
-			{volist name='$flowinfo.log' id='k'}
-				{$k.user}-{$k.content}-{$k.dateline}
-			{/volist}
+			<td valign="top">
+				<table class="table table-border table-bordered " style='width:98%'>
+					<tr><td>审批人</td><td>审批意见</td><td>审批操作</td><td>审批时间</td></tr>
+					{volist name='$flowinfo.log' id='k'}
+						<tr><td>{$k.user}</td><td>{$k.content}</td><td>{$k.btn}</td><td>{:date('m-d H:i',$k['dateline'])}</td></tr>
+					{/volist}
+				</table>
 			</td>
 			</tr>
 		</table>

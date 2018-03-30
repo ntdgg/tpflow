@@ -18,10 +18,10 @@ class TaskService{
 	 * 
 	 * 普通流程通过
 	 */
-	public function doTask($config){
+	public function doTask($config,$uid){
 		require_once BEASE_URL . '/class/command/TaskFlow.php';
 		$command = new TaskFlow();
-		$command->doTask($config);
+		$command->doTask($config,$uid);
 	}
 	/**
 	 * 

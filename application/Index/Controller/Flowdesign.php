@@ -391,6 +391,7 @@ class Flowdesign extends Admin {
         $process_name = trim(input('post.process_name'));//步骤名称
         $process_type = trim(input('post.process_type'));//类型
 		$auto_person = intval(input('post.auto_person'));//自动选人
+		$process_to = ids_parse(input('post.process_to/a'));//下一步
 		$auto_unlock = intval(input('post.auto_unlock'));//>预先设置自动选人，更方便转交工作
 		$auto_sponsor_ids = trim(input('post.auto_sponsor_ids'));//指定主办人
         $auto_sponsor_text = trim(input('post.auto_sponsor_text'));
@@ -448,6 +449,7 @@ class Flowdesign extends Admin {
             //常规
             'process_name'=>$process_name,
             'process_type'=>$process_type,
+			'process_to'=>$process_to,
             //权限
             'auto_person'=>$auto_person,
             'auto_unlock'=>$auto_unlock,

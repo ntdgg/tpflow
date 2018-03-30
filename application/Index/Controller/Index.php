@@ -7,13 +7,14 @@ use think\facade\Session;
 class Index  extends Controller{
     public function index(){
 		//Session::clear();
-	  $this->assign('user',db('user')->field('id,username')->select());
+	  $this->assign('user',db('user')->field('id,username,role')->select());
       return $this->fetch();
     }
 	public function login(){
 		Session::clear();
         Session::set('uid', input('id'));
 		Session::set('uname', input('user'));
+		Session::set('role', input('role'));
 		$this->success('模拟登入成功！');
 		exit;
 	}

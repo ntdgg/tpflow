@@ -142,7 +142,9 @@ class InfoDB{
 				$workflow ['run_flow_process'] = $result['run_flow_process'];
 				$workflow ['bill_state'] = $flowstatus[$result['status']];
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
+				
 				$workflow ['process'] = ProcessDb::GetProcessInfo($result['run_flow_process']);
+				
 				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
 				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($result['id']);
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
@@ -202,9 +204,6 @@ class InfoDB{
 				$result[$k]['user'] =$process['auto_role_text'];
 			}
 		}
-		 if(!$result){
-            return  false;
-        }
         return $result;
 		
 	}
