@@ -12,6 +12,7 @@ require_once BEASE_URL . '/config/config.php';
 require_once BEASE_URL . '/db/InfoDB.php';
 require_once BEASE_URL . '/db/FlowDb.php';
 require_once BEASE_URL . '/db/ProcessDb.php';
+require_once BEASE_URL . '/db/LogDb.php';
 //类库
 
 require_once BEASE_URL . '/class/ConfigContext.php';
@@ -39,8 +40,11 @@ $configContext->setEmailObj(@$email);
 		 *流程发起
 		 *
 		 **/
-		function startworkflow($wf_id,$wf_fid,$wf_type)
+		function startworkflow($config,$uid)
 		{
+			$wf_id = $config['wf_id'];
+			$wf_fid = $config['wf_fid'];
+			$wf_type = $config['wf_type'];
 			//判断流程是否存在
 			$wf = FlowDb::getWorkflow($wf_id);
 			if(!$wf){
@@ -79,7 +83,7 @@ $configContext->setEmailObj(@$email);
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
 			
-			$run_log = InfoDB::AddrunLog(1,$wf_run,$wf_fid,$wf_type,'工作流发起');
+			$run_log = LogDb::AddrunLog($uid,$wf_run,$config,'Send');
 			
 			$configContext = ConfigContext::getInstance();
 			//发起消息通知
@@ -127,6 +131,20 @@ $configContext->setEmailObj(@$email);
 			}
 			
 			return $ret;
+		}
+		/*
+		 * 工作流监控
+		 *
+		 *
+		 *
+		 **/
+		function worklist($status = 0)
+		{
+			$work = InfoDB::worklist();
+			if(!$work){
+				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
+			}
+			return $work;
 		}
 		
 }

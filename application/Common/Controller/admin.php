@@ -16,6 +16,10 @@ class Admin extends Controller
 {
     public function initialize()
     {
-		
+		parent::initialize();
+		defined('uid') or define('uid', session('uid'));
+		if (null === uid) {
+            $this->error('请先模拟登入！');
+        }
     }
 }

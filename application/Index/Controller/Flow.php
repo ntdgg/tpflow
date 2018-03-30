@@ -6,6 +6,21 @@ use workflow\workflow;
 use think\facade\Session;
 
 class Flow extends Controller {
+	
+	protected function initialize()
+    {
+       $this->uid = session('uid');
+    }
+	/*流程监控*/
+	public function index($map = [])
+	{
+		$workflow = new workflow();
+		$flow = $workflow->worklist();
+		$this->assign('list', $flow);
+		return $this->fetch();
+		
+	}
+	
     /*发起流程，选择工作流*/
 	public function start()
 	{
@@ -20,12 +35,12 @@ class Flow extends Controller {
 	/*正式发起工作流*/
 	public function statr_save()
 	{
-		Session::set('uid',1);
 		$wf_type = input('wf_type');
 		$wf_id = input('wf_id');
 		$wf_fid = input('wf_fid');
+		$data = $this->request->param();
 		$workflow = new workflow();
-		$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
+		$flow = $workflow->startworkflow($data,$this->uid);
 		if($flow['code']==1){
 			return msg_return('Success!');
 		}

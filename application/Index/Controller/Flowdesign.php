@@ -1,9 +1,9 @@
 <?php
 namespace app\index\Controller;
-use think\Controller;
+use app\common\controller\admin;
 use think\Db;
 
-class Flowdesign extends Controller {
+class Flowdesign extends Admin {
 	/**
 	 *前置方法
 	 */
@@ -247,12 +247,11 @@ class Flowdesign extends Controller {
         $process_info = trim(input('process_info'));
 		$process_info = json_decode(htmlspecialchars_decode($process_info),true);
         if($flow_id<=0 or !$process_info){
-			return json(['status'=>0,'msg'=>'参数有误，请重试','info'=>'']);
+			$this->return_iframe_ajax(['status'=>0,'msg'=>'参数有误，请重试','info'=>'']);
         }
         $one = db('flow')->find($flow_id);
         if(!$one){
-           $data = json(['status'=>0,'msg'=>'未找到流程数据','info'=>'']);
-			return $data;
+           $this->return_iframe_ajax(['status'=>0,'msg'=>'未找到流程数据','info'=>'']);
         }
         //保存数据
         foreach($process_info as $process_id=>$value){
@@ -362,20 +361,6 @@ class Flowdesign extends Controller {
         }
         
         return json_encode($json_data);
-        
-        /*
-        $flow_id  = intval($_POST['flow_id']);
-        $process_id  = intval($_POST['process_id']);
-        
-        $arr = array(
-            //步骤ID => desc 不符合条件时的提示   option 显示文本   value 值 
-            '59'=>array(
-                'condition_desc'=>'不符合条件时的提示',
-                'condition'=>"<option value=\"'data_1' = '33'  AND\">'爱好' = '33' AND</option><option value=\"'data_2' = '44'\">'姓名' = '44'</option>"
-            ),
-        );
-        echo json_encode($arr);
-        */
     }
     
     //通过 name  data_x 找到 title
@@ -401,22 +386,10 @@ class Flowdesign extends Controller {
     
     public function save_attribute()
     {
-        //print_R($_POST);exit;
-        //start 避免出错，都列出来先
         $flow_id = intval(input('post.flow_id'));//流程ID
 		$process_id = intval(input('post.process_id'));//步骤ID
-        //常规
         $process_name = trim(input('post.process_name'));//步骤名称
         $process_type = trim(input('post.process_type'));//类型
-        $process_to = ids_parse(input('post.process_to/a'));//下一步
-        $child_id = intval(input('post.child_id'));//子流程ID
-        $child_after = intval(input('post.child_after'));//子流程结束后动作
-        $child_back_process = intval(input('post.child_back_process'));//结束返回
-        //表单
-        
-        $write_fields = input('post.write_fields','') ? implode(',',input('post.write_fields','')) :'';//可写字段
-        $secret_fields = input('post.secret_fields','') ? implode(',',input('post.secret_fields','')) :'';//保密字段
-        //权限
 		$auto_person = intval(input('post.auto_person'));//自动选人
 		$auto_unlock = intval(input('post.auto_unlock'));//>预先设置自动选人，更方便转交工作
 		$auto_sponsor_ids = trim(input('post.auto_sponsor_ids'));//指定主办人
@@ -460,48 +433,21 @@ class Flowdesign extends Controller {
        $style_height = intval(input('post.style_height'));
        $style_color = trim(input('post.style_color'));
        $style_icon = trim(input('post.style_icon'));
-//end 避免出错，都列出来先
-       
+		//end 避免出错，都列出来先
        $process_model = db('flow_process');
        //对数据进行判断
-       if($flow_id<=0 || $process_id<=0)
-       {
-           $data = array(
-                'status'=>0,
-                'msg'=>'保存失败',
-                'info'=>'',
-            );
-			return json($data);
+       if($flow_id<=0 || $process_id<=0){
+           $this->return_iframe_ajax(['status'=>0,'msg'=>'保存失败','info'=>'']);
        }
-       
-       //检查步骤是否存在
-        $map = array(
-            'id'=>$process_id,
-            'flow_id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $process_one = db('flow_process')->where($map)->find();
+        $process_one = db('flow_process')->find($process_id);
         if(!$process_one){
-            $data = array(
-                'status'=>0,
-                'msg'=>'未找到步骤，请刷新再试',
-                'info'=>'',
-            );
-			return json($data);
+			$this->return_iframe_ajax(['status'=>0,'msg'=>'未找到步骤，请刷新再试','info'=>'']);
         }
-        
         //保存数据， 不列出来的，直接写这里也可以呀
         $data = array(
             //常规
             'process_name'=>$process_name,
             'process_type'=>$process_type,
-            'process_to'=>$process_to,
-            'child_id'=>$child_id,
-            'child_after'=>$child_after,
-            'child_back_process'=>$child_back_process,
-            //表单
-            'write_fields'=>$write_fields,
-            'secret_fields'=>$secret_fields,
             //权限
             'auto_person'=>$auto_person,
             'auto_unlock'=>$auto_unlock,
@@ -536,28 +482,11 @@ class Flowdesign extends Controller {
            
         );
 		db('flow_process')->where('id',$process_id)->update($data);
-        
-        
-        
-        //成功返回
-        $data = array(
-            'status'=>1,
-            'msg'=>'保存成功',
-            'info'=>'',
-        );
-		return json($data);
+		$this->return_iframe_ajax(['status'=>1,'msg'=>'保存成功','info'=>'']);
     }
     //返回给firame提交的表单
     public function return_iframe_ajax($ajax_return)
     {
-        //返回格式
-        /*
-        $ajax_return = array(
-            'status'=>1,
-            'msg'=>'保存成功',
-            'info'=>'',
-        );*/
-        //回调页面的函数
         echo '<script type="text/javascript">parent.saveAttribute('.json_encode($ajax_return).');</script>';
         exit;
     } 
@@ -587,4 +516,16 @@ class Flowdesign extends Controller {
 		}
 		return count($result) == 1 ? reset($result) : $result;
 	}
+	    //用户选择控件
+    public function super_dialog()
+    {
+        $op = trim(input('op'));//选择方式  user 用户  dept部门  role 角色
+        if(!$op) $op = 'user';
+        
+		
+		$this->assign('user',db('user')->field('id,username')->select());
+		$this->assign('role',db('role')->field('id,name')->select());
+        $this->assign('op',$op);
+        return $this->fetch();
+    }
 }

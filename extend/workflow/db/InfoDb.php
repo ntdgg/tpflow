@@ -189,5 +189,25 @@ class InfoDB{
 		
 	} 
 	
+	public static function worklist()
+	{
+		$result = Db::name('run')->where('status',0)->select();
+		foreach($result as $k=>$v)
+		{
+			$result[$k]['flow_name'] = Db::name('flow')->where('id',$v['flow_id'])->value('flow_name');
+			$process = Db::name('flow_process')->where('id',$v['run_flow_process'])->find();
+			if($process['auto_person'] == 4){
+				$result[$k]['user'] =$process['auto_sponsor_text'];
+				}else{
+				$result[$k]['user'] =$process['auto_role_text'];
+			}
+		}
+		 if(!$result){
+            return  false;
+        }
+        return $result;
+		
+	}
+	
 	
 }

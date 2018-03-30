@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : pms
+Source Server         : 127.0.0.1_3306
 Source Server Version : 50553
 Source Host           : 127.0.0.1:3306
 Source Database       : tpflow
@@ -10,13 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-03-30 07:28:13
+Date: 2018-03-30 11:39:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for leipi_flow
+-- Table structure for `leipi_flow`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_flow`;
 CREATE TABLE `leipi_flow` (
@@ -41,7 +41,7 @@ INSERT INTO `leipi_flow` VALUES ('5', 'news', '测试工作流添加', '2', '1',
 INSERT INTO `leipi_flow` VALUES ('6', 'paper', '合同信息审批', '合同信息审批21', '2', '0', '0', '1', '1522242419');
 
 -- ----------------------------
--- Table structure for leipi_flow_process
+-- Table structure for `leipi_flow_process`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_flow_process`;
 CREATE TABLE `leipi_flow_process` (
@@ -94,9 +94,9 @@ CREATE TABLE `leipi_flow_process` (
 -- ----------------------------
 -- Records of leipi_flow_process
 -- ----------------------------
-INSERT INTO `leipi_flow_process` VALUES ('70', '4', '开始', 'is_one', '71', '0', '', '1', '0', '', '', '', '', '', '', '4', '1', '10,11,12', '测试1,测试2,测试3', '10,11,12', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"71\":{\"condition\":[],\"condition_desc\":\"\"}}', '436', '215', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521769266', '0');
-INSERT INTO `leipi_flow_process` VALUES ('71', '4', '市场部审核', 'is_step', '72', '4', '', '2', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"72\":{\"condition\":[],\"condition_desc\":\"\"}}', '569', '404', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521769266', '0');
-INSERT INTO `leipi_flow_process` VALUES ('72', '4', '工程部审核', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '778', '331', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521769266', '0');
+INSERT INTO `leipi_flow_process` VALUES ('70', '4', '开始', 'is_one', '71', '0', '', '0', '0', '', '', '', '', '', '', '4', '1', '10', '新闻部经理', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '436', '215', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522375321', '0');
+INSERT INTO `leipi_flow_process` VALUES ('71', '4', '市场部审核', 'is_step', '72', '4', '', '2', '0', '', '', '', '', '', '', '4', '1', '11', '市场部经理', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '569', '404', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522375321', '0');
+INSERT INTO `leipi_flow_process` VALUES ('72', '4', '工程部审核', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '4', '1', '13', '总经理', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '778', '331', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522375321', '0');
 INSERT INTO `leipi_flow_process` VALUES ('73', '3', '开始', 'is_one', '74,75', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"74\":{\"condition\":[\"new_type= \'1\'\"],\"condition_desc\":\"\"},\"75\":{\"condition\":[\"new_type= \'2\'\"],\"condition_desc\":\"\"}}', '331', '187', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
 INSERT INTO `leipi_flow_process` VALUES ('74', '3', '市场部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '600', '143', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
 INSERT INTO `leipi_flow_process` VALUES ('75', '3', '工程部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '578', '333', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
@@ -109,30 +109,7 @@ INSERT INTO `leipi_flow_process` VALUES ('81', '5', '新建步骤', 'is_step', '
 INSERT INTO `leipi_flow_process` VALUES ('82', '5', '新建步骤', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '845', '265', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
 
 -- ----------------------------
--- Table structure for leipi_foreign_test
--- ----------------------------
-DROP TABLE IF EXISTS `leipi_foreign_test`;
-CREATE TABLE `leipi_foreign_test` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `form_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of leipi_foreign_test
--- ----------------------------
-INSERT INTO `leipi_foreign_test` VALUES ('13', '52', '32333', '0', '1407556818', '1407338095');
-INSERT INTO `leipi_foreign_test` VALUES ('14', '52', '55555', '0', '1407557049', '1407556896');
-INSERT INTO `leipi_foreign_test` VALUES ('15', '52', 'q23', '0', '1408597541', '1408597541');
-INSERT INTO `leipi_foreign_test` VALUES ('16', '54', '22', '0', '1410971141', '1410970367');
-INSERT INTO `leipi_foreign_test` VALUES ('17', '54', 'ww', '0', '1410971511', '1410971183');
-
--- ----------------------------
--- Table structure for leipi_news
+-- Table structure for `leipi_news`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_news`;
 CREATE TABLE `leipi_news` (
@@ -147,15 +124,15 @@ CREATE TABLE `leipi_news` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '-1回退修改0 保存中1流程中 2通过',
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_news
 -- ----------------------------
-INSERT INTO `leipi_news` VALUES ('10', '1', '1522328414', '业务测试2', '1', '1', '&lt;p&gt;			&amp;lt;p&amp;gt;测试下呗&amp;lt;/p&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1112313&lt;/p&gt;', null, '1', '1522329203');
+INSERT INTO `leipi_news` VALUES ('12', '7', '1522378250', '审批流测试', '1', '1', '&lt;p&gt;审批流测试&lt;/p&gt;', null, '1', '1522378723');
 
 -- ----------------------------
--- Table structure for leipi_news_type
+-- Table structure for `leipi_news_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_news_type`;
 CREATE TABLE `leipi_news_type` (
@@ -175,7 +152,56 @@ INSERT INTO `leipi_news_type` VALUES ('3', '上级要闻', '1', null);
 INSERT INTO `leipi_news_type` VALUES ('4', '职称考试', '1', null);
 
 -- ----------------------------
--- Table structure for leipi_run
+-- Table structure for `leipi_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `leipi_role`;
+CREATE TABLE `leipi_role` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL COMMENT '后台组名',
+  `pid` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '是否激活 1：是 0：否',
+  `sort` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '排序权重',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注说明',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`pid`),
+  KEY `status` (`status`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of leipi_role
+-- ----------------------------
+INSERT INTO `leipi_role` VALUES ('15', '市场部', '0', '1', '0', '');
+INSERT INTO `leipi_role` VALUES ('16', '工程部', '0', '1', '0', '');
+INSERT INTO `leipi_role` VALUES ('17', '新闻部', '0', '1', '0', '');
+INSERT INTO `leipi_role` VALUES ('18', '新闻部经理', '0', '1', '0', '');
+INSERT INTO `leipi_role` VALUES ('19', '工程部经理', '0', '1', '0', '');
+INSERT INTO `leipi_role` VALUES ('20', '市场部经理', '0', '1', '0', '');
+INSERT INTO `leipi_role` VALUES ('21', '总经理', '0', '1', '0', '');
+
+-- ----------------------------
+-- Table structure for `leipi_role_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `leipi_role_user`;
+CREATE TABLE `leipi_role_user` (
+  `user_id` int(10) unsigned NOT NULL,
+  `role_id` smallint(6) unsigned NOT NULL,
+  KEY `group_id` (`role_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of leipi_role_user
+-- ----------------------------
+INSERT INTO `leipi_role_user` VALUES ('7', '15');
+INSERT INTO `leipi_role_user` VALUES ('8', '15');
+INSERT INTO `leipi_role_user` VALUES ('9', '17');
+INSERT INTO `leipi_role_user` VALUES ('10', '18');
+INSERT INTO `leipi_role_user` VALUES ('11', '20');
+INSERT INTO `leipi_role_user` VALUES ('12', '19');
+INSERT INTO `leipi_role_user` VALUES ('13', '21');
+
+-- ----------------------------
+-- Table structure for `leipi_run`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run`;
 CREATE TABLE `leipi_run` (
@@ -203,17 +229,15 @@ CREATE TABLE `leipi_run` (
   KEY `cache_run_id` (`cache_run_id`),
   KEY `uid` (`uid`),
   KEY `is_del` (`is_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=767 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=771 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run
 -- ----------------------------
-INSERT INTO `leipi_run` VALUES ('764', '0', 'news', '10', '0', '0', '1', '4', '0', '10', '4', '70', '', '1522329011', '1', '0', '0', '1522328930');
-INSERT INTO `leipi_run` VALUES ('765', '0', 'news', '10', '0', '0', '1', '4', '0', '10', '4', '70', '', '1522365590', '1', '0', '0', '1522329203');
-INSERT INTO `leipi_run` VALUES ('766', '0', 'news', '10', '0', '0', '1', '4', '0', '10', '4', '71', '', '0', '0', '0', '0', '1522365590');
+INSERT INTO `leipi_run` VALUES ('770', '0', 'news', '12', '0', '0', '7', '4', '0', '12', '4', '70', '', '0', '0', '0', '0', '1522378723');
 
 -- ----------------------------
--- Table structure for leipi_run_cache
+-- Table structure for `leipi_run_cache`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_cache`;
 CREATE TABLE `leipi_run_cache` (
@@ -229,16 +253,15 @@ CREATE TABLE `leipi_run_cache` (
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `run_id` (`run_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1928 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1932 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run_cache
 -- ----------------------------
-INSERT INTO `leipi_run_cache` VALUES ('1926', '764', '10', '10', '', '{\"id\":10,\"uid\":1,\"add_time\":1522328414,\"new_title\":\"\\u4e1a\\u52a1\\u6d4b\\u8bd5\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\u6d4b\\u8bd5\\u4e0b\\u5457&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":1,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10,11,12\",\"auto_sponsor_text\":\"\\u6d4b\\u8bd51,\\u6d4b\\u8bd52,\\u6d4b\\u8bd53\",\"auto_respon_ids\":\"10,11,12\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":1,\"is_back\":1,\"out_condition\":\"{\\\"71\\\":{\\\"condition\\\":[],\\\"condition_desc\\\":\\\"\\\"}}\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1521769266,\"dateline\":0}', '0', '0', '1522328930');
-INSERT INTO `leipi_run_cache` VALUES ('1927', '765', '10', '10', '', '{\"id\":10,\"uid\":1,\"add_time\":1522328414,\"new_title\":\"\\u4e1a\\u52a1\\u6d4b\\u8bd52\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\t\\t\\t&amp;lt;p&amp;gt;\\u6d4b\\u8bd5\\u4e0b\\u5457&amp;lt;\\/p&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1112313&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":1522329011}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":1,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10,11,12\",\"auto_sponsor_text\":\"\\u6d4b\\u8bd51,\\u6d4b\\u8bd52,\\u6d4b\\u8bd53\",\"auto_respon_ids\":\"10,11,12\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":1,\"is_back\":1,\"out_condition\":\"{\\\"71\\\":{\\\"condition\\\":[],\\\"condition_desc\\\":\\\"\\\"}}\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1521769266,\"dateline\":0}', '0', '0', '1522329203');
+INSERT INTO `leipi_run_cache` VALUES ('1931', '770', '12', '12', '', '{\"id\":12,\"uid\":7,\"add_time\":1522378250,\"new_title\":\"\\u5ba1\\u6279\\u6d41\\u6d4b\\u8bd5\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\u5ba1\\u6279\\u6d41\\u6d4b\\u8bd5&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":0,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10\",\"auto_sponsor_text\":\"\\u65b0\\u95fb\\u90e8\\u7ecf\\u7406\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1522375321,\"dateline\":0}', '0', '0', '1522378723');
 
 -- ----------------------------
--- Table structure for leipi_run_log
+-- Table structure for `leipi_run_log`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_log`;
 CREATE TABLE `leipi_run_log` (
@@ -249,22 +272,20 @@ CREATE TABLE `leipi_run_log` (
   `run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转id',
   `run_flow` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程ID,子流程时区分run step',
   `content` text NOT NULL COMMENT '日志内容',
-  `ip` char(15) NOT NULL DEFAULT '' COMMENT 'ip2long最后登陆ip',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `btn` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `run_id` (`run_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run_log
 -- ----------------------------
-INSERT INTO `leipi_run_log` VALUES ('16', '1', '0', '工作流发起', '764', '0', '10', '', '1522328930');
-INSERT INTO `leipi_run_log` VALUES ('17', '1', '0', '工作流发起', '765', '0', '10', '', '1522329203');
-INSERT INTO `leipi_run_log` VALUES ('18', '1', '10', 'news', '766', '0', '审批意见', '', '1522365590');
+INSERT INTO `leipi_run_log` VALUES ('20', '7', '12', 'news', '770', '0', '请尽快审批。', '1522378723', 'Send');
 
 -- ----------------------------
--- Table structure for leipi_run_process
+-- Table structure for `leipi_run_process`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_process`;
 CREATE TABLE `leipi_run_process` (
@@ -293,17 +314,15 @@ CREATE TABLE `leipi_run_process` (
   KEY `run_id` (`run_id`),
   KEY `status` (`status`),
   KEY `is_del` (`is_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=1515 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1519 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run_process
 -- ----------------------------
-INSERT INTO `leipi_run_process` VALUES ('1512', '1', '764', '4', '70', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522328930', '1522328930', '0', '0', '0', '1522328930');
-INSERT INTO `leipi_run_process` VALUES ('1513', '1', '765', '4', '70', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522329203', '1522329203', '0', '0', '0', '1522329203');
-INSERT INTO `leipi_run_process` VALUES ('1514', '1', '766', '4', '71', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522365590', '1522365590', '0', '0', '0', '1522365590');
+INSERT INTO `leipi_run_process` VALUES ('1518', '7', '770', '4', '70', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522378723', '1522378723', '0', '0', '0', '1522378723');
 
 -- ----------------------------
--- Table structure for leipi_run_sign
+-- Table structure for `leipi_run_sign`
 -- ----------------------------
 DROP TABLE IF EXISTS `leipi_run_sign`;
 CREATE TABLE `leipi_run_sign` (
@@ -325,3 +344,36 @@ CREATE TABLE `leipi_run_sign` (
 -- ----------------------------
 -- Records of leipi_run_sign
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `leipi_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `leipi_user`;
+CREATE TABLE `leipi_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` char(32) NOT NULL,
+  `tel` varchar(255) DEFAULT NULL,
+  `mail` varchar(255) DEFAULT NULL,
+  `role` smallint(6) unsigned NOT NULL COMMENT '组ID',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 1:启用 0:禁止',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注说明',
+  `last_login_time` int(11) unsigned NOT NULL COMMENT '最后登录时间',
+  `last_login_ip` varchar(15) DEFAULT NULL COMMENT '最后登录IP',
+  `login_count` int(11) DEFAULT '0',
+  `last_location` varchar(100) DEFAULT NULL COMMENT '最后登录位置',
+  `add_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `username` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+-- ----------------------------
+-- Records of leipi_user
+-- ----------------------------
+INSERT INTO `leipi_user` VALUES ('7', '市场部员工1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '15', '0', '1', '1522372036', '127.0.0.1', '0', '新建用户', '1522372036');
+INSERT INTO `leipi_user` VALUES ('8', '工程部员工1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '15', '0', '1', '1522372556', '127.0.0.1', '0', '新建用户', '1522372556');
+INSERT INTO `leipi_user` VALUES ('9', '新闻部员工1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '17', '0', '1', '1522376353', '127.0.0.1', '0', '新建用户', '1522376353');
+INSERT INTO `leipi_user` VALUES ('10', '新闻部经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '18', '0', '1', '1522376372', '127.0.0.1', '0', '新建用户', '1522376372');
+INSERT INTO `leipi_user` VALUES ('11', '市场部经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '20', '0', '1', '1522376385', '127.0.0.1', '0', '新建用户', '1522376385');
+INSERT INTO `leipi_user` VALUES ('12', '工程部经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '19', '0', '1', '1522376401', '127.0.0.1', '0', '新建用户', '1522376401');
+INSERT INTO `leipi_user` VALUES ('13', '总经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '21', '0', '1', '1522376413', '127.0.0.1', '0', '新建用户', '1522376413');

@@ -1,10 +1,24 @@
 {include file='pub/base' /}
 <body onload="prettyPrint()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> Tpflow 工作流插件示例
+<a href="{:url('user/index')}"  class="btn btn-primary radius"> 模拟用户</a>
+<a href="{:url('user/role')}"  class="btn btn-primary radius"> 模拟角色</a>
 <a href="{:url('news/index')}"  class="btn btn-primary radius"> 单据审核</a>
-	<a href="{:url('flowdesign/lists')}"  class="btn btn-primary radius">工作流设计</a>
+<a href="{:url('flowdesign/lists')}"  class="btn btn-primary radius">工作流设计</a>
+<a href="{:url('flow/index')}"  class="btn btn-primary radius">流程监控</a>　　
 </nav>
 <div class="page-container">
+<h4>模拟登入(点击姓名，进行模拟登入)：
+<mark>
+{if condition='$Think.session.uid'}
+欢迎您：{$Think.session.uname} 使用本插件！
+{else/}
+	请先模拟登入！
+{/if}
+</mark></h4>
+{volist name='user' id='k'}
+	<a href="{:url('login',['id'=>$k.id,'user'=>$k.username])}" class="btn btn-primary radius">{$k.username}</a>
+{/volist}
 <h2>API 文档说明</h2>
 <h4>第一步：工作流设计</h4>
 <pre class="prettyprint linenums">

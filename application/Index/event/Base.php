@@ -34,7 +34,7 @@ class Base
 	 */
 	public function commonadd($table,$data)
 	{
-		$data['uid']=1;
+		$data['uid']=session('uid');
 		$data['add_time']=time();
 		$id=Db::name($table)->insertGetId($data);
 		if($id){

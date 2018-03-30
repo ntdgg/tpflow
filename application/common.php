@@ -80,3 +80,10 @@ function msg_return($msg = "操作成功！", $code = 0,$data = [],$redirect = '
     $ret = array_merge($ret, $extend);
     return Response::create($ret, 'json');
 }
+/**
+ * get_rolename 获取角色名
+ */
+function get_rolename($roleid)
+{
+	return Db('role')->where('id',$roleid)->value('name');
+}
