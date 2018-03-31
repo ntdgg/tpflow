@@ -13,6 +13,7 @@ require_once BEASE_URL . '/db/InfoDB.php';
 require_once BEASE_URL . '/db/FlowDb.php';
 require_once BEASE_URL . '/db/ProcessDb.php';
 require_once BEASE_URL . '/db/LogDb.php';
+require_once BEASE_URL . '/db/UserDb.php';
 //类库
 
 require_once BEASE_URL . '/class/ConfigContext.php';
@@ -120,16 +121,20 @@ $configContext->setEmailObj(@$email);
 			}
 			$taskService = new TaskService();//工作流服务
 			$wf_actionid = $config['submit_to_save'];
-			if ($wf_actionid == "ok") {//提交处理
-				$ret = $taskService->doTask($config,$uid);
-			} else if ($wf_actionid == "back") {//退回处理
-				$ret = $taskService->doBack($config,$uid);
-			} else if ($wf_actionid == "sing") {//会签
-				$taskService->freeRoute();
-			} else { //通过
-				throw new \Exception ( "参数出错！" );
+			$sing_st = $config['sing_st'];
+			if($sing_st == 0){
+				if ($wf_actionid == "ok") {//提交处理
+					$ret = $taskService->doTask($config,$uid);
+				} else if ($wf_actionid == "back") {//退回处理
+					$ret = $taskService->doBack($config,$uid);
+				} else if ($wf_actionid == "sing") {//会签
+					$ret = $taskService->doSing($config,$uid);
+				} else { //通过
+					throw new \Exception ( "参数出错！" );
+				}
+			}else{
+				$ret = $taskService->doSingEnt($config,$uid,$wf_actionid);
 			}
-			
 			return $ret;
 		}
 		/*

@@ -20,7 +20,8 @@
 			<td style='height:80px'>
 				<table class="table table-border table-bordered table-bg">
 				<tr>
-				<th style='width:30px'>审批意见</th>
+				<th style='width:30px'>
+				{if condition='$flowinfo.sing_st == 0'}审批{else/}会签{/if}意见</th>
 				<th><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </th>
 				</tr>
 				<tr id='nex_process'>
@@ -41,15 +42,32 @@
 				</th>
 				</tr>
 				<tr style='display:none' id='sing_process'>
-				<th style='width:30px'>回退步骤</th>
-				<th></th>
+				<th style='width:30px'>会签步骤</th>
+				<th>
+					<span class="select-box">
+					<select name="wf_singflow" id='singflow'  class="select"  datatype="*" >
+					<option value="">请选择会签人</option>
+					{volist name='$flowinfo.singuser' id='sing'}
+					<option value="{$sing.id}">{$sing.username}</option>
+					{/volist}
+					</select>
+				
+				</th>
 				</tr>
 				<tr>
 				<td colspan=2 class='text-c'>
 				<input id='submit_to_save' name='submit_to_save' value='' type='hidden'>
-				<a class="btn btn-primary radius" id='nexbton' onclick='tj("ok")' >提交</a> 
-				<a class="btn btn-primary radius" id='backbton' onclick='tj("back")'value='back' >回退</a> 
-				<a class="btn btn-primary radius" id='singbton' onclick='tj("sing")' value='sing' >会签</a>
+				<input  name='sing_st' value='{$flowinfo.sing_st}' type='hidden'>
+				{if condition='$flowinfo.sing_st == 0'}
+					<a class="btn btn-primary radius" id='nexbton' onclick='tj("ok")' >提交</a> 
+					<a class="btn btn-primary radius" id='backbton' onclick='tj("back")'value='back' >回退</a> 
+					<a class="btn btn-primary radius" id='singbton' onclick='tj("sing")' value='sing' >会签</a>
+				{else/}
+					<a class="btn btn-primary radius" id='nexbton' onclick='sing("sok")' >会签提交</a> 
+					<a class="btn btn-primary radius" id='backbton' onclick='sing("sback")'value='back' >会签回退</a> 
+					<a class="btn btn-primary radius" id='singbton' onclick='sing("ssing")' value='sing' >再会签</a>
+				{/if}
+				
 				</td>
 				</tr>
 				</table>
@@ -85,7 +103,6 @@ $(function(){
                 ajax_progress(ret);
             }
         });
-	 
 });
 function tj(value){
 	if(value =='back'){
@@ -95,13 +112,62 @@ function tj(value){
 		$('#backbton').html('确认回退');
 		$('#back_process').show();
 		var select = $('#backflow option:selected').val();
+		$("#singflow").removeAttr("datatype");
 		if(select==''){
 			layer.msg('请选择回退步骤');
 			return false;
 		}
 	}
+	if(value =='sing'){
+		$('#nex_process').hide();//
+		$('#nexbton').hide();
+		$('#backbton').hide();
+		$('#backbton').html('确认会签');
+		$('#sing_process').show();
+		$("#backflow").removeAttr("datatype");
+		var select = $('#singflow option:selected').val();
+		if(select==''){
+			layer.msg('请选择会签人');
+			return false;
+		}
+	}
 	if(value =='ok'){
 		$("#backflow").removeAttr("datatype");
+		$("#singflow").removeAttr("datatype");
+	}
+	$('#submit_to_save').val(value);
+	$('#forms').submit();
+}
+function sing(value){
+	if(value =='sback'){
+		$('#nex_process').hide();//
+		$('#nexbton').hide();
+		$('#singbton').hide();
+		$('#backbton').html('确认回退');
+		$('#back_process').show();
+		var select = $('#backflow option:selected').val();
+		$("#singflow").removeAttr("datatype");
+		if(select==''){
+			layer.msg('请选择回退步骤');
+			return false;
+		}
+	}
+	if(value =='ssing'){
+		$('#nex_process').hide();//
+		$('#nexbton').hide();
+		$('#backbton').hide();
+		$('#backbton').html('确认会签');
+		$('#sing_process').show();
+		$("#backflow").removeAttr("datatype");
+		var select = $('#singflow option:selected').val();
+		if(select==''){
+			layer.msg('请选择会签人');
+			return false;
+		}
+	}
+	if(value =='sok'){
+		$("#backflow").removeAttr("datatype");
+		$("#singflow").removeAttr("datatype");
 	}
 	$('#submit_to_save').val(value);
 	$('#forms').submit();

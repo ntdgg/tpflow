@@ -133,20 +133,23 @@ class InfoDB{
 		$workflow = [];
 		require ( BEASE_URL . '/config/config.php');//  
 		$count = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->count();
-		if($count > '0'){
+		if($count > 0){
 			$result = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->where('status',0)->find();
 			if ($result) {
+				$workflow ['sing_st'] = 0;
+				if($result['is_sing']==1){
+				   $workflow ['sing_st'] = 1;
+				}
 				$workflow ['bill_st'] = $result['status'];
 				$workflow ['flow_id'] = $result['flow_id'];
 				$workflow ['run_id'] = $result['id'];
 				$workflow ['run_flow_process'] = $result['run_flow_process'];
 				$workflow ['bill_state'] = $flowstatus[$result['status']];
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
-				
 				$workflow ['process'] = ProcessDb::GetProcessInfo($result['run_flow_process']);
-				
 				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
 				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($result['id']);
+				$workflow ['singuser'] = UserDb::GetUser();
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 			} else {
 				$workflow ['bill_st'] = 1;
