@@ -708,7 +708,7 @@ class Query
             }
         }
 
-        return $this->setField($field, ['inc', $field, $step]);
+        return $this->setField($field, ['INC', $step]);
     }
 
     /**
@@ -740,9 +740,9 @@ class Query
                 return true;
             }
 
-            $value = ['inc', $field, $step];
+            $value = ['INC', $step];
         } else {
-            $value = ['dec', $field, $step];
+            $value = ['DEC', $step];
         }
 
         return $this->setField($field, $value);
@@ -1374,7 +1374,12 @@ class Query
      */
     public function whereExp($field, $condition, $bind = [], $logic = 'AND')
     {
-        return $this->parseWhereExp($logic, $field, 'EXP', $condition, $bind, true);
+        $this->options['where'][$logic][] = [$field, 'EXP', $this->raw($condition)];
+
+        if ($bind) {
+            $this->bind($bind);
+        }
+        return $this;
     }
 
     /**
@@ -1385,7 +1390,7 @@ class Query
      * @param  string $logic  查询逻辑 and or xor
      * @return $this
      */
-    public function whereRaw($where, array $bind = [], $logic = 'AND')
+    public function whereRaw($where, $bind = [], $logic = 'AND')
     {
         $this->options['where'][$logic][] = $this->raw($where);
 
@@ -1403,7 +1408,7 @@ class Query
      * @param  array  $bind   参数绑定
      * @return $this
      */
-    public function whereOrRaw($where, array $bind = [])
+    public function whereOrRaw($where, $bind = [])
     {
         return $this->whereRaw($where, $bind, 'OR');
     }
@@ -1427,25 +1432,16 @@ class Query
         }
 
         $logic = strtoupper($logic);
-        $op    = strtoupper($op);
 
         if (is_string($field) && !empty($this->options['via']) && !strpos($field, '.')) {
             $field = $this->options['via'] . '.' . $field;
         }
 
         if ($field instanceof Expression) {
-            $where = $field;
-            if (!empty($param)) {
-                // 参数绑定
-                $this->bind($param);
-            }
+            return $this->whereRaw($field, is_array($op) ? $op : []);
         } elseif ($strict) {
             // 使用严格模式查询
-            $where = [$field, $op, 'EXP' == $op ? $this->raw($condition) : $condition];
-            if ('EXP' == $op && !empty($param)) {
-                // 参数绑定
-                $this->bind($param);
-            }
+            $where = [$field, $op, $condition];
         } elseif (is_array($field)) {
             // 解析数组批量查询
             return $this->parseArrayWhereItems($field, $logic);
@@ -1453,7 +1449,13 @@ class Query
             $where = $field;
             $field = '';
         } elseif (is_string($field)) {
-            // 解析条件单元
+            if (preg_match('/[,=\<\'\"\(\s]/', $field)) {
+                return $this->whereRaw($field, $op);
+            } elseif (is_string($op) && strtolower($op) == 'exp') {
+                $bind = isset($param[2]) && is_array($param[2]) ? $param[2] : null;
+                return $this->whereExp($field, $condition, $bind, $logic);
+            }
+
             $where = $this->parseWhereItem($logic, $field, $op, $condition, $param);
         }
 
@@ -1480,30 +1482,17 @@ class Query
      */
     protected function parseWhereItem($logic, $field, $op, $condition, $param = [])
     {
-        if (preg_match('/[,=\<\'\"\(\s]/', $field)) {
-            $where = ['', 'EXP', $this->raw($field)];
-            if (is_array($op)) {
-                // 参数绑定
-                $this->bind($op);
-            }
-        } elseif (is_array($op)) {
+        if (is_array($op)) {
             // 同一字段多条件查询
             array_unshift($param, $field);
             $where = $param;
         } elseif ($field && is_null($condition)) {
-            if (in_array($op, ['NULL', 'NOTNULL', 'NOT NULL'])) {
+            if (in_array(strtoupper($op), ['NULL', 'NOTNULL', 'NOT NULL'], true)) {
                 // null查询
                 $where = [$field, $op, ''];
             } else {
                 // 字段相等查询
                 $where = is_null($op) ? [$field, 'NULL', ''] : [$field, '=', $op];
-            }
-        } elseif ('EXP' == $op) {
-            $bind  = isset($param[2]) && is_array($param[2]) ? $param[2] : null;
-            $where = [$field, 'EXP', $this->raw($condition), $bind];
-            if ($bind) {
-                // 参数绑定
-                $this->bind($bind);
             }
         } else {
             $where = $field ? [$field, $op, $condition] : null;

@@ -33,7 +33,9 @@ class Middleware
 
         $middleware = $this->buildMiddleware($middleware);
 
-        $this->queue[] = $middleware;
+        if ($middleware) {
+            $this->queue[] = $middleware;
+        }
     }
 
     /**
@@ -47,7 +49,9 @@ class Middleware
 
         $middleware = $this->buildMiddleware($middleware);
 
-        array_unshift($this->queue, $middleware);
+        if ($middleware) {
+            array_unshift($this->queue, $middleware);
+        }
     }
 
     /**
@@ -80,7 +84,16 @@ class Middleware
             throw new \InvalidArgumentException('The middleware is invalid');
         }
 
-        $class = false === strpos($middleware, '\\') ? Container::get('app')->getNamespace() . '\\http\\middleware\\' . $middleware : $middleware;
+        if (false === strpos($middleware, '\\')) {
+            $value = Container::get('config')->get('middleware.' . $middleware);
+            $class = $value ?: Container::get('app')->getNamespace() . '\\http\\middleware\\' . $middleware;
+        } else {
+            $class = $middleware;
+        }
+
+        if (is_array($class)) {
+            return $this->import($class);
+        }
 
         if (strpos($class, ':')) {
             list($class, $param) = explode(':', $class, 2);
