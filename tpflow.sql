@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-03-31 13:58:20
+Date: 2018-04-01 21:27:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `leipi_flow` (
   `uid` int(11) DEFAULT NULL,
   `add_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='*工作流表';
 
 -- ----------------------------
 -- Records of leipi_flow
@@ -89,7 +89,7 @@ CREATE TABLE `leipi_flow_process` (
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_flow_process
@@ -97,20 +97,25 @@ CREATE TABLE `leipi_flow_process` (
 INSERT INTO `leipi_flow_process` VALUES ('70', '4', '开始', 'is_one', '71', '0', '', '0', '0', '', '', '', '', '', '', '4', '1', '10', '新闻部经理', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '436', '215', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522375321', '0');
 INSERT INTO `leipi_flow_process` VALUES ('71', '4', '市场部审核', 'is_step', '72', '4', '', '2', '0', '', '', '', '', '', '', '4', '1', '11', '市场部经理', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '569', '404', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522375321', '0');
 INSERT INTO `leipi_flow_process` VALUES ('72', '4', '工程部审核', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '4', '1', '13', '总经理', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '778', '331', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522375321', '0');
-INSERT INTO `leipi_flow_process` VALUES ('73', '3', '开始', 'is_one', '74,75', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"74\":{\"condition\":[\"new_type= \'1\'\"],\"condition_desc\":\"\"},\"75\":{\"condition\":[\"new_type= \'2\'\"],\"condition_desc\":\"\"}}', '331', '187', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
-INSERT INTO `leipi_flow_process` VALUES ('74', '3', '市场部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '600', '143', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
-INSERT INTO `leipi_flow_process` VALUES ('75', '3', '工程部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '578', '333', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
-INSERT INTO `leipi_flow_process` VALUES ('76', '3', '行政部确认', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '829', '207', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1521687318', '0');
+INSERT INTO `leipi_flow_process` VALUES ('73', '3', '开始', 'is_one', '74,75', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"74\":{\"condition\":[\"new_type= \'1\'\"],\"condition_desc\":\"\"},\"75\":{\"condition\":[\"new_type= \'2\'\"],\"condition_desc\":\"\"}}', '331', '187', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522483275', '0');
+INSERT INTO `leipi_flow_process` VALUES ('74', '3', '市场部', 'is_step', '76', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '600', '143', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522483275', '0');
+INSERT INTO `leipi_flow_process` VALUES ('75', '3', '工程部', 'is_step', '76,87', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '578', '333', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522483275', '0');
+INSERT INTO `leipi_flow_process` VALUES ('76', '3', '行政部确认', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '829', '207', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522483275', '0');
 INSERT INTO `leipi_flow_process` VALUES ('77', '6', '项目中心初审', 'is_one', '78,83,84,85', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '[]', '375', '234', '{\"width\":150,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522382480', '0');
 INSERT INTO `leipi_flow_process` VALUES ('78', '6', '新建步骤', 'is_step', '86', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '1115', '655', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522382480', '0');
-INSERT INTO `leipi_flow_process` VALUES ('79', '5', '新建步骤', 'is_one', '80,81', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"80\":{\"condition\":[\"uid= \'1\'\"],\"condition_desc\":\"\"},\"81\":{\"condition\":[\"uid= \'2\'\"],\"condition_desc\":\"\"}}', '255', '249', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522246614', '0');
-INSERT INTO `leipi_flow_process` VALUES ('80', '5', '新建步骤', 'is_step', '82', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '575', '117', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
-INSERT INTO `leipi_flow_process` VALUES ('81', '5', '新建步骤', 'is_step', '82', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '591', '337', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
-INSERT INTO `leipi_flow_process` VALUES ('82', '5', '新建步骤', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '845', '265', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522246614', '0');
+INSERT INTO `leipi_flow_process` VALUES ('79', '5', '新建步骤', 'is_one', '80,81', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '1', '1', '{\"80\":{\"condition\":[\"uid= \'1\'\"],\"condition_desc\":\"\"},\"81\":{\"condition\":[\"uid= \'2\'\"],\"condition_desc\":\"\"}}', '14', '318', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522484387', '0');
+INSERT INTO `leipi_flow_process` VALUES ('80', '5', '新建步骤', 'is_step', '82', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '251', '116', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
+INSERT INTO `leipi_flow_process` VALUES ('81', '5', '新建步骤', 'is_step', '82', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '116', '482', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
+INSERT INTO `leipi_flow_process` VALUES ('82', '5', '新建步骤', 'is_step', '89', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '362', '299', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
 INSERT INTO `leipi_flow_process` VALUES ('83', '6', '新建步骤', 'is_step', '86', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '736', '563', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522382480', '0');
 INSERT INTO `leipi_flow_process` VALUES ('84', '6', '新建步骤', 'is_step', '86', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '426', '361', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522382480', '0');
 INSERT INTO `leipi_flow_process` VALUES ('85', '6', '新建步骤', 'is_step', '86', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '151', '410', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522382480', '0');
 INSERT INTO `leipi_flow_process` VALUES ('86', '6', '新建步骤', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '392', '676', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522382480', '0');
+INSERT INTO `leipi_flow_process` VALUES ('87', '3', '总经理审核', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '582', '460', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1522483275', '0');
+INSERT INTO `leipi_flow_process` VALUES ('88', '5', '新建步骤', 'is_step', '91', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '921', '205', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
+INSERT INTO `leipi_flow_process` VALUES ('89', '5', '新建步骤', 'is_step', '88,90', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '550', '451', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
+INSERT INTO `leipi_flow_process` VALUES ('90', '5', '新建步骤', 'is_step', '91', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '907', '451', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
+INSERT INTO `leipi_flow_process` VALUES ('91', '5', '新建步骤', 'is_step', '', '0', '', '1', '0', '', '', '', '', '', '', '0', '1', '', '', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '', '1116', '297', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1522484387', '0');
 
 -- ----------------------------
 -- Table structure for leipi_news
@@ -128,14 +133,12 @@ CREATE TABLE `leipi_news` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '-1回退修改0 保存中1流程中 2通过',
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_news
 -- ----------------------------
-INSERT INTO `leipi_news` VALUES ('12', '7', '1522378250', '审批流测试', '1', '1', '&lt;p&gt;审批流测试&lt;/p&gt;', null, '2', '1522397642');
-INSERT INTO `leipi_news` VALUES ('13', '11', '1522397966', '单据权限测试审批流', '1', '1', '&lt;p&gt;单据权限测试审批流&lt;/p&gt;', null, '-1', '1522399601');
-INSERT INTO `leipi_news` VALUES ('14', '11', '1522399258', '审批单据在测试', '1', '1', '&lt;p&gt;12312&lt;/p&gt;', null, '2', '1522475837');
+INSERT INTO `leipi_news` VALUES ('3', '13', '1522586765', '123', '1', '1', '&lt;p&gt;3123&lt;/p&gt;', null, '1', '1522586819');
 
 -- ----------------------------
 -- Table structure for leipi_news_type
@@ -237,21 +240,12 @@ CREATE TABLE `leipi_run` (
   KEY `cache_run_id` (`cache_run_id`),
   KEY `uid` (`uid`),
   KEY `is_del` (`is_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=780 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run
 -- ----------------------------
-INSERT INTO `leipi_run` VALUES ('770', '0', 'news', '12', '0', '0', '7', '4', '0', '12', '4', '70', '', '1522396741', '1', '0', '0', '1522378723', '0', null);
-INSERT INTO `leipi_run` VALUES ('771', '0', 'news', '12', '0', '0', '13', '4', '0', '12', '4', '71', '', '1522397337', '1', '0', '0', '1522396741', '0', null);
-INSERT INTO `leipi_run` VALUES ('772', '0', 'news', '12', '0', '0', '11', '4', '0', '12', '4', '72', '', '1522397642', '1', '0', '0', '1522397337', '0', null);
-INSERT INTO `leipi_run` VALUES ('773', '0', 'news', '13', '0', '0', '11', '4', '0', '13', '4', '70', '', '1522399601', '1', '0', '0', '1522397977', '0', null);
-INSERT INTO `leipi_run` VALUES ('774', '0', 'news', '14', '0', '0', '11', '4', '0', '14', '4', '70', '', '1522474479', '1', '0', '0', '1522399683', '1', '1');
-INSERT INTO `leipi_run` VALUES ('775', '0', 'news', '14', '0', '0', '10', '4', '0', '14', '4', '71', '', '1522474537', '1', '0', '0', '1522474479', '0', null);
-INSERT INTO `leipi_run` VALUES ('776', '0', 'news', '14', '0', '0', '11', '4', '0', '14', '4', '72', '', '1522475085', '1', '0', '0', '1522474537', '1', '2');
-INSERT INTO `leipi_run` VALUES ('777', '0', 'news', '14', '0', '0', '13', '4', '0', '14', '4', '70', '', '1522475783', '1', '0', '0', '1522475085', '1', '3');
-INSERT INTO `leipi_run` VALUES ('778', '0', 'news', '14', '0', '0', '10', '4', '0', '14', '4', '71', '', '1522475813', '1', '0', '0', '1522475783', '0', null);
-INSERT INTO `leipi_run` VALUES ('779', '0', 'news', '14', '0', '0', '11', '4', '0', '14', '4', '72', '', '1522475837', '1', '0', '0', '1522475813', '0', null);
+INSERT INTO `leipi_run` VALUES ('3', '0', 'news', '3', '0', '0', '13', '4', '0', '3', '4', '72', '', '0', '0', '0', '0', '1522586819', '0', null);
 
 -- ----------------------------
 -- Table structure for leipi_run_cache
@@ -270,14 +264,12 @@ CREATE TABLE `leipi_run_cache` (
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `run_id` (`run_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1934 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run_cache
 -- ----------------------------
-INSERT INTO `leipi_run_cache` VALUES ('1931', '770', '12', '12', '', '{\"id\":12,\"uid\":7,\"add_time\":1522378250,\"new_title\":\"\\u5ba1\\u6279\\u6d41\\u6d4b\\u8bd5\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\u5ba1\\u6279\\u6d41\\u6d4b\\u8bd5&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":0,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10\",\"auto_sponsor_text\":\"\\u65b0\\u95fb\\u90e8\\u7ecf\\u7406\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1522375321,\"dateline\":0}', '0', '0', '1522378723');
-INSERT INTO `leipi_run_cache` VALUES ('1932', '773', '13', '13', '', '{\"id\":13,\"uid\":11,\"add_time\":1522397966,\"new_title\":\"\\u5355\\u636e\\u6743\\u9650\\u6d4b\\u8bd5\\u5ba1\\u6279\\u6d41\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\u5355\\u636e\\u6743\\u9650\\u6d4b\\u8bd5\\u5ba1\\u6279\\u6d41&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":0,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10\",\"auto_sponsor_text\":\"\\u65b0\\u95fb\\u90e8\\u7ecf\\u7406\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1522375321,\"dateline\":0}', '0', '0', '1522397977');
-INSERT INTO `leipi_run_cache` VALUES ('1933', '774', '14', '14', '', '{\"id\":14,\"uid\":11,\"add_time\":1522399258,\"new_title\":\"\\u5ba1\\u6279\\u5355\\u636e\\u5728\\u6d4b\\u8bd5\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;12312&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":0,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10\",\"auto_sponsor_text\":\"\\u65b0\\u95fb\\u90e8\\u7ecf\\u7406\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1522375321,\"dateline\":0}', '0', '0', '1522399683');
+INSERT INTO `leipi_run_cache` VALUES ('3', '3', '3', '3', '', '{\"id\":3,\"uid\":13,\"add_time\":1522586765,\"new_title\":\"123\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;3123&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":70,\"flow_id\":4,\"process_name\":\"\\u5f00\\u59cb\",\"process_type\":\"is_one\",\"process_to\":\"71\",\"child_id\":0,\"child_relation\":\"\",\"child_after\":0,\"child_back_process\":0,\"return_sponsor_ids\":\"\",\"return_respon_ids\":\"\",\"write_fields\":\"\",\"secret_fields\":\"\",\"lock_fields\":\"\",\"check_fields\":\"\",\"auto_person\":4,\"auto_unlock\":1,\"auto_sponsor_ids\":\"10\",\"auto_sponsor_text\":\"\\u65b0\\u95fb\\u90e8\\u7ecf\\u7406\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":436,\"settop\":215,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1522375321,\"dateline\":0}', '0', '0', '1522586819');
 
 -- ----------------------------
 -- Table structure for leipi_run_log
@@ -296,26 +288,14 @@ CREATE TABLE `leipi_run_log` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `run_id` (`run_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run_log
 -- ----------------------------
-INSERT INTO `leipi_run_log` VALUES ('20', '7', '12', 'news', '770', '0', '请尽快审批。', '1522378723', 'Send');
-INSERT INTO `leipi_run_log` VALUES ('21', '13', '12', 'news', '770', '0', '同意发布审批', '1522396741', 'ok');
-INSERT INTO `leipi_run_log` VALUES ('22', '11', '12', 'news', '771', '0', '同意。。', '1522397337', 'ok');
-INSERT INTO `leipi_run_log` VALUES ('23', '11', '12', 'news', '772', '0', '同意审批。', '1522397492', 'ok');
-INSERT INTO `leipi_run_log` VALUES ('24', '11', '12', 'news', '772', '0', '1测试结束', '1522397642', 'ok');
-INSERT INTO `leipi_run_log` VALUES ('25', '11', '13', 'news', '773', '0', '123', '1522397977', 'Send');
-INSERT INTO `leipi_run_log` VALUES ('26', '11', '14', 'news', '774', '0', '123', '1522399683', 'Send');
-INSERT INTO `leipi_run_log` VALUES ('27', '10', '14', 'news', '774', '0', '会签给市场部员工1', '1522417737', 'Sing');
-INSERT INTO `leipi_run_log` VALUES ('28', '11', '14', 'news', '775', '0', '同意。', '1522474537', 'ok');
-INSERT INTO `leipi_run_log` VALUES ('29', '13', '14', 'news', '776', '0', '请示总经理批准', '1522474580', 'Sing');
-INSERT INTO `leipi_run_log` VALUES ('30', '13', '14', 'news', '776', '0', '新闻部从新审核。', '1522474638', 'SingBack');
-INSERT INTO `leipi_run_log` VALUES ('31', '10', '14', 'news', '777', '0', '同意。会签给工程部1', '1522475729', 'Sing');
-INSERT INTO `leipi_run_log` VALUES ('32', '10', '14', 'news', '777', '0', '会签给市场部员工', '1522475767', 'SingSing');
-INSERT INTO `leipi_run_log` VALUES ('33', '11', '14', 'news', '778', '0', '同意。', '1522475813', 'ok');
-INSERT INTO `leipi_run_log` VALUES ('34', '13', '14', 'news', '779', '0', '123', '1522475837', 'ok');
+INSERT INTO `leipi_run_log` VALUES ('11', '13', '3', 'news', '3', '0', '123123', '1522586819', 'Send');
+INSERT INTO `leipi_run_log` VALUES ('12', '10', '3', 'news', '3', '0', '123', '1522588939', 'ok');
+INSERT INTO `leipi_run_log` VALUES ('13', '11', '3', 'news', '3', '0', '123', '1522589191', 'ok');
 
 -- ----------------------------
 -- Table structure for leipi_run_process
@@ -347,18 +327,14 @@ CREATE TABLE `leipi_run_process` (
   KEY `run_id` (`run_id`),
   KEY `status` (`status`),
   KEY `is_del` (`is_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=1525 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leipi_run_process
 -- ----------------------------
-INSERT INTO `leipi_run_process` VALUES ('1518', '7', '770', '4', '70', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522378723', '1522378723', '0', '0', '0', '1522378723');
-INSERT INTO `leipi_run_process` VALUES ('1519', '13', '771', '4', '71', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522396741', '1522396741', '0', '0', '0', '1522396741');
-INSERT INTO `leipi_run_process` VALUES ('1520', '11', '772', '4', '72', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522397337', '1522397337', '0', '0', '0', '1522397337');
-INSERT INTO `leipi_run_process` VALUES ('1521', '11', '773', '4', '70', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522397977', '1522397977', '0', '0', '0', '1522397977');
-INSERT INTO `leipi_run_process` VALUES ('1522', '11', '774', '4', '70', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522399683', '1522399683', '0', '0', '0', '1522399683');
-INSERT INTO `leipi_run_process` VALUES ('1523', '11', '776', '4', '72', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522474537', '1522474537', '0', '0', '0', '1522474537');
-INSERT INTO `leipi_run_process` VALUES ('1524', '11', '779', '4', '72', '0', '0', '0', '', '0', '1', '0', '0', '1', '1522475813', '1522475813', '0', '0', '0', '1522475813');
+INSERT INTO `leipi_run_process` VALUES ('7', '13', '3', '4', '70', '0', '0', '0', '123', '0', '0', '0', '0', '2', '1522586819', '1522588939', '0', '0', '0', '1522586819');
+INSERT INTO `leipi_run_process` VALUES ('8', '10', '3', '4', '71', '0', '0', '0', '123', '0', '0', '0', '0', '2', '1522588939', '1522589191', '0', '0', '0', '1522588939');
+INSERT INTO `leipi_run_process` VALUES ('9', '11', '3', '4', '72', '0', '0', '0', '', '0', '0', '0', '0', '0', '1522589191', '0', '0', '0', '0', '1522589191');
 
 -- ----------------------------
 -- Table structure for leipi_run_sign
@@ -383,10 +359,6 @@ CREATE TABLE `leipi_run_sign` (
 -- ----------------------------
 -- Records of leipi_run_sign
 -- ----------------------------
-INSERT INTO `leipi_run_sign` VALUES ('1', '7', '774', '4', '70', '会签确认第二次测试', '1', '0', '0', '1522474479');
-INSERT INTO `leipi_run_sign` VALUES ('2', '13', '776', '4', '72', '新闻部请重新审核', '1', '0', '0', '1522475085');
-INSERT INTO `leipi_run_sign` VALUES ('3', '8', '777', '4', '70', '同意。', '1', '0', '0', '1522475783');
-INSERT INTO `leipi_run_sign` VALUES ('4', '7', '777', '4', '70', '', '0', '0', '0', '1522475767');
 
 -- ----------------------------
 -- Table structure for leipi_user

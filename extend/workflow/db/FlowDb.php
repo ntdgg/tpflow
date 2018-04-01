@@ -1,7 +1,9 @@
 <?php
 /**
- * 工作流信息处理
- */
+*+------------------
+* 流信息处理
+*+------------------ 
+*/
 namespace workflow;
 
 use think\Db;
@@ -10,6 +12,7 @@ use think\facade\Session;
 class FlowDb{
 	/**
 	 * 获取类别工作流
+	 *
 	 * @param $wf_type
 	 */
 	public static function getWorkflowByType($wf_type) 
@@ -23,6 +26,7 @@ class FlowDb{
 	}
 	/**
 	 * 获取流程信息
+	 *
 	 * @param $fid
 	 */
 	public static function GetFlowInfo($fid)
@@ -39,6 +43,7 @@ class FlowDb{
 	}
 	/**
 	 * 判断工作流是否存在
+	 *
 	 * @param $wf_id
 	 */
 	public static function getWorkflow($wf_id) 
@@ -55,6 +60,7 @@ class FlowDb{
 	}
 	/**
 	 * 获取步骤信息
+	 *
 	 * @param $id
 	 */
 	public static function getflowprocess($id) 

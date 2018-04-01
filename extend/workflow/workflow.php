@@ -15,14 +15,9 @@ require_once BEASE_URL . '/db/ProcessDb.php';
 require_once BEASE_URL . '/db/LogDb.php';
 require_once BEASE_URL . '/db/UserDb.php';
 //类库
-
-require_once BEASE_URL . '/class/ConfigContext.php';
-require_once BEASE_URL . '/class/InterfaceNotice.php';
 require_once BEASE_URL . '/class/TaskService.php';
-
 //配置全局类
-$configContext = ConfigContext::getInstance();
-$configContext->setEmailObj(@$email);
+
 
 	/**
 	 * 根据单据ID获取流程信息
@@ -30,8 +25,8 @@ $configContext->setEmailObj(@$email);
 	class workflow{
 		/**
 		 * 根据业务类别获取工作流
-		 * @param  $etuid 实例id
-		 * @param  $ssn 工号
+		 *
+		 * @param  $type 类别
 		 */
 		function getWorkFlow($type)
 		{
@@ -40,6 +35,8 @@ $configContext->setEmailObj(@$email);
 		/**
 		 *流程发起
 		 *
+		 * @param  $config 参数信息
+		 * @param  $uid    用户ID
 		 **/
 		function startworkflow($config,$uid)
 		{
@@ -63,7 +60,7 @@ $configContext->setEmailObj(@$email);
 				return ['msg'=>'流程设计出错，未找到第一步流程，请联系管理员！','code'=>'-1'];
 			}
 			//满足要求，发起流程
-			$wf_run = InfoDB::addWorkflowRun($wf_id,$wf_process['id'],$wf_fid,$wf_type);
+			$wf_run = InfoDB::addWorkflowRun($wf_id,$wf_process['id'],$wf_fid,$wf_type,$uid);
 			if(!$wf_run){
 				return ['msg'=>'流程发起失败，数据库操作错误！！','code'=>'-1'];
 			}
@@ -86,16 +83,11 @@ $configContext->setEmailObj(@$email);
 			
 			$run_log = LogDb::AddrunLog($uid,$wf_run,$config,'Send');
 			
-			$configContext = ConfigContext::getInstance();
-			//发起消息通知
-			$email = $configContext->getEmailObj('default');
-			if($email){
-				$email->noticeNextUser();
-			}
 			return ['run_id'=>$wf_run,'msg'=>'success','code'=>'1'];
 		}
 		/**
 		  * 流程状态查询
+		  *
 		  * @$wf_fid 单据编号
 		  * @$wf_type 单据表 
 		  **/
@@ -111,12 +103,12 @@ $configContext->setEmailObj(@$email);
 		/*
 		 * 获取下一步骤信息
 		 *
-		 *
-		 *
+		 * @param  $config 参数信息
+		 * @param  $uid 用户ID
 		 **/
 		function workdoaction($config,$uid)
 		{
-			if( @$config['run_id']=='' || @$config['run_flow_process']==''){
+			if( @$config['run_id']=='' || @$config['run_process']==''){
 		       	throw new \Exception ( "config参数信息不全！" );
 			}
 			$taskService = new TaskService();//工作流服务
@@ -140,8 +132,7 @@ $configContext->setEmailObj(@$email);
 		/*
 		 * 工作流监控
 		 *
-		 *
-		 *
+		 * @param  $status 流程状态
 		 **/
 		function worklist($status = 0)
 		{

@@ -1,8 +1,10 @@
 <?php
 namespace workflow;
 /**
- * 信息处理
- */
+*+------------------
+* 工作流日志消息
+*+------------------ 
+*/
 use think\Db;
 use think\facade\Session;
 

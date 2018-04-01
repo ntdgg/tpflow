@@ -1,7 +1,9 @@
 <?php
 /**
- * 流程进度处理
- */
+*+------------------
+* 工作流步骤
+*+------------------ 
+*/
 
 namespace workflow;
 
@@ -11,7 +13,8 @@ use think\facade\Session;
 class ProcessDb{
 	/**
 	 * 根据ID获取流程信息
-	 * @param $pid
+	 *
+	 * @param $pid 步骤编号
 	 */
 	public static function GetProcessInfo($pid)
 	{
@@ -28,6 +31,7 @@ class ProcessDb{
 	}
 	/**
 	 * 获取下个审批流信息
+	 *
 	 * @param $wf_type 单据表
 	 * @param $wf_fid  单据id
 	 * @param $pid   流程id
@@ -61,12 +65,13 @@ class ProcessDb{
 	}
 	/**
 	 * 获取前步骤的流程信息
+	 *
 	 * @param $runid
 	 */
 	public static function GetPreProcessInfo($runid)
 	{
-		$pre_n = Db::name('run')->find($runid);
-		$pre = Db::name('flow_process')->where('flow_id',$pre_n['flow_id'])->where('id','lt',$pre_n['run_flow_process'])->select();
+		$pre_n = Db::name('run_process')->find($runid);
+		$pre = Db::name('flow_process')->where('flow_id',$pre_n['run_flow'])->where('id','lt',$pre_n['run_flow_process'])->select();
 		$prearray = [];
 		if(count($pre)>=1){
 			$prearray[0] = '退回制单人修改';
@@ -87,6 +92,7 @@ class ProcessDb{
 	
 	/**
 	 * 获取第一个流程
+	 *
 	 * @param $wf_id
 	 */
 	public static function getWorkflowProcess($wf_id) 
@@ -110,6 +116,7 @@ class ProcessDb{
 	}
 	/**
 	 * 流程日志
+	 *
 	 * @param $wf_fid
 	 * @param $wf_type
 	 */

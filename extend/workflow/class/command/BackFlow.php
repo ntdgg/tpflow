@@ -1,31 +1,40 @@
 <?php
+/**
+*+------------------
+* 工作流回退
+*+------------------ 
+*/
+
 namespace workflow;
 
 use think\Db;
 
 class BackFlow{
 	/**
-	 * 执行任务
-	 *
+	 * 工作流回退
+	 * 
+	 * @param  $config 参数信息
+	 * @param  $uid  用户ID
 	 */
-	public function doTask($config) {
+	public function doTask($config,$uid) {
 		$wf_title = $config['wf_title'];
 		$wf_fid = $config['wf_fid'];
 		$wf_type = $config['wf_type'];
 		$flow_id = $config['flow_id'];
-		$run_flow_process = $config['run_flow_process'];
 		$npid = $config['npid'];//下一步骤流程id
 		$run_id = $config['run_id'];
 		$check_con = $config['check_con'];
+		$run_process = $config['run_process'];//运行中的process
 		$submit_to_save = $config['submit_to_save'];
 		$wf_backflow = $config['wf_backflow'];//退回的步骤ID，如果等于0则默认是第一步
 		if($wf_backflow==0){
 			$back = true;
 			}else{
-			$back = $this->IsOneFlow($wf_backflow);
+			$back = false;
 		}
 		if($back){//第一步
 			$end = $this->end_flow($run_id);//结束流程
+			$end = $this->end_process($run_process,$check_con);
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			} 
@@ -37,12 +46,14 @@ class BackFlow{
 			//消息通知
 			//日志记录
 		}else{ //结束流程
-			$end = $this->end_flow($run_id);//结束该流程
+			//$end = $this->end_flow($run_id);//结束该流程
+			$end = $this->end_process($run_process,$check_con);
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			}
-			$run = $this->Run($flow_id,$wf_backflow,$wf_fid,$wf_type);//添加回退步骤流程
+			$run = $this->Run($config,$uid);//添加回退步骤流程
 			//消息通知发起人
+			$run_update = $this->up($run_id,$wf_backflow);
 		}
 	}
 	/**
@@ -66,25 +77,44 @@ class BackFlow{
 	 **/
 	public function end_flow($run_id)
 	{
-		$result = Db::execute('update leipi_run set status = 1,endtime='.time().' where id = '.$run_id.' ');
-		return $result;	
+		return Db::name('run')->where('id',$run_id)->update(['status'=>1,'endtime'=>time()]);
 	}
 	/**
-	 *运行记录
+	 *结束结束流程缓存
 	 *
 	 *@param $run_flow_process 工作流ID
 	 **/
-	public function Run($wf_id,$wf_process,$wf_fid,$wf_type)
+	public function end_process($run_process,$check_con)
 	{
-		$wf_run = InfoDB::addWorkflowRun($wf_id,$wf_process,$wf_fid,$wf_type);
-			if(!$wf_run){
-				return ['msg'=>'流程发起失败，数据库操作错误！！','code'=>'-1'];
-			}
+		return Db::name('run_process')->where('id',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
+	}
+	/**
+	 *运行
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
+	public function Run($config,$uid)
+	{
 		//添加流程步骤日志
-		$wf_process_log = InfoDB::addWorkflowProcess($wf_id,$wf_process,$wf_run);
-			if(!$wf_process_log){
+		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$config['wf_backflow'],$config['run_id']);
+		if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
-		$run_log = InfoDB::AddrunLog(1,$wf_run,'[回退]审批意见',$wf_fid,$wf_type);
+		
+		//日志记录
+		$run_log = LogDb::AddrunLog($uid,$config['run_id'],$config,'Back');
+		if(!$wf_process_log){
+				return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
+			}
 	}
+	/**
+	 *更新单据信息
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
+	public function up($run_id,$flow_process)
+	{
+		return Db::name('run')->where('id',$run_id)->update(['run_flow_process'=>$flow_process]);	
+	}
+	
 }

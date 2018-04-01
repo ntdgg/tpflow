@@ -1,4 +1,9 @@
 <?php
+/**
+*+------------------
+* 邮件消息
+*+------------------ 
+*/
 namespace workflow;
 
 class MailService implements InterfaceNotice{

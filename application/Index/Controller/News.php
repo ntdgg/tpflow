@@ -9,7 +9,6 @@ namespace app\index\controller;
 
 use app\common\controller\admin;
 use think\Request;
-use workflow\workflow;
 
 class News extends Admin
 {
@@ -34,12 +33,6 @@ class News extends Admin
     {
         if ($this->request->param("new_title")) $map[] = ['new_title','like',"%" . $this->request->param("new_title") . "%"];
         $list=controller('Base', 'event')->commonlist('news',$map);
-		$list->each(function($item, $key){
-			$workflow = new workflow();
-			$flowinfo = $workflow->workflowInfo($item['id'],'news');
-			$item['flowinfo'] = $flowinfo;
-			return $item;
-		});
 		$this->assign('list', $list);
 		return $this->fetch();
     }

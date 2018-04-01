@@ -1,8 +1,11 @@
 <?php
-namespace workflow;
 /**
- * 信息处理
- */
+*+------------------
+* 流信息处理
+*+------------------ 
+*/
+namespace workflow;
+
 use think\Db;
 use think\facade\Session;
 
@@ -10,6 +13,7 @@ class InfoDB{
 	
 	/**
 	 * 判断业务是否存在，避免已经删除导致错误
+	 *
 	 * @param $wf_fid  业务id
 	 * @param $wf_type 业务表名
 	 */
@@ -27,16 +31,17 @@ class InfoDB{
 	}
 	/**
 	 * 添加工作流
+	 *
 	 * @param $wf_id  流程主ID
 	 * @param $wf_process 流程信息
 	 * @param $wf_fid  业务id
 	 * @param $wf_type 业务表名
 	 */
-	public static function addWorkflowRun($wf_id,$wf_process,$wf_fid,$wf_type)
+	public static function addWorkflowRun($wf_id,$wf_process,$wf_fid,$wf_type,$uid)
 	{
 		$data = array(
             'pid'=>0,
-            'uid'=>session('uid'),
+            'uid'=>$uid,
             'flow_id'=>$wf_id,
 			'from_table'=>$wf_type,
             'from_id'=>$wf_fid,
@@ -54,6 +59,7 @@ class InfoDB{
 	}
 	/**
 	 * 添加运行步骤信息
+	 *
 	 * @param $wf_id  流程主ID
 	 * @param $wf_process 流程信息
 	 * @param $run_id  运行的id
@@ -70,10 +76,9 @@ class InfoDB{
             'parent_flow_process'=>0,
             'run_child'=>0,//未处理，第一步不能进入子流程
             'remark'=>'',
-            'is_sponsor'=>1,
-            'status'=>1,
+            'is_sponsor'=>0,
+            'status'=>0,
             'js_time'=>time(),
-            'bl_time'=>time(),
             'dateline'=>time(),
         );
         $process_id = Db::name('run_process')->insertGetId($data);
@@ -85,6 +90,11 @@ class InfoDB{
 	}
 	/**
 	 * 缓存信息
+	 *
+	 * @param $wf_fid  单据编号
+	 * @param $flow_process 流程信息
+	 * @param $run_id  运行的id
+	 * @param $wf 流程信息
 	 */
 	public static function addWorkflowCache($run_id,$wf,$flow_process,$wf_fid)
 	{
@@ -104,25 +114,6 @@ class InfoDB{
         }
         return $run_cache;
 	}
-	public static function AddrunLog($uid,$run_id,$content,$from_id,$from_table,$run_flow=0)
-	{
-		$run_log = array(
-                'uid'=>$uid,
-				'from_id'=>$from_id,
-				'from_table'=>$from_table,
-                'run_id'=>$run_id,
-                'content'=>$content,
-                'run_flow'=>$run_flow,//从 serialize 改用  json_encode 兼容其它语言
-                'dateline'=>time()
-            );
-			 $run_log = Db::name('run_log')->insertGetId($run_log);
-			 if(!$run_log)
-				{
-					return  false;
-				}
-				return $run_log;
-	}
-	
 	/**
 	 * 根据单据ID，单据表 获取流程信息
 	 *
@@ -135,36 +126,35 @@ class InfoDB{
 		$count = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->count();
 		if($count > 0){
 			$result = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->where('status',0)->find();
+			
+			$info = Db::name('run_process')->where('run_id',$result['id'])->where('run_flow',$result['flow_id'])->where('run_flow_process',$result['run_flow_process'])->where('status',0)->find();
 			if ($result) {
 				$workflow ['sing_st'] = 0;
-				if($result['is_sing']==1){
-				   $workflow ['sing_st'] = 1;
-				}
-				$workflow ['bill_st'] = $result['status'];
 				$workflow ['flow_id'] = $result['flow_id'];
 				$workflow ['run_id'] = $result['id'];
-				$workflow ['run_flow_process'] = $result['run_flow_process'];
-				$workflow ['bill_state'] = $flowstatus[$result['status']];
+				$workflow ['flow_process'] = $info['run_flow_process'];
+				$workflow ['run_process'] = $info['id'];
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
-				$workflow ['process'] = ProcessDb::GetProcessInfo($result['run_flow_process']);
-				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
-				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($result['id']);
+				$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process']);
+				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process']);
+				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);
 				$workflow ['singuser'] = UserDb::GetUser();
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
+				if($result['is_sing']==1){
+					$info = Db::name('run_process')->where('run_id',$result['id'])->where('run_flow',$result['flow_id'])->where('run_flow_process',$result['run_flow_process'])->find();
+				   $workflow ['sing_st'] = 1;
+				   $workflow ['flow_process'] = $result['run_flow_process'];
+				   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
+				   $workflow ['run_process'] = $info['id'];
+				}
 			} else {
-				$workflow ['bill_st'] = 1;
-				$workflow ['bill_state'] =$flowstatus[1];
 				$workflow ['bill_check'] = '';
 				$workflow ['bill_time'] = '';
 			}
 		}else{
-			$workflow ['bill_st'] = -1;
-			$workflow ['bill_state'] =$flowstatus[-1];
 			$workflow ['bill_check'] = '';
 			$workflow ['bill_time'] = '';
 		}
-		
-		
 		return $workflow;
 	}
 	/**
@@ -193,7 +183,10 @@ class InfoDB{
         return $result;
 		
 	} 
-	
+	/**
+	 * 工作流列表
+	 *
+	 */
 	public static function worklist()
 	{
 		$result = Db::name('run')->where('status',0)->select();
@@ -208,8 +201,5 @@ class InfoDB{
 			}
 		}
         return $result;
-		
 	}
-	
-	
 }

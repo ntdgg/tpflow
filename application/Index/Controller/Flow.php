@@ -34,6 +34,7 @@ class Flow extends Controller {
 			$st = 0;
 			$workflow = new workflow();
 			$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
+			
 			if($flowinfo['process']['auto_person']==4){
 				$user = explode(",", $flowinfo['process']['auto_sponsor_ids']);
 				if (in_array($this->uid, $user)) {
@@ -93,9 +94,6 @@ class Flow extends Controller {
 	/*正式发起工作流*/
 	public function statr_save()
 	{
-		$wf_type = input('wf_type');
-		$wf_id = input('wf_id');
-		$wf_fid = input('wf_fid');
 		$data = $this->request->param();
 		$workflow = new workflow();
 		$flow = $workflow->startworkflow($data,$this->uid);
