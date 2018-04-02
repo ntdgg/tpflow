@@ -120,3 +120,25 @@ function ajax_progress(data, callback, param) {
        layer.alert(data.msg, {title: "错误信息", icon: 2});
     }
 }
+/**
+ * 表格无限宽横向溢出
+ * @param selector
+ * @param width 不赋值默认为th的width值和
+ * @param force 强制将表格宽度设置成实际的宽度
+ */
+function table_fixed(selector, width, force) {
+    var attr = typeof force == 'undefined' ? 'min-width' : 'width';
+    $(selector).each(function () {
+        $this = $(this);
+        //未设置宽度自动获取width属性的宽
+        if (typeof width === "undefined") {
+            width = 0;
+            $this.find("tr:first th").each(function () {
+                width += parseInt($(this).attr("width") || $(this).innerWidth());
+            })
+        }
+        $this.css(attr, width + "px");
+        $this.css("table-layout", "fixed");
+        $this.wrap('<div style="width:100%;overflow:auto"></div>');
+    });
+}
