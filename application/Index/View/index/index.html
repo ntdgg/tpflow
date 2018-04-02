@@ -1,75 +1,75 @@
 {include file='pub/base' /}
-<body onload="prettyPrint()">
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> Tpflow 工作流插件示例
-<a href="{:url('user/index')}"  class="btn btn-primary radius"> 模拟用户</a>
-<a href="{:url('user/role')}"  class="btn btn-primary radius"> 模拟角色</a>
-<a href="{:url('news/index')}"  class="btn btn-primary radius"> 单据审核</a>
-<a href="{:url('flowdesign/lists')}"  class="btn btn-primary radius">工作流设计</a>
-<a href="{:url('flow/index')}"  class="btn btn-primary radius">流程监控</a>　　
-</nav>
-<div class="page-container">
-<h4>模拟登入(点击姓名，进行模拟登入)：
-<mark>
-{if condition='$Think.session.uid'}
-欢迎您：{$Think.session.uname} 使用本插件！
-{else/}
-	请先模拟登入！
-{/if}
-</mark></h4>
-{volist name='user' id='k'}
-	<a href="{:url('login',['id'=>$k.id,'user'=>$k.username,'role'=>$k.role])}" class="btn btn-primary radius">{$k.username}</a>
-{/volist}
-<h2>API 文档说明</h2>
-<h4>第一步：工作流设计</h4>
-<pre class="prettyprint linenums">
-//详见 Flowdesign.php 
-//工作流类别为了后期方便建议：使用表名(不含表前缀)为类别
-@param $status   工作流状态 0为正常，1为禁用工作流
-@param $flow_name  工作流名称
-@param $wf_type 工作流通常是表名 工作流设计的时候会根据表名，查找字段组装拼接转出条件，表名不能出错！
-$wf_type = [
-	'news'=>'新闻信息',
-	'cnt'=>'合同信息',
-	'paper'=>'证件信息'
-];
-</pre>
-<h4>第二步：单据填写</h4>
-<h4>第三步：选择工作流——>发起流程</h4>
-<pre class="prettyprint linenums">
-@param $wf_type 工作流通常是表名
-@param $wf_id   工作流id
-@param $wf_fid  单据编号
-$workflow = new workflow();
-//获取本类工作流信息
-$flow = $workflow->getWorkFlow($wf_type);
-
-//直接发起工作流
-$wf_type = input('wf_type');
-$wf_id = input('wf_id');
-$wf_fid = input('wf_fid');
-$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
-</pre>
-<h4>第四步：审核单据发起——>获取工作流信息，获取下一个工作流信息——>日志记录——>发起消息通知</h4>
-<pre class="prettyprint linenums">
-@param $wf_title 单据名称
-@param $flow_id  工作流id
-@param $npid     下一个工作流id，如果为空，及结束节点
-@param $run_id   运行记录id
-@param $check_con   审批意见
-@param $submit_to_save   按钮值
-@param $run_flow_process 当前运行的进程id
-
-$workflow = new workflow();
-//工作流审核发起，获取当前及下一个审批流信息
-$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
-
-//工作流审核发起保存
-$flowinfo = $workflow->workdoaction($config);
-
-</pre>
-	</table>
+<header class="navbar-wrapper">
+	<div class="navbar navbar-fixed-top">
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="{:url('index')}">
+		Tpflow</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml"></a> 
+			<span class="logo navbar-slogan f-l mr-10 hidden-xs"> V1.5</span> 
+			<span class='logo navbar-slogan f-l mr-10 hidden-xs'><b>这可能是Thinkphp第一款开源的，工作流插件</b>  </span>
+			<span class='logo navbar-slogan f-l mr-10 hidden-xs'>开源协议：MIT  </span>
+			<span class='logo navbar-slogan f-l mr-10 hidden-xs'>作者：蝈蝈（1838188896） 交流群：532797225</span>
+		</nav>
+		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+			<ul class="cl">
+				<li class="dropDown dropDown_hover">
+					<a href="#" class="dropDown_A">{if condition='$Think.session.uid'}欢迎您：{$Think.session.uname} 使用本插件！{else/}请先模拟登入！{/if}</a>
+			</li>
+			</ul>
+		</nav>
+	</div>
 </div>
-
+</header>
+<!--左侧菜单开始-->
+<aside class="Hui-aside">
+		<div class="menu_dropdown bk_2" >
+			<dl>
+				<dt><i class="Hui-iconfont"></i> 新闻管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dd style="display: block;"><ul>
+				<li><a data-href="{:url('news/index')}" data-title="新闻管理" href="javascript:void(0)">新闻管理</a></li>
+				</dd>
+				</dl>
+			<dl>
+				<dt><i class="Hui-iconfont"></i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dd style="display: block;"><ul>
+				<li><a data-href="{:url('user/index')}" data-title="用户列表" href="javascript:void(0)">用户列表</a></li>
+				<li><a data-href="{:url('user/role')}" data-title="角色列表" href="javascript:void(0)">角色列表</a></li>
+				</dd>
+				</dl>
+			<dl>
+				<dt><i class="Hui-iconfont"></i> 表单自定义设计<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dd style="display: block;"><ul>
+				<li><span style='line-height: 32px;padding-left: 26px;border-bottom: none;font-weight: normal;' onclick='layer.msg("开发中！")'>表单设计</span></li>
+				</dd>
+			</dl>
+			<dl>
+				<dt><i class="Hui-iconfont"></i> 工作流设计<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dd style="display: block;"><ul>
+				<li><a data-href="{:url('flowdesign/lists')}" data-title="工作流列表" href="javascript:void(0)">工作流列表</a></li>
+				<li><a data-href="{:url('flow/index')}" data-title="工作流监控" href="javascript:void(0)">工作流监控</a></li>
+				</dd>
+			</dl>
+			
+		</div>	
+</div>
+</aside>
+<!--左侧菜单结束-->
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+<section class="Hui-article-box">
+	<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
+		<div class="Hui-tabNav-wp">
+			<ul id="min_title_list" class="acrossTab cl">
+				<li class="active">
+					<span title="我的桌面" data-href="welcome.html">我的桌面</span>
+					<em></em></li>
+		</ul>
+	</div>
+		<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a></div>
+</div>
+	<div id="iframe_box" class="Hui-article">
+		<div class="show_iframe">
+			<div style="display:none" class="loading"></div>
+			<iframe scrolling="yes" frameborder="0" src="{:url('index/welcome')}"></iframe>
+	</div>
+</div>
+</section>
 </body>
 </html>
-<script type="text/javascript" src="http://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>

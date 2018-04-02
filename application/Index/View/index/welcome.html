@@ -1,0 +1,69 @@
+{include file='pub/base' /}
+<body onload="prettyPrint()">
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 欢迎使用，Tpflow 工作流插件示例</nav>
+<div class="page-container">
+<h4>模拟登入(点击姓名，进行模拟登入)：
+<mark>
+{if condition='$Think.session.uid'}
+欢迎您：{$Think.session.uname} 使用本插件！
+{else/}
+	请先模拟登入！
+{/if}
+</mark></h4>
+{volist name='user' id='k'}
+	<a href="{:url('login',['id'=>$k.id,'user'=>$k.username,'role'=>$k.role])}" class="btn btn-primary radius">{$k.username}</a>
+{/volist}
+<h2>文档正式托管看云：<a href="https://www.kancloud.cn/guowenbin/tpflow/" target="_blank">阅读</a></h2>
+<h2>API 文档说明</h2>
+<h4>第一步：工作流设计</h4>
+<pre class="prettyprint linenums">
+//详见 Flowdesign.php 
+//工作流类别为了后期方便建议：使用表名(不含表前缀)为类别
+@param $status   工作流状态 0为正常，1为禁用工作流
+@param $flow_name  工作流名称
+@param $wf_type 工作流通常是表名 工作流设计的时候会根据表名，查找字段组装拼接转出条件，表名不能出错！
+$wf_type = [
+	'news'=>'新闻信息',
+	'cnt'=>'合同信息',
+	'paper'=>'证件信息'
+];
+</pre>
+<h4>第二步：单据填写</h4>
+<h4>第三步：选择工作流——>发起流程</h4>
+<pre class="prettyprint linenums">
+@param $wf_type 工作流通常是表名
+@param $wf_id   工作流id
+@param $wf_fid  单据编号
+$workflow = new workflow();
+//获取本类工作流信息
+$flow = $workflow->getWorkFlow($wf_type);
+
+//直接发起工作流
+$wf_type = input('wf_type');
+$wf_id = input('wf_id');
+$wf_fid = input('wf_fid');
+$flow = $workflow->startworkflow($wf_id,$wf_fid,$wf_type);
+</pre>
+<h4>第四步：审核单据发起——>获取工作流信息，获取下一个工作流信息——>日志记录——>发起消息通知</h4>
+<pre class="prettyprint linenums">
+@param $wf_title 单据名称
+@param $flow_id  工作流id
+@param $npid     下一个工作流id，如果为空，及结束节点
+@param $run_id   运行记录id
+@param $check_con   审批意见
+@param $submit_to_save   按钮值
+@param $run_flow_process 当前运行的进程id
+
+$workflow = new workflow();
+//工作流审核发起，获取当前及下一个审批流信息
+$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
+
+//工作流审核发起保存
+$flowinfo = $workflow->workdoaction($config);
+</pre>
+	</table>
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="http://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>
