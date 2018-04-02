@@ -17,6 +17,8 @@ require_once BEASE_URL . '/db/UserDb.php';
 //类库
 require_once BEASE_URL . '/class/TaskService.php';
 //配置全局类
+//消息
+require_once BEASE_URL . '/msg/mail.php';
 
 
 	/**
@@ -137,6 +139,17 @@ require_once BEASE_URL . '/class/TaskService.php';
 		function worklist($status = 0)
 		{
 			return InfoDB::worklist();
+		}
+		
+		function send_mail()
+		{
+			$mail = new SendMail();
+			$mail->setServer("smtp.qq.com", "1838188896@qq.com", "pass");
+			$mail->setFrom("1838188896@qq.com");
+			$mail->setReceiver("632522043@qq.com");
+			$mail->setReceiver("632522043@qq.com");
+			$mail->setMailInfo("test", "<b>test</b>");
+			$mail->sendMail();
 		}
 		
 }

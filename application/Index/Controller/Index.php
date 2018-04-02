@@ -3,10 +3,14 @@
 namespace app\index\Controller;
 use think\Controller;
 use think\facade\Session;
+use workflow\workflow;
 
 class Index  extends Controller{
     public function index(){
 		//Session::clear();
+		$workflow = new workflow();
+		$flow = $workflow->send_mail();
+	
 	  $this->assign('user',db('user')->field('id,username,role')->select());
       return $this->fetch();
     }
