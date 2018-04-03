@@ -1,0 +1,105 @@
+{include file='pub/base' /}
+  <link rel="stylesheet" href="__LIB__/multiple-select/multiple-select.css" />
+<article class="page-container">
+		{present name="info.id"}
+			<form action="{:url('edit')}" method="post" name="form" id="form">
+			<input type="hidden" name="id" value="{$info.id}">
+			<input type="hidden" name="status" value="0">
+		{else /}
+			<form action="{:url('functions')}" method="post" name="form" id="form">
+			<input type="hidden" name="fid" value="{$fid}">
+		{/present}
+		<table class="table table-border table-bordered table-bg">
+			<tr>
+			<td style='width:75px'>函数名称</td><td style='width:330px' colspan='2'>
+			<input type="text" class="input-text" value="{$info.name ?? ''}" name="name"  datatype="*" ></td>
+			</tr>
+			<tr>
+			<td style='width:75px'>函数名称</td><td style='width:330px'>
+			<ul class="cl">
+				<li class="dropDown dropDown_hover">
+					<a href="#" class="dropDown_A">Sql语句填写示例<i class="Hui-iconfont">&#xe6d5;</i></a>
+					<ul class="dropDown-menu menu radius box-shadow">
+						<li><a href="javascript:insert('SELECT * FROM `[table]` WHERE 1')">select</a></li>
+						<li><a href="javascript:insert('SELECT * FROM `[table]` WHERE 1 Limit 1')">find</a></li>
+					</ul>
+				</li>
+			</ul>
+			</td>
+			<td style='width:330px' >执行结果</td>
+			</tr>
+			<tr valign="top">
+			<td style='width:75px'>函数语句：</td><td style='width:330px' >
+			<textarea placeholder="此为SQL语句，非专业人士请勿随意提交！" id='sql' name='sql' type="text/plain" style="width:100%;height:150px;"></textarea> </td>
+		    <td style='width:330px' ><p id="result" style="background-color: #cccccc;"></p></td>
+			
+			</tr>
+		</table>
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<a  class="btn btn-primary radius" id='forms'><i class="Hui-iconfont">&#xe632;</i> 测试</a>
+				<button  class="btn btn-primary radius" id='oks' type="submit" disabled="disabled"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				
+				<button  class="btn btn-default radius" type="button" onclick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+
+<script src="https://cdn.bootcss.com/Base64/1.0.1/base64.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("[name='new_top'][value='{$info.new_top ?? ''}']").attr("checked",true);
+	$("[name='new_type']").find("[value='{$info.new_type ?? '0'}']").attr("selected",true);
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$("#form").Validform({
+            tiptype:2,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+    });
+
+});
+function insert($sql){
+    if ($sql){
+        var table=$("#tables").val();
+        $("#sql").text($sql.replace("[table]", table));
+    }
+}
+$("#forms").click(function(){
+    var sql=$("#sql").val();
+    if (!sql){layer.msg("SQL不能为空!!");return;}
+    $.ajax({  
+         url:'{:url("ajax_sql")}',
+         data:{sql:sql},  
+         type:'post',  
+         cache:true,  
+         dataType:'html',  
+         success:function(data) {  
+			if(data == 1){
+				$("#result").html('错误的SQL语句！<br/>'+$("#sql").val());
+			}else{
+				$('#oks').attr("disabled",false); 
+				$("#result").html(data); 
+			}
+          },  
+          error : function() {  
+              $("#result").html('错误的SQL语句！<br/>'+$("#sql").val());
+          }  
+     }); 
+      
+    
+})
+</script>
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
