@@ -12,6 +12,7 @@ class Index  extends Controller{
 		//$flow = $workflow->send_mail();
 	
 	  $this->assign('user',db('user')->field('id,username,role')->select());
+	  $this->assign('menu',db('menu')->select());
       return $this->fetch();
     }
 	public function welcome(){

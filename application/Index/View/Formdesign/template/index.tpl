@@ -4,7 +4,7 @@
     [FORM]
     <div class="cl pd-5 bg-1 bk-gray">
         <span class="l">
-            [MENU]
+            <a href="javascript:;" onclick="layer_show('新增','{:url('add')}','850','500')" class="btn btn-primary radius">新增</a>
         </span>
         <span class="r pt-5 pr-5">
             共有数据 ：<strong>{$count ?? '0'}</strong> 条
@@ -22,7 +22,7 @@
         <tr class="text-c">
             [TD]
             <td class="f-14">
-		[TD_MENU]
+					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$vo.id])}','850','500')">修改</span>
             </td>
         </tr>
         {/volist}

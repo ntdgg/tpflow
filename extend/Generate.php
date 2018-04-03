@@ -34,7 +34,8 @@ class Generate
 
     public function run($data, $option = 'all')
     {
-		defined('APP_PATH') or define('APP_PATH',\Env::get('app_path') );
+		define('APP_PATH',\Env::get('app_path') );
+		define('DS',DIRECTORY_SEPARATOR);
         // 检查方法是否存在
         if (isset($data['delete_file']) && $data['delete_file']) {
             $action = 'del' . ucfirst($option);
@@ -44,11 +45,7 @@ class Generate
         if (!method_exists($this, $action)) {
             throw new Exception('选项不存在：' . $option, 404);
         }
-        // 载入默认配置
-        $defaultConfigFile = APP_PATH . 'index/extra/generate.php';
-        if (file_exists($defaultConfigFile)) {
-            $data = array_merge(include $defaultConfigFile, $data);
-        }
+       
         // 检查目录是否可写
         $pathCheck = APP_PATH . $data['module'];
         if (!self::checkWritable($pathCheck)) {
@@ -56,14 +53,14 @@ class Generate
         }
         if (isset($data['model']) && $data['model']) {
             $module = $this->readConfig($this->module, 'app', 'model_path', Config::get('app.model_path'));
-            $pathCheck = APP_PATH . $module . DIRECTORY_SEPARATOR;
+            $pathCheck = APP_PATH . $module . DS;
             if (!self::checkWritable($pathCheck)) {
                 throw new Exception("目录没有权限不可写，请执行一下命令修改权限：<br>chmod -R 755 " . realpath($pathCheck), 403);
             }
         }
         if (isset($data['validate']) && $data['validate']) {
             $module = $this->readConfig($this->module, 'app', 'validate_path', Config::get('app.validate_path'));
-            $pathCheck = APP_PATH . $module . DIRECTORY_SEPARATOR;
+            $pathCheck = APP_PATH . $module . DS;
             if (!self::checkWritable($pathCheck)) {
                 throw new Exception("目录没有权限不可写，请执行一下命令修改权限：<br>chmod -R 755 " . realpath($pathCheck), 403);
             }
@@ -81,26 +78,17 @@ class Generate
         $this->name = array_pop($controllers);
         $this->nameLower = Loader::parseName($this->name);
 
-        // 分级控制器目录和命名空间后缀
-        if ($controllers) {
-            $this->dir = strtolower(implode(DIRECTORY_SEPARATOR, $controllers) . DIRECTORY_SEPARATOR);
-            $this->namespaceSuffix = "\\" . strtolower(implode("\\", $controllers));
-        } else {
-            $this->dir = "";
-            $this->namespaceSuffix = "";
-        }
-
         // 删除刚刚生成的文件
         if (isset($data['delete_file']) && $data['delete_file']) {
-            $pathView = APP_PATH . $this->module . DIRECTORY_SEPARATOR . "view" . DIRECTORY_SEPARATOR . $this->dir . $this->nameLower . DIRECTORY_SEPARATOR;
-            $fileName = APP_PATH . "%MODULE%" . DIRECTORY_SEPARATOR . "%NAME%" . DIRECTORY_SEPARATOR . $this->dir . $this->name . ".php";
+            $pathView = APP_PATH . $this->module . DS . "view" . DS . $this->dir . $this->nameLower . DS;
+            $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
             $this->$action($pathView, $fileName);
 
             return true;
         }
 
         // 数据表表名
-        $tableName = str_replace(DIRECTORY_SEPARATOR, '_', $this->dir) . $this->nameLower;
+        $tableName = str_replace(DS, '_', $this->dir) . $this->nameLower;
         // 判断是否在黑名单中
         if (in_array($data['controller'], $this->blacklistName)) {
             throw new Exception('该控制器不允许创建');
@@ -110,22 +98,22 @@ class Generate
             throw new Exception('该数据表不允许创建');
         }
         // 创建目录
-        $dir_list = [$this->module . DIRECTORY_SEPARATOR . "view" . DIRECTORY_SEPARATOR . $this->dir . $this->nameLower];
+        $dir_list = [$this->module . DS . "view" . DS . $this->dir . $this->nameLower];
         if (isset($data['model']) && $data['model']) {
             $module = $this->readConfig($this->module, 'app', 'model_path', Config::get('app.model_path'));
-            $dir_list[] = $module . DIRECTORY_SEPARATOR . "model";
+            $dir_list[] = $module . DS . "model";
         }
        
         if ($this->dir) {
-            $dir_list[] = $this->module . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . $this->dir;
+            $dir_list[] = $this->module . DS . "controller" . DS . $this->dir;
         }
         $this->buildDir($dir_list);
 
         if ($action != 'buildDir') {
             // 文件路径
-            $pathView = APP_PATH . $this->module . DIRECTORY_SEPARATOR . "view" . DIRECTORY_SEPARATOR . $this->dir . $this->nameLower . DIRECTORY_SEPARATOR;
-            $pathTemplate = APP_PATH . 'index' . DIRECTORY_SEPARATOR . "view" . DIRECTORY_SEPARATOR . "Formdesign" . DIRECTORY_SEPARATOR . "template" . DIRECTORY_SEPARATOR ;
-            $fileName = APP_PATH . "%MODULE%" . DIRECTORY_SEPARATOR . "%NAME%" . DIRECTORY_SEPARATOR . $this->dir . $this->name . ".php";
+            $pathView = APP_PATH . $this->module . DS . "view" . DS . $this->dir . $this->nameLower . DS;
+            $pathTemplate = APP_PATH . 'index' . DS . "view" . DS . "Formdesign" . DS . "template" . DS ;
+            $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
             $code = $this->parseCode();
             // 执行方法
             $this->$action($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
@@ -139,7 +127,7 @@ class Generate
     public static function checkWritable($path = '')
     {
         try {
-            $path = $path ? $path : APP_PATH . 'admin' . DIRECTORY_SEPARATOR;
+            $path = $path ? $path : APP_PATH . 'admin' . DS;
             $testFile = $path . "bulid.test";
             if (!file_put_contents($testFile, "test")) {
                 return false;
@@ -329,7 +317,7 @@ class Generate
         // 获取模型的路径，根据配置文件读取
         $module = $this->readConfig($this->module, 'app', 'model_path', Config::get('app.model_path'));
         $name = $this->parseCamelCase($this->dir) . $this->name;
-        $file = APP_PATH . $module . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . $name . ".php";
+        $file = APP_PATH . $module . DS . "model" . DS . $name . ".php";
 
         return $this->deleteFile($file);
     }
@@ -366,7 +354,7 @@ class Generate
     private function delTable($pathView, $phpFile = '')
     {
         // 数据表表名
-        $tableName = str_replace(DIRECTORY_SEPARATOR, '_', $this->dir) . $this->nameLower;
+        $tableName = str_replace(DS, '_', $this->dir) . $this->nameLower;
         // 一定别忘记表名前缀
         $tableName = isset($this->data['table_name']) && $this->data['table_name'] ?
             $this->data['table_name'] :
@@ -1065,9 +1053,9 @@ class Generate
      */
     private function parseCamelCase($name)
     {
-        $pattern = DIRECTORY_SEPARATOR == '\\' ? '/((^|\\\\)([a-z]))/' : '/((^|\\/)([a-z]))/';
+        $pattern = DS == '\\' ? '/((^|\\\\)([a-z]))/' : '/((^|\\/)([a-z]))/';
         return preg_replace_callback($pattern, function ($matches) {
             return strtoupper($matches[3]);
-        }, trim($name, DIRECTORY_SEPARATOR));
+        }, trim($name, DS));
     }
 }

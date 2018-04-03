@@ -4,7 +4,7 @@
     
     <div class="cl pd-5 bg-1 bk-gray">
         <span class="l">
-            {tp:menu menu="index" /}
+            <a href="javascript:;" onclick="layer_show('新增','{:url('add')}','850','500')" class="btn btn-primary radius">新增</a>
         </span>
         <span class="r pt-5 pr-5">
             共有数据 ：<strong>{$count ?? '0'}</strong> 条
@@ -14,6 +14,9 @@
         <thead>
         <tr class="text-c">
             <th width="25"><input type="checkbox"></th>
+            <th width="">字段名</th>
+            <th width="">选择框</th>
+            <th width="">年龄</th>
             <th width="70">操作</th>
         </tr>
         </thead>
@@ -21,9 +24,11 @@
         {volist name="list" id="vo"}
         <tr class="text-c">
             <td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+            <td>{$vo.user}</td>
+            <td>{$vo.selcet}</td>
+            <td>{$vo.1}</td>
             <td class="f-14">
-                {tp:menu menu='sedit' /}
-                {tp:menu menu='sdeleteforever' /}
+					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$vo.id])}','850','500')">修改</span>
             </td>
         </tr>
         {/volist}

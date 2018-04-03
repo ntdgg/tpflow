@@ -28,12 +28,14 @@
 				</dd>
 				</dl>
 			<dl>
+			{volist name='menu' id='k'}
 			<dl>
-				<dt><i class="Hui-iconfont"></i> test<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dt><i class="Hui-iconfont"></i> {$k.name}<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>
-				<li><a data-href="{:url('test/index')}" data-title="test" href="javascript:void(0)">test</a></li>
+				<li><a data-href="{:url($k['url'])}" data-title="test" href="javascript:void(0)">{$k.name}</a></li>
 				</dd>
 				</dl>
+			{/volist}
 			<dl>
 				<dt><i class="Hui-iconfont"></i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>

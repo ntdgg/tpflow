@@ -92,46 +92,47 @@ class Formdesign extends Admin
 	}
 	public function shengcheng()
 	{
+		$id = input('id');
 		$generate = new \Generate();
-		$info = db('form')->find(1);
+		$info = db('form')->find($id);
 		
 		$ziduan = json_decode($info['ziduan'],true);
 		$field = [];
-		
+		$form = [];
 		foreach($ziduan['fields'] as $k=>$v){
 			$field[$k]['name'] = $v['name'];
 			$field[$k]['type'] = 'text';
 			$field[$k]['extra'] = '';
 			$field[$k]['comment'] = $v['label'];
 			$field[$k]['default'] = '';
+			$form[$k]['title'] =  $v['label'];
+			$form[$k]['name'] =  $v['name'];
+			$form[$k]['type'] =  $v['field_type'];
+			$form[$k]['option'] =  '1:启用#0:禁用';
+			$form[$k]['default'] = '';
 		}
 		$data = [
 		'module'=>'index',
-		'controller'=>'Test',
-		'menu'=>['index'],
-		'title'=>'title',
-		'table'=>'test',
-		'create_table'=>'test',
-		'field'=>$field
-			
-		
+		'controller'=>$info['name'],
+		'menu'=>['add,del'],
+		'title'=>$info['title'],
+		'table'=>$info['name'],
+		'create_table'=>$info['name'],
+		'field'=>$field,
+		'form'=>$form
 		];
+		$menu = [
+			'url'=>$info['name'].'/index',
+			'name'=>$info['title'],
+		];
+		$ret=controller('Base', 'event')->commonadd('menu',$menu);
 		$generate->run($data);
+		$up = [
+			'id'=>$id,
+			'status'=>1,
+		];
+		controller('Base', 'event')->commonedit('form',$up);
+		$this->success('生成成功！','/index/index/welcome');
 		
 	}
-    /**
-     * 生成代码
-     */
-    public function run()
-    {
-        $generate = new \Generate();
-        $data = $this->request->post();
-        unset($data['file']);
-        $generate->run($data, $this->request->post('file'));
-
-        if (isset($data['delete_file']) && $data['delete_file']) {
-            return ajax_return_adv('删除成功', '', false, '', '', ['action' => '']);
-        }
-        return ajax_return_adv('生成成功', '', false, '', '', ['action' => Url::build($data['module'] . '/' . $data['controller'] . '/index')]);
-    }
 }
