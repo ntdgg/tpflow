@@ -1,10 +1,10 @@
-{extend name="[MODULE]template/base" /}
+{include file='pub/base' /}
 {block name="content"}
 <div class="page-container">
-    {include file='form' /}
+    
     <div class="cl pd-5 bg-1 bk-gray">
         <span class="l">
-            {tp:menu menu='recycle,deleteForever,clear' /}
+            {tp:menu menu="index" /}
         </span>
         <span class="r pt-5 pr-5">
             共有数据 ：<strong>{$count ?? '0'}</strong> 条
@@ -13,16 +13,16 @@
     <table class="table table-border table-bordered table-hover table-bg mt-20">
         <thead>
         <tr class="text-c">
-            {include file="th" /}
+            <th width="25"><input type="checkbox"></th>
             <th width="70">操作</th>
         </tr>
         </thead>
         <tbody>
         {volist name="list" id="vo"}
         <tr class="text-c">
-            {include file="td" /}
+            <td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
             <td class="f-14">
-                {tp:menu menu='srecycle' /}
+                {tp:menu menu='sedit' /}
                 {tp:menu menu='sdeleteforever' /}
             </td>
         </tr>
@@ -32,4 +32,4 @@
     <div class="page-bootstrap">{$page ?? ''}</div>
 </div>
 {/block}
-[SCRIPT]
+

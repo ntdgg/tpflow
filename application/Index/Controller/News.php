@@ -115,6 +115,7 @@ class News extends Admin
 		 $this->assign('info', $info);
 	   }
 	  $list=controller('Base', 'event')->commonlist('news_type');
+	  
 	  $this->assign('list', $list);
 	  return $this->fetch();
     }

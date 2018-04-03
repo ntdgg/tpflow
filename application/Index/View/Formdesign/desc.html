@@ -30,7 +30,8 @@
 <div class="page-container">
    <div class='fb-main'></div>
 </div>
-
+<input name='ziduan' id='ziduan' value=''>
+<input name='id' id='id' value='{$fid}'>
 
   <script src="/static/formbuilder/vendor.js"></script>
   <script src="/static/formbuilder/formbuilder.js"></script>
@@ -45,9 +46,32 @@
       });
 
       fb.on('save', function(payload){
-        console.log(payload);
+        $('#ziduan').val(payload);
 		
 		
       })
+	  $("#up").click(function(){
+		 var ziduan=$("#ziduan").val();
+		 var id=$("#id").val();
+		
+		$.ajax({  
+			 url:'{:url("desc")}',
+			 data:{ziduan:ziduan,id:id},  
+			 type:'post',  
+			 cache:true,  
+			dataType:'json',			 
+			 success:function(data) {  
+				if(data.code==0){
+					lay.msg('Success!');
+					layer_close();
+				}
+			  },  
+			  error : function() {  
+				  
+			  }  
+		 }); 
+		
+		})
     });
+	
   </script>

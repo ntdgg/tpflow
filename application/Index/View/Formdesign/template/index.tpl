@@ -1,4 +1,4 @@
-{extend name="[MODULE]template/base" /}
+{include file='pub/base' /}
 {block name="content"}
 <div class="page-container">
     [FORM]
@@ -22,7 +22,7 @@
         <tr class="text-c">
             [TD]
             <td class="f-14">
-[TD_MENU]
+		[TD_MENU]
             </td>
         </tr>
         {/volist}

@@ -32,6 +32,19 @@ class Formdesign extends Admin
     public function desc($map=[])
     {
         
+		if ($this->request->isPost()) {
+		$data = input('post.');
+		$data['ziduan'] = htmlspecialchars_decode($data['ziduan']);
+	    $ret=controller('Base', 'event')->commonedit('form',$data);
+		if($ret['code']==0){
+			return msg_return('修改成功！');
+			}else{
+			return msg_return($ret['data'],1);
+		}
+	   }
+		
+		$this->assign('fid', input('id'));
+		
         return $this->view->fetch();
     }
 	/**
@@ -51,6 +64,7 @@ class Formdesign extends Admin
 	   }
         return $this->view->fetch();
     }
+	
 	public function functions()
 	{
 		if ($this->request->isPost()) {
@@ -76,26 +90,35 @@ class Formdesign extends Admin
 			}
         }
 	}
-    /**
-     * 模拟终端
-     */
-    public function cmd()
-    {
-        echo "<p style='color: green'>代码开始生成中……</p>\n";
-        $config = explode(".", $this->request->param('config', 'generate'));
-        $configFile = ROOT_PATH . $config[0] . '.php';
-        if (!file_exists($configFile)) {
-            echo "<p style='color: red;font-weight: bold'>配置文件不存在：{$configFile}</p>\n";
-            exit();
-        }
-
-        $data = include $configFile;
-        $generate = new \Generate();
-        $generate->run($data, $this->request->param('file', 'all'));
-        echo "<p style='color: green;font-weight: bold'>代码生成成功！</p>\n";
-        exit();
-    }
-
+	public function shengcheng()
+	{
+		$generate = new \Generate();
+		$info = db('form')->find(1);
+		
+		$ziduan = json_decode($info['ziduan'],true);
+		$field = [];
+		
+		foreach($ziduan['fields'] as $k=>$v){
+			$field[$k]['name'] = $v['name'];
+			$field[$k]['type'] = 'text';
+			$field[$k]['extra'] = '';
+			$field[$k]['comment'] = $v['label'];
+			$field[$k]['default'] = '';
+		}
+		$data = [
+		'module'=>'index',
+		'controller'=>'Test',
+		'menu'=>['index'],
+		'title'=>'title',
+		'table'=>'test',
+		'create_table'=>'test',
+		'field'=>$field
+			
+		
+		];
+		$generate->run($data);
+		
+	}
     /**
      * 生成代码
      */

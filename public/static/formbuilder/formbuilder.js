@@ -590,8 +590,8 @@
         LENGTH_UNITS: 'field_options.min_max_length_units'
       },
       dict: {
-        ALL_CHANGES_SAVED: 'All changes saved',
-        SAVE_FORM: 'Save form',
+        ALL_CHANGES_SAVED: '已缓存',
+        SAVE_FORM: '保存....',
         UNSAVED_CHANGES: 'You have unsaved changes. If you leave this page, you will lose those changes!'
       }
     };
@@ -1059,7 +1059,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class=\'fb-save-wrapper\'>\n  <button class=\'js-save-form ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
-'\'></button>\n</div>';
+'\'></button>\n<button id=\'up\' class=\'fb-button\'>上传</button>\n</div>';
 
 }
 return __p

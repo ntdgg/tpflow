@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-04-03 11:50:32
+Date: 2018-04-03 17:23:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -137,7 +137,7 @@ CREATE TABLE `leipi_form` (
 -- ----------------------------
 -- Records of leipi_form
 -- ----------------------------
-INSERT INTO `leipi_form` VALUES ('1', '合同审核', 'cnt', 'all', '0', '0', null, '7', '1522721520');
+INSERT INTO `leipi_form` VALUES ('1', '合同审核', 'cnt', 'all', '0', '0', '{\"fields\":[{\"label\":\"字段名\",\"field_type\":\"text\",\"required\":true,\"field_options\":{\"size\":\"small\"},\"cid\":\"c2\",\"name\":\"user\"},{\"label\":\"选择框\",\"field_type\":\"checkboxes\",\"required\":true,\"field_options\":{\"options\":[{\"label\":\"1\",\"checked\":false},{\"label\":\"2\",\"checked\":false}]},\"cid\":\"c6\",\"name\":\"selcet\"},{\"label\":\"年龄\",\"field_type\":\"number\",\"required\":true,\"field_options\":{\"min\":\"1\",\"max\":\"90\",\"units\":\"年龄大小\"},\"cid\":\"c10\",\"name\":\"1\"}]}', '7', '1522721520');
 
 -- ----------------------------
 -- Table structure for `leipi_form_function`
@@ -156,9 +156,7 @@ CREATE TABLE `leipi_form_function` (
 -- ----------------------------
 -- Records of leipi_form_function
 -- ----------------------------
-INSERT INTO `leipi_form_function` VALUES ('1', null, 'SELECT * FROM `leipi_news` ', '关联新闻', '7', '1522727124');
-INSERT INTO `leipi_form_function` VALUES ('2', '0', 'SELECT type FROM `leipi_news_type` ', '新闻类别', '7', '1522727302');
-INSERT INTO `leipi_form_function` VALUES ('3', '1', 'SELECT * FROM `leipi_news` ', '123', '7', '1522727378');
+INSERT INTO `leipi_form_function` VALUES ('2', '1', 'SELECT type FROM `leipi_news_type` ', '新闻类别', '7', '1522727302');
 
 -- ----------------------------
 -- Table structure for `leipi_news`
@@ -402,6 +400,24 @@ CREATE TABLE `leipi_run_sign` (
 -- ----------------------------
 -- Records of leipi_run_sign
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `leipi_test`
+-- ----------------------------
+DROP TABLE IF EXISTS `leipi_test`;
+CREATE TABLE `leipi_test` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'title主键',
+  `user` text COMMENT '字段名',
+  `selcet` text COMMENT '选择框',
+  `1` text COMMENT '年龄',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='title';
+
+-- ----------------------------
+-- Records of leipi_test
+-- ----------------------------
+INSERT INTO `leipi_test` VALUES ('1', '1', '1', '1');
+INSERT INTO `leipi_test` VALUES ('2', '2', '23', '3');
 
 -- ----------------------------
 -- Table structure for `leipi_user`

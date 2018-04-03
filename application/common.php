@@ -10,6 +10,11 @@ use think\facade\Session;
 use think\Db;
 use PHPMailer\PHPMailer\PHPMailer;
 
+
+function tab($step = 1, $string = ' ', $size = 4)
+{
+    return str_repeat($string, $size * $step);
+}
 function ids_parse($str,$dot_tmp=',')
 {
     if(!$str) return '';
