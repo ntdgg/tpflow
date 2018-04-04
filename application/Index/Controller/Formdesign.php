@@ -11,6 +11,8 @@ use think\Controller;
 use think\Loader;
 use think\Url;
 use think\Db;
+use tpform\tpform;
+use tpdf\tpdf;
 
 class Formdesign extends Admin
 {
@@ -93,8 +95,8 @@ class Formdesign extends Admin
 	public function shengcheng()
 	{
 		$id = input('id');
-		$generate = new \Generate();
-		$info = db('form')->find($id);
+		$tpform = new tpform();
+		$info = db('form')->find(2);
 		
 		$ziduan = json_decode($info['ziduan'],true);
 		$field = [];
@@ -110,7 +112,11 @@ class Formdesign extends Admin
 			$form[$k]['type'] =  $v['field_type'];
 			$form[$k]['option'] =  '1:启用#0:禁用';
 			$form[$k]['default'] = '';
+			$form[$k]['search'] = $v['search'];
+			$form[$k]['lists'] = $v['lists'];
+			
 		}
+		dump($ziduan);
 		$data = [
 		'module'=>'index',
 		'controller'=>$info['name'],
@@ -125,14 +131,18 @@ class Formdesign extends Admin
 			'url'=>$info['name'].'/index',
 			'name'=>$info['title'],
 		];
-		$ret=controller('Base', 'event')->commonadd('menu',$menu);
-		$generate->run($data);
+		//$ret=controller('Base', 'event')->commonadd('menu',$menu);
+		$tpdf = new tpdf();
+		$tpdf->make($data);
+		
+		
+		//$tpform->run($data);
 		$up = [
 			'id'=>$id,
 			'status'=>1,
 		];
-		controller('Base', 'event')->commonedit('form',$up);
-		$this->success('生成成功！','/index/index/welcome');
+		//controller('Base', 'event')->commonedit('form',$up);
+		//$this->success('生成成功！','/index/index/welcome');
 		
 	}
 }

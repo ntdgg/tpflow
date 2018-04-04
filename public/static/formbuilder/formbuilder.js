@@ -839,11 +839,7 @@ this["Formbuilder"]["templates"]["edit/checkboxes"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<label>\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
-((__t = ( Formbuilder.options.mappings.REQUIRED )) == null ? '' : __t) +
-'\' />\n  必填\n</label>\n<!-- label>\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
-((__t = ( Formbuilder.options.mappings.ADMIN_ONLY )) == null ? '' : __t) +
-'\' />\n  Admin only\n</label -->';
+__p += '<label></label -->';
 
 }
 return __p
@@ -853,11 +849,11 @@ this["Formbuilder"]["templates"]["edit/common"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>标题</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-label-description\'>\n    ' +
+__p += '<div class=\'fb-edit-section-header\'>标题</div>\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-label-description\'>\n    ' +
 ((__t = ( Formbuilder.templates['edit/label_description']() )) == null ? '' : __t) +
 '\n  </div>\n  <div class=\'fb-common-checkboxes\'>\n    ' +
 ((__t = ( Formbuilder.templates['edit/checkboxes']() )) == null ? '' : __t) +
-'\n  </div>\n  <div class=\'fb-clear\'></div>\n</div>\n';
+'\n  </div>\n</div>\n';
 
 }
 return __p
@@ -867,9 +863,9 @@ this["Formbuilder"]["templates"]["edit/integer_only"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Integer only</div>\n<label>\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
+/* __p += '<div class=\'fb-edit-section-header\'>Integer only</div>\n<label>\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
 ((__t = ( Formbuilder.options.mappings.INTEGER_ONLY )) == null ? '' : __t) +
-'\' />\n  Only accept integers\n</label>\n';
+'\' />\n  Only accept integers\n</label>\n'; */
 
 }
 return __p
@@ -881,7 +877,8 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<input type=\'text\' data-rv-input=\'model.' +
 ((__t = ( Formbuilder.options.mappings.LABEL )) == null ? '' : __t) +
-'\' />\n字段名：<input style="width: 80px" type=\'text\' data-rv-input=\'model.name\' />类型： <select style="width: 80px" class="select" data-rv-input=\'model.type\'> <option value="text">text</option><option value="select">select</option><option value="radio">radio</option><option value="textarea">textarea</option><option value="checkbox">checkbox</option><option value="password">password</option> <option value="number">number</option><option value="date">date</option></select>';
+'\' />\n字段：<input style="width: 80px" type=\'text\' data-rv-input=\'model.name\' />  类型： <select style="width:80px" class="select" data-rv-input=\'model.type\'> <option value="text">text</option><option value="select">select</option><option value="radio">radio</option><option value="textarea">textarea</option><option value="checkbox">checkbox</option><option value="password">password</option> <option value="number">number</option><option value="date">date</option></select><br/>查询：<select style="width: 80px" class="select" data-rv-input=\'model.search\'> <option value="yes">是</option><option value="no">否</option></select>列表：<select style="width: 80px" class="select" data-rv-input=\'model.lists\'> <option value="yes">是</option><option value="no">否</option></select><br/>尺寸：<select data-rv-value="model.' +
+((__t = ( Formbuilder.options.mappings.SIZE )) == null ? '' : __t) +'">\n  <option value="small">小</option>\n  <option value="medium">中</option>\n  <option value="large">大</option>\n</select>\n';
 }
 return __p
 };
@@ -890,11 +887,11 @@ this["Formbuilder"]["templates"]["edit/min_max"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Minimum / Maximum</div>\n\nAbove\n<input type="text" data-rv-input="model.' +
+/* __p += '<div class=\'fb-edit-section-header\'>Minimum / Maximum</div>\n\nAbove\n<input type="text" data-rv-input="model.' +
 ((__t = ( Formbuilder.options.mappings.MIN )) == null ? '' : __t) +
 '" style="width: 30px" />\n\n&nbsp;&nbsp;\n\nBelow\n<input type="text" data-rv-input="model.' +
 ((__t = ( Formbuilder.options.mappings.MAX )) == null ? '' : __t) +
-'" style="width: 30px" />\n';
+'" style="width: 30px" />\n'; */
 
 }
 return __p
@@ -904,6 +901,7 @@ this["Formbuilder"]["templates"]["edit/min_max_length"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
+/*
 __p += '<div class=\'fb-edit-section-header\'>长度区间</div>\n\nMin\n<input type="text" data-rv-input="model.' +
 ((__t = ( Formbuilder.options.mappings.MINLENGTH )) == null ? '' : __t) +
 '" style="width: 30px" />\n\n&nbsp;&nbsp;\n\nMax\n<input type="text" data-rv-input="model.' +
@@ -911,7 +909,7 @@ __p += '<div class=\'fb-edit-section-header\'>长度区间</div>\n\nMin\n<input 
 '" style="width: 30px" />\n\n&nbsp;&nbsp;\n\n<select data-rv-value="model.' +
 ((__t = ( Formbuilder.options.mappings.LENGTH_UNITS )) == null ? '' : __t) +
 '" style="width: auto;">\n  <option value="characters">characters</option>\n  <option value="words">words</option>\n</select>\n';
-
+*/
 }
 return __p
 };
@@ -921,7 +919,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Options</div>\n\n';
+__p += '<div class=\'fb-edit-section-header\'>选项信息</div>\n\n';
  if (typeof includeBlank !== 'undefined'){ ;
 __p += '\n  <label>\n    <input type=\'checkbox\' data-rv-checked=\'model.' +
 ((__t = ( Formbuilder.options.mappings.INCLUDE_BLANK )) == null ? '' : __t) +
@@ -941,7 +939,7 @@ __p += '\n  <label>\n    <input type=\'checkbox\' data-rv-checked=\'model.' +
  } ;
 __p += '\n\n<div class=\'fb-bottom-add\'>\n  <a class="js-add-option ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
-'">Add option</a>\n</div>\n';
+'">新增选项</a>\n</div>\n';
 
 }
 return __p
@@ -951,21 +949,24 @@ this["Formbuilder"]["templates"]["edit/size"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
+	/*
 __p += '<div class=\'fb-edit-section-header\'>大小</div>\n<select data-rv-value="model.' +
 ((__t = ( Formbuilder.options.mappings.SIZE )) == null ? '' : __t) +
 '">\n  <option value="small">小</option>\n  <option value="medium">中</option>\n  <option value="large">大</option>\n</select>\n';
+*/
 
 }
 return __p
 };
 
+
 this["Formbuilder"]["templates"]["edit/units"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Units</div>\n<input type="text" data-rv-input="model.' +
+/* __p += '<div class=\'fb-edit-section-header\'>Units</div>\n<input type="text" data-rv-input="model.' +
 ((__t = ( Formbuilder.options.mappings.UNITS )) == null ? '' : __t) +
-'" />\n';
+'" />\n'; */
 
 }
 return __p

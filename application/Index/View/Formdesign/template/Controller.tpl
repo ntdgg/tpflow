@@ -6,9 +6,10 @@ use think\Request;
 
 class [NAME] extends Admin
 {
-	public function index()
+	public function index($map='')
 	{
-		$list=controller('Base', 'event')->commonlist('[NAME]');
+		[FILTER]
+		$list=controller('Base', 'event')->commonlist('[NAME]',$map);
 		$this->assign('list', $list);
 		return $this->fetch();
 	}
