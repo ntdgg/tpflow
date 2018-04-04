@@ -5,6 +5,8 @@
 
 **TpFlow** 可以可视化自定义工作流，支持工作流的会签等
 
+**TpFD**  表单自定义功能
+
 ---
 
 ### 插件要求
@@ -15,9 +17,8 @@
 
 ---
 
-下载地址：https://gitee.com/ntdgg/tpflow
-官方博客：http://www.cojz8.com/
-工作流手册：https://www.kancloud.cn/guowenbin/tpflow
+> 官方博客：http://www.cojz8.com/
+> 工作流手册：https://www.kancloud.cn/guowenbin/tpflow
 
 ---
 
@@ -47,9 +48,9 @@
 ---
 ### 开发日志
 
-2018年3月30日 回退功能完成
-2018年3月31日 会签功能完成 Thinkphp框架更新至：5.1.7;
-2018年4月01日 工作流1.1版本正式发布
+> 2018年3月30日 回退功能完成
+> 2018年3月31日 会签功能完成 Thinkphp框架更新至：5.1.7;
+> 2018年4月01日 工作流1.1版本正式发布
 
 ---
 

@@ -79,7 +79,7 @@ class tpdf
             $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
             $code = $this->parseCode();
             // 执行方法
-            $this->buildIndex($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
+            $this->buildEdit($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
         }
     }
 	
@@ -159,6 +159,26 @@ class tpdf
             )
         );
     }
+	 /**
+     * 创建 edit.html 文件
+     */
+    private function buildEdit($path, $pathTemplate, $fileName, $tableName, $code, $data)
+    {
+        $template = file_get_contents($pathTemplate . "edit.tpl");
+        $file = $path . "edit.html";
+
+        //TODO 自定义模板路径
+        if ($this->module == Request::module() || !$this->module) {
+            $module = '';
+        } else {
+            $module = Request::module() . '@';
+        }
+
+        return file_put_contents($file, str_replace(
+            ["[MODULE]", "[ROWS]", "[SET_VALUE]", "[SCRIPT]"],
+            [$module, $code['edit'], implode("\n", array_merge($code['set_checked'], $code['set_selected'])), implode("", $code['script_edit'])],
+            $template));
+    }
 	
 	
 	/**
@@ -226,6 +246,10 @@ class tpdf
 					 $filter .= tab(2) . 'if ($this->request->param("' . $form['name'] . '")) {' . "\n"
                         . tab(3) . '$map[\'' . $form['name'] . '\'] = ["like", "%" . $this->request->param("' . $form['name'] . '") . "%"];' . "\n"
                         . tab(2) . '}' . "\n";
+					$editField .= tab(4) . '<input type="' . $form['type'] . '" class="input-text" '
+                                . 'placeholder="' . $form['title'] . '" name="' . $form['name'] . '" '
+                                . 'value="' . '{$vo.' . $form['name'] . ' ?? \'' . $form['default'] . '\'}' . '" '
+                                .  '>' . "\n";
 					 $search[] = tab(1) . '<input type="text" class="input-text" style="width:250px" '
                                 . 'placeholder="' . $form['title'] . '" name="' . $form['name'] . '" '
                                 . 'value="{$Request.param.' . $form['name'] . '}" '
@@ -238,7 +262,17 @@ class tpdf
 					$th[] = '<th>' . $form['title'] ."</th>";
 				 
 				}
-				
+				/*生成edit用*/
+				$editField .= tab(2) . '<div class="row cl">' . "\n"
+                        . tab(3) . '<label class="form-label col-xs-3 col-sm-3">'
+                        . (isset($form['require']) && $form['require'] ? '<span class="c-red">*</span>' : '')
+                        . $form['title'] . '：</label>' . "\n"
+                        . tab(3) . '<div class="formControls col-xs-6 col-sm-6'
+                        . (in_array($form['type'], ['radio', 'checkbox']) ? ' skin-minimal' : '')
+                        . '">' . "\n";
+				 $editField .= tab(3) . '</div>' . "\n"
+                        . tab(3) . '<div class="col-xs-3 col-sm-3"></div>' . "\n"
+                        . tab(2) . '</div>' . "\n";
 				
 			 }
 		}

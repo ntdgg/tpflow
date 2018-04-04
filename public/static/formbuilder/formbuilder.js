@@ -766,6 +766,9 @@
     addButton: "<span class='symbol'><span class='fa fa-font'></span></span> 文本框",
     defaultAttributes: function(attrs) {
       attrs.field_options.size = 'small';
+	  attrs.lists = 'yes';
+	  attrs.search = 'yes';
+	  attrs.type  = 'text';
       return attrs;
     }
   });
@@ -877,8 +880,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<input type=\'text\' data-rv-input=\'model.' +
 ((__t = ( Formbuilder.options.mappings.LABEL )) == null ? '' : __t) +
-'\' />\n字段：<input style="width: 80px" type=\'text\' data-rv-input=\'model.name\' />  类型： <select style="width:80px" class="select" data-rv-input=\'model.type\'> <option value="text">text</option><option value="select">select</option><option value="radio">radio</option><option value="textarea">textarea</option><option value="checkbox">checkbox</option><option value="password">password</option> <option value="number">number</option><option value="date">date</option></select><br/>查询：<select style="width: 80px" class="select" data-rv-input=\'model.search\'> <option value="yes">是</option><option value="no">否</option></select>列表：<select style="width: 80px" class="select" data-rv-input=\'model.lists\'> <option value="yes">是</option><option value="no">否</option></select><br/>尺寸：<select data-rv-value="model.' +
-((__t = ( Formbuilder.options.mappings.SIZE )) == null ? '' : __t) +'">\n  <option value="small">小</option>\n  <option value="medium">中</option>\n  <option value="large">大</option>\n</select>\n';
+'\' />\n字段：<input style="width: 80px" type=\'text\' data-rv-input=\'model.name\' />  类型： <select style="width:80px" class="select" data-rv-input=\'model.type\'> <option value="text">text</option><option value="select">select</option><option value="radio">radio</option><option value="textarea">textarea</option><option value="checkbox">checkbox</option><option value="password">password</option> <option value="number">number</option><option value="date">date</option></select><br/>查询：<select style="width: 80px" class="select" data-rv-input=\'model.search\'> <option value="yes">是</option><option value="no">否</option></select>列表：<select style="width: 80px" class="select" data-rv-input=\'model.lists\'> <option value="yes">是</option><option value="no">否</option></select><br/>尺寸：<select data-rv-value="model.field_options.size">\n  <option value="small">小</option>\n  <option value="medium">中</option>\n  <option value="large">大</option>\n</select>\n';
 }
 return __p
 };

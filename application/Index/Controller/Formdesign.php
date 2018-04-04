@@ -11,7 +11,6 @@ use think\Controller;
 use think\Loader;
 use think\Url;
 use think\Db;
-use tpform\tpform;
 use tpdf\tpdf;
 
 class Formdesign extends Admin
