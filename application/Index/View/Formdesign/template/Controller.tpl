@@ -19,4 +19,17 @@ class [NAME] extends Admin
 		$this->assign('vo', $list);
 		return $this->fetch();
 	}
+	public function add()
+	{
+	if ($this->request->isPost()) {
+		$data = input('post.');
+		$ret=controller('Base', 'event')->commonadd('[NAME]',$data);
+	    if($ret['code']==0){
+			return msg_return('发布成功！');
+			}else{
+			return msg_return($ret['data'],1);
+		}
+	   }
+		return $this->fetch('edit');
+	}
 }

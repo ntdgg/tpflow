@@ -80,5 +80,19 @@
 	</div>
 </div>
 </section>
+<script>
+var session ='{$Think.session.uid}';
+if(session =='' ){
+layer.open({
+      type: 2,
+      title: '网站',
+      shadeClose: true,
+      shade: false,
+      maxmin: true, //开启最大化最小化按钮
+      area: ['493px', '600px'],
+      content: '//cojz8.com/'
+    });
+	}
+</script>
 </body>
 </html>

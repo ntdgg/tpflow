@@ -3,7 +3,7 @@
 <div class="page-container">
     <form class="form form-horizontal" id="form" method="post" action="">
         <input type="hidden" name="id" value="{$vo.id ?? ''}">
-		[ROWS]
+		<table class="table table-border table-bordered table-bg"><tr><td>姓名</td><td><input type="text" class="input-text" placeholder="姓名" name="name2" value="{$vo.name2 ?? ''}" ></td><td>联系电话</td><td><input type="text" class="input-text" placeholder="联系电话" name="tel2" value="{$vo.tel2 ?? ''}" ></td><td>基本信息</td><td><input type="text" class="input-text" placeholder="基本信息" name="cont2" value="{$vo.cont2 ?? ''}" ></td></tr><tr><td>姓名2</td><td><input type="text" class="input-text" placeholder="姓名2" name="name" value="{$vo.name ?? ''}" ></td><td>联系电话2</td><td><input type="text" class="input-text" placeholder="联系电话2" name="tel" value="{$vo.tel ?? ''}" ></td><td>基本信息2</td><td><input type="text" class="input-text" placeholder="基本信息2" name="cont" value="{$vo.cont ?? ''}" ></td></tr></table>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <button type="submit" class="btn btn-primary radius">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
@@ -14,10 +14,10 @@
 </div>
 {/block}
 {block name="script"}
-<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>[SCRIPT]
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
 <script>
     $(function () {
-[SET_VALUE]
+
 
         $('.skin-minimal input').iCheck({
             checkboxClass: 'icheckbox-blue',

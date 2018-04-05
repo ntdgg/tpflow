@@ -11,7 +11,6 @@ use think\Controller;
 use think\Loader;
 use think\Url;
 use think\Db;
-use tpform\tpform;
 use tpdf\tpdf;
 
 class Formdesign extends Admin
@@ -95,7 +94,6 @@ class Formdesign extends Admin
 	public function shengcheng()
 	{
 		$id = input('id');
-		$tpform = new tpform();
 		$info = db('form')->find(2);
 		
 		$ziduan = json_decode($info['ziduan'],true);
