@@ -143,7 +143,7 @@ $(function(){
                       /*画面右键*/
                       ,canvasMenus:{
                         "cmAdd": function(t) {
-                            var mLeft = $("#jqContextMenu").css("left"),mTop = $("#jqContextMenu").css("top");
+                            var mLeft = parseInt($("#jqContextMenu").css("left")),mTop = parseInt($("#jqContextMenu").css("top"));
                             var url = "{:url('add_process')}";
                             $.post(url,{"flow_id":the_flow_id,"left":mLeft,"top":mTop},function(data){
 							
