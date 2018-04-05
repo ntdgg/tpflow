@@ -2934,3 +2934,435 @@ CREATE TABLE `leipi_cnt` (
 [ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_form` [ RunTime:0.011000s ]
 [ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_form` LIMIT 1 [ RunTime:0.000000s ]
 [ sql ] [ SQL ] SELECT * FROM `leipi_form` ORDER BY id desc LIMIT 0,10 [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:35:39+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.100006s][吞吐率：10.00req/s] [内存消耗：1,919.83kb] [文件加载：62]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\index\index.html [ array (
+  0 => 'user',
+  1 => 'menu',
+) ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_user` [ RunTime:0.015001s ]
+[ sql ] [ SQL ] SELECT `id`,`username`,`role` FROM `leipi_user` [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_menu` [ RunTime:0.012000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_menu` [ RunTime:0.001001s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:35:39+08:00 ] 127.0.0.1 GET /index/index/welcome.html
+[ info ] 127.0.0.4/index/index/welcome.html [运行时间：0.078004s][吞吐率：12.82req/s] [内存消耗：1,857.20kb] [文件加载：62]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\index\welcome.html [ array (
+  0 => 'user',
+) ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_user` [ RunTime:0.013001s ]
+[ sql ] [ SQL ] SELECT `id`,`username`,`role` FROM `leipi_user` [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:35:41+08:00 ] 127.0.0.1 GET /index/cnt/index.html
+[ info ] 127.0.0.4/index/cnt/index.html [运行时间：0.076004s][吞吐率：13.16req/s] [内存消耗：1,942.12kb] [文件加载：68]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\cnt\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_cnt` [ RunTime:0.015001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_cnt` LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_cnt` ORDER BY id desc LIMIT 0,10 [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:35:43+08:00 ] 127.0.0.1 GET /index/formdesign/index.html
+[ info ] 127.0.0.4/index/formdesign/index.html [运行时间：0.074004s][吞吐率：13.51req/s] [内存消耗：1,952.42kb] [文件加载：68]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\formdesign\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_form` [ RunTime:0.011000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_form` LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_form` ORDER BY id desc LIMIT 0,10 [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:35:44+08:00 ] 127.0.0.1 GET /index/formdesign/add.html
+[ info ] 127.0.0.4/index/formdesign/add.html [运行时间：0.058004s][吞吐率：17.24req/s] [内存消耗：1,229.98kb] [文件加载：59]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/index/formdesign/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ VIEW ] D:\tpflow\application\index\view\formdesign\add.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-04-05T09:44:00+08:00 ] 127.0.0.1 GET /index/formdesign/desc/id/2.html
+[ info ] 127.0.0.4/index/formdesign/desc/id/2.html [运行时间：0.058004s][吞吐率：17.24req/s] [内存消耗：1,221.14kb] [文件加载：59]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/index/formdesign/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ VIEW ] D:\tpflow\application\index\view\formdesign\desc.html [ array (
+  0 => 'fid',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-04-05T09:44:55+08:00 ] 127.0.0.1 GET /index/cnt/index.html
+[ info ] 127.0.0.4/index/cnt/index.html [运行时间：0.088005s][吞吐率：11.36req/s] [内存消耗：1,942.12kb] [文件加载：68]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\cnt\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.012001s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_cnt` [ RunTime:0.014001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_cnt` LIMIT 1 [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_cnt` ORDER BY id desc LIMIT 0,10 [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:44:57+08:00 ] 127.0.0.1 GET /index/cnt/add.html
+[ info ] 127.0.0.4/index/cnt/add.html [运行时间：0.053003s][吞吐率：18.87req/s] [内存消耗：1,058.16kb] [文件加载：55]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/index/cnt/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ VIEW ] D:\tpflow\application\index\view\cnt\edit.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-04-05T09:46:07+08:00 ] 127.0.0.1 GET /index/formdesign/index.html
+[ info ] 127.0.0.4/index/formdesign/index.html [运行时间：0.081004s][吞吐率：12.35req/s] [内存消耗：1,952.42kb] [文件加载：68]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\formdesign\index.html [ array (
+  0 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_form` [ RunTime:0.015001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `leipi_form` LIMIT 1 [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_form` ORDER BY id desc LIMIT 0,10 [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-04-05T09:46:09+08:00 ] 127.0.0.1 GET /index/formdesign/desc/id/2.html
+[ info ] 127.0.0.4/index/formdesign/desc/id/2.html [运行时间：0.062004s][吞吐率：16.13req/s] [内存消耗：1,106.48kb] [文件加载：57]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/index/formdesign/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ VIEW ] D:\tpflow\application\index\view\formdesign\desc.html [ array (
+  0 => 'fid',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-04-05T12:26:46+08:00 ] 127.0.0.1 GET /
+[ info ] 127.0.0.4/ [运行时间：0.099006s][吞吐率：10.10req/s] [内存消耗：1,917.02kb] [文件加载：62]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\index\index.html [ array (
+  0 => 'user',
+  1 => 'menu',
+) ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_user` [ RunTime:0.013000s ]
+[ sql ] [ SQL ] SELECT `id`,`username`,`role` FROM `leipi_user` [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_menu` [ RunTime:0.013001s ]
+[ sql ] [ SQL ] SELECT * FROM `leipi_menu` [ RunTime:0.000000s ]
+---------------------------------------------------------------
+[ 2018-04-05T12:26:47+08:00 ] 127.0.0.1 GET /index/index/welcome.html
+[ info ] 127.0.0.4/index/index/welcome.html [运行时间：0.099006s][吞吐率：10.10req/s] [内存消耗：1,854.43kb] [文件加载：62]
+[ info ] [ LANG ] D:\tpflow\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=1as5p1tkrd1k41093m68c0vj4p',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://127.0.0.4/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.4',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\tpflow\application\index\view\index\welcome.html [ array (
+  0 => 'user',
+) ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+  'httponly' => true,
+  'secure' => false,
+)
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:host=127.0.0.1;port=3306;dbname=tpflow;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `leipi_user` [ RunTime:0.016001s ]
+[ sql ] [ SQL ] SELECT `id`,`username`,`role` FROM `leipi_user` [ RunTime:0.001000s ]

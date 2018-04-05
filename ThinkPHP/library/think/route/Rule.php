@@ -645,9 +645,7 @@ abstract class Rule
     {
         // 添加中间件
         if (!empty($option['middleware'])) {
-            foreach ($option['middleware'] as $middleware) {
-                Container::get('middleware')->add($middleware);
-            }
+            Container::get('middleware')->import($option['middleware']);
         }
 
         // 绑定模型数据
