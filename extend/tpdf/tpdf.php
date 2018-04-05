@@ -13,6 +13,8 @@ use think\facade\Request;
 
 define ( 'Tp_DF', realpath ( dirname ( __FILE__ ) ) );
 
+require_once Tp_DF . '/class/build.php';
+
 
 class tpdf
 {
@@ -79,7 +81,7 @@ class tpdf
             $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
             $code = $this->parseCode();
             // 执行方法
-            $this->buildTable($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
+            $this->buildEdit($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
         }
     }
 	
@@ -164,6 +166,7 @@ class tpdf
      */
     private function buildEdit($path, $pathTemplate, $fileName, $tableName, $code, $data)
     {
+		dump($code);
         $template = file_get_contents($pathTemplate . "edit.tpl");
         $file = $path . "edit.html";
 
@@ -326,8 +329,10 @@ class tpdf
         $setSelected = [];
         // 搜索时被选中的值
         $searchSelected = '';
+		$scriptEdit = [];
         // 控制器过滤器
         $filter = '';
+		dump($this->data);
 		if (isset($this->data['form']) && $this->data['form']) {
 			$ii = 0;
 			 foreach ($this->data['form'] as $key =>$form) {
@@ -353,26 +358,18 @@ class tpdf
 				if($key % 3 == 0){
 					$editField .= '<tr>';
 				}
-				$editField .= '<td>'.$form['title'].'</td><td><input type="' . $form['type'] . '" class="input-text" '
-                                . 'placeholder="' . $form['title'] . '" name="' . $form['name'] . '" '
-                                . 'value="' . '{$vo.' . $form['name'] . ' ?? \'' . $form['default'] . '\'}' . '" '
-                                .'></td>';
+				$bulid = new build();
+				$input = $bulid->convertInput($form);
+				$editField .= $input['Field'];
+				dump($input);
+				$scriptEdit[]= $input['script_edit'];
+				
 				if(($key+1) % 3 == 0){
 					$editField .= '</tr>';
 				}
 				
 				
-				/*生成edit用*/
-				/* $editField .= tab(2) . '<div class="row cl">' . "\n"
-                        . tab(3) . '<label class="form-label col-xs-3 col-sm-3">'
-                        . (isset($form['require']) && $form['require'] ? '<span class="c-red">*</span>' : '')
-                        . $form['title'] . '：</label>' . "\n"
-                        . tab(3) . '<div class="formControls col-xs-6 col-sm-6'
-                        . (in_array($form['type'], ['radio', 'checkbox']) ? ' skin-minimal' : '')
-                        . '">' . "\n";
-				 $editField .= tab(3) . '</div>' . "\n"
-                        . tab(3) . '<div class="col-xs-3 col-sm-3"></div>' . "\n"
-                        . tab(2) . '</div>' . "\n"; */
+				
 				
 			 }
 		}
@@ -387,7 +384,7 @@ class tpdf
 		}
         // DatePicker脚本引入
         $scriptSearch = [];
-        $scriptEdit = [];
+       // $scriptEdit = [];
        
         return [
             'search'          => $search,

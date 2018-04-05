@@ -14,7 +14,7 @@
 </div>
 {/block}
 {block name="script"}
-<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>[SCRIPT]
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
 <script>
     $(function () {
 [SET_VALUE]
@@ -33,6 +33,8 @@
                 ajax_progress(ret);
             }
         });
+
     })
+[SCRIPT]
 </script>
 {/block}

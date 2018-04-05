@@ -108,13 +108,13 @@ class Formdesign extends Admin
 			$form[$k]['title'] =  $v['label'];
 			$form[$k]['name'] =  $v['name'];
 			$form[$k]['type'] =  $v['field_type'];
-			$form[$k]['option'] =  '1:启用#0:禁用';
+			$form[$k]['option'] =  $v['field_options'];
 			$form[$k]['default'] = '';
 			$form[$k]['search'] = $v['search'];
 			$form[$k]['lists'] = $v['lists'];
 			
 		}
-		dump($ziduan);
+		//dump($ziduan);
 		$data = [
 		'module'=>'index',
 		'controller'=>$info['name'],
