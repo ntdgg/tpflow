@@ -79,7 +79,7 @@ class tpdf
             $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
             $code = $this->parseCode();
             // 执行方法
-            $this->buildEdit($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
+            $this->buildTable($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
         }
     }
 	
@@ -179,7 +179,100 @@ class tpdf
             [$module, $code['edit'], implode("\n", array_merge($code['set_checked'], $code['set_selected'])), implode("", $code['script_edit'])],
             $template));
     }
-	
+	/**
+     * 创建数据表
+     */
+    private function buildTable($path, $pathTemplate, $fileName, $tableName, $code, $data)
+    {
+        // 一定别忘记表名前缀
+        $tableName = isset($this->data['table_name']) && $this->data['table_name'] ?
+            $this->data['table_name'] :
+            Config::get("database.prefix") . $tableName;
+        // 在 MySQL 中，DROP TABLE 语句自动提交事务，因此在此事务内的任何更改都不会被回滚，不能使用事务
+        // http://php.net/manual/zh/pdo.rollback.php
+        $tableExist = false;
+        // 判断表是否存在
+        $ret = Db::query("SHOW TABLES LIKE '{$tableName}'");
+        // 表存在
+        if ($ret && isset($ret[0])) {
+            //不是强制建表但表存在时直接return
+            if (!isset($this->data['create_table_force']) || !$this->data['create_table_force']) {
+                return true;
+            }
+            Db::execute("RENAME TABLE {$tableName} to {$tableName}_build_bak");
+            $tableExist = true;
+        }
+        $auto_create_field = ['id', 'status', 'isdelete', 'create_time', 'update_time'];
+        // 强制建表和不存在原表执行建表操作
+        $fieldAttr = [];
+        $key = [];
+        if (in_array('id', $auto_create_field)) {
+            $fieldAttr[] = tab(1) . "`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '{$this->data['title']}主键'";
+        }
+        foreach ($this->data['field'] as $field) {
+            if (!in_array($field['name'], $auto_create_field)) {
+                // 字段属性
+                $fieldAttr[] = tab(1) . "`{$field['name']}` {$field['type']}"
+                    . ($field['extra'] ? ' ' . $field['extra'] : '')
+                    . (isset($field['not_null']) && $field['not_null'] ? ' NOT NULL' : '')
+                    . (strtolower($field['default']) == 'null' ? '' : " DEFAULT '{$field['default']}'")
+                    . ($field['comment'] === '' ? '' : " COMMENT '{$field['comment']}'");
+            }
+            // 索引
+            if (isset($field['key']) && $field['key'] && $field['name'] != 'id') {
+                $key[] = tab(1) . "KEY `{$field['name']}` (`{$field['name']}`)";
+            }
+        }
+
+        if (isset($this->data['menu'])) {
+            // 自动生成status字段，防止resume,forbid方法报错，如果不需要请到数据库自己删除
+            if (in_array("resume", $this->data['menu']) || in_array("forbid", $this->data['menu'])) {
+                $fieldAttr[] = tab(1) . "`status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态，1-正常 | 0-禁用'";
+            }
+            // 自动生成 isdelete 软删除字段，防止 delete,recycle,deleteForever 方法报错，如果不需要请到数据库自己删除
+            if (in_array("delete", $this->data['menu']) || in_array("recyclebin", $this->data['menu'])) {
+                // 修改官方软件删除使用记录时间戳的方式，效率较低，改为枚举类型的 tinyint(1)，相应的traits见 thinkphp/library/traits/model/FakeDelete.php，使用方法和官方一样
+                // 软件删除详细介绍见：http://www.kancloud.cn/manual/thinkphp5/189658
+                $fieldAttr[] = tab(1) . "`isdelete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态，1-删除 | 0-正常'";
+            }
+        }
+
+        // 如果创建模型则自动生成create_time，update_time字段
+        if (isset($this->data['auto_timestamp']) && $this->data['auto_timestamp']) {
+            // 自动生成 create_time 字段，相应自动生成的模型也开启自动写入create_time和update_time时间，并且将类型指定为int类型
+            // 时间戳使用方法见：http://www.kancloud.cn/manual/thinkphp5/138668
+            $fieldAttr[] = tab(1) . "`create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间'";
+            $fieldAttr[] = tab(1) . "`update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间'";
+        }
+		$fieldAttr[] = tab(1) . "`uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间'";
+		$fieldAttr[] = tab(1) . "`add_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间'";
+        // 默认自动创建主键为id
+        $fieldAttr[] = tab(1) . "PRIMARY KEY (`id`)";
+
+        // 会删除之前的表，会清空数据，重新创建表，谨慎操作
+        $sql_drop = "DROP TABLE IF EXISTS `{$tableName}`";
+        // 默认字符编码为utf8，表引擎默认InnoDB，其他都是默认
+        $sql_create = "CREATE TABLE `{$tableName}` (\n"
+            . implode(",\n", array_merge($fieldAttr, $key))
+            . "\n)ENGINE=" . (isset($this->data['table_engine']) ? $this->data['table_engine'] : 'InnoDB')
+            . " DEFAULT CHARSET=utf8 COMMENT '{$this->data['title']}'";
+
+        // 写入执行的SQL到日志中，如果不是想要的表结构，请到日志中搜索BUILD_SQL，找到执行的SQL到数据库GUI软件中修改执行，修改表结构
+        Log::write("BUILD_SQL：\n{$sql_drop};\n{$sql_create};", '');
+        // execute和query方法都不支持传入分号 (;)，不支持一次执行多条 SQL
+        try {
+            Db::execute($sql_drop);
+            Db::execute($sql_create);
+            Db::execute("DROP TABLE IF EXISTS `{$tableName}_build_bak`");
+        } catch (\Exception $e) {
+            // 模拟事务操作，滚回原表
+            if ($tableExist) {
+                Db::execute("RENAME TABLE {$tableName}_build_bak to {$tableName}");
+            }
+
+            throw new Exception($e->getMessage());
+        }
+    }
 	
 	/**
 	 * 目录可写检测
@@ -226,7 +319,7 @@ class tpdf
         // 生成 td.html 文件的代码
         $td = ['<td><input type="checkbox" name="id[]" value="{$vo.id}"></td>'];
         // 生成 edit.html 文件的代码
-        $editField = '';
+        $editField = '<table class="table table-border table-bordered table-bg">';
         // radio类型的表单控件编辑状态使用javascript赋值
         $setChecked = [];
         // select类型的表单控件编辑状态使用javascript赋值
@@ -236,20 +329,15 @@ class tpdf
         // 控制器过滤器
         $filter = '';
 		if (isset($this->data['form']) && $this->data['form']) {
-			
-			 foreach ($this->data['form'] as $form) {
-				 
-				 
+			$ii = 0;
+			 foreach ($this->data['form'] as $key =>$form) {
 				 
 				/*控制器表单查询生成*/
 				if(isset($form['search']) && $form['search']=='yes'){
 					 $filter .= tab(2) . 'if ($this->request->param("' . $form['name'] . '")) {' . "\n"
                         . tab(3) . '$map[\'' . $form['name'] . '\'] = ["like", "%" . $this->request->param("' . $form['name'] . '") . "%"];' . "\n"
                         . tab(2) . '}' . "\n";
-					$editField .= tab(4) . '<input type="' . $form['type'] . '" class="input-text" '
-                                . 'placeholder="' . $form['title'] . '" name="' . $form['name'] . '" '
-                                . 'value="' . '{$vo.' . $form['name'] . ' ?? \'' . $form['default'] . '\'}' . '" '
-                                .  '>' . "\n";
+					
 					 $search[] = tab(1) . '<input type="text" class="input-text" style="width:250px" '
                                 . 'placeholder="' . $form['title'] . '" name="' . $form['name'] . '" '
                                 . 'value="{$Request.param.' . $form['name'] . '}" '
@@ -262,8 +350,20 @@ class tpdf
 					$th[] = '<th>' . $form['title'] ."</th>";
 				 
 				}
+				if($key % 3 == 0){
+					$editField .= '<tr>';
+				}
+				$editField .= '<td>'.$form['title'].'</td><td><input type="' . $form['type'] . '" class="input-text" '
+                                . 'placeholder="' . $form['title'] . '" name="' . $form['name'] . '" '
+                                . 'value="' . '{$vo.' . $form['name'] . ' ?? \'' . $form['default'] . '\'}' . '" '
+                                .'></td>';
+				if(($key+1) % 3 == 0){
+					$editField .= '</tr>';
+				}
+				
+				
 				/*生成edit用*/
-				$editField .= tab(2) . '<div class="row cl">' . "\n"
+				/* $editField .= tab(2) . '<div class="row cl">' . "\n"
                         . tab(3) . '<label class="form-label col-xs-3 col-sm-3">'
                         . (isset($form['require']) && $form['require'] ? '<span class="c-red">*</span>' : '')
                         . $form['title'] . '：</label>' . "\n"
@@ -272,10 +372,11 @@ class tpdf
                         . '">' . "\n";
 				 $editField .= tab(3) . '</div>' . "\n"
                         . tab(3) . '<div class="col-xs-3 col-sm-3"></div>' . "\n"
-                        . tab(2) . '</div>' . "\n";
+                        . tab(2) . '</div>' . "\n"; */
 				
 			 }
 		}
+		$editField .= "</table>";
 		 if (count($search) > 1) {
             // 有设置搜索则显示
             $search[] = tab(1) . '<button type="submit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>';
@@ -301,6 +402,13 @@ class tpdf
             'script_search'   => $scriptSearch,
         ];
     }
+	private function tables($key)
+    {
+		$editField ='';
+		
+		return $editField;
+	}
+	
 	 /**
      * 格式化选项值
      */
