@@ -1,4 +1,4 @@
-<?php /*a:2:{s:52:"D:\tpflow\application\index\view\formdesign\add.html";i:1522751500;s:46:"D:\tpflow\application\index\view\pub\base.html";i:1521724601;}*/ ?>
+<?php /*a:2:{s:58:"D:\tpflow\application\index\view\formdesign\functions.html";i:1522751500;s:46:"D:\tpflow\application\index\view\pub\base.html";i:1521724601;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -40,53 +40,41 @@
 			<input type="hidden" name="id" value="<?php echo htmlentities($info['id']); ?>">
 			<input type="hidden" name="status" value="0">
 		<?php else: ?>
-			<form action="<?php echo url('add'); ?>" method="post" name="form" id="form">
+			<form action="<?php echo url('functions'); ?>" method="post" name="form" id="form">
+			<input type="hidden" name="fid" value="<?php echo htmlentities($fid); ?>">
 		<?php endif; ?>
 		<table class="table table-border table-bordered table-bg">
 			<tr>
-			<td style='width:75px'>菜单名称</td><td style='width:330px'>
-			<input type="text" class="input-text" value="<?php echo isset($info['title']) ? htmlentities($info['title']) : ''; ?>" name="title"  datatype="*" ></td>
-			<td style='width:75px'>数据表（table）</td><td>
-				<input type="text" class="input-text" value="<?php echo isset($info['name']) ? htmlentities($info['name']) : ''; ?>" name="name"  datatype="*" >
-			</td>
+			<td style='width:75px'>函数名称</td><td style='width:330px' colspan='2'>
+			<input type="text" class="input-text" value="<?php echo isset($info['name']) ? htmlentities($info['name']) : ''; ?>" name="name"  datatype="*" ></td>
 			</tr>
 			<tr>
-			<td style='width:75px'>生成文件：</td><td style='width:330px'>
-			 <div class="select-box" style="width: 260px">
-                    <select name="file" class="select">
-                        <option value="all">默认生成文件（all）</option>
-                        <option value="controller">控制器（controller）</option>
-						<option value="数据表（table）">数据表（table）</option>
-                    </select>
-                </div>
+			<td style='width:75px'>函数名称</td><td style='width:330px'>
+			<ul class="cl">
+				<li class="dropDown dropDown_hover">
+					<a href="#" class="dropDown_A">Sql语句填写示例<i class="Hui-iconfont">&#xe6d5;</i></a>
+					<ul class="dropDown-menu menu radius box-shadow">
+						<li><a href="javascript:insert('SELECT * FROM `[table]` WHERE 1')">select</a></li>
+						<li><a href="javascript:insert('SELECT * FROM `[table]` WHERE 1 Limit 1')">find</a></li>
+					</ul>
+				</li>
+			</ul>
 			</td>
-			<td style='width:75px'>生成栏目：</td><td>
-				 <div class="select-box" style="width: 260px">
-                    <select name="menu" class="select">
-                        <option value="0">是</option>
-                        <option value="1">否</option>
-                    </select>
-                </div>	
-			</td>
+			<td style='width:330px' >执行结果</td>
 			</tr>
-			<tr>
-			<td style='width:75px'>挂带审批：</td><td style='width:330px'>
-			 <div class="select-box" style="width: 260px">
-                    <select name="flow" class="select">
-                        <option value="0">挂带审批流</option>
-                        <option value="1">无需审批流</option>
-                    </select>
-                </div>
-			</td>
-			<td style='width:75px'></td><td>
-				
-			</td>
+			<tr valign="top">
+			<td style='width:75px'>函数语句：</td><td style='width:330px' >
+			<textarea placeholder="此为SQL语句，非专业人士请勿随意提交！" id='sql' name='sql' type="text/plain" style="width:100%;height:150px;"></textarea> </td>
+		    <td style='width:330px' ><p id="result" style="background-color: #cccccc;"></p></td>
+			
 			</tr>
 		</table>
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				<a  class="btn btn-primary radius" id='forms'><i class="Hui-iconfont">&#xe632;</i> 测试</a>
+				<button  class="btn btn-primary radius" id='oks' type="submit" disabled="disabled"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				
 				<button  class="btn btn-default radius" type="button" onclick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -94,9 +82,7 @@
 </article>
 
 
-<script type="text/javascript" src="/static/lib/ueditor/1.4.3/ueditor.config.js"></script> 
-<script type="text/javascript" src="/static/lib/ueditor/1.4.3/ueditor.all.min.js"> </script> 
-<script type="text/javascript" src="/static/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script src="https://cdn.bootcss.com/Base64/1.0.1/base64.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("[name='new_top'][value='<?php echo isset($info['new_top']) ? htmlentities($info['new_top']) : ''; ?>']").attr("checked",true);
@@ -106,7 +92,6 @@ $(function(){
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
-	
 	$("#form").Validform({
             tiptype:2,
             ajaxPost:true,
@@ -114,9 +99,40 @@ $(function(){
             callback:function(ret){
                 ajax_progress(ret);
             }
-        });
-	var ue = UE.getEditor('editor');
+    });
+
 });
+function insert($sql){
+    if ($sql){
+        var table=$("#tables").val();
+        $("#sql").text($sql.replace("[table]", table));
+    }
+}
+$("#forms").click(function(){
+    var sql=$("#sql").val();
+    if (!sql){layer.msg("SQL不能为空!!");return;}
+    $.ajax({  
+         url:'<?php echo url("ajax_sql"); ?>',
+         data:{sql:sql},  
+         type:'post',  
+         cache:true,  
+         dataType:'html',  
+         success:function(data) {  
+			if(data == 1){
+				$("#result").html('错误的SQL语句！<br/>'+$("#sql").val());
+			}else{
+				$('#oks').attr("disabled",false); 
+				$("#result").html(data); 
+			}
+          },  
+          error : function() {  
+              $("#result").html('错误的SQL语句！<br/>'+$("#sql").val());
+          }  
+     }); 
+      
+    
+})
+</script>
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
