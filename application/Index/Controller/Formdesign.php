@@ -95,7 +95,6 @@ class Formdesign extends Admin
 	{
 		$id = input('id');
 		$info = db('form')->find(2);
-		
 		$ziduan = json_decode($info['ziduan'],true);
 		$field = [];
 		$form = [];
@@ -112,9 +111,7 @@ class Formdesign extends Admin
 			$form[$k]['default'] = '';
 			$form[$k]['search'] = $v['search'];
 			$form[$k]['lists'] = $v['lists'];
-			
 		}
-		//dump($ziduan);
 		$data = [
 		'module'=>'index',
 		'controller'=>$info['name'],
@@ -129,18 +126,15 @@ class Formdesign extends Admin
 			'url'=>$info['name'].'/index',
 			'name'=>$info['title'],
 		];
-		//$ret=controller('Base', 'event')->commonadd('menu',$menu);
+		$ret=controller('Base', 'event')->commonadd('menu',$menu);
 		$tpdf = new tpdf();
 		$tpdf->make($data);
-		
-		
-		//$tpform->run($data);
 		$up = [
 			'id'=>$id,
 			'status'=>1,
 		];
-		//controller('Base', 'event')->commonedit('form',$up);
-		//$this->success('生成成功！','/index/index/welcome');
+		controller('Base', 'event')->commonedit('form',$up);
+		$this->success('生成成功！','/index/index/welcome');
 		
 	}
 }

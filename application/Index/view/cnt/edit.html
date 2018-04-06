@@ -3,10 +3,28 @@
 <div class="page-container">
     <form class="form form-horizontal" id="form" method="post" action="">
         <input type="hidden" name="id" value="{$vo.id ?? ''}">
-		<table class="table table-border table-bordered table-bg"><tr><td>radio测试</td><td><div class="skin-minimal"><div class="radio-box" ><input type="radio"   name="name2"   value=女><label for="radio-0">女</label></div><div class="radio-box" ><input type="radio"   name="name2"   value=男><label for="radio-0">男</label></div></div></td><td>选择测试</td><td><span class="select-box"><select name="tel2"  class="select"  datatype="*"><option value="这是选择" >这是选择</option>	<option value="这也是选择2" >这也是选择2</option>	<option value="还是选择" >还是选择</option>	</select></td><td>日期测试</td><td><input type="text" class="input-text date" value="{$info.cont2 ?? ''}" name="cont2" datatype="*"></td></tr><tr><td>姓名2</td><td><input type="text" class="input-text" placeholder="姓名2" name="name" value="{$vo.name ?? ''}">
- </td><td>联系电话2</td><td><input type="text" class="input-text" placeholder="联系电话2" name="tel" value="{$vo.tel ?? ''}">
- </td><td>基本信息2</td><td><input type="text" class="input-text" placeholder="基本信息2" name="cont" value="{$vo.cont ?? ''}">
- </td></tr></table>
+		<table class="table table-border table-bordered table-bg">
+            <tr>
+            <td>radio测试</td>
+            <td ><div class="skin-minimal"><div class="radio-box" ><input type="radio"   name="name2"   value=女><label for="radio-0">女</label></div><div class="radio-box" ><input type="radio"   name="name2"   value=男><label for="radio-0">男</label></div></div></td>
+            <td>选择测试</td>
+            <td colspan=3><span class="select-box"><select name="tel2"  class="select"  datatype="*"><option value="这是选择" >这是选择</option>	<option value="这也是选择2" >这也是选择2</option>	<option value="还是选择" >还是选择</option>	</select></td>
+            </tr>
+            <tr>
+            <td>日期测试</td>
+            <td ><input type="text" class="input-text date" value="{$info.cont2 ?? ''}" name="cont2" datatype="*"></td>
+            <td>姓名2</td>
+            <td ><div class="skin-minimal"><div class="radio-box" ><input type="checkbox"   name="name"   value=女><label for="radio-0">女</label></div><div class="radio-box" ><input type="checkbox"   name="name"   value=男><label for="radio-0">男</label></div></div></td>
+            <td>联系电话2</td>
+            <td ><input type="text" class="input-text" placeholder="联系电话2" name="tel" value="{$vo.tel ?? ''}">
+ </td>
+            </tr>
+            <tr>
+            <td>基本信息2</td>
+            <td ><input type="text" class="input-text" placeholder="基本信息2" name="cont" value="{$vo.cont ?? ''}">
+ </td><td></td>
+            <td></td><td></td>
+            <td></td></tr></table>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <button type="submit" class="btn btn-primary radius">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>

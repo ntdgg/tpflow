@@ -28,14 +28,16 @@
 				</dd>
 				</dl>
 			<dl>
-			{volist name='menu' id='k'}
+			
 			<dl>
-				<dt><i class="Hui-iconfont"></i> {$k.name}<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dt><i class="Hui-iconfont"></i> 自定义表单生成<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>
+				{volist name='menu' id='k'}
 				<li><a data-href="{:url($k['url'])}" data-title="test" href="javascript:void(0)">{$k.name}</a></li>
+					{/volist}
 				</dd>
 				</dl>
-			{/volist}
+		
 			<dl>
 				<dt><i class="Hui-iconfont"></i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>

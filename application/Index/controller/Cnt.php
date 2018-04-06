@@ -4,7 +4,7 @@ namespace app\index\controller;
 use app\common\controller\admin;
 use think\Request;
 
-class cnt extends Admin
+class Cnt extends Admin
 {
 	public function index($map='')
 	{
@@ -27,13 +27,13 @@ class cnt extends Admin
             $map['cont'] = ["like", "%" . $this->request->param("cont") . "%"];
         }
 
-		$list=controller('Base', 'event')->commonlist('cnt',$map);
+		$list=controller('Base', 'event')->commonlist('Cnt',$map);
 		$this->assign('list', $list);
 		return $this->fetch();
 	}
 	public function edit()
 	{
-		$list=controller('Base', 'event')->commonedit('cnt');
+		$list=controller('Base', 'event')->commonedit('Cnt');
 		$this->assign('vo', $list);
 		return $this->fetch();
 	}
@@ -41,7 +41,7 @@ class cnt extends Admin
 	{
 	if ($this->request->isPost()) {
 		$data = input('post.');
-		$ret=controller('Base', 'event')->commonadd('cnt',$data);
+		$ret=controller('Base', 'event')->commonadd('Cnt',$data);
 	    if($ret['code']==0){
 			return msg_return('发布成功！');
 			}else{

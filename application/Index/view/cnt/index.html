@@ -2,9 +2,9 @@
 {block name="content"}
 <div class="page-container">
     <form class="mb-20" method="get" action="{:url($Request.action)}">
-        <input type="text" class="input-text" style="width:250px" placeholder="姓名" name="name2" value="{$Request.param.name2}" >
-        <input type="text" class="input-text" style="width:250px" placeholder="联系电话" name="tel2" value="{$Request.param.tel2}" >
-        <input type="text" class="input-text" style="width:250px" placeholder="基本信息" name="cont2" value="{$Request.param.cont2}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="radio测试" name="name2" value="{$Request.param.name2}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="选择测试" name="tel2" value="{$Request.param.tel2}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="日期测试" name="cont2" value="{$Request.param.cont2}" >
         <input type="text" class="input-text" style="width:250px" placeholder="姓名2" name="name" value="{$Request.param.name}" >
         <input type="text" class="input-text" style="width:250px" placeholder="联系电话2" name="tel" value="{$Request.param.tel}" >
         <input type="text" class="input-text" style="width:250px" placeholder="基本信息2" name="cont" value="{$Request.param.cont}" >
@@ -22,9 +22,9 @@
         <thead>
         <tr class="text-c">
             <th width="25"><input type="checkbox"></th>
-            <th>姓名</th>
-            <th>联系电话</th>
-            <th>基本信息</th>
+            <th>radio测试</th>
+            <th>选择测试</th>
+            <th>日期测试</th>
             <th>姓名2</th>
             <th>联系电话2</th>
             <th>基本信息2</th>
