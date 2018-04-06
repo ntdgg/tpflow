@@ -518,16 +518,26 @@ class Flowdesign extends Admin {
 		}
 		return count($result) == 1 ? reset($result) : $result;
 	}
-	    //用户选择控件
-    public function super_dialog()
+	//用户选择控件
+    public function super_user()
     {
-        $op = trim(input('op'));//选择方式  user 用户  dept部门  role 角色
-        if(!$op) $op = 'user';
-        
-		
 		$this->assign('user',db('user')->field('id,username')->select());
-		$this->assign('role',db('role')->field('id,name')->select());
-        $this->assign('op',$op);
         return $this->fetch();
     }
+	//用户选择控件
+    public function super_role()
+    {
+		$this->assign('role',db('role')->field('id,name as username')->select());
+        return $this->fetch();
+    }
+	public function super_get()
+	{
+		 $type = trim(input('type'));
+		 if($type=='user'){
+			$info =  db('user')->where('username','like','%'.input('key').'%')->field('id as vlaue,username as text')->select();
+		 }else{
+			 $info =  db('role')->where('name','like','%'.input('key').'%')->field('id as vlaue,name as text')->select();
+		 }
+		 return ['data'=>$info,'code'=>1,'msg'=>'查询成功！'];
+	}
 }
