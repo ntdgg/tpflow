@@ -1,6 +1,6 @@
 /*确定保存时调用的方式*/
 function saveAttribute(data)
-{
+{	
     try{
         if(data.status!=1)
         {

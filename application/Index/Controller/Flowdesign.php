@@ -438,11 +438,11 @@ class Flowdesign extends Admin {
        $process_model = db('flow_process');
        //对数据进行判断
        if($flow_id<=0 || $process_id<=0){
-           $this->return_iframe_ajax(['status'=>0,'msg'=>'保存失败','info'=>'']);
+		   return msg_return('保存失败',1);
        }
         $process_one = db('flow_process')->find($process_id);
         if(!$process_one){
-			$this->return_iframe_ajax(['status'=>0,'msg'=>'未找到步骤，请刷新再试','info'=>'']);
+			return msg_return('未找到步骤，请刷新再试',1);
         }
         //保存数据， 不列出来的，直接写这里也可以呀
         $data = array(
@@ -484,7 +484,7 @@ class Flowdesign extends Admin {
            
         );
 		db('flow_process')->where('id',$process_id)->update($data);
-		$this->return_iframe_ajax(['status'=>1,'msg'=>'保存成功','info'=>'']);
+		return msg_return('发布成功！');
     }
     //返回给firame提交的表单
     public function return_iframe_ajax($ajax_return)
