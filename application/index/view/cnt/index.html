@@ -28,6 +28,7 @@
             <th>姓名2</th>
             <th>联系电话2</th>
             <th>基本信息2</th>
+            <th>状态</th>
             <th width="70">操作</th>
         </tr>
         </thead>
@@ -41,7 +42,9 @@
             <td>{$vo.name}</td>
             <td>{$vo.tel}</td>
             <td>{$vo.cont}</td>
+            <td>{:action('flow/status',['status'=>$vo.status])}</td>
             <td class="f-14">
+					{:action('flow/btn',['wf_fid'=>$vo.id,'wf_type'=>'cnt','status'=>$vo.status])}
 					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$vo.id])}','850','500')">修改</span>
             </td>
         </tr>

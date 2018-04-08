@@ -94,7 +94,7 @@ class Formdesign extends Admin
 	public function shengcheng()
 	{
 		$id = input('id');
-		$info = db('form')->find(2);
+		$info = db('form')->find($id);
 		$ziduan = json_decode($info['ziduan'],true);
 		$field = [];
 		$form = [];
@@ -117,23 +117,26 @@ class Formdesign extends Admin
 		'controller'=>$info['name'],
 		'menu'=>['add,del'],
 		'title'=>$info['title'],
+		'flow'=>$info['flow'],
 		'table'=>$info['name'],
 		'create_table'=>$info['name'],
 		'field'=>$field,
 		'form'=>$form
 		];
-		$menu = [
+		if($info['menu']==0){
+			$menu = [
 			'url'=>$info['name'].'/index',
 			'name'=>$info['title'],
-		];
-		$ret=controller('Base', 'event')->commonadd('menu',$menu);
+			];
+			$ret=controller('Base', 'event')->commonadd('menu',$menu);
+		}
 		$tpdf = new tpdf();
 		$tpdf->make($data);
 		$up = [
 			'id'=>$id,
 			'status'=>1,
 		];
-		controller('Base', 'event')->commonedit('form',$up);
+		//controller('Base', 'event')->commonedit('form',$up);
 		$this->success('生成成功！','/index/index/welcome');
 		
 	}

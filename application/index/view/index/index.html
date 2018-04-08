@@ -28,16 +28,6 @@
 				</dd>
 				</dl>
 			<dl>
-			
-			<dl>
-				<dt><i class="Hui-iconfont"></i> 自定义表单生成<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-				<dd style="display: block;"><ul>
-				{volist name='menu' id='k'}
-				<li><a data-href="{:url($k['url'])}" data-title="test" href="javascript:void(0)">{$k.name}</a></li>
-					{/volist}
-				</dd>
-				</dl>
-		
 			<dl>
 				<dt><i class="Hui-iconfont"></i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>
@@ -58,7 +48,14 @@
 				<li><a data-href="{:url('flow/index')}" data-title="工作流监控" href="javascript:void(0)">工作流监控</a></li>
 				</dd>
 			</dl>
-			
+			<dl>
+				<dt><i class="Hui-iconfont"></i> 自定义表单生成<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dd style="display: block;"><ul>
+				{volist name='menu' id='k'}
+				<li><a data-href="{:url($k['url'])}" data-title="test" href="javascript:void(0)">{$k.name}</a></li>
+					{/volist}
+				</dd>
+				</dl>
 		</div>	
 </div>
 </aside>

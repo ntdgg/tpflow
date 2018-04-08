@@ -103,7 +103,7 @@ class Flowdesign extends Admin {
         if(!$one){
             $this->error('未找到数据，请返回重试!');
         }
-        $list = db('flow_process')->where('flow_id',$flow_id)->where('is_del',0)->order('id asc')->select();
+        $list = db('flow_process')->where('flow_id',$flow_id)->order('id asc')->select();
         $process_data = [];
         $process_total = 0;
         foreach($list as $value)
@@ -120,6 +120,7 @@ class Flowdesign extends Admin {
             );
         }
         $this->assign('one', $one);
+	
         $this->assign('process_data', json_encode(array('total'=>$process_total,'list'=>$process_data)));
         return $this->fetch();
     }
@@ -197,7 +198,7 @@ class Flowdesign extends Admin {
           return json(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
         }
         //是否有步骤  设为第一步
-        $process_count = db('flow_process')->where('flow_id',$flow_id)->where('is_del',0)->count();
+        $process_count = db('flow_process')->where('flow_id',$flow_id)->count();
         
         $process_type = 'is_step';//正常步骤
         if($process_count<=0)
@@ -266,7 +267,7 @@ class Flowdesign extends Admin {
                 'process_to'=>ids_parse($value['process_to']),
                 'updatetime'=>time()
             );
-            $ret = db('flow_process')->where('id',$process_id)->where('flow_id',$flow_id)->where('is_del',0)->update($datas);
+            $ret = db('flow_process')->where('id',$process_id)->where('flow_id',$flow_id)->update($datas);
         }
         $data = json(['status'=>1,'msg'=>'^_^ 保存成功','info'=>'']);
 		return $data;

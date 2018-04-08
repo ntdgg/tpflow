@@ -27,11 +27,11 @@ class tpdf
     private $data;
     // 控制器黑名单
     private $blacklistName = [
-        'user',
+        'Flow','Flowdesign','Formdesign','Index','News','User'
     ];
     // 数据表黑名单
     private $blacklistTable = [
-        'user',
+        'flow', 'flow_process','form','form_function','menu','news','news_type','role','role_user','run','run_cache','run_log','run_process','run_sign','user'
     ];
 
     public function make($data, $option = 'all')
@@ -122,13 +122,18 @@ class tpdf
         } else {
             $module = Request::module() . '@';
         }
+		if ($data['flow'] == 0) {
+            $flow = "{:action('flow/btn',['wf_fid'=>\$vo.id,'wf_type'=>'".$data['table']."','status'=>\$vo.status])}";
+        } else {
+            $flow= '';
+        }
 		$form = implode("\n" . tab(1), $code['search']);
         $th = implode("\n" . tab(3), $code['th']);
         $td = implode("\n" . tab(3), $code['td']);
         $tdMenu .= tab(4) . '{tp:menu menu=\'sdeleteforever\' /}';
         return file_put_contents($file, str_replace(
-                ["[MODULE]", "[FORM]", "[MENU]", "[TH]", "[TD]", "[TD_MENU]", "[SCRIPT]"],
-                [$module, $form, $menu, $th, $td, $tdMenu, $script],
+                ["[MODULE]", "[FORM]", "[MENU]", "[TH]", "[TD]", "[TD_MENU]", "[SCRIPT]","[FLOW]"],
+                [$module, $form, $menu, $th, $td, $tdMenu, $script,$flow],
                 $template
             )
         );
@@ -188,11 +193,14 @@ class tpdf
                 $key[] = tab(1) . "KEY `{$field['name']}` (`{$field['name']}`)";
             }
         }
-		$fieldAttr[] = tab(1) . "`uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id'";
-		$fieldAttr[] = tab(1) . "`add_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '新增时间'";
+		
         // 默认自动创建主键为id
         $fieldAttr[] = tab(1) . "PRIMARY KEY (`id`)";
+		$fieldAttr[] = tab(1) . "`uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id'";
+		$fieldAttr[] = tab(1) . "`status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态'";
+		$fieldAttr[] = tab(1) . "`add_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '新增时间'";
         // 会删除之前的表，会清空数据，重新创建表，谨慎操作
+		
         $sql_drop = "DROP TABLE IF EXISTS `{$tableName}`";
         // 默认字符编码为utf8，表引擎默认InnoDB，其他都是默认
         $sql_create = "CREATE TABLE `{$tableName}` (\n"
@@ -279,6 +287,8 @@ class tpdf
 					$td[] = '<td>{$vo.' . $form['name'] ."}</td>";
 					$th[] = '<th>' . $form['title'] ."</th>";
 				}
+				
+				
 				/*生成 Edit.html 开始*/
 				if($ii == 0){
 					$editField .= "\n" . tab(3).'<tr>';
@@ -301,6 +311,10 @@ class tpdf
 				$scriptEdit[]= $input['script_edit'];
 			 }
 		}
+		if($this->data['flow']==0){ 
+					$th[] = '<th>状态</th>';
+					$td[] = "<td>{:action('flow/status',['status'=>\$vo.status])}</td>";
+				}
 		$editField .= "</table>";
 		 if (count($search) > 1) {
             // 有设置搜索则显示

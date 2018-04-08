@@ -22,6 +22,7 @@
         <tr class="text-c">
             [TD]
             <td class="f-14">
+					[FLOW]
 					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$vo.id])}','850','500')">修改</span>
             </td>
         </tr>
