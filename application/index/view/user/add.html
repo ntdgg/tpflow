@@ -1,0 +1,96 @@
+{include file='pub/base' /}
+<div class="page-container">
+		<body>
+		{present name="info.id"}
+			<form action="{:url('/Index/User/edit')}" method="post" name="form" id="form">
+			<input type="hidden" name="id" value="{:isset($info.id)?$info.id:''}">
+		{else /}
+			<form action="{:url('/Index/User/add')}" method="post" name="form" id="form">
+		{/present}
+			<table class="table table-border table-bordered table-hover table-bg">
+
+				<tr class="text-c">
+					<td colspan="4">{present name="info.id"}修改{else/}添加{/present}后台用户</td>
+				</tr>
+
+				<tr class="tr rt">
+					<td width="100">用户名称：</td>
+					<td colspan="3" class="lt">
+						<input type="text" name="username" style="width:200px"  class='input-text' value="{:isset($info.username)?$info.username:''}">
+					</td>
+				</tr>
+				<tr class="tr rt">
+					<td width="100">密　　码：</td>
+					<td  class="lt">
+						<input type="password" name="password" style="width:200px" class='input-text' value="">
+					</td>
+					<td width="100">确认密码：</td>
+					<td class="lt">
+						<input type="password" name="repassword" style="width:200px"  class='input-text' value="">
+					</td>
+				</tr>
+				
+				<tr class="tr rt">
+					<td width="100">手机电话：</td>
+					<td class="lt">
+						<input type="text" name="tel" style="width:250px"  class='input-text' value="{:isset($info.tel)?$info.tel:''}">
+					</td>
+					<td width="100">电子邮箱：</td>
+					<td class="lt">
+						<input type="text" name="mail"  style="width:250px"  class='input-text' value="{:isset($info.mail)?$info.mail:''}">
+					</td>
+				</tr>
+				<tr class="tr rt">
+					<td width="100">用户角色：</td>
+					<td  class="lt">
+						<select name="role">
+							{volist name="role" id="vo"}
+								<option value="{$vo.id}">{$vo.name}</option>
+							{/volist}
+						</select>
+					</td>
+					<td >用户状态：</td>
+					<td  class="lt">
+						<input type="radio" class="radio" value="1" name="status" id="status1"  >
+							启用
+							<input type="radio" class="radio" value="0" name="status" id="status2" >
+							关闭
+					</td>
+				</tr>
+				
+				<tr class="tr rt">
+					<td >备注说明：</td>
+					<td colspan="3" class="lt">
+						<input type="text" name="remark" style="width:400px" class='input-text' value="{:isset($info.remark)?$info.remark:''}">
+					</td>
+				</tr>
+	<tr class="tr lt">
+		<td colspan="4" class='text-c'>
+			{present name="info.id"}
+				<input class='btn btn-primary radius' type="submit" name="dosubmit" value="修 改" >
+				{else/}
+				<input class='btn btn-primary radius' type="submit" name="dosubmit" value="添 加">
+			{/present}
+			&nbsp;
+			<input class='btn btn-primary radius' type="button" onclick="layer_close()" value="返 回" ></td>
+	</tr>
+</table>
+</form>
+
+</div>
+<script>
+$(function () {
+        $("[name='status'][value='{$info.status ?? ''}']").attr("checked",true);
+		$("[name='role']").find("[value='{$info.role ?? '0'}']").attr("selected",true);
+        $("#form").Validform({
+            tiptype:2,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+        });
+    })
+</script>
+</body>
+</html>

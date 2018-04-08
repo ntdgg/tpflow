@@ -1,0 +1,40 @@
+{include file='pub/base' /}
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  Tpflow 工作流插件示例 
+<a href="{:url('index/welcome')}"  class="btn btn-primary radius"> 返回</a>
+</nav>
+<div class="page-container">
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr class="text-c">
+				<th>工作流编号</th>
+				<th >工作流类型</th>
+				<th >工作流名称</th>
+				<th >当前状态</th>
+				<th >业务办理人</th>
+				<th >业务描述</th>
+			</tr>
+		</thead>
+		<tbody>
+			{volist name='list' id='k'}
+			<tr class="text-c">
+				<td>{$k.id}</td>
+				<td>{$k.from_table}</td>
+				<td>{$k.flow_name}</td>
+				<td>
+				{if condition='$k.status == 0'}
+					未审核
+				{else/}
+					已审核
+				{/if}
+				</td>
+				<td>{$k.user}</td>
+				<td>{:date('Y-m-d H:i:s',$k['dateline'])}</td>
+				
+			</tr>
+			{/volist}
+		</tbody>
+	</table>
+</div>
+
+</body>
+</html>

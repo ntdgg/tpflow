@@ -1,0 +1,73 @@
+{include file='pub/base' /}
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 
+<i class="Hui-iconfont">&#xe67f;</i>  Tpflow 工作流插件示例 
+<a href="{:url('index/welcome')}"  class="btn btn-primary radius"> 返回</a>
+<a class="btn btn-primary radius" href="javascript:;" onclick="layer_show('添加角色','{:url('addrole')}','800','400')">
+	<i class="Hui-iconfont">&#xe600;</i> 添加角色</a>
+</nav>
+<div class="page-container">
+	<table class="table table-border table-bordered table-hover table-bg">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" value="" name=""></th>
+				<th width="40">ID</th>
+				<th width="100">角色名</th>
+				<th width="300">描述</th>
+				<th width="100">状态</th>
+				
+				<th width="70">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{volist name='list' id='k'}
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$k.id}" name=""></td>
+				<td>{$k.id}</td>
+				<td>{$k.name}</td>
+				<td>{$k.remark}</td>
+				<td><span class="label {eq name='$k.status' value='1'}label-success{/eq} radius">已启用</span></td>
+				
+				<td class="f-14">
+				{neq name='$k.id' value='1'}
+				
+				<a title="编辑" href="javascript:;" onclick="layer_show('角色编辑','{:url('roleedit',['id'=>$k.id])}','800','500')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+				<a title="删除" href="javascript:;" onclick="admin_role_del(this,'{$k.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				{/neq}
+			</tr>
+			{/volist}
+		</tbody>
+	</table>
+	<div class="page-bootstrap">{$list|raw}</div>
+	
+</div>
+
+
+<script type="text/javascript">
+/*管理员-角色-添加*/
+function admin_role_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*管理员-角色-编辑*/
+function admin_role_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*管理员-角色-删除*/
+function admin_role_del(obj,id){
+	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '{:url("role_del")}.?id='+id,
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script>
+</body>
+</html>

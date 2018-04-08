@@ -1,0 +1,292 @@
+{include file='pub/base' /}
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="__Flow__/css/bootstrap/css/bootstrap-ie6.css?">
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="__Flow__/css/bootstrap/css/ie.css?">
+    <![endif]-->
+    <link href="__Flow__/css/site.css?" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__Flow__/js/flowdesign/flowdesign.css"/>
+<link rel="stylesheet" type="text/css" href="__Flow__/js/jquery.multiselect2side/css/jquery.multiselect2side.css"/>
+<link href="__Flow__/css/bootstrap/css/bootstrap.css?2025" rel="stylesheet" type="text/css" />
+<ul class="nav nav-tabs" id="attributeTab">
+  <li {if condition="$op eq 'basic'"} class="active"{/if}><a href="#attrBasic">常规</a></li>
+  <li><a href="#attrPower">权限</a></li>
+  <li><a href="#attrOperate">操作</a></li>
+  <li {if condition="$op eq 'judge'"} class="active"{/if} id="tab_attrJudge"><a href="#attrJudge">转出条件</a></li>
+  <li {if condition="$op eq 'style'"} class="active"{/if}><a href="#attrStyle">样式</a></li>
+</ul>
+
+<form  class="form-horizontal" action="{:url('save_attribute')}" method="post" name="form" id="form">
+<input type="hidden" name="flow_id" value="{$one.flow_id}"/>
+<input type="hidden" name="process_id" value="{$one.id}"/>
+  <div class="tab-content">
+    <div class="tab-pane {if condition="$op eq 'basic'"}active{/if}" id="attrBasic">
+
+          <div class="control-group">
+            <label class="control-label" for="process_name">步骤名称</label>
+            <div class="controls">
+              <input type="text" id="process_name" placeholder="步骤名称" name="process_name" value="{$one.process_name}">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">步骤类型</label>
+            <div class="controls">
+              <label class="radio inline">
+                <input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
+              </label>
+              <label class="radio inline">
+                <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>设为第一步
+              </label>
+            </div>
+          </div>
+		   <div id="current_flow">
+          <div class="offset1">
+          <!--未按顺序的bug 2012-12-12-->
+            <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
+            {volist name="process_to_list" id="vo"}
+                {if condition="$vo['id'] neq $one['id']"}
+                    <option value="{$vo.id}" {if condition="in_array($vo['id'],$one['process_to'])"}selected="selected"{/if}>{$vo.process_name}</option>
+                {/if}
+            {/volist}
+            </select>
+          </div>
+        </div><!-- current_flow end -->
+<hr/>
+ </div>
+    <div class="tab-pane" id="attrPower">
+        <div class="control-group">
+            <label class="control-label" >办理人员</label>
+            <div class="controls">
+              <select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
+                <option value="">请选择办理人员或者角色</option>
+                <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
+                <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
+              </select>
+              <span class="help-inline">*选择人员或者办理的角色！</span>
+            </div>
+           
+
+            <div id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}>
+              <div class="control-group">
+                <label class="control-label">办理人</label>
+                <div class="controls">
+                    <input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
+					<a class="btn" onclick="layer_show('办理人','{:url('super_user')}','600','350')">选择</a>
+					
+                </div> 
+              </div>
+            </div>
+            <div id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}>
+              <div class="control-group">
+                <label class="control-label">指定角色</label>
+                <div class="controls">
+                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role ?? ''}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
+					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','600','350')">选择</a>
+                </div> 
+              </div>
+            </div>
+          </div>
+    </div><!-- attrPower end -->
+    <div class="tab-pane" id="attrOperate">
+        <div class="control-group">
+          <label class="control-label" >会签方式</label>
+          <div class="controls">
+            <select name="is_sing" >
+              <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
+              <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
+            </select>
+          </div>
+        </div>
+	<hr/>
+
+        <div class="control-group">
+          <label class="control-label" >回退方式</label>
+          <div class="controls">
+            <select name="is_back" >
+              <option value="1" {if condition="$one.is_back eq 1"}selected="selected"{/if}>不允许</option>
+              <option value="2" {if condition="$one.is_back eq 2"}selected="selected"{/if}>允许回退</option>
+            </select>
+          </div>
+        </div>
+
+
+    </div><!-- attrOperate end -->
+    <div class="tab-pane  {if condition="$op eq 'judge'"}active{/if}" id="attrJudge">
+
+       
+    <table class="table" >
+      <thead>
+        <tr>
+          <th style="width:100px;">转出步骤</th>
+          <th>转出条件设置</th>
+        </tr>
+      </thead>
+      <tbody>
+
+<!--模板-->
+<tr id="tpl" class="hide">    
+<td style="width: 100px;">@text</td>
+<td>
+    <table class="table table-condensed">
+    <tbody>
+      <tr>
+        <td>
+            <select id="field_@a" class="input-medium">
+              <option value="">选择字段</option>
+			  {volist name='from' id='v'}
+			  <option value="{$key}">{$v}</option>
+			  {/volist}
+              <!-- 表单字段 start -->
+             
+              <!-- 表单字段 end -->  
+            </select>
+            <select id="condition_@a" class="input-small">
+				<option value="=">等于</option>
+				<option value="&lt;&gt;">不等于</option>
+				<option value="&gt;">大于</option>
+				<option value="&lt;">小于</option>
+				<option value="&gt;=">大于等于</option>
+				<option value="&lt;=">小于等于</option>
+				<option value="include">包含</option>
+				<option value="exclude">不包含</option>
+            </select>
+            <input type="text" id="item_value_@a" class="input-small">
+            <select id="relation_@a" class="input-small">
+        <option value="AND">与</option>
+        <option value="OR">或者</option>
+            </select>
+        </td>
+        <td>
+            <div class="btn-group">
+        <button type="button" class="btn btn-small" onclick="fnAddLeftParenthesis('@a')">（</button>
+        <button type="button" class="btn btn-small" onclick="fnAddRightParenthesis('@a')">）</button>
+        <button type="button" onclick="fnAddConditions('@a')" class="btn btn-small">新增</button>
+            </div>
+        </td>
+       </tr>
+       <tr>
+        <td>
+            <select id="conList_@a" multiple="" style="width: 100%;height: 80px;"></select>
+        </td>
+        <td>
+            <div class="btn-group">
+        <button type="button" onclick="fnDelCon('@a')" class="btn btn-small">删行</button>
+        <button type="button" onclick="fnClearCon('@a')" class="btn btn-small">清空</button>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <input id="process_in_desc_@a" type="text" name="process_in_desc_@a" style="width:98%;">
+            <input name="process_in_set_@a" id="process_in_set_@a" type="hidden">
+        </td>
+        <td>
+            <span class="xc1">不符合条件时的提示</span>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</td>
+</tr>
+
+
+  </tbody>
+  <tbody id="ctbody">
+
+  </tbody>
+</table>
+<input type="hidden" name="process_condition" id="process_condition">
+    </div><!-- attrJudge end -->
+    <div class="tab-pane  {if condition="$op eq 'style'"}active{/if}" id="attrStyle">
+
+        <div class="control-group">
+          <label class="control-label" for="process_name">尺寸</label>
+          <div class="controls">
+            <input type="text" class="input-small" name="style_width" id="style_width" placeholder="宽度PX" value="{$one.style.width}"> X <input type="text" class="input-small" name="style_height" id="style_height" placeholder="高度PX"  value="{$one.style.height}">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="process_name">字体颜色</label>
+          <div class="controls">
+            <input type="text" class="input-small" name="style_color" id="style_color" placeholder="#000000" value="{$one.style.color}">
+            <div class="colors" org-bind="style_color">
+                <ul>
+                  <li class="Black active" org-data="#000" title="Black">1</li>
+                  <li class="red" org-data="#d54e21" title="Red">2</li>
+                  <li class="green" org-data="#78a300" title="Green">3</li>
+                  <li class="blue" org-data="#0e76a8" title="Blue">4</li>
+                  <li class="aero" org-data="#9cc2cb" title="Aero">5</li>
+                  <li class="grey" org-data="#73716e" title="Grey">6</li>
+                  <li class="orange" org-data="#f70" title="Orange">7</li>
+                  <li class="yellow" org-data="#fc0" title="Yellow">8</li>
+                  <li class="pink" org-data="#ff66b5" title="Pink">9</li>
+                  <li class="purple" org-data="#6a5a8c" title="Purple">10</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="process_name"><span class="process-flag badge badge-inverse"><i class="icon-star-empty icon-white" id="style_icon_preview"></i></span> 图标</label>
+          <div class="controls">
+            <input type="text" class="input-medium" name="style_icon" id="style_icon" placeholder="icon" value="{$one.style.icon}">
+            <div class="colors" org-bind="style_icon">
+                <ul>
+                  <li class="Black active" org-data="icon-star-empty" title="Black"><i class="icon-star-empty icon-white"></i></li>
+                  <li class="red" org-data="icon-ok" title="Red"><i class="icon-ok icon-white"></i></li>
+                  <li class="green" org-data="icon-remove" title="Green"><i class="icon-remove icon-white"></i></li>
+                  <li class="blue" org-data="icon-refresh" title="Blue"><i class="icon-refresh icon-white"></i></li>
+                  <li class="aero" org-data="icon-plane" title="Aero"><i class="icon-plane icon-white"></i></li>
+                  <li class="grey" org-data="icon-play" title="Grey"><i class="icon-play icon-white"></i></li>
+                  <li class="orange" org-data="icon-heart" title="Orange"><i class="icon-heart icon-white"></i></li>
+                  <li class="yellow" org-data="icon-random" title="Yellow"><i class="icon-random icon-white"></i></li>
+                  <li class="pink" org-data="icon-home" title="Pink"><i class="icon-home icon-white"></i></li>
+                  <li class="purple" org-data="icon-lock" title="Purple"><i class="icon-lock icon-white"></i></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </div><!-- attrStyle end -->
+  </div>
+<div>
+  <hr/>
+  <span class="pull-right">
+      <a onclick="layer_close()" class="btn" >取消</a>
+      <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+  </span>
+</div>
+</form>
+<script type="text/javascript" src="__Flow__/js/jquery-1.7.2.min.js?"></script>
+
+<script type="text/javascript" src="__Flow__/css/bootstrap/js/bootstrap.min.js?"></script>
+<script type="text/javascript" src="__Flow__/js/jquery-ui/jquery-ui-1.9.2-min.js?" ></script>
+<script type="text/javascript" src="__Flow__/js/jsPlumb/jquery.jsPlumb-1.3.16-all-min.js?"></script>
+<script type="text/javascript" src="__Flow__/js/jquery.contextmenu.r2.js?"></script>
+<!--select 2-->
+<script type="text/javascript" src="__Flow__/js/jquery.multiselect2side/js/jquery.multiselect2side.js?" ></script>
+<!--flowdesign-->
+<script type="text/javascript" src="__Flow__/js/flowdesign/leipi.flowdesign.v3.js?"></script>
+<script type="text/javascript" src="__Flow__/js/flowdesign/attribute.js"></script>
+
+<script type="text/javascript">
+var _out_condition_data = [];
+</script>
+
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#form").Validform({
+            tiptype:1,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+        });
+});
+</script>

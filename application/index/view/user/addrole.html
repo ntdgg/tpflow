@@ -1,0 +1,72 @@
+{include file='pub/base' /}
+<div class="page-container">
+		<body>
+		{present name="info.id"}
+			<form action="{:url('/Index/User/roleedit')}" method="post" name="form" id="form">
+			<input type="hidden" name="id" value="{:isset($info.id)?$info.id:''}">
+		{else /}
+			<form action="{:url('/Index/User/addrole')}" method="post" name="form" id="form">
+		{/present}
+			<table class="table table-border table-bordered table-hover table-bg">
+
+				<tr class="text-c">
+					<td colspan="4">{present name="info.id"}修改{else/}添加{/present}后台角色</td>
+				</tr>
+				<tr class="tr rt">
+					<td width="100">角色名称：</td>
+					<td colspan="3" class="lt">
+						<input type="text" name="name" class="input-text" style="width:200px" value="{:isset($info.name)?$info.name:''}">
+					</td>
+				</tr>
+				<tr class="tr rt">
+					<td >角色状态：</td>
+					<td colspan="3" class="lt">
+						
+						<div class="skin-minimal">
+					<div class="radio-box" >
+						<input type="radio" id="radio-1" name="status"   value='1'>
+						<label for="radio-1">启用</label>
+					  </div>
+					  <div class="radio-box">
+						<input type="radio" id="radio-2" name="status"  value='0'>
+						<label for="radio-2">关闭</label>
+					  </div>
+					</div>
+					</td>
+				</tr>
+				<tr class="tr rt">
+					<td >备注说明：</td>
+					<td colspan="3" class="lt">
+						<input type="text" name="remark" class="input-text" style="width:400px" value="{:isset($info.remark)?$info.remark:''}">
+					</td>
+				</tr>
+				
+	<tr class="tr lt">
+		<td colspan="4" class='text-c'>
+			{present name="info.id"}
+				<input class='btn btn-primary radius' type="submit" name="dosubmit" value="修 改" >
+				{else/}
+				<input class='btn btn-primary radius' type="submit" name="dosubmit" value="添 加">
+			{/present}
+			&nbsp;
+			<input class='btn btn-primary radius' type="button" onclick="layer_close()" value="返 回" ></td>
+	</tr>
+</table>
+</form>
+
+</div>
+<script>
+$(function () {
+        $("[name='status'][value='{$info.status ?? '1'}']").attr("checked",true);
+        $("#form").Validform({
+            tiptype:2,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+        });
+    })
+</script>
+</body>
+</html>
