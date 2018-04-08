@@ -48,7 +48,7 @@ class ProcessDb{
 				foreach($out_condition as $key=>$val){
 					$where =implode(",",$val['condition']);
 					//根据条件寻找匹配符合的工作流id
-					$info = Db::name($wf_type)->where($where)->where('id',$wf_fid)->find();
+					$info = Db::name($wf_type)->where($where)->where('id','eq',$wf_fid)->find();
 					if($info){
 						$nexprocessid = $key; //获得下一个流程的id
 						break;	
@@ -71,7 +71,7 @@ class ProcessDb{
 	public static function GetPreProcessInfo($runid)
 	{
 		$pre_n = Db::name('run_process')->find($runid);
-		$pre = Db::name('flow_process')->where('flow_id',$pre_n['run_flow'])->where('id','lt',$pre_n['run_flow_process'])->select();
+		$pre = Db::name('flow_process')->where('flow_id','eq',$pre_n['run_flow'])->where('id','lt',$pre_n['run_flow_process'])->select();
 		$prearray = [];
 		if(count($pre)>=1){
 			$prearray[0] = '退回制单人修改';
@@ -97,7 +97,7 @@ class ProcessDb{
 	 */
 	public static function getWorkflowProcess($wf_id) 
 	{
-		$flow_process = Db::name('flow_process')->where('is_del',0)->where('flow_id',$wf_id)->select();
+		$flow_process = Db::name('flow_process')->where('is_del','eq',0)->where('flow_id','eq',$wf_id)->select();
 		//找到 流程第一步
         $flow_process_first = array();
         foreach($flow_process as $value)
@@ -122,10 +122,10 @@ class ProcessDb{
 	 */
 	public static function RunLog($wf_fid,$wf_type) 
 	{
-		$run_log = Db::name('run_log')->where('from_id',$wf_fid)->where('from_table',$wf_type)->select();
+		$run_log = Db::name('run_log')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->select();
 		foreach($run_log as $k=>$v)
         {
-           $run_log[$k]['user'] =Db::name('user')->where('id',$v['uid'])->value('username');
+           $run_log[$k]['user'] =Db::name('user')->where('id','eq',$v['uid'])->value('username');
         }
 		return $run_log;
 	}

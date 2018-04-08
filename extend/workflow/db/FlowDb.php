@@ -21,7 +21,7 @@ class FlowDb{
 		if ($wf_type == '') {
 			return $workflow;
 		}
-		$info = Db::name('flow')->where('is_del',0)->where('status',0)->where('type',$wf_type)->select();
+		$info = Db::name('flow')->where('is_del','eq',0)->where('status','eq',0)->where('type','eq',$wf_type)->select();
 		return  $info;
 	}
 	/**

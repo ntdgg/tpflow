@@ -16,6 +16,6 @@ class UserDb{
 	 */
 	public static function GetUser() 
 	{
-		return  Db::name('user')->where('status',0)->field('id,username,role')->select();
+		return  Db::name('user')->where('status','eq',0)->field('id,username,role')->select();
 	}
 }

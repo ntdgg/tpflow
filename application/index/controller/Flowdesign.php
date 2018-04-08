@@ -154,7 +154,7 @@ class Flowdesign extends Admin {
         }
         //start  删除成功后，会重新保存设计，此步可省略
         // 修改 同流程中与$process_id有关的 process_to
-        $list = db('flow_process')->field('id,process_to')->where('flow_id',$flow_id)->where('is_del',0)->where('','exp',"FIND_IN_SET(".$process_id.",process_to)")->select();
+        $list = db('flow_process')->field('id,process_to')->where('flow_id','eq',$flow_id)->where('is_del','eq',0)->where('','exp',"FIND_IN_SET(".$process_id.",process_to)")->select();
 		if(is_array($list)){
         foreach($list as $value){
             //把 process_to 去除 $process_id 再保存
@@ -267,7 +267,7 @@ class Flowdesign extends Admin {
                 'process_to'=>ids_parse($value['process_to']),
                 'updatetime'=>time()
             );
-            $ret = db('flow_process')->where('id',$process_id)->where('flow_id',$flow_id)->update($datas);
+            $ret = db('flow_process')->where('id','eq',$process_id)->where('flow_id','eq',$flow_id)->update($datas);
         }
         $data = json(['status'=>1,'msg'=>'^_^ 保存成功','info'=>'']);
 		return $data;

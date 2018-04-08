@@ -123,11 +123,11 @@ class InfoDB{
 	public static function workflowInfo($wf_fid,$wf_type) {
 		$workflow = [];
 		require ( BEASE_URL . '/config/config.php');//  
-		$count = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->count();
+		$count = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->count();
 		if($count > 0){
-			$result = Db::name('run')->where('from_id',$wf_fid)->where('from_table',$wf_type)->where('is_del',0)->where('status',0)->find();
+			$result = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('status','eq',0)->find();
 			
-			$info = Db::name('run_process')->where('run_id',$result['id'])->where('run_flow',$result['flow_id'])->where('run_flow_process',$result['run_flow_process'])->where('status',0)->find();
+			$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
 			if ($result) {
 				$workflow ['sing_st'] = 0;
 				$workflow ['flow_id'] = $result['flow_id'];
@@ -141,7 +141,7 @@ class InfoDB{
 				$workflow ['singuser'] = UserDb::GetUser();
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 				if($result['is_sing']==1){
-					$info = Db::name('run_process')->where('run_id',$result['id'])->where('run_flow',$result['flow_id'])->where('run_flow_process',$result['run_flow_process'])->find();
+					$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
 				   $workflow ['sing_st'] = 1;
 				   $workflow ['flow_process'] = $result['run_flow_process'];
 				   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
@@ -176,7 +176,7 @@ class InfoDB{
 	 */
 	public static function UpdateBill($wf_fid,$wf_type,$status = 1)
 	{
-		$result = Db::name($wf_type)->where('id',$wf_fid)->update(['status'=>$status,'uptime'=>time()]);
+		$result = Db::name($wf_type)->where('id','eq',$wf_fid)->update(['status'=>$status,'uptime'=>time()]);
 		 if(!$result){
             return  false;
         }
@@ -192,8 +192,8 @@ class InfoDB{
 		$result = Db::name('run')->where('status',0)->select();
 		foreach($result as $k=>$v)
 		{
-			$result[$k]['flow_name'] = Db::name('flow')->where('id',$v['flow_id'])->value('flow_name');
-			$process = Db::name('flow_process')->where('id',$v['run_flow_process'])->find();
+			$result[$k]['flow_name'] = Db::name('flow')->where('id','eq',$v['flow_id'])->value('flow_name');
+			$process = Db::name('flow_process')->where('id','eq',$v['run_flow_process'])->find();
 			if($process['auto_person'] == 4){
 				$result[$k]['user'] =$process['auto_sponsor_text'];
 				}else{

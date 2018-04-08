@@ -77,7 +77,7 @@ class BackFlow{
 	 **/
 	public function end_flow($run_id)
 	{
-		return Db::name('run')->where('id',$run_id)->update(['status'=>1,'endtime'=>time()]);
+		return Db::name('run')->where('id','eq',$run_id)->update(['status'=>1,'endtime'=>time()]);
 	}
 	/**
 	 *结束结束流程缓存
@@ -86,7 +86,7 @@ class BackFlow{
 	 **/
 	public function end_process($run_process,$check_con)
 	{
-		return Db::name('run_process')->where('id',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
+		return Db::name('run_process')->where('id','eq',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
 	}
 	/**
 	 *运行
@@ -114,7 +114,7 @@ class BackFlow{
 	 **/
 	public function up($run_id,$flow_process)
 	{
-		return Db::name('run')->where('id',$run_id)->update(['run_flow_process'=>$flow_process]);	
+		return Db::name('run')->where('id','eq',$run_id)->update(['run_flow_process'=>$flow_process]);	
 	}
 	
 }
