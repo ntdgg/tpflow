@@ -66,7 +66,13 @@ class tpdf
         $pathTemplate = APP_PATH . 'index' . DS . "view" . DS . "Formdesign" . DS . "template" . DS ;
         $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
         $code = $this->parseCode();
-        $this->makeAll($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
+		if($option=='all'){
+			 $this->makeAll($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
+		}
+		if($option=='demo'){
+			 $this->buildView($pathView, $pathTemplate, $fileName, $tableName, $code, $data);
+		}
+       
     }
 	private function makeAll($pathView, $pathTemplate, $fileName, $tableName, $code, $data)
 	{
@@ -138,7 +144,24 @@ class tpdf
             )
         );
     }
-	 /**
+	/**
+     * 创建 edit.html 文件
+     */
+    private function buildView($path, $pathTemplate, $fileName, $tableName, $code, $data)
+    {
+        $template = file_get_contents($pathTemplate . "view.tpl");
+        $file = $path . "view.html";
+        if ($this->module == Request::module() || !$this->module) {
+            $module = '';
+        } else {
+            $module = Request::module() . '@';
+        }
+        return file_put_contents($file, str_replace(
+            ["[MODULE]", "[ROWS]", "[SET_VALUE]", "[SCRIPT]"],
+            [$module, $code['edit'], implode("\n", array_merge($code['set_checked'], $code['set_selected'])), implode("", $code['script_edit'])],
+            $template));
+    }
+	/**
      * 创建 edit.html 文件
      */
     private function buildEdit($path, $pathTemplate, $fileName, $tableName, $code, $data)

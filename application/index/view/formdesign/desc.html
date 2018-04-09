@@ -30,8 +30,9 @@
 <div class="page-container">
    <div class='fb-main'></div>
 </div>
-<input name='ziduan' id='ziduan' value=''>
-<input name='id' id='id' value='{$fid}'>
+<input name='ziduan' id='ziduan' value='{$info.ziduan ?? ''}' type='hidden'>
+
+<input name='id' id='id' value='{$fid}' type='hidden'>
 
   <script src="/static/formbuilder/vendor.js"></script>
   <script src="/static/formbuilder/formbuilder.js"></script>
@@ -39,21 +40,14 @@
     $(function(){
       fb = new Formbuilder({
         selector: '.fb-main',
-        bootstrapData: [
-         
-         
-        ]
+        bootstrapData: {$ziduan|raw}
       });
-
       fb.on('save', function(payload){
         $('#ziduan').val(payload);
-		
-		
       })
 	  $("#up").click(function(){
 		 var ziduan=$("#ziduan").val();
 		 var id=$("#id").val();
-		
 		$.ajax({  
 			 url:'{:url("desc")}',
 			 data:{ziduan:ziduan,id:id},  
@@ -62,12 +56,13 @@
 			dataType:'json',			 
 			 success:function(data) {  
 				if(data.code==0){
-					lay.msg('Success!');
-					layer_close();
+					parent.layer.msg('设置成功');
+					setTimeout(function(){
+					parent.location.reload();
+					},1000)
 				}
 			  },  
 			  error : function() {  
-				  
 			  }  
 		 }); 
 		

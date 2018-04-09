@@ -12,7 +12,7 @@
 		<table class="table table-border table-bordered table-bg">
 			<tr>
 			<td style='width:75px'>函数名称</td><td style='width:330px' colspan='2'>
-			<input type="text" class="input-text" value="{$info.name ?? ''}" name="name"  datatype="*" ></td>
+			<input type="text" id='title' class="input-text" value="{$info.name ?? ''}" name="name"  datatype="*" ></td>
 			</tr>
 			<tr>
 			<td style='width:75px'>函数名称</td><td style='width:330px'>
@@ -20,9 +20,9 @@
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">Sql语句填写示例<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
-						<li><a href="javascript:insert('SELECT * FROM `[table]` WHERE 1')">select</a></li>
-						<li><a href="javascript:insert('SELECT * FROM `[table]` WHERE 1 Limit 1')">find</a></li>
+						<li><a href="javascript:insert('SELECT id,type as name FROM `leipi_news_type`')">select</a></li>
 					</ul>
+					*应包含主键及显示字段(为 AS name)
 				</li>
 			</ul>
 			</td>
@@ -31,7 +31,7 @@
 			<tr valign="top">
 			<td style='width:75px'>函数语句：</td><td style='width:330px' >
 			<textarea placeholder="此为SQL语句，非专业人士请勿随意提交！" id='sql' name='sql' type="text/plain" style="width:100%;height:150px;"></textarea> </td>
-		    <td style='width:330px' ><p id="result" style="background-color: #cccccc;"></p></td>
+		    <td style='width:330px' ><p id="result" ></p></td>
 			
 			</tr>
 		</table>
@@ -76,10 +76,11 @@ function insert($sql){
 }
 $("#forms").click(function(){
     var sql=$("#sql").val();
+	var title=$("#title").val();
     if (!sql){layer.msg("SQL不能为空!!");return;}
     $.ajax({  
          url:'{:url("ajax_sql")}',
-         data:{sql:sql},  
+         data:{sql:sql,title:title},  
          type:'post',  
          cache:true,  
          dataType:'html',  

@@ -32,7 +32,6 @@ class Formdesign extends Admin
      */
     public function desc($map=[])
     {
-        
 		if ($this->request->isPost()) {
 		$data = input('post.');
 		$data['ziduan'] = htmlspecialchars_decode($data['ziduan']);
@@ -43,11 +42,58 @@ class Formdesign extends Admin
 			return msg_return($ret['data'],1);
 		}
 	   }
-		
-		$this->assign('fid', input('id'));
-		
+	   $this->assign('ziduan','[]');
+	   $this->assign('fid', input('id'));
         return $this->view->fetch();
     }
+	public function edit_desc()
+	{
+		$info = db('form')->find(input('id'));
+		$ziduan = json_decode($info['ziduan'],true);
+		$this->assign('info',$info);
+		$this->assign('ziduan',json_encode($ziduan['fields']));
+		$this->assign('fid', input('id'));
+		return $this->view->fetch('desc');
+	}
+	public function dsec_view()
+	{
+		$id = input('id');
+		$info = db('form')->find($id);
+		$ziduan = json_decode($info['ziduan'],true);
+		$field = [];
+		$form = [];
+		foreach($ziduan['fields'] as $k=>$v){
+			$field[$k]['name'] = 'demo';
+			$field[$k]['type'] = 'text';
+			$field[$k]['extra'] = '';
+			$field[$k]['comment'] = $v['label'];
+			$field[$k]['default'] = '';
+			$form[$k]['title'] =  $v['label'];
+			$form[$k]['name'] =  'demo';
+			$form[$k]['type'] =  $v['field_type'];
+			$form[$k]['option'] =  $v['field_options'];
+			$form[$k]['default'] = '';
+			$form[$k]['search'] = $v['search'];
+			$form[$k]['lists'] = $v['lists'];
+		}
+		$data = [
+		'module'=>'index',
+		'controller'=>'demo',
+		'menu'=>['add,del'],
+		'title'=>$info['title'],
+		'flow'=>$info['flow'],
+		'table'=>$info['name'],
+		'create_table'=>'demo',
+		'field'=>$field,
+		'form'=>$form
+		];
+		
+		$tpdf = new tpdf();
+		$tpdf->make($data,'demo');
+		
+		
+	  return $this->view->fetch('demo/view');
+	}
 	/**
      * 首页
      * @return mixed
@@ -84,8 +130,15 @@ class Formdesign extends Admin
 	public function ajax_sql(){
 		if ($this->request->isPost()){
             $sql=input("post.sql");
+			$title=input("post.title");
 			try{
-			   dump(Db::query($sql));
+			 $data = Db::query($sql);
+			 $html = '<select><option value=>请选择'.$title.'</option>';
+			 foreach($data as $k=>$v){
+				 $html .= '<option value="'.$v["id"].'">'.$v["name"].'</option>';
+			 }
+			 $html .= '</select>';
+			   echo  $html;
 			}catch(\Exception $e){
 				return  1; 	
 			}
@@ -136,7 +189,7 @@ class Formdesign extends Admin
 			'id'=>$id,
 			'status'=>1,
 		];
-		//controller('Base', 'event')->commonedit('form',$up);
+		controller('Base', 'event')->commonedit('form',$up);
 		$this->success('生成成功！','/index/index/welcome');
 		
 	}
