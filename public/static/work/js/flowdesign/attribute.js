@@ -305,12 +305,20 @@ $(function(){
   //选人方式
   $("#auto_person_id").on('change',function(){
       var apid = $(this).val();
+	  alert(apid);
       if(apid>0)
       {
           $('#auto_unlock_id').show();
       }else
       {
           $('#auto_unlock_id').hide();
+      }
+	  if(apid==3)//指定用户
+      {
+          $("#auto_person_3").show();
+      }else
+      {
+          $("#auto_person_3").hide();
       }
       if(apid==4)//指定用户
       {
@@ -326,8 +334,6 @@ $(function(){
       {
           $("#auto_person_5").hide();
       }
-
-
   });
  
 

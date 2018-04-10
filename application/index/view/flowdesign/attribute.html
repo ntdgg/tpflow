@@ -61,13 +61,25 @@
             <div class="controls">
               <select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
                 <option value="">请选择办理人员或者角色</option>
+				 <option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>
+				 <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
                 <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
-                <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
+               
               </select>
               <span class="help-inline">*选择人员或者办理的角色！</span>
             </div>
            
-
+			<div id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}>
+              <div class="control-group">
+                <label class="control-label">办理人</label>
+                <div class="controls">
+                    <input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
+					<a class="btn" onclick="layer_show('办理人','{:url('super_user')}','600','350')">选择</a>
+					
+                </div> 
+              </div>
+            </div>
             <div id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}>
               <div class="control-group">
                 <label class="control-label">办理人</label>

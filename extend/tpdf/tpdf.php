@@ -63,7 +63,7 @@ class tpdf
         }
 		$this->buildDir();//创建目录
 		$pathView = APP_PATH . $this->module . DS . "view" . DS . $this->dir . $this->nameLower . DS;
-        $pathTemplate = APP_PATH . 'index' . DS . "view" . DS . "Formdesign" . DS . "template" . DS ;
+        $pathTemplate = APP_PATH . 'index' . DS . "view" . DS . "formdesign" . DS . "template" . DS ;
         $fileName = APP_PATH . "%MODULE%" . DS . "%NAME%" . DS . $this->dir . $this->name . ".php";
         $code = $this->parseCode();
 		if($option=='all'){
