@@ -34,20 +34,12 @@ class Flow extends Controller {
 			$st = 0;
 			$workflow = new workflow();
 			$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
-			
-			if($flowinfo['process']['auto_person']==4){
-				$user = explode(",", $flowinfo['process']['auto_sponsor_ids']);
+	
+			$user = explode(",", $flowinfo['status']['sponsor_ids']);
 				if (in_array($this->uid, $user)) {
 					$st = 1;
 				}
-			}
-
-			if($flowinfo['process']['auto_person']==5){
-				$user = explode(",", $flowinfo['process']['auto_role_ids']);
-				if (in_array($this->role, $user)) {
-					$st = 1;
-				}
-			}
+		
 			if($st == 1){
 				 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核</span>';
 				}else{
@@ -127,5 +119,12 @@ class Flow extends Controller {
 		$workflow = new workflow();
 		$flowinfo = $workflow->workdoaction($data,$this->uid);
 		return msg_return('Success!');
+	}
+	public function ajax_back(){
+		$pid = input('back_id');
+		$run_id = input('run_id');
+		$workflow = new workflow();
+		$flowinfo = $workflow->getprocessinfo($pid,$run_id);
+		return $flowinfo;
 	}
 }

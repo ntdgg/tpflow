@@ -67,7 +67,7 @@ require_once BEASE_URL . '/msg/mail.php';
 				return ['msg'=>'流程发起失败，数据库操作错误！！','code'=>'-1'];
 			}
 			//添加流程步骤日志
-			$wf_process_log = InfoDB::addWorkflowProcess($wf_id,$wf_process['id'],$wf_run);
+			$wf_process_log = InfoDB::addWorkflowProcess($wf_id,$wf_process,$wf_run,$uid);
 			if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
@@ -139,6 +139,19 @@ require_once BEASE_URL . '/msg/mail.php';
 		function worklist($status = 0)
 		{
 			return InfoDB::worklist();
+		}
+		function getprocessinfo($pid,$run_id){
+			
+			if( @$pid=='' || @$run_id ==''){
+		       	throw new \Exception ( "config参数信息不全！" );
+			}
+			$wf_process = ProcessDb::Getrunprocess($pid,$run_id);
+			if($wf_process['auto_person']==3){
+				$todo = $wf_process['sponsor_ids'].'*%*'.$wf_process['sponsor_text'];
+				}else{
+				$todo = '';
+			}
+			return $todo;
 		}
 		
 		function send_mail()

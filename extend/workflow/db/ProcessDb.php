@@ -19,8 +19,12 @@ class ProcessDb{
 	public static function GetProcessInfo($pid)
 	{
 		$info = Db::name('flow_process')
-				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,is_sing,sign_look,is_back')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back')
 				->find($pid);
+		if($info['auto_person']==3){ //办理人员
+			$ids = explode(",",$info['range_user_text']);
+			$info['todo'] = ['ids'=>explode(",",$info['range_user_ids']),'text'=>explode(",",$info['range_user_text'])];
+		}
 		if($info['auto_person']==4){ //办理人员
 			$info['todo'] = $info['auto_sponsor_text'];
 		}
@@ -59,7 +63,7 @@ class ProcessDb{
 				$process = self::GetProcessInfo($nex_pid);	
 			}
 		}else{
-			$process = ['id'=>'','process_name'=>'END','todo'=>'结束'];
+			$process = ['auto_person'=>'','id'=>'','process_name'=>'END','todo'=>'结束'];
 		}
 		return $process;
 	}
@@ -88,6 +92,16 @@ class ProcessDb{
 			$prearray[0] = '退回制单人修改';	
 		}
 		return $prearray;
+	}
+	/**
+	 * 获取前步骤的流程信息
+	 *
+	 * @param $runid
+	 */
+	public static function Getrunprocess($pid,$run_id)
+	{
+		$pre_n = Db::name('run_process')->where('run_id','eq',$run_id)->where('run_flow_process','eq',$pid)->find();
+		return $pre_n;
 	}
 	
 	/**

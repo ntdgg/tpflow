@@ -61,10 +61,9 @@
             <div class="controls">
               <select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
                 <option value="">请选择办理人员或者角色</option>
-				 <option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>
+				 {if condition="$one.process_type neq 'is_one'"}<option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>{/if}
 				 <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
                 <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
-               
               </select>
               <span class="help-inline">*选择人员或者办理的角色！</span>
             </div>
@@ -73,9 +72,9 @@
               <div class="control-group">
                 <label class="control-label">办理人</label>
                 <div class="controls">
-                    <input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
-					<a class="btn" onclick="layer_show('办理人','{:url('super_user')}','600','350')">选择</a>
+                    <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
+					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','600','350')">选择</a>
 					
                 </div> 
               </div>
@@ -86,7 +85,7 @@
                 <div class="controls">
                     <input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
                     <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
-					<a class="btn" onclick="layer_show('办理人','{:url('super_user')}','600','350')">选择</a>
+					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','600','350')">选择</a>
 					
                 </div> 
               </div>

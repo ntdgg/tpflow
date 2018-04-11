@@ -305,7 +305,6 @@ $(function(){
   //选人方式
   $("#auto_person_id").on('change',function(){
       var apid = $(this).val();
-	  alert(apid);
       if(apid>0)
       {
           $('#auto_unlock_id').show();

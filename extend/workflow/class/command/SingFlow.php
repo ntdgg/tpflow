@@ -59,7 +59,8 @@ class SingFlow{
 		if ($wf_actionid == "sok") {//提交处理
 			
 			if($config['npid'] !=''){
-				InfoDB::addWorkflowProcess($config['flow_id'],$config['npid'],$config['run_id']);
+				$wf_process = ProcessDb::GetProcessInfo($config['npid']);
+				InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);
 				$this->up_flow_press($config['run_id'],$config['npid']);
 			}
 			
@@ -86,7 +87,8 @@ class SingFlow{
 				$this->up_run($config['run_id']);
 				//日志记录
 			}else{ //结束流程
-				$wf_run_process = InfoDB::addWorkflowProcess($config['flow_id'],$wf_backflow,$config['run_id']);
+				$wf_process = ProcessDb::GetProcessInfo($wf_backflow);
+				$wf_run_process = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);
 				$this->up_run($config['run_id']);
 				//消息通知发起人
 			}

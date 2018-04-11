@@ -32,6 +32,11 @@ class BackFlow{
 			}else{
 			$back = false;
 		}
+		if(isset($config['btodo']) && $config['btodo'] != ''){
+			$todo = $config['btodo'];
+		}else{
+			$todo = '';
+		}
 		if($back){//第一步
 			$end = $this->end_flow($run_id);//结束流程
 			$end = $this->end_process($run_process,$check_con);
@@ -51,7 +56,7 @@ class BackFlow{
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			}
-			$run = $this->Run($config,$uid);//添加回退步骤流程
+			$run = $this->Run($config,$uid,$todo);//添加回退步骤流程
 			//消息通知发起人
 			$run_update = $this->up($run_id,$wf_backflow);
 		}
@@ -93,10 +98,11 @@ class BackFlow{
 	 *
 	 *@param $run_flow_process 工作流ID
 	 **/
-	public function Run($config,$uid)
+	public function Run($config,$uid,$todo)
 	{
+		$wf_process = ProcessDb::GetProcessInfo($config['npid']);
 		//添加流程步骤日志
-		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$config['wf_backflow'],$config['run_id']);
+		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);
 		if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}

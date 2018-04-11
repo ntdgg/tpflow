@@ -23,6 +23,11 @@ class TaskFlow{
 		$run_process = $config['run_process'];//运行中的process
 		$check_con = $config['check_con'];
 		$submit_to_save = $config['submit_to_save'];
+		if(isset($config['todo'])){
+			$todo = $config['todo'];
+		}else{
+			$todo = '';
+		}
 		if($npid != ''){//判断是否为最后
 			//结束流程
 			$end = $this->end_process($run_process,$check_con);
@@ -32,7 +37,7 @@ class TaskFlow{
 			//更新单据信息
 			$run_update = $this->up($run_id,$npid);
 			//记录下一个流程->消息记录
-			$run = $this->Run($config,$uid);
+			$run = $this->Run($config,$uid,$todo);
 
 			}else{ 
 				//结束该流程
@@ -73,10 +78,11 @@ class TaskFlow{
 	 *
 	 *@param $run_flow_process 工作流ID
 	 **/
-	public function Run($config,$uid)
+	public function Run($config,$uid,$todo)
 	{
+		$wf_process = ProcessDb::GetProcessInfo($config['npid']);
 		//添加流程步骤日志
-		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$config['npid'],$config['run_id']);
+		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);
 		if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}

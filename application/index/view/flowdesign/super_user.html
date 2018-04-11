@@ -58,8 +58,8 @@
             }
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.msg('设置成功');
-		parent.$('#auto_sponsor_ids').val(ids);
-		parent.$('#auto_sponsor_text').val(name);
+		parent.$('#{$kid}_ids').val(ids);
+		parent.$('#{$kid}_text').val(name);
 		parent.layer.close(index);
 	}
     $(function(){

@@ -65,19 +65,42 @@ class InfoDB{
 	 * @param $run_id  运行的id
 	 * @param $wf_type 业务表名
 	 */
-	public static function addWorkflowProcess($wf_id,$wf_process,$run_id)
+	public static function addWorkflowProcess($wf_id,$wf_process,$run_id,$uid,$todo = '')
 	{
+		//非自由
+		if($todo == ''){
+			if($wf_process['auto_person']==3){ //办理人员
+				$sponsor_ids = $wf_process['range_user_ids'];
+				$sponsor_text = $wf_process['range_user_text'];
+			}
+			if($wf_process['auto_person']==4){ //办理人员
+				$sponsor_ids = $wf_process['auto_sponsor_ids'];
+				$sponsor_text = $wf_process['auto_sponsor_text'];
+			}
+			if($wf_process['auto_person']==5){ //办理角色
+				$sponsor_text = $wf_process['auto_role_text'];
+				$sponsor_ids = $wf_process['auto_sponsor_ids'];
+			}
+		}else{
+			$todo = explode("*%*",$todo);
+			$sponsor_text = $todo[1];
+			$sponsor_ids = $todo[0];
+			
+		}
 		$data = array(
-            'uid'=>session('uid'),
+            'uid'=>$uid,
             'run_id'=>$run_id,
             'run_flow'=>$wf_id,
-            'run_flow_process'=>$wf_process,
+            'run_flow_process'=>$wf_process['id'],
             'parent_flow'=>0,
             'parent_flow_process'=>0,
             'run_child'=>0,//未处理，第一步不能进入子流程
             'remark'=>'',
             'is_sponsor'=>0,
             'status'=>0,
+			'sponsor_ids'=>$sponsor_ids,//办理人id
+			'sponsor_text'=>$sponsor_text,//办理人信息
+			'auto_person'=>$wf_process['auto_person'],//办理类别
             'js_time'=>time(),
             'dateline'=>time(),
         );
@@ -126,12 +149,12 @@ class InfoDB{
 		$count = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->count();
 		if($count > 0){
 			$result = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('status','eq',0)->find();
-			
 			$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
 			if ($result) {
 				$workflow ['sing_st'] = 0;
 				$workflow ['flow_id'] = $result['flow_id'];
 				$workflow ['run_id'] = $result['id'];
+				$workflow ['status'] = $info;
 				$workflow ['flow_process'] = $info['run_flow_process'];
 				$workflow ['run_process'] = $info['id'];
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
@@ -157,6 +180,7 @@ class InfoDB{
 		}
 		return $workflow;
 	}
+	
 	/**
 	 * 根据单据ID，单据表 获取流程信息
 	 *
@@ -189,7 +213,7 @@ class InfoDB{
 	 */
 	public static function worklist()
 	{
-		$result = Db::name('run')->where('status',0)->select();
+		$result = Db::name('run')->where('status','eq',0)->select();
 		foreach($result as $k=>$v)
 		{
 			$result[$k]['flow_name'] = Db::name('flow')->where('id','eq',$v['flow_id'])->value('flow_name');

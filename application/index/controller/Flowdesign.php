@@ -523,6 +523,8 @@ class Flowdesign extends Admin {
     public function super_user()
     {
 		$this->assign('user',db('user')->field('id,username')->select());
+		
+		$this->assign('kid',input('kid'));
         return $this->fetch();
     }
 	//用户选择控件
