@@ -127,4 +127,23 @@ class Flow extends Controller {
 		$flowinfo = $workflow->getprocessinfo($pid,$run_id);
 		return $flowinfo;
 	}
+	 public function upindex()
+    {
+        return $this->fetch('upload');
+    }
+	public function upload()
+    {
+        $files = $this->request->file('file');
+        $insert = [];
+        foreach ($files as $file) {
+            $path = \Env::get('root_path') . '/public/uploads/';
+            $info = $file->move($path);
+            if ($info) {
+                $data[] = $info->getSaveName();
+            } else {
+                $error[] = $file->getError();
+            }
+        }
+        return msg_return($data,0,$info->getInfo('name'));
+    }
 }

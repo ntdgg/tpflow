@@ -73,11 +73,13 @@
 				<tr>
 				<td colspan=2 class='text-c'>
 				<input id='submit_to_save' name='submit_to_save' value='' type='hidden'>
+				<input id='upload' name='art' value='' type='hidden'>
 				<input  name='sing_st' value='{$flowinfo.sing_st}' type='hidden'>
 				{if condition='$flowinfo.sing_st == 0'}
 					<a class="btn btn-primary radius" id='nexbton' onclick='tj("ok")' >提交</a> 
 					<a class="btn btn-primary radius" id='backbton' onclick='tj("back")'value='back' >回退</a> 
 					<a class="btn btn-primary radius" id='singbton' onclick='tj("sing")' value='sing' >会签</a>
+					<a class="btn btn-primary radius" id='bupload'onclick="layer_show('上传','{:url(\'upindex\', [\'id\' => \'upload\'])}','140','160')">附件</a> 
 				{else/}
 					<a class="btn btn-primary radius" id='nexbton' onclick='sing("sok")' >会签提交</a> 
 					<a class="btn btn-primary radius" id='backbton' onclick='sing("sback")'value='back' >会签回退</a> 
@@ -88,13 +90,17 @@
 				</tr>
 				</table>
 			</td>
-			<td valign="top">
-				<table class="table table-border table-bordered " style='width:98%'>
+			<td valign="top" >
+				<div style='width:98%;overflow-y:scroll; height:200px'>
+				<table class="table table-border table-bordered " style='width:98%;'>
 					<tr><td>审批人</td><td>审批意见</td><td>审批操作</td><td>审批时间</td></tr>
 					{volist name='$flowinfo.log' id='k'}
-						<tr><td>{$k.user}</td><td>{$k.content}</td><td>{$k.btn}</td><td>{:date('m-d H:i',$k['dateline'])}</td></tr>
+						<tr><td>{$k.user}</td><td>{$k.content}
+						{if condition='$k.art  != ""'}<a class="btn btn-success" href="/uploads/{$k.art}" target="download">下载</a>{else/}{/if}
+						</td><td>{$k.btn}</td><td>{:date('m-d H:i',$k['dateline'])}</td></tr>
 					{/volist}
 				</table>
+				</div>
 			</td>
 			</tr>
 		</table>

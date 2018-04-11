@@ -28,6 +28,7 @@ class LogDb{
 				'from_table'=>$config['wf_type'],
                 'run_id'=>$run_id,
                 'content'=>$config['check_con'],
+				'art'=>$config['art'],
                 'btn'=>$btn,//从 serialize 改用  json_encode 兼容其它语言
                 'dateline'=>time()
             );
