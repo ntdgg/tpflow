@@ -22,6 +22,9 @@ class LogDb{
 	 **/
 	public static function AddrunLog($uid,$run_id,$config,$btn)
 	{
+		 if (!$config['art']) {
+               $config['art'] = '';
+         }
 		$run_log = array(
                 'uid'=>$uid,
 				'from_id'=>$config['wf_fid'],
