@@ -34,11 +34,18 @@ class Flow extends Controller {
 			$st = 0;
 			$workflow = new workflow();
 			$flowinfo = $workflow->workflowInfo($wf_fid,$wf_type);
-	
 			$user = explode(",", $flowinfo['status']['sponsor_ids']);
-				if (in_array($this->uid, $user)) {
-					$st = 1;
+				if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
+					if (in_array($this->uid, $user)) {
+						$st = 1;
+					}
 				}
+				if($flowinfo['status']['auto_person']==5){
+					if (in_array($this->role, $user)) {
+						$st = 1;
+					}
+				}
+				
 		
 			if($st == 1){
 				 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核</span>';
