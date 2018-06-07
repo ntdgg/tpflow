@@ -94,7 +94,7 @@
               <div class="control-group">
                 <label class="control-label">指定角色</label>
                 <div class="controls">
-                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role ?? ''}">
+                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}">
                     <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
 					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','600','350')">选择</a>
                 </div> 

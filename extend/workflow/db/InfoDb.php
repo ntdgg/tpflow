@@ -79,7 +79,7 @@ class InfoDB{
 			}
 			if($wf_process['auto_person']==5){ //办理角色
 				$sponsor_text = $wf_process['auto_role_text'];
-				$sponsor_ids = $wf_process['auto_role_ids'];
+				$sponsor_ids = $wf_process['auto_sponsor_ids'];
 			}
 		}else{
 			$todo = explode("*%*",$todo);
