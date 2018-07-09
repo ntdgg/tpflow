@@ -100,7 +100,7 @@ class BackFlow{
 	 **/
 	public function Run($config,$uid,$todo)
 	{
-		$wf_process = ProcessDb::GetProcessInfo($config['npid']);
+		$wf_process = ProcessDb::GetProcessInfo($config['wf_backflow']);
 		//添加流程步骤日志
 		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);
 		if(!$wf_process_log){

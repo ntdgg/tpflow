@@ -1,0 +1,54 @@
+{include file='pub/base' /}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" method="get" action="{:url($Request.action)}">
+        <input type="text" class="input-text" style="width:250px" placeholder="业务名称" name="name" value="{$Request.param.name}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="业务备注" name="bz" value="{$Request.param.bz}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="联系人" name="user" value="{$Request.param.user}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="联系人电话" name="tel" value="{$Request.param.tel}" >
+        <input type="text" class="input-text" style="width:250px" placeholder="联系人地址" name="add" value="{$Request.param.add}" >
+        <button type="submit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+            <a href="javascript:;" onclick="layer_show('新增','{:url('add')}','850','500')" class="btn btn-primary radius">新增</a>
+        </span>
+        <span class="r pt-5 pr-5">
+            共有数据 ：<strong>{$count ?? '0'}</strong> 条
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="25"><input type="checkbox"></th>
+            <th>业务名称</th>
+            <th>业务备注</th>
+            <th>联系人</th>
+            <th>联系人电话</th>
+            <th>联系人地址</th>
+            <th>状态</th>
+            <th width="70">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+            <td>{$vo.name}</td>
+            <td>{$vo.bz}</td>
+            <td>{$vo.user}</td>
+            <td>{$vo.tel}</td>
+            <td>{$vo.add}</td>
+            <td>{:action('flow/status',['status'=>$vo.status])}</td>
+            <td class="f-14">
+					{:action('flow/btn',['wf_fid'=>$vo.id,'wf_type'=>'yzgl','status'=>$vo.status])}
+					<span class="btn  radius size-S" onclick="layer_show('修改','{:url('edit',['id'=>$vo.id])}','850','500')">修改</span>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page ?? ''}</div>
+</div>
+{/block}
+
