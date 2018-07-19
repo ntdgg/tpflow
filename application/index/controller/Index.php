@@ -7,20 +7,17 @@ use workflow\workflow;
 
 class Index  extends Controller{
     public function index(){
-		//Session::clear();
-		//$workflow = new workflow();
-		//$flow = $workflow->send_mail();
-	
+		
 	  $this->assign('user',db('user')->field('id,username,role')->select());
 	  $this->assign('menu',db('menu')->select());
       return $this->fetch();
     }
 	public function welcome(){
-		//Session::clear();
-		//$workflow = new workflow();
-		//$flow = $workflow->send_mail();
-	
 	  $this->assign('user',db('user')->field('id,username,role')->select());
+      return $this->fetch();
+    }
+	public function doc(){
+	  
       return $this->fetch();
     }
 	public function login(){

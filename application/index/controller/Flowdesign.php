@@ -29,6 +29,10 @@ class Flowdesign extends Admin {
     public function lists($map = []){
         $map = ['is_del'=>0];
 		$list=controller('Base', 'event')->commonlist('flow',$map);
+		$list->each(function($item, $key){
+			$item['edit'] = db('run')->where('flow_id',$item['id'])->where('status','0')->value('id');
+			return $item;
+		});
         $this->assign('list', $list);
         return  $this->fetch();
     }
@@ -134,23 +138,14 @@ class Flowdesign extends Admin {
         if($process_id<=0 or $flow_id<=0){
             return json(['status'=>0,'msg'=>'操作不正确','info'=>'']);
         }
-        $map = array(
-            'id'=>$process_id,
-            'flow_id'=>$flow_id,
-            'is_del'=>0,
-        );
-        $data = array(
-            'updatetime'=>time(),
-            'is_del'=>1,
-        );
+        $map = ['id'=>$process_id,'flow_id'=>$flow_id,'is_del'=>0];
         $process_model = db('flow_process');
         //开启数据库事务 , 确保整个操作 全部正常 才删除成功  
         $process_model->startTrans(); 
-        $trans = $process_model->where($map)->update($data);
+        $trans = $process_model->where($map)->delete();
         if(!$trans){
             $process_model->rollback();
             return json(['status'=>0,'msg'=>'删除失败','info'=>'']);
-			return $data;
         }
         //start  删除成功后，会重新保存设计，此步可省略
         // 修改 同流程中与$process_id有关的 process_to

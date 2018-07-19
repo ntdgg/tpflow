@@ -9,7 +9,7 @@ define ( 'BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 //配置文件
 require_once BEASE_URL . '/config/config.php';
 //数据库操作
-require_once BEASE_URL . '/db/InfoDB.php';
+require_once BEASE_URL . '/db/InfoDb.php';
 require_once BEASE_URL . '/db/FlowDb.php';
 require_once BEASE_URL . '/db/ProcessDb.php';
 require_once BEASE_URL . '/db/LogDb.php';

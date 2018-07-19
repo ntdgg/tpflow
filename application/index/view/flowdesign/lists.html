@@ -26,10 +26,12 @@
 		   禁用
 		 {/if}</td>
         <td>
+		{if condition='$vo.edit ==""'}
 	   <a class='btn  radius size-S' onclick="layer_show('修改','{:url('edit',['id'=>$vo.id])}','550','400')"> 修改</a>
-	   
-	   
        <a class='btn  radius size-S' href="{:url('/index/flowdesign/index',['flow_id'=>$vo['id']])}" target="_blank"> 设计流程</a>
+		{else/}
+		<a class='btn  radius size-S'> 运行中....</a>
+	   {/if}
 	   {if condition='$vo.status == 0'}
 		   <a class='btn  radius size-S' href="{:url('change',['id'=>$vo['id'],'status'=>1])}" target=> 禁用</a>
 			{else/}

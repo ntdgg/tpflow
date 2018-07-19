@@ -29,7 +29,7 @@
 				</td>
 				<td class="td-manage">
 				<div class="btn-group">
-					<span class="btn  radius size-S" data-title="查看" data-href="{:url('view',['id'=>$k.id])}" onclick="Hui_admin_tab(this)"><i class="Hui-iconfont">查看</span>
+					
 					{if condition='$k.status == 0'}
 					<span  onclick="layer_show('新增函数','{:url('functions',['id'=>$k.id])}','850','500')" class="btn  radius size-S">新增函数</span>
 					{if condition='$k.ziduan == ""'}
