@@ -17,15 +17,14 @@ class Index  extends Controller{
       return $this->fetch();
     }
 	public function doc(){
-	  
       return $this->fetch();
     }
 	public function login(){
 		Session::clear();
-        Session::set('uid', input('id'));
-		Session::set('uname', input('user'));
-		Session::set('role', input('role'));
+		$info = db('user')->find(input('id'));
+        Session::set('uid', $info['id']);
+		Session::set('uname', $info['username']);
+		Session::set('role', $info['role']);
 		$this->success('模拟登入成功！');
-		exit;
 	}
 }
