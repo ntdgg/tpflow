@@ -50,6 +50,10 @@ class BackFlow{
 			}
 			//消息通知
 			//日志记录
+			$run_log = LogDb::AddrunLog($uid,$config['run_id'],$config,'Back');
+			if(!$wf_process_log){
+					return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
+				}
 		}else{ //结束流程
 			//$end = $this->end_flow($run_id);//结束该流程
 			$end = $this->end_process($run_process,$check_con);
