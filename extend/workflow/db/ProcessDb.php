@@ -74,8 +74,18 @@ class ProcessDb{
 	 */
 	public static function GetPreProcessInfo($runid)
 	{
+		$pre = [];
 		$pre_n = Db::name('run_process')->find($runid);
-		$pre = Db::name('flow_process')->where('flow_id','eq',$pre_n['run_flow'])->where('id','lt',$pre_n['run_flow_process'])->select();
+		//获取本流程中小于本次ID的步骤信息
+		$pre_p = Db::name('run_process')
+			 ->where('run_flow','eq',$pre_n['run_flow'])
+			 ->where('run_id','eq',$pre_n['run_id'])
+			 ->where('id','lt',$pre_n['id'])
+			 ->field('run_flow_process')->select();
+		//遍历获取小于本次ID中的相关步骤
+		foreach($pre_p as $k=>$v){
+			$pre[] = Db::name('flow_process')->where('id','eq',$pre_n['run_flow_process'])->find();
+		}
 		$prearray = [];
 		if(count($pre)>=1){
 			$prearray[0] = '退回制单人修改';
