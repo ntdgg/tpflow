@@ -208,7 +208,7 @@ class tpdf
                 $fieldAttr[] = tab(1) . "`{$field['name']}` {$field['type']}"
                     . ($field['extra'] ? ' ' . $field['extra'] : '')
                     . (isset($field['not_null']) && $field['not_null'] ? ' NOT NULL' : '')
-                    . (strtolower($field['default']) == 'null' ? '' : " DEFAULT '{$field['default']}'")
+                    . (strtolower($field['default']) == null ? '' : " DEFAULT '{$field['default']}'")
                     . ($field['comment'] === '' ? '' : " COMMENT '{$field['comment']}'");
             }
             // 索引

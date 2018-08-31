@@ -174,7 +174,7 @@ CREATE TABLE `wf_menu` (
   `url` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `uid` int(11) DEFAULT NULL,
-  `add_time` datetime DEFAULT NULL,
+  `add_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 

@@ -84,7 +84,7 @@ class ProcessDb{
 			 ->field('run_flow_process')->select();
 		//遍历获取小于本次ID中的相关步骤
 		foreach($pre_p as $k=>$v){
-			$pre[] = Db::name('flow_process')->where('id','eq',$pre_n['run_flow_process'])->find();
+			$pre[] = Db::name('flow_process')->where('id','eq',$v['run_flow_process'])->find();
 		}
 		$prearray = [];
 		if(count($pre)>=1){
