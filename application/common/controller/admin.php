@@ -20,6 +20,8 @@ class Admin extends Controller
 		defined('uid') or define('uid', session('uid'));
 		if (null === uid) {
             $this->error('请先模拟登入！',url('index/welcome'));
+
+            
         }
     }
 }
