@@ -184,7 +184,7 @@ Q 群：143263697
             .attr("style",row.style)
             .attr("process_to",row.process_to)
             .attr("process_id",row.id)
-            .addClass("process-step btn btn-small")
+            .addClass("process-step btn btn-small ")
             .html('<span class="process-flag badge '+badge+'"><i class="'+icon+' icon-white"></i></span>&nbsp;' + row.process_name )
             .mousedown(function(e){
               if( e.which == 3 ) { //右键绑定

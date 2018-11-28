@@ -1,10 +1,8 @@
 html,body{height:100%;}
 .mini-layout{
-  width:100%;
+  width:9%;
   height:100%;
-  background: rgb(58, 65, 68) url(/Public/images/grid.png) repeat;
 }
-
 .process-step{position: absolute; cursor: move; min-width: 100px; line-height: 28px}
 .process-step span{cursor: pointer;}
 
