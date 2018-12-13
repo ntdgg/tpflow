@@ -1,6 +1,6 @@
 html,body{height:100%;}
 .mini-layout{
-  width:9%;
+  width:99%;
   height:100%;
 }
 .process-step{position: absolute; cursor: move; min-width: 100px; line-height: 28px}
