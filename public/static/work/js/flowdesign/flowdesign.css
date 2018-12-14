@@ -1,7 +1,23 @@
 html,body{height:100%;}
-.mini-layout{
-  width:99%;
+
+.mini-left{
+  width:10%;
   height:100%;
+  position: relative;
+  float:left;
+  border:1px solid #000
+}
+.mini-cneter{
+  width:79%;
+  height:100%;
+  float:left;
+  border:1px solid #000
+}
+.mini-right{
+  width:10%;
+  height:100%;
+
+  border:1px solid #000
 }
 .process-step{position: absolute; cursor: move; min-width: 100px; line-height: 28px}
 .process-step span{cursor: pointer;}

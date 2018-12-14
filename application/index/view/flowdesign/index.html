@@ -1,40 +1,173 @@
 {include file='pub/base' /}
-<link href="__Flow__/css/bootstrap/css/bootstrap.css?" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="__Flow__/js/flowdesign/flowdesign.css"/>
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="pull-right">
-        <button class="btn btn-info" type="button" id="leipi_save">保存设计</button>
-      </div>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-            <li><a href="javascript:void(0);">正在设计【{$one.flow_name}】</a></li>
-        </ul>
-      </div>
-    </div><!-- container -->
-  </div>
-</div>
-<!-- end fixed navbar -->
-<!--contextmenu div-->
 <div id="processMenu" style="display:none;">
   <ul>
-    <li id="pmAttribute"><i class="icon-cog"></i>&nbsp;<span class="_label">属性</span></li>
-    <li id="pmSetting"><i class=" icon-wrench"></i>&nbsp;<span class="_label">样式</span></li>
     <li id="pmDelete"><i class="icon-trash"></i>&nbsp;<span class="_label">删除</span></li>
   </ul>
 </div>
-<div id="canvasMenu" style="display:none;">
-  <ul>
-    <li id="cmSave"><i class="icon-ok"></i>&nbsp;<span class="_label">保存设计</span></li>
-    <li id="cmAdd"><i class="icon-plus"></i>&nbsp;<span class="_label">添加步骤</span></li>
-    <li id="cmRefresh"><i class="icon-refresh"></i>&nbsp;<span class="_label">刷新</span></li>
-  </ul>
-</div>
 <!--end div--> 
-<div class="container mini-layout" id="flowdesign_canvas">
+<style>
+.accordion {
+	background: #fff;
+	overflow: hidden
+}
+.accordion .accordion-header {
+	background: #e0ecff;
+	border-top-width: 0;
+	cursor: pointer
+}
+.accordion .accordion-header .panel-title {
+	font-weight: 400
+}
+.calendar {
+	background: #fff;
+	border: 1px solid #a4bed4;
+	padding: 1px;
+	overflow: hidden
+}
+.layout {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	padding: 0
+}
+.layout-panel {
+	position: absolute;
+	overflow: hidden
+}
+.layout-panel-east,.layout-panel-west {
+	z-index: 2;
+	background1: #fff
+}
+.layout-split-north {
+	border-bottom: 5px solid #d2e0f2
+}
+.layout-split-south {
+	border-top: 5px solid #d2e0f2
+}
+.layout-split-east {
+	border-left: 5px solid #d2e0f2
+}
+.layout-split-west {
+	border-right: 5px solid #d2e0f2
+}
+.panel {
+	overflow: hidden;
+	font-size: 12px
+}
+.panel-header {
+	padding: 5px;
+	line-height: 15px;
+	color: #15428b;
+	font-weight: 700;
+	font-size: 12px;
+	background: url(images/panel_title.png) repeat-x;
+	position: relative;
+	border: 1px solid #99bbe8
+}
+.panel-body {
+	overflow: auto;
+	border: 1px solid #99bbe8;
+	border-top-width: 0;
+	padding: 0px;
+	min-height:820px
+}
+.tabs-header {
+	border: 1px solid #8db2e3;
+	background: #e0ecff;
+	border-bottom: 0;
+	position: relative;
+	overflow: hidden;
+	padding: 0;
+	padding-top: 2px;
+	overflow: hidden
+}
+.tabs {
+	list-style-type: none;
+	height: 26px;
+	margin: 0;
+	padding: 0;
+	padding-left: 4px;
+	font-size: 12px;
+	width: 5000px;
+	border-bottom: 1px solid #8db2e3
+}
+.tabs li a.tabs-inner {
+	display: inline-block;
+	text-decoration: none;
+	color: #416aa3;
+	background: url(images/tabs_enabled.png) repeat-x left top;
+	margin: 0;
+	padding: 0 10px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	white-space: nowrap;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px
+}
+<!--  -->
+</style>
 
-</div> <!-- /container -->
+ <body  style="height: 100%; overflow: hidden; border: none; margin: 0px; padding: 0px;"> 
+  <div class="panel layout-panel layout-panel-west layout-split-west" style="left: 0px; width:145px; cursor: default;">
+   <div class="layout-body panel-body"> 
+    <div class="easyui-accordion accordion accordion-noborder" > 
+     <div class="panel" style="width: 143px;">
+      <div class="panel-header accordion-header" style="height: 15px;">
+       <div class="panel-title panel-with-icon">
+        功能栏
+       </div>
+      </div>
+	  <div class="panel-body" style='text-align:center'>
+		 欢迎使用流程设计器~<br/><br/>
+		  <button class="btn btn-info" type="button" id="leipi_save">保存设计</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="wfAdd">新增步骤</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="leipi_save">逻辑检查</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="leipi_save">清空步骤</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="wfHelp">设计帮助</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="wfRefresh">刷新设计</button><br/><br/>
+      </div>
+     </div> 
+    </div> 
+   </div>
+  </div> 
+  <div class="panel layout-panel layout-panel-center layout-split-center" style="left: 150px;  width:calc(100% - 545px); cursor: default;" id="flowdesign_canvas"> 
+   <div id="process-definition-tab" class="tabs-container" style="width:100%; height: 861px;">
+    <div class="tabs-header" style="width:100%;">
+     <div class="tabs-scroller-left" style="display: none;"></div>
+     <div class="tabs-scroller-right" style="display: none;"></div>
+     <div class="tabs-wrap" style="margin-left: 0px; left: 0px; width: 100%;">
+      <ul class="tabs">
+       <li class="tabs-selected"><a href="javascript:void(0)" class="tabs-inner"><span class="tabs-title">流程设计栏</span><span class="tabs-icon"></span></a></li>
+      </ul>
+     </div>
+    </div>
+    <div class="tabs-panels" style="width:100%;" > 
+	
+    </div>
+   </div> 
+  </div> 
+  <div class="panel layout-panel layout-panel-west layout-split-east layout-split-west" style="left: calc(100% - 400px);  width:400px; cursor: default;">
+    <div  class="layout-body panel-body"> 
+    <div class="easyui-accordion accordion accordion-noborder"  border="false" > 
+     <div class="panel" >
+      <div class="panel-header accordion-header" style="height: 15px;" >
+       <div class="panel-title panel-with-icon">
+        属性控制栏
+       </div>
+      </div>
+	  <div class="panel-body" style='text-align:center'>
+		<iframe src="" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+	  </div> 
+     </div> 
+    </div> 
+   </div>
+  </div> 
+ </body>
+</html>
 <script type="text/javascript" src="__Flow__/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="__Flow__/css/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="__Flow__/js/jquery-ui/jquery-ui-1.9.2-min.js?" ></script>
@@ -43,6 +176,14 @@
 <!--flowdesign-->
 <script type="text/javascript" src="__Flow__/js/flowdesign/leipi.flowdesign.v3.js"></script>
 <script type="text/javascript">
+	function iFrameHeight() {   
+		var ifm= document.getElementById("iframepage");   
+		var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;   
+		if(ifm != null && subWeb != null) {
+		   ifm.height = subWeb.body.scrollHeight;
+		   ifm.width = '100%';
+		}   
+	} 
 var the_flow_id ='{$one.id}';
 $(function(){
     var attributeModal =  $("#attributeModal");
@@ -55,45 +196,10 @@ $(function(){
     /*创建流程设计器*/
     var _canvas = $("#flowdesign_canvas").Flowdesign({
                       "processData":processData
-                      /*画面右键*/
-                      ,canvasMenus:{
-                        "cmAdd": function(t) {
-                            var mLeft = parseInt($("#jqContextMenu").css("left")),mTop = parseInt($("#jqContextMenu").css("top"));
-                            var url = "{:url('add_process')}";
-                            $.post(url,{"flow_id":the_flow_id,"left":mLeft,"top":mTop},function(data){
-							
-                                if(data.status==1)
-                                {
-									location.reload();
-                                }else if(!_canvas.addProcess(data.info))//添加
-                               {
-									 layer.msg("添加失败");
-                               }
-                               
-                            },'json');
-
-                        },
-                        "cmSave": function(t) {
-                            var processInfo = _canvas.getProcessInfo();//连接信息
-                            var url = "{:url('save_canvas')}";
-                            $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
-								layer.msg(data.msg);
-                            },'json');
-                        },
-                        "cmRefresh":function(t){
-                            location.reload();//_canvas.refresh();
-                        },
-                        "cmHelp": function(t) {
-                           layer.msg("欢迎使用");
-                        }
-                       
-                      }
                       /*步骤右键*/
                       ,processMenus: {
-                          "pmDelete":function(t)
-                          {
-                              if(confirm("你确定删除步骤吗？"))
-                              {
+                          "pmDelete":function(t){
+                              if(confirm("你确定删除步骤吗？")){
                                     var activeId = _canvas.getActiveId();//右键当前的ID
                                     var url = "{:url('delete_process')}";
                                     $.post(url,{"flow_id":the_flow_id,"process_id":activeId},function(data){
@@ -105,59 +211,43 @@ $(function(){
                                             $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
                                                 location.reload();
                                             },'json');
-                                            
                                         }
                                         layer.msg(data.msg);
-										
                                     },'json');
                               }
                           },
-                          "pmAttribute":function(t)
-                          {
-                              var activeId = _canvas.getActiveId();//右键当前的ID
-                              var url = "{:url('attribute')}?id="+activeId;
-							   layer_show('编辑',url,'700','500');
-                          },
-                          "pmForm": function(t) {
-                                var activeId = _canvas.getActiveId();//右键当前的ID
-								var url = "{:url('attribute')}?op=form&id="+activeId;
-                                layer_show('编辑',url,'700','500');
-                          },
-                          "pmJudge": function(t) {
-                                var activeId = _canvas.getActiveId();//右键当前的ID
-								var url = "{:url('attribute')}?op=judge&id="+activeId;
-                                layer_show('编辑',url,'700','500');
-                          },
-                          "pmSetting": function(t) {
-                                var activeId = _canvas.getActiveId();//右键当前的ID
-								var url = "{:url('attribute')}?op=style&id="+activeId;
-                                layer_show('编辑',url,'700','500');
-                          }
-                      }
-                      ,fnRepeat:function(){
-                        //alert("步骤连接重复1");//可使用 jquery ui 或其它方式提示
-                        layer.msg("步骤连接重复了，请重新连接");
-                        
-                      }
-                      ,fnClick:function(){
-                          var activeId = _canvas.getActiveId();
-						  layer.msg("查看步骤信息 " + activeId);
-                      }
-                      ,fnDbClick:function(){
-                          //和 pmAttribute 一样
-                          var activeId = _canvas.getActiveId();//右键当前的ID
-                              var url = "{:url('attribute')}?id="+activeId;
-							   layer_show('编辑',url,'700','500');
+                      },fnClick:function(){
+						 var url = "{:url('attribute')}?id="+_canvas.getActiveId();
+						  $('#iframepage').attr('src',url);
                       }
                   });
-    /*保存*/
-    $("#leipi_save").bind('click',function(){
-        var processInfo = _canvas.getProcessInfo();//连接信息
-        var url = "{:url('save_canvas')}";
-        $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
-			layer.msg(data.msg);
-        },'json');
-    });
+		/*保存*/
+		$("#leipi_save").bind('click',function(){
+			var processInfo = _canvas.getProcessInfo();//连接信息
+			var url = "{:url('save_canvas')}";
+			$.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
+				layer.msg(data.msg);
+			},'json');
+		});
+		$("#wfRefresh").bind('click',function(){
+			  location.reload();
+		});
+		$("#wfHelp").bind('click',function(){
+			  layer.msg("欢迎使用");
+		});
+		$("#wfAdd").bind('click',function(){
+			var mLeft = parseInt($("#jqContextMenu").css("left")),mTop = parseInt($("#jqContextMenu").css("top"));
+			var url = "{:url('add_process')}";
+			$.post(url,{"flow_id":the_flow_id,"left":mLeft,"top":mTop},function(data){
+			if(data.status==1){
+				location.reload();
+				}else if(!_canvas.addProcess(data.info)){
+				layer.msg("添加失败");
+			   }
+			},'json');
+		});
+	
+	
 });
 
  

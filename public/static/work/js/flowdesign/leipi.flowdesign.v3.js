@@ -131,13 +131,7 @@ Q 群：143263697
             defaults[i] = val;
         });
         /*画布右键绑定*/
-        var contextmenu = {
-          bindings: defaults.canvasMenus,
-          menuStyle : defaults.menuStyle,
-          itemStyle : defaults.itemStyle,
-          itemHoverStyle : defaults.itemHoverStyle
-        }
-        $(this).contextMenu('canvasMenu',contextmenu);
+       
 
         jsPlumb.importDefaults({
             DragOptions : { cursor: 'pointer'},
