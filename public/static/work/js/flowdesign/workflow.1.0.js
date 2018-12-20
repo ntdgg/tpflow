@@ -1,19 +1,6 @@
 /*
 项目：雷劈网流程设计器
-官网：http://flowdesign.leipi.org
-Q 群：143263697
 基本协议：apache2.0
-
-88888888888  88                             ad88  88                ad88888ba   8888888888   
-88           ""                            d8"    88               d8"     "88  88           
-88                                         88     88               8P       88  88  ____     
-88aaaaa      88  8b,dPPYba,   ,adPPYba,  MM88MMM  88  8b       d8  Y8,    ,d88  88a8PPPP8b,  
-88"""""      88  88P'   "Y8  a8P_____88    88     88  `8b     d8'   "PPPPPP"88  PP"     `8b  
-88           88  88          8PP"""""""    88     88   `8b   d8'            8P           d8  
-88           88  88          "8b,   ,aa    88     88    `8b,d8'    8b,    a8P   Y8a     a8P  
-88           88  88           `"Ybbd8"'    88     88      Y88'     `"Y8888P'     "Y88888P"   
-                                                          d8'                                
-2014-3-15 Firefly95、xinG  
 */
 (function($) {
    var defaults = {
@@ -28,28 +15,14 @@ Q 群：143263697
       fnDbClick:function(){
         alert("双击");
       },
-      canvasMenus : {
-        "one": function(t) {alert('画面右键')}
-      },
-      processMenus: {
-        "one": function(t) {alert('步骤右键')}
-      },
-      /*右键菜单样式*/
-      menuStyle: {
-        border: '1px solid #5a6377',
-        minWidth:'150px',
-        padding:'5px 0'
-      },
       itemStyle: {
         fontFamily : 'verdana',
         color: '#333',
         border: '0',
-        /*borderLeft:'5px solid #fff',*/
         padding:'5px 40px 5px 20px'
       },
       itemHoverStyle: {
         border: '0',
-        /*borderLeft:'5px solid #49afcd',*/
         color: '#fff',
         backgroundColor: '#5a6377'
       },
@@ -122,7 +95,6 @@ Q 群：143263697
         _canvas.append('<input type="hidden" id="leipi_active_id" value="0"/><input type="hidden" id="leipi_copy_id" value="0"/>');
         _canvas.append('<div id="leipi_process_info"></div>');
 
-
         /*配置*/
         $.each(options, function(i, val) {
           if (typeof val == 'object' && defaults[i])
@@ -179,7 +151,7 @@ Q 群：143263697
             .attr("process_to",row.process_to)
             .attr("process_id",row.id)
             .addClass("process-step btn btn-small ")
-            .html('<span class="process-flag badge '+badge+'"><i class="'+icon+' icon-white"></i></span>&nbsp;' + row.process_name )
+            .html('<span class="process-flag '+badge+'"><img src="/static/work/process.png"></span>&nbsp;' + row.process_name )
             .mousedown(function(e){
               if( e.which == 3 ) { //右键绑定
                   _canvas.find('#leipi_active_id').val(row.id);
@@ -227,9 +199,7 @@ Q 群：143263697
     //连接成功回调函数
     function mtAfterDrop(params)
     {
-        //console.log(params)
         defaults.mtAfterDrop({sourceId:$("#"+params.sourceId).attr('process_id'),targetId:$("#"+params.targetId).attr('process_id')});
-        
     }
     
     jsPlumb.makeTarget(jsPlumb.getSelector(".process-step"), {
@@ -260,7 +230,6 @@ Q 群：143263697
     });
     //reset  start
     var _canvas_design = function(){
-
         //连接关联的步骤
         $('.process-step').each(function(i){
             var sourceId = $(this).attr('process_id');
@@ -305,9 +274,7 @@ Q 群：143263697
 //-----外部调用----------------------
 
     var Flowdesign = {
-        
         addProcess:function(row){
-            
                 if(row.id<=0)
                 {
                     return false;
@@ -324,7 +291,7 @@ Q 群：143263697
                 .attr("process_to",row.process_to)
                 .attr("process_id",row.id)
                 .addClass("process-step btn btn-small")
-                .html('<span class="process-flag badge '+badge+'"><i class="'+icon+' icon-white"></i></span>&nbsp;' + row.process_name )
+                .html('<span class="process-flag '+badge+'"><img src="process.png"></span>&nbsp;' + row.process_name )
                 .mousedown(function(e){
                   if( e.which == 3 ) { //右键绑定
                       _canvas.find('#leipi_active_id').val(row.id);
@@ -420,12 +387,9 @@ Q 群：143263697
           }catch(e){
               return '';
           }
-
         },
-        clear:function()
-        {
+        clear:function(){
             try{
-
                 jsPlumb.detachEveryConnection();
                 jsPlumb.deleteEveryEndpoint();
                 $('#leipi_process_info').html('');

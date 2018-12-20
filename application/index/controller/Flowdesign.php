@@ -46,7 +46,7 @@ class Flowdesign extends Admin {
 		$table = $this->get_db_column_comment($data['type']);
 		if(empty($table)||$table==''){
 			
-			return msg_return($data['type'].'数据表表不存在',1);
+			return msg_return($data['type'].'数据表不存在或者字段设计不合理！',1);
 		}
 		$ret=controller('Base', 'event')->commonadd('flow',$data);
 	    if($ret['code']==0){
@@ -114,14 +114,13 @@ class Flowdesign extends Admin {
         {
             $process_total +=1;
             $style = json_decode($value['style'],true);
-            $process_data[] = array(
+            $process_data[] = [
                 'id'=>$value['id'],
                 'flow_id'=>$value['flow_id'], 
                 'process_name'=>$value['process_name'],
                 'process_to'=>$value['process_to'],
-                'icon'=>$style['icon'],//图标
-                'style'=>'width:'.$style['width'].'px;height:'.$style['height'].'px;line-height:'.$style['height'].'px;color:'.$style['color'].';left:'.$value['setleft'].'px;top:'.$value['settop'].'px;',
-            );
+                'style'=>'width:'.$style['width'].'px;height:'.$style['height'].'px;line-height:30px;color:'.$style['color'].';left:'.$value['setleft'].'px;top:'.$value['settop'].'px;',
+            ];
         }
         $this->assign('one', $one);
 	
@@ -179,59 +178,35 @@ class Flowdesign extends Admin {
         $process_model->commit();
         return json(['status'=>1,'msg'=>'删除成功','info'=>'']);
     }
+	public function del_allprocess()
+	{
+		$flow_id = input('flow_id');
+        $res = db('flow_process')->where('flow_id',$flow_id)->delete();
+		return json(['status'=>1,'msg'=>'删除成功','info'=>'']);
+	}
 	/**
 	 * 添加流程
 	 **/
     public function add_process()
     {
-        //获取参数
         $flow_id = input('flow_id');
-        $left  = input('left');
-        $top  = input('top');
         $one = db('flow')->find($flow_id);
         if(!$one){
           return json(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
         }
-        //是否有步骤  设为第一步
         $process_count = db('flow_process')->where('flow_id',$flow_id)->count();
-        
-        $process_type = 'is_step';//正常步骤
+        $process_type = 'is_step';
         if($process_count<=0)
-            $process_type = 'is_one';//设为第一步
-        $data = array(
+            $process_type = 'is_one';
+        $data = [
            'flow_id'=>$flow_id, 
-           'process_type'=>$process_type,
-           'process_name'=>'新建步骤',
-           'setleft'=>$left,
-           'settop'=>$top,
-           'process_to'=>'',
-           'style'=>json_encode(array(
-                'icon'=>'icon-star',//图标
-                'width'=>'120',
-                'height'=>'30',
-                'color'=>'#0e76a8',
-           )),
-           //默认值 
-           'child_after'=>1,//子流程结束后动作  默认 1 同时结束父流程    2返回父流程步骤
-           'auto_unlock'=>1,//权限：允许更改
-        );
-        $id = db('flow_process')->insertGetId($data);
-        if($id<=0){
+           'process_type'=>$process_type,'style'=>json_encode(['width'=>'120','height'=>'38','color'=>'#0e76a8'])
+        ];
+        $processid = db('flow_process')->insertGetId($data);
+        if($processid<=0){
             return json(['status'=>0,'msg'=>'添加失败','info'=>'']);
         }
-        //返回 json 数据
-        $data=array(
-            'status'=>1,
-            'msg'=>'success',
-            'info'=>array(
-                'id'=>$id,
-                'flow_id'=>$flow_id, 
-                'process_name'=>'新建步骤',
-                'process_to'=>'',
-                'icon'=>'',//图标
-                'style'=>'left:'.$left.'px;top:'.$top.'px;color:#0e76a8;'//样式 
-            ),
-        );
+        $data=['status'=>1,'msg'=>'success','info'=>['id'=>$processid,'flow_id'=>$flow_id,'process_name'=>'步骤'.$process_count+1,'process_to'=>'','style'=>'left:100px;top:100px;color:#0e76a8;']];
 		return $data;
     }
     /**
@@ -259,7 +234,7 @@ class Flowdesign extends Admin {
             $datas = array(
                 'setleft'=>(int)$value['left'],
                 'settop'=>(int)$value['top'],
-                'process_to'=>ids_parse($value['process_to']),
+                'process_to'=>$this->ids_parse($value['process_to']),
                 'updatetime'=>time()
             );
             $ret = db('flow_process')->where('id','eq',$process_id)->where('flow_id','eq',$flow_id)->update($datas);
@@ -268,7 +243,27 @@ class Flowdesign extends Admin {
 		return $data;
     }
     
-    
+    public function ids_parse($str,$dot_tmp=',')
+	{
+		if(!$str) return '';
+		if(is_array($str)){
+			$idarr = $str;
+		}else{
+			$idarr = explode(',',$str);
+		}
+		$idarr = array_unique($idarr);
+		$dot = '';
+		$idstr ='';
+		foreach($idarr as $id){
+			$id = intval($id);
+			if($id>0){
+				$idstr.=$dot.$id;
+				$dot = $dot_tmp;
+			}
+		}
+		if(!$idstr) $idstr=0;
+		return $idstr;
+	}
     //右键属性
     public function attribute()
     {
@@ -387,7 +382,7 @@ class Flowdesign extends Admin {
         $process_name = trim(input('post.process_name'));//步骤名称
         $process_type = trim(input('post.process_type'));//类型
 		$auto_person = intval(input('post.auto_person'));//自动选人
-		$process_to = ids_parse(input('post.process_to/a'));//下一步
+		$process_to = $this->ids_parse(input('post.process_to/a'));//下一步
 		$auto_unlock = intval(input('post.auto_unlock'));//>预先设置自动选人，更方便转交工作
 		$auto_sponsor_ids = trim(input('post.auto_sponsor_ids'));//指定主办人
         $auto_sponsor_text = trim(input('post.auto_sponsor_text'));
@@ -518,7 +513,6 @@ class Flowdesign extends Admin {
     public function super_user()
     {
 		$this->assign('user',db('user')->field('id,username')->select());
-		
 		$this->assign('kid',input('kid'));
         return $this->fetch();
     }

@@ -123,12 +123,15 @@
       </div>
 	  <div class="panel-body" style='text-align:center'>
 		 欢迎使用流程设计器~<br/><br/>
-		  <button class="btn btn-info" type="button" id="leipi_save">保存设计</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="wfSave">保存设计</button><br/><br/>
 		  <button class="btn btn-info" type="button" id="wfAdd">新增步骤</button><br/><br/>
-		  <button class="btn btn-info" type="button" id="leipi_save">逻辑检查</button><br/><br/>
-		  <button class="btn btn-info" type="button" id="leipi_save">清空步骤</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="wfCheck">逻辑检查</button><br/><br/>
+		  <button class="btn btn-info" type="button" id="wfCleam">清空步骤</button><br/><br/>
 		  <button class="btn btn-info" type="button" id="wfHelp">设计帮助</button><br/><br/>
 		  <button class="btn btn-info" type="button" id="wfRefresh">刷新设计</button><br/><br/>
+		  使用小技巧：<br/><br/>
+		  1、双击可删除该步骤；<br/>
+		  2、点击步骤设计；
       </div>
      </div> 
     </div> 
@@ -174,7 +177,7 @@
 <script type="text/javascript" src="__Flow__/js/jsPlumb/jquery.jsPlumb-1.3.16-all-min.js"></script>
 <script type="text/javascript" src="__Flow__/js/jquery.contextmenu.r2.js?"></script>
 <!--flowdesign-->
-<script type="text/javascript" src="__Flow__/js/flowdesign/leipi.flowdesign.v3.js"></script>
+<script type="text/javascript" src="__Flow__/js/flowdesign/workflow.1.0.js"></script>
 <script type="text/javascript">
 	function iFrameHeight() {   
 		var ifm= document.getElementById("iframepage");   
@@ -197,32 +200,31 @@ $(function(){
     var _canvas = $("#flowdesign_canvas").Flowdesign({
                       "processData":processData
                       /*步骤右键*/
-                      ,processMenus: {
-                          "pmDelete":function(t){
-                              if(confirm("你确定删除步骤吗？")){
-                                    var activeId = _canvas.getActiveId();//右键当前的ID
-                                    var url = "{:url('delete_process')}";
-                                    $.post(url,{"flow_id":the_flow_id,"process_id":activeId},function(data){
-                                        if(data.status==1)
-                                        {
-                                            _canvas.delProcess(activeId);
-                                            var processInfo = _canvas.getProcessInfo();//连接信息
-                                            var url = "{:url('save_canvas')}";
-                                            $.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
-                                                location.reload();
-                                            },'json');
-                                        }
-                                        layer.msg(data.msg);
-                                    },'json');
-                              }
-                          },
-                      },fnClick:function(){
+                      ,fnClick:function(){
 						 var url = "{:url('attribute')}?id="+_canvas.getActiveId();
 						  $('#iframepage').attr('src',url);
-                      }
+                      },fnDbClick:function(){
+						if(confirm("你确定删除步骤吗？")){
+							var activeId = _canvas.getActiveId();//右键当前的ID
+							var url = "{:url('delete_process')}";
+							$.post(url,{"flow_id":the_flow_id,"process_id":activeId},function(data){
+								if(data.status==1){
+									_canvas.delProcess(activeId);
+									var processInfo = _canvas.getProcessInfo();//连接信息
+									var url = "{:url('save_canvas')}";
+									$.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
+										location.reload();
+									},'json');
+								}
+								layer.msg(data.msg);
+							},'json');
+                           }
+                      },canvasMenus:function(){
+						layer.msg(111);
+					  }
                   });
 		/*保存*/
-		$("#leipi_save").bind('click',function(){
+		$("#wfSave").bind('click',function(){
 			var processInfo = _canvas.getProcessInfo();//连接信息
 			var url = "{:url('save_canvas')}";
 			$.post(url,{"flow_id":the_flow_id,"process_info":processInfo},function(data){
@@ -235,10 +237,12 @@ $(function(){
 		$("#wfHelp").bind('click',function(){
 			  layer.msg("欢迎使用");
 		});
+		$("#wfCheck").bind('click',function(){
+			  layer.msg("系统开发中");
+		});
 		$("#wfAdd").bind('click',function(){
-			var mLeft = parseInt($("#jqContextMenu").css("left")),mTop = parseInt($("#jqContextMenu").css("top"));
 			var url = "{:url('add_process')}";
-			$.post(url,{"flow_id":the_flow_id,"left":mLeft,"top":mTop},function(data){
+			$.post(url,{"flow_id":the_flow_id},function(data){
 			if(data.status==1){
 				location.reload();
 				}else if(!_canvas.addProcess(data.info)){
@@ -246,7 +250,19 @@ $(function(){
 			   }
 			},'json');
 		});
-	
+		$("#wfCleam").bind('click',function(){
+			if(confirm("你确定删除步骤吗？")){
+				var url = "{:url('del_allprocess')}";
+				$.post(url,{"flow_id":the_flow_id},function(data){
+				if(data.status==1){
+					location.reload();
+					}else{
+					layer.msg("添加失败");
+				   }
+				},'json');
+			
+			}
+		});
 	
 });
 
