@@ -5,6 +5,12 @@ use think\Db;
 use workflow\workflow;
 
 class Flowdesign extends Admin {
+	protected $work = null;
+    public function initialize()
+    {
+        parent::initialize();
+        $this->work = new workflow();
+    }
 	/**
 	 *前置方法
 	 */
@@ -23,13 +29,13 @@ class Flowdesign extends Admin {
 		];
 		$this->assign('type', $wf_type);
     }
+
     /**
 	 * 流程设计首页
 	 * @param $map 查询参数
 	 */
     public function lists($map = []){
-		$work = new workflow();
-		$list = $work->FlowApi('List');
+		$list = $this->work->FlowApi('List');
         $this->assign('list', $list);
         return  $this->fetch();
     }
@@ -42,8 +48,7 @@ class Flowdesign extends Admin {
 			$data = input('post.');
 			$data['uid']=session('uid');
 			$data['add_time']=time();
-			$work = new workflow();
-			$ret= $work->FlowApi('AddFlow',$data);
+			$ret= $this->work->FlowApi('AddFlow',$data);
 			if($ret['code']==0){
 				return msg_return('发布成功！');
 				}else{
@@ -57,10 +62,9 @@ class Flowdesign extends Admin {
 	 */
 	public function edit()
     {
-		$work = new workflow();
         if ($this->request->isPost()) {
 			$data = input('post.');
-			$ret= $work->FlowApi('EditFlow',$data);
+			$ret= $this->work->FlowApi('EditFlow',$data);
 			if($ret['code']==0){
 				return msg_return('修改成功！');
 				}else{
@@ -68,7 +72,7 @@ class Flowdesign extends Admin {
 			}
 	   }
 	   if(input('id')){
-		 $info = $work->FlowApi('GetFlowInfo',input('id'));
+		 $info = $this->work->FlowApi('GetFlowInfo',input('id'));
 		 $this->assign('info', $info);
 	   }
        return $this->fetch('add');
@@ -80,8 +84,7 @@ class Flowdesign extends Admin {
 	{
 		 if ($this->request->isGet()) {
 			$data = ['id'=>input('id'),'status'=>input('status')];
-			$work = new workflow();
-			$ret= $work->FlowApi('EditFlow',$data);
+			$ret= $this->work->FlowApi('EditFlow',$data);
 			if($ret['code']==0){
 				$this->success('操作成功',url('Flowdesign/lists'));
 				}else{
@@ -97,7 +100,7 @@ class Flowdesign extends Admin {
         if($flow_id<=0){
             $this->error('参数有误，请返回重试!');
 		}
-        $one = db('flow')->find($flow_id);
+        $one = $this->work->FlowApi('GetFlowInfo',$flow_id);
         if(!$one){
             $this->error('未找到数据，请返回重试!');
         }
