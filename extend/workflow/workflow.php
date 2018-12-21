@@ -140,6 +140,31 @@ require_once BEASE_URL . '/msg/mail.php';
 		{
 			return InfoDB::worklist();
 		}
+		
+		/*
+		 * FlowDesc API
+		 *
+		 **/
+		
+		function FlowApi($wf_type,$data='')
+		{
+			if ($wf_type == "List") {
+					$info = FlowDb::GetFlow();		//获取工作流列表
+				} else if ($wf_type == "AddFlow") {
+					$info = FlowDb::AddFlow($data); //新增工作流
+				} else if ($wf_type == "EditFlow") {
+					$info = FlowDb::EditFlow($data);//更新工作流
+				} else if ($wf_type == "GetFlowInfo")  { 
+					$info = FlowDb::GetFlow($data); //获取工作流详情
+				}else{
+					
+				}
+				
+				
+				
+			return $info;
+		}
+		
 		function getprocessinfo($pid,$run_id){
 			
 			if( @$pid=='' || @$run_id ==''){

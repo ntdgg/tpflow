@@ -2,6 +2,7 @@
 namespace app\index\Controller;
 use app\common\controller\admin;
 use think\Db;
+use workflow\workflow;
 
 class Flowdesign extends Admin {
 	/**
@@ -27,12 +28,8 @@ class Flowdesign extends Admin {
 	 * @param $map 查询参数
 	 */
     public function lists($map = []){
-        $map = ['is_del'=>0];
-		$list=controller('Base', 'event')->commonlist('flow',$map);
-		$list->each(function($item, $key){
-			$item['edit'] = db('run')->where('flow_id',$item['id'])->where('status','0')->value('id');
-			return $item;
-		});
+		$work = new workflow();
+		$list = $work->FlowApi('List');
         $this->assign('list', $list);
         return  $this->fetch();
     }
@@ -42,18 +39,16 @@ class Flowdesign extends Admin {
     public function add()
     {
 		if ($this->request->isPost()) {
-		$data = input('post.');
-		$table = $this->get_db_column_comment($data['type']);
-		if(empty($table)||$table==''){
-			
-			return msg_return($data['type'].'数据表不存在或者字段设计不合理！',1);
-		}
-		$ret=controller('Base', 'event')->commonadd('flow',$data);
-	    if($ret['code']==0){
-			return msg_return('发布成功！');
-			}else{
-			return msg_return($ret['data'],1);
-		}
+			$data = input('post.');
+			$data['uid']=session('uid');
+			$data['add_time']=time();
+			$work = new workflow();
+			$ret= $work->FlowApi('AddFlow',$data);
+			if($ret['code']==0){
+				return msg_return('发布成功！');
+				}else{
+				return msg_return($ret['data'],1);
+			}
 	   }
        return  $this->fetch();
     }
@@ -62,17 +57,18 @@ class Flowdesign extends Admin {
 	 */
 	public function edit()
     {
+		$work = new workflow();
         if ($this->request->isPost()) {
-		$data = input('post.');
-	    $ret=controller('Base', 'event')->commonedit('flow',$data);
-		if($ret['code']==0){
-			return msg_return('修改成功！');
-			}else{
-			return msg_return($ret['data'],1);
-		}
+			$data = input('post.');
+			$ret= $work->FlowApi('EditFlow',$data);
+			if($ret['code']==0){
+				return msg_return('修改成功！');
+				}else{
+				return msg_return($ret['data'],1);
+			}
 	   }
 	   if(input('id')){
-		 $info = db('flow')->find(input('id'));
+		 $info = $work->FlowApi('GetFlowInfo',input('id'));
 		 $this->assign('info', $info);
 	   }
        return $this->fetch('add');
@@ -83,11 +79,9 @@ class Flowdesign extends Admin {
 	public function change()
 	{
 		 if ($this->request->isGet()) {
-			$data = [
-				'id'=>input('id'),
-				'status'=>input('status')
-			];
-			$ret=controller('Base', 'event')->commonedit('flow',$data);
+			$data = ['id'=>input('id'),'status'=>input('status')];
+			$work = new workflow();
+			$ret= $work->FlowApi('EditFlow',$data);
 			if($ret['code']==0){
 				$this->success('操作成功',url('Flowdesign/lists'));
 				}else{
