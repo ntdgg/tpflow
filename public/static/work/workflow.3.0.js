@@ -1,11 +1,9 @@
 /*
-项目：雷劈网流程设计器
-基本协议：apache2.0
+项目：workflow.3.0
 */
 (function($) {
    var defaults = {
-      processData:{},//步骤节点数据
-      //processUrl:'',//步骤节点数据
+      processData:{},
       fnRepeat:function(){
         alert("步骤连接重复");
       },
@@ -43,7 +41,6 @@
       }
 
    };/*defaults end*/
-
    var initEndPoints = function(){
       $(".process-flag").each(function(i,e) {
           var p = $(e).parent();
@@ -59,7 +56,6 @@
           });
       });
   }
- 
   /*设置隐藏域保存关系信息*/
   var aConnections = [];
   var setConnections = function(conn, remove) {
@@ -80,9 +76,9 @@
               var target = $('#'+aConnections[j].targetId).attr('process_id');
               s = s + "<input type='hidden' value=\"" + from + "," + target + "\">";
           }
-          $('#leipi_process_info').html(s);
+          $('#wf_process_info').html(s);
       } else {
-          $('#leipi_process_info').html('');
+          $('#wf_process_info').html('');
       }
       jsPlumb.repaintEverything();//重画
   };
@@ -92,8 +88,8 @@
     {
         var _canvas = $(this);
         //右键步骤的步骤号
-        _canvas.append('<input type="hidden" id="leipi_active_id" value="0"/><input type="hidden" id="wf_copy_id" value="0"/>');
-        _canvas.append('<div id="leipi_process_info"></div>');
+        _canvas.append('<input type="hidden" id="wf_active_id" value="0"/><input type="hidden" id="wf_copy_id" value="0"/>');
+        _canvas.append('<div id="wf_process_info"></div>');
 
         /*配置*/
         $.each(options, function(i, val) {
@@ -103,8 +99,6 @@
             defaults[i] = val;
         });
         /*画布右键绑定*/
-       
-
         jsPlumb.importDefaults({
             DragOptions : { cursor: 'pointer'},
             EndpointStyle : { fillStyle:'#225588' },
@@ -126,50 +120,32 @@
         } else { //其他浏览器用SVG
             jsPlumb.setRenderMode(jsPlumb.SVG);
         }
-
-
     //初始化原步骤
     var lastProcessId=0;
     var processData = defaults.processData;
-    if(processData.list)
-    {
-        $.each(processData.list, function(i,row) 
-        {
+    if(processData.list){
+        $.each(processData.list, function(i,row) {
             var nodeDiv = document.createElement('div');
-            var nodeId = "window" + row.id, badge = 'badge-inverse',icon = 'icon-star';
-            if(lastProcessId==0)//第一步
-            {
-              badge = 'badge-info';
-              icon = 'icon-play';
-            }
-            if(row.icon)
-            {
-              icon = row.icon;
-            }
+			 var nodeId = "window" + row.id;
             $(nodeDiv).attr("id",nodeId)
             .attr("style",row.style)
             .attr("process_to",row.process_to)
             .attr("process_id",row.id)
-            .addClass("process-step btn btn-small ")
-            .html('<span class="process-flag '+badge+'"><img src="/static/work/process.png"></span>&nbsp;' + row.process_name )
+            .addClass("process-step wf_btn")
+            .html('<span class="process-flag"><img src="/static/work/process.png"></span>&nbsp;' +row.id+ row.process_name )
             .mousedown(function(e){
               if( e.which == 3 ) { //右键绑定
-                  _canvas.find('#leipi_active_id').val(row.id);
-                  contextmenu.bindings = defaults.processMenus
-                  $(this).contextMenu('processMenu', contextmenu);
+                  _canvas.find('#wf_active_id').val(row.id);
               }
             });
             _canvas.append(nodeDiv);
-            //索引变量
             lastProcessId = row.id;
-        });//each
+        });
     }
-
     var timeout = null;
     //点击或双击事件,这里进行了一个单击事件延迟，因为同时绑定了双击事件
     $(".process-step").live('click',function(){
-        //激活
-        _canvas.find('#leipi_active_id').val($(this).attr("process_id")),
+        _canvas.find('#wf_active_id').val($(this).attr("process_id")),
         clearTimeout(timeout);
         var obj = this;
         timeout = setTimeout(defaults.fnClick,300);
@@ -179,7 +155,6 @@
     });
     jsPlumb.draggable(jsPlumb.getSelector(".process-step"),{containment: 'parent'});//绑定元素可以拖动，但是只能在容器内拖动
     initEndPoints();
-
     //绑定添加连接操作。画线-input text值  拒绝重复连接
     jsPlumb.bind("jsPlumbConnection", function(info) {
         setConnections(info.connection)
@@ -193,13 +168,10 @@
       if(confirm("你确定取消连接吗?"))
         jsPlumb.detach(c);
     });
-    
     //连接成功回调函数
-    function mtAfterDrop(params)
-    {
+    function mtAfterDrop(params){
         defaults.mtAfterDrop({sourceId:$("#"+params.sourceId).attr('process_id'),targetId:$("#"+params.targetId).attr('process_id')});
     }
-    
     jsPlumb.makeTarget(jsPlumb.getSelector(".process-step"), {
         dropOptions:{ hoverClass:"hover", activeClass:"active" },
         anchor:"Continuous",
@@ -210,7 +182,7 @@
         beforeDrop:function(params){
             if(params.sourceId == params.targetId) return false;/*不能链接自己*/
             var j = 0;
-            $('#leipi_process_info').find('input').each(function(i){
+            $('#wf_process_info').find('input').each(function(i){
                 var str = $('#' + params.sourceId).attr('process_id') + ',' + $('#' + params.targetId).attr('process_id');
                 if(str == $(this).val()){
                     j++;
@@ -260,87 +232,18 @@
     _canvas_design();
 //-----外部调用----------------------
     var Flowdesign = {
-        addProcess:function(row){
-                if(row.id<=0)
-                {
-                    return false;
-                }
-                var nodeDiv = document.createElement('div');
-                var nodeId = "window" + row.id, badge = 'badge-inverse',icon = 'icon-star';
-                
-                if(row.icon)
-                {
-                    icon = row.icon;
-                }
-                $(nodeDiv).attr("id",nodeId)
-                .attr("style",row.style)
-                .attr("process_to",row.process_to)
-                .attr("process_id",row.id)
-                .addClass("process-step btn btn-small")
-                .html('<span class="process-flag '+badge+'"><img src="process.png"></span>&nbsp;' + row.process_name )
-                .mousedown(function(e){
-                  if( e.which == 3 ) { //右键绑定
-                      _canvas.find('#leipi_active_id').val(row.id);
-                      contextmenu.bindings = defaults.processMenus
-                      $(this).contextMenu('processMenu', contextmenu);
-                  }
-                });
-                _canvas.append(nodeDiv);
-                //使之可拖动 和 连线
-                jsPlumb.draggable(jsPlumb.getSelector(".process-step"),{containment: 'parent'});
-                initEndPoints();
-                //使可以连接线
-                jsPlumb.makeTarget(jsPlumb.getSelector(".process-step"), {
-                    dropOptions:{ hoverClass:"hover", activeClass:"active" },
-                    anchor:"Continuous",
-                    maxConnections:-1,
-                    endpoint:[ "Dot", { radius:1 } ],
-                    paintStyle:{ fillStyle:"#ec912a",radius:1 },
-                    hoverPaintStyle:this.connectorHoverStyle,
-                    beforeDrop:function(params){
-                        var j = 0;
-                        $('#leipi_process_info').find('input').each(function(i){
-                            var str = $('#' + params.sourceId).attr('process_id') + ',' + $('#' + params.targetId).attr('process_id');
-                            if(str == $(this).val()){
-                                j++;
-                                return;
-                            }
-                        })
-                        if( j > 0 ){
-                            defaults.fnRepeat();
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                });
-                return true;
-                
-        },
-        delProcess:function(activeId){
+        delProcess:function(activeId){ //删除步骤
             if(activeId<=0) return false;
             $("#window"+activeId).remove();
             return true;
         },
-        getActiveId:function()
-        {
-          return _canvas.find("#leipi_active_id").val();
+        getActiveId:function(){ //获取当前激活的编号
+          return _canvas.find("#wf_active_id").val();
         },
-        copy:function(active_id){
-        if(!active_id)
-          active_id = _canvas.find("#leipi_active_id").val();
-
-        _canvas.find("#wf_copy_id").val(active_id);
-        return true;
-        },
-        paste:function(){
-            return  _canvas.find("#wf_copy_id").val();
-        },
-        getProcessInfo:function()
-        {
+        getProcessInfo:function(){ //获取步骤信息
             try{
               var aProcessData = {};
-              $("#leipi_process_info input[type=hidden]").each(function(i){
+              $("#wf_process_info input[type=hidden]").each(function(i){
                   var processVal = $(this).val().split(",");
                   if(processVal.length==2)
                   {
@@ -351,7 +254,6 @@
                     aProcessData[processVal[0]]["process_to"].push(processVal[1]);
                   }
               })
-              /*位置*/
               _canvas.find("div.process-step").each(function(i){ //生成Json字符串，发送到服务器解析
                       if($(this).attr('id')){
                           var pId = $(this).attr('process_id');
@@ -372,7 +274,5 @@
         }
     };
     return Flowdesign;
-
-
-  }//$.fn
+  }
 })(jQuery);

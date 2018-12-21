@@ -1,23 +1,50 @@
 html,body{height:100%;}
-
-.mini-left{
-  width:10%;
-  height:100%;
-  position: relative;
-  float:left;
-  border:1px solid #000
+.calendar {
+	background: #fff;
+	border: 1px solid #a4bed4;
+	padding: 1px;
+	overflow: hidden
 }
-.mini-cneter{
-  width:79%;
-  height:100%;
-  float:left;
-  border:1px solid #000
+.layout-panel {
+	position: absolute;
+	overflow: hidden
 }
-.mini-right{
-  width:10%;
-  height:100%;
-
-  border:1px solid #000
+.panel-east,.panel-west {
+	z-index: 2;
+	background1: #fff
+}
+.split-east {
+	border-left: 5px solid #d2e0f2
+}
+.split-west {
+	border-right: 5px solid #d2e0f2
+}
+.panel {
+	overflow: hidden;
+	font-size: 12px
+}
+.panel-header {
+	padding: 5px;
+	line-height: 15px;
+	height: 15px;
+	color: #15428b;
+	font-weight: 700;
+	font-size: 12px;
+	background: url(images/panel_title.png) repeat-x;
+	position: relative;
+	border: 1px solid #99bbe8;
+	background: #e0ecff;
+	border-top-width: 0;
+	cursor: pointer
+}
+.panel-body {
+	background: #fff;
+	overflow: hidden;
+	overflow: auto;
+	border: 1px solid #99bbe8;
+	border-top-width: 0;
+	padding: 0px;
+	min-height:820px
 }
 .process-step{position: absolute; cursor: move; min-width: 100px; line-height: 28px}
 .process-step span{cursor: pointer;}
@@ -92,52 +119,14 @@ html,body{height:100%;}
   filter: alpha(opacity=80);
   z-index: 20;
 }
-
-
-/*圆形*/
-.circle {
-  min-width: 100px;
-  min-height: 100px;
-  padding:20px;
-  -moz-border-radius: 100px;
-  -webkit-border-radius: 100px;
-  border-radius: 100px;
-}
-/*椭圆*/
-.oval {
-  min-width: 50px;
-  min-height: 50px;
-  padding:20px;
-  -moz-border-radius: 100px / 50px;
-  -webkit-border-radius: 100px / 50px;
-  border-radius: 100px / 50px;
-}
-/*菱形*/
-.hexagon {
-  min-width: 50px;
-  min-height: 30px;
-  background: #ccc;
-  position: relative;
-}
-.hexagon:before {
-  content: "";
-  position: absolute;
-  top: -25px; 
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 25px solid #ccc;
-}
-.hexagon:after {
-  content: "";
-  position: absolute;
-  bottom: -25px; 
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-top: 25px solid #ccc;
+.wf_btn {
+	padding: 4px 12px;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    -moz-padding-start: npx;
+    -moz-padding-end: npx;
+    border: solid 1px #ddd;
+    background-color: #fff;
+    width: auto;
 }

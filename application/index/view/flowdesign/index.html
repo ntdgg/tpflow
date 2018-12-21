@@ -1,126 +1,10 @@
 {include file='pub/base' /}
-<link rel="stylesheet" type="text/css" href="__Flow__/js/flowdesign/flowdesign.css"/>
-<div id="processMenu" style="display:none;">
-  <ul>
-    <li id="pmDelete"><i class="icon-trash"></i>&nbsp;<span class="_label">删除</span></li>
-  </ul>
-</div>
-<!--end div--> 
-<style>
-.accordion {
-	background: #fff;
-	overflow: hidden
-}
-.accordion .accordion-header {
-	background: #e0ecff;
-	border-top-width: 0;
-	cursor: pointer
-}
-.accordion .accordion-header .panel-title {
-	font-weight: 400
-}
-.calendar {
-	background: #fff;
-	border: 1px solid #a4bed4;
-	padding: 1px;
-	overflow: hidden
-}
-.layout {
-	position: relative;
-	overflow: hidden;
-	margin: 0;
-	padding: 0
-}
-.layout-panel {
-	position: absolute;
-	overflow: hidden
-}
-.layout-panel-east,.layout-panel-west {
-	z-index: 2;
-	background1: #fff
-}
-.layout-split-north {
-	border-bottom: 5px solid #d2e0f2
-}
-.layout-split-south {
-	border-top: 5px solid #d2e0f2
-}
-.layout-split-east {
-	border-left: 5px solid #d2e0f2
-}
-.layout-split-west {
-	border-right: 5px solid #d2e0f2
-}
-.panel {
-	overflow: hidden;
-	font-size: 12px
-}
-.panel-header {
-	padding: 5px;
-	line-height: 15px;
-	color: #15428b;
-	font-weight: 700;
-	font-size: 12px;
-	background: url(images/panel_title.png) repeat-x;
-	position: relative;
-	border: 1px solid #99bbe8
-}
-.panel-body {
-	overflow: auto;
-	border: 1px solid #99bbe8;
-	border-top-width: 0;
-	padding: 0px;
-	min-height:820px
-}
-.tabs-header {
-	border: 1px solid #8db2e3;
-	background: #e0ecff;
-	border-bottom: 0;
-	position: relative;
-	overflow: hidden;
-	padding: 0;
-	padding-top: 2px;
-	overflow: hidden
-}
-.tabs {
-	list-style-type: none;
-	height: 26px;
-	margin: 0;
-	padding: 0;
-	padding-left: 4px;
-	font-size: 12px;
-	width: 5000px;
-	border-bottom: 1px solid #8db2e3
-}
-.tabs li a.tabs-inner {
-	display: inline-block;
-	text-decoration: none;
-	color: #416aa3;
-	background: url(images/tabs_enabled.png) repeat-x left top;
-	margin: 0;
-	padding: 0 10px;
-	height: 25px;
-	line-height: 25px;
-	text-align: center;
-	white-space: nowrap;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-topright: 5px;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-top-right-radius: 5px
-}
-<!--  -->
-</style>
-
- <body  style="height: 100%; overflow: hidden; border: none; margin: 0px; padding: 0px;"> 
-  <div class="panel layout-panel layout-panel-west layout-split-west" style="left: 0px; width:145px; cursor: default;">
-   <div class="layout-body panel-body"> 
-    <div class="easyui-accordion accordion accordion-noborder" > 
-     <div class="panel" style="width: 143px;">
-      <div class="panel-header accordion-header" style="height: 15px;">
-       <div class="panel-title panel-with-icon">
-        功能栏
-       </div>
-      </div>
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow.3.0.css"/>
+ <body  style="height: 100%; overflow: hidden;margin: 0px; padding: 0px;"> 
+  <div class="panel layout-panel panel-west split-west" style="left: 0px; width:145px; cursor: default;">
+   <div class="panel-body"> 
+     <div class="panel" style="width: 140px;">
+      <div class="panel-header">功能栏</div>
 	  <div class="panel-body" style='text-align:center'>
 		 欢迎使用流程设计器~<br/><br/>
 		  <button class="btn btn-info" type="button" id="wfSave">保存设计</button><br/><br/>
@@ -132,52 +16,31 @@
 		  使用小技巧：<br/><br/>
 		  1、双击可删除该步骤；<br/>
 		  2、点击步骤设计；
-      </div>
-     </div> 
-    </div> 
+      </div></div> 
    </div>
   </div> 
-  <div class="panel layout-panel layout-panel-center layout-split-center" style="left: 150px;  width:calc(100% - 545px); cursor: default;" id="flowdesign_canvas"> 
-   <div id="process-definition-tab" class="tabs-container" style="width:100%; height: 861px;">
-    <div class="tabs-header" style="width:100%;">
-     <div class="tabs-scroller-left" style="display: none;"></div>
-     <div class="tabs-scroller-right" style="display: none;"></div>
-     <div class="tabs-wrap" style="margin-left: 0px; left: 0px; width: 100%;">
-      <ul class="tabs">
-       <li class="tabs-selected"><a href="javascript:void(0)" class="tabs-inner"><span class="tabs-title">流程设计栏</span><span class="tabs-icon"></span></a></li>
-      </ul>
-     </div>
-    </div>
-    <div class="tabs-panels" style="width:100%;" > 
-	
-    </div>
-   </div> 
-  </div> 
-  <div class="panel layout-panel layout-panel-west layout-split-east layout-split-west" style="left: calc(100% - 400px);  width:400px; cursor: default;">
-    <div  class="layout-body panel-body"> 
-    <div class="easyui-accordion accordion accordion-noborder"  border="false" > 
+  <div class="panel layout-panel split-center" style="left:150px;  width:calc(100% - 645px); cursor: default;" > 
+	<div  class="panel-body">
      <div class="panel" >
-      <div class="panel-header accordion-header" style="height: 15px;" >
-       <div class="panel-title panel-with-icon">
-        属性控制栏
-       </div>
-      </div>
-	  <div class="panel-body" style='text-align:center'>
+      <div class="panel-header">流程设计栏</div>
+	  <div class="panel-body" style="width:100%; height: 800px;" id="flowdesign_canvas"></div> 
+     </div></div>
+  </div> 
+  <div class="panel layout-panel panel-west split-east split-west" style="left: calc(100% - 500px);  width:500px; cursor: default;">
+    <div  class="panel-body"> 
+     <div class="panel" >
+      <div class="panel-header">属性控制栏</div>
+	  <div class="panel-body">
 		<iframe src="" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
-	  </div> 
-     </div> 
-    </div> 
+	  </div></div> 
    </div>
   </div> 
  </body>
 </html>
 <script type="text/javascript" src="__Flow__/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="__Flow__/css/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="__Flow__/js/jquery-ui/jquery-ui-1.9.2-min.js?" ></script>
-<script type="text/javascript" src="__Flow__/js/jsPlumb/jquery.jsPlumb-1.3.16-all-min.js"></script>
-<script type="text/javascript" src="__Flow__/js/jquery.contextmenu.r2.js?"></script>
-<!--flowdesign-->
-<script type="text/javascript" src="__Flow__/js/flowdesign/workflow.1.0.js"></script>
+<script type="text/javascript" src="__Flow__/jsPlumb-1.3.16-all-min.js"></script>
+<script type="text/javascript" src="__Flow__/workflow.3.0.js"></script>
 <script type="text/javascript">
 	function iFrameHeight() {   
 		var ifm= document.getElementById("iframepage");   
@@ -194,14 +57,11 @@ $(function(){
     attributeModal.on("hidden", function() {
         $(this).removeData("modal");//移除数据，防止缓存
     });
-    /*步骤数据*/
-    var processData = {$process_data|raw};
     /*创建流程设计器*/
     var _canvas = $("#flowdesign_canvas").Flowdesign({
-                      "processData":processData
-                      /*步骤右键*/
-                      ,fnClick:function(){
-						 var url = "{:url('attribute')}?id="+_canvas.getActiveId();
+                      "processData":{$process_data|raw}
+                      ,fnClick:function(){ /*步骤单击*/
+						  var url = "{:url('attribute')}?id="+_canvas.getActiveId();
 						  $('#iframepage').attr('src',url);
                       },fnDbClick:function(){
 						if(confirm("你确定删除步骤吗？")){
@@ -219,10 +79,8 @@ $(function(){
 								layer.msg(data.msg);
 							},'json');
                            }
-                      },canvasMenus:function(){
-						layer.msg(111);
-					  }
-                  });
+                      }
+         });
 		/*保存*/
 		$("#wfSave").bind('click',function(){
 			var processInfo = _canvas.getProcessInfo();//连接信息
@@ -245,7 +103,7 @@ $(function(){
 			$.post(url,{"flow_id":the_flow_id},function(data){
 			if(data.status==1){
 				location.reload();
-				}else if(!_canvas.addProcess(data.info)){
+				}else{
 				layer.msg("添加失败");
 			   }
 			},'json');
@@ -263,8 +121,5 @@ $(function(){
 			
 			}
 		});
-	
 });
-
- 
 </script>
