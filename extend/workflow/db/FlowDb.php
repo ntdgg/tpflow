@@ -215,12 +215,12 @@ class FlowDb{
 			return ['status'=>0,'msg'=>'参数有误，请重试','info'=>''];
         }
         foreach($process_info as $process_id=>$value){
-            $datas = array(
+            $datas = [
                 'setleft'=>(int)$value['left'],
                 'settop'=>(int)$value['top'],
                 'process_to'=>self::ids_parse($value['process_to']),
                 'updatetime'=>time()
-            );
+            ];
             $ret =  Db::name('flow_process')->where('id','eq',$process_id)->where('flow_id','eq',$flow_id)->update($datas);
         }
 		return ['status'=>1,'msg'=>'添加成功！','info'=>''];

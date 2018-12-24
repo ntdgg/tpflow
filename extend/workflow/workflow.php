@@ -163,21 +163,21 @@ require_once BEASE_URL . '/msg/mail.php';
 		}
 		/*
 		 * ProcessDesc API
-		 *
+		 * 
 		 **/
 		
 		function ProcessApi($ProcessType,$flow_id,$data='')
 		{
 			if ($ProcessType == "All") {
-					$info = FlowDb::ProcessAll($flow_id);
-				} else if ($ProcessType == "ProcessDel") {
+					$info = FlowDb::ProcessAll($flow_id); 
+				} else if ($ProcessType == "ProcessDel") {       //删除步骤
 					$info = FlowDb::ProcessDel($flow_id,$data);
-				} else if ($ProcessType == "ProcessDelAll") {
+				} else if ($ProcessType == "ProcessDelAll") {    //删除步骤
 					$info = FlowDb::ProcessDelAll($flow_id);
-				} else if ($ProcessType == "ProcessAdd")  { 
+				} else if ($ProcessType == "ProcessAdd")  {      //新增步骤
 					$info = FlowDb::ProcessAdd($flow_id); 
 				} else if ($ProcessType == "ProcessLink")  { 
-					$info = FlowDb::ProcessLink($flow_id,$data); 
+					$info = FlowDb::ProcessLink($flow_id,$data); //保存设计样式
 				}else{
 					throw new \Exception ( "参数出错！" );
 				}
@@ -185,7 +185,6 @@ require_once BEASE_URL . '/msg/mail.php';
 		}
 		
 		function getprocessinfo($pid,$run_id){
-			
 			if( @$pid=='' || @$run_id ==''){
 		       	throw new \Exception ( "config参数信息不全！" );
 			}
