@@ -457,7 +457,7 @@ $(function(){
                   if(obj.length>0){
                       var constr = '';
                       for( var j=0;j<obj.options.length;j++){
-                          constr += obj.options[j].value+'@leipi@';
+                          constr += obj.options[j].value+'@wf@';
                           if(!fnCheckExp(constr)){
                               alert("条件表达式书写错误,请检查括号匹配");
                               $('#condition').click();

@@ -178,6 +178,10 @@ require_once BEASE_URL . '/msg/mail.php';
 					$info = FlowDb::ProcessAdd($flow_id); 
 				} else if ($ProcessType == "ProcessLink")  { 
 					$info = FlowDb::ProcessLink($flow_id,$data); //保存设计样式
+				} else if ($ProcessType == "ProcessAttSave")  { 
+					$info = FlowDb::ProcessAttSave($flow_id,$data); //保存步骤设计
+				} else if ($ProcessType == "ProcessAttView")  { 
+					$info = FlowDb::ProcessAttView($flow_id,$data); //保存步骤设计
 				}else{
 					throw new \Exception ( "参数出错！" );
 				}

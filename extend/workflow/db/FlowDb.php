@@ -69,8 +69,8 @@ class FlowDb{
 			return false;
 		}
 		$info = Db::name('flow_process')->field('*')->find($id);
-		if($data){
-			return  $data;
+		if($info){
+			return  $info;
 			}else{
 			return  false;
 		}
@@ -225,6 +225,124 @@ class FlowDb{
         }
 		return ['status'=>1,'msg'=>'添加成功！','info'=>''];
 	}
+	public static function ProcessAttSave($process_id,$datas)
+	{
+		   $process_condition =  trim($datas['process_condition'],',');//process_to
+		   $process_condition = explode(',',$process_condition);
+		   $out_condition = array();
+		   foreach($process_condition as $value){
+			   $value = intval($value);
+			   if($value>0){
+				   $condition = trim($datas['process_in_set_'.$value],"@wf@");
+				   $condition = $condition ? explode("@wf@",$condition) : array();
+				   $out_condition[$value] =['condition'=>$condition,'condition_desc'=>trim($datas['process_in_desc_'.$value])];
+			   }
+		   }
+        $data = [
+			'process_name'=>$datas['process_name'],
+			'process_type'=>$datas['process_type'],
+			'process_to'=>self::ids_parse($datas['process_to']),
+			'auto_person'=>$datas['auto_person'],
+			'auto_sponsor_ids'=>$datas['auto_sponsor_ids'],
+			'auto_sponsor_text'=>$datas['auto_sponsor_text'],
+			'auto_role_ids'=>$datas['auto_role_ids'],
+			'auto_role_text'=>$datas['auto_role_text'],
+			'range_user_ids'=>$datas['range_user_ids'],
+			'range_user_text'=>$datas['range_user_text'],
+			'is_sing'=>$datas['is_sing'],
+			'is_back'=>$datas['is_back'],
+			'out_condition'=>json_encode($out_condition),
+			'style'=>json_encode(['width'=>$datas['style_width'],'height'=>$datas['style_height'],'color'=>$datas['style_color']])];
+			$ret = Db::name('flow_process')->where('id',$process_id)->update($data);
+			if($ret){
+				return ['code'=>0,'msg'=>'保存成功！','info'=>''];
+			}else{
+				return ['code'=>1,'msg'=>'保存失败！','info'=>''];
+			}
+		
+	}
+	public static function ProcessAttView($process_id)
+	{
+		 //连接数据表用的。表 model 
+        $flow_model = db('flow');
+        $process_model = db('flow_process');
+        $one = self::getflowprocess($process_id);
+        if(!$one){
+			return ['status'=>0,'msg'=>'未找到步骤信息!','info'=>''];
+        }
+        $flow_one = self::GetFlow($one['flow_id']);
+        if(!$flow_one){
+			return ['status'=>0,'msg'=>'未找到流程信息!','info'=>''];
+        }        
+		$one['process_to'] = $one['process_to']=='' ? array() : explode(',',$one['process_to']);
+        $one['style'] = json_decode($one['style'],true);
+        $one['write_fields'] = $one['write_fields']=='' ? array() : explode(',',$one['write_fields']);//可写字段
+        $one['secret_fields'] = $one['secret_fields']=='' ? array() : explode(',',$one['secret_fields']);//保密 隐藏的字段
+        $one['out_condition'] = self::parse_out_condition($one['out_condition'],'');//json
+        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('flow_id',$one['flow_id'])->where('is_del',0)->select();
+        $child_flow_list = db('flow')->field('id,flow_name')->where('is_del',0)->select();
+		return ['show'=>'basic','info'=>$one,'process_to_list'=>$process_to_list,'child_flow_list'=>$child_flow_list,'from'=>self::get_db_column_comment($flow_one['type'])];
+	}
+	 //$json_data is json    
+    //return json
+    public static function parse_out_condition($json_data,$field_data)
+    {
+        $array = json_decode($json_data,true);
+        if(!$array)
+        {
+            return '[]';
+        }
+        
+        $json_data = array();//重置
+        foreach($array as $key=>$value)
+        {
+            $condition = '';
+            foreach($value['condition'] as $val)
+            {
+                //匹配 $field_data 
+                //把data_x 替换回 中文名称
+                $preg =  "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
+                preg_match_all($preg,$val,$temparr);
+                $val_text = '';
+                foreach($temparr[0] as $k=>$v)
+                {
+                    $field_name = self::get_field_name($temparr[1][$k],$field_data);
+                    if($field_name)
+                        $val_text = str_replace($v,"'".$field_name."'",$val);
+                    else
+                        $val_text = $val;
+                }
+                
+                $condition.='<option value="'.$val.'">'.$val_text.'</option>';
+            }
+            
+            $value['condition'] = $condition;
+            $json_data[$key] = $value;
+        }
+        
+        return json_encode($json_data);
+    }
+    
+    //通过 name  data_x 找到 title
+    public static function get_field_name($field,$field_data)
+    {
+        $field = trim($field);
+        if(!$field) return '';
+        $title = '';
+        foreach($field_data as $value)
+        {
+            if($value['leipiplugins'] =='checkboxs' && $value['parse_name']==$field)
+            {
+                $title = $value['title'];
+                break;
+            }else if($value['name']==$field)
+            {
+                $title = $value['title'];
+                break;
+            }
+        }
+        return $title;
+    }
 	public static function ids_parse($str,$dot_tmp=',')
 	{
 		if(!$str) return '';
@@ -252,7 +370,7 @@ class FlowDb{
 	 * 获取表字段信息
 	 * 
 	 */
-	private function get_db_column_comment($table_name = '', $field = true, $table_schema = ''){
+	public static function get_db_column_comment($table_name = '', $field = true, $table_schema = ''){
 		$database = config('database.');
 		$table_schema = empty($table_schema) ? $database['database'] : $table_schema;
 		$table_name = $database['prefix'] . $table_name;
