@@ -221,7 +221,8 @@
                     if(is_source && is_target){
                         jsPlumb.connect({
                             source:"window"+sourceId, 
-                            target:"window"+targetId
+                            target:"window"+targetId,
+							overlays: [["Label", {cssClass: "component label",label: sourceId+" - "+targetId,}],"Arrow"]
                         });
                         return ;
                     }

@@ -72,8 +72,7 @@ class Flowdesign extends Admin {
 			}
 	   }
 	   if(input('id')){
-		 $info = $this->work->FlowApi('GetFlowInfo',input('id'));
-		 $this->assign('info', $info);
+		 $this->assign('info', $this->work->FlowApi('GetFlowInfo',input('id')));
 	   }
        return $this->fetch('add');
     }
@@ -104,24 +103,8 @@ class Flowdesign extends Admin {
         if(!$one){
             $this->error('未找到数据，请返回重试!');
         }
-        $list = db('flow_process')->where('flow_id',$flow_id)->order('id asc')->select();
-        $process_data = [];
-        $process_total = 0;
-        foreach($list as $value)
-        {
-            $process_total +=1;
-            $style = json_decode($value['style'],true);
-            $process_data[] = [
-                'id'=>$value['id'],
-                'flow_id'=>$value['flow_id'], 
-                'process_name'=>$value['process_name'],
-                'process_to'=>$value['process_to'],
-                'style'=>'width:'.$style['width'].'px;height:'.$style['height'].'px;line-height:30px;color:'.$style['color'].';left:'.$value['setleft'].'px;top:'.$value['settop'].'px;',
-            ];
-        }
         $this->assign('one', $one);
-	
-        $this->assign('process_data', json_encode(array('total'=>$process_total,'list'=>$process_data)));
+        $this->assign('process_data',$this->work->ProcessApi('All',$flow_id));
         return $this->fetch();
     }
     /**
@@ -129,57 +112,11 @@ class Flowdesign extends Admin {
 	 **/
     function delete_process()
     {
-        $process_id = input('process_id');
-        $flow_id = input('flow_id');
-        if($process_id<=0 or $flow_id<=0){
-            return json(['status'=>0,'msg'=>'操作不正确','info'=>'']);
-        }
-        $map = ['id'=>$process_id,'flow_id'=>$flow_id,'is_del'=>0];
-        $process_model = db('flow_process');
-        //开启数据库事务 , 确保整个操作 全部正常 才删除成功  
-        $process_model->startTrans(); 
-        $trans = $process_model->where($map)->delete();
-        if(!$trans){
-            $process_model->rollback();
-            return json(['status'=>0,'msg'=>'删除失败','info'=>'']);
-        }
-        //start  删除成功后，会重新保存设计，此步可省略
-        // 修改 同流程中与$process_id有关的 process_to
-        $list = db('flow_process')->field('id,process_to')->where('flow_id','eq',$flow_id)->where('is_del','eq',0)->where('','exp',"FIND_IN_SET(".$process_id.",process_to)")->select();
-		if(is_array($list)){
-        foreach($list as $value){
-            //把 process_to 去除 $process_id 再保存
-            $arr = explode(',',$value['process_to']);
-            $k = array_search($process_id,$arr);
-            unset($arr[$k]);
-            $process_to = '';
-            if(!empty($arr)){
-                $process_to = implode(',',$arr);
-            }
-            $data = array(
-                'process_to'=>$process_to,
-                'updatetime'=>time(),
-            );
-            $trans = db('flow_process')->where('id',$value['id'])->update($data);
-            if(!$trans){//有错误，跳出
-                break;
-            }
-        }
-        //end  删除成功后，会重新保存设计，此步可省略
-        }
-        //有错误 回滚
-        if(!$trans){
-            $process_model->rollback();
-            return json(['status'=>0,'msg'=>'删除失败，请重试','info'=>'']);
-        }
-        $process_model->commit();
-        return json(['status'=>1,'msg'=>'删除成功','info'=>'']);
+		return json($this->work->ProcessApi('ProcessDel',input('flow_id'),input('process_id')));
     }
 	public function del_allprocess()
 	{
-		$flow_id = input('flow_id');
-        $res = db('flow_process')->where('flow_id',$flow_id)->delete();
-		return json(['status'=>1,'msg'=>'删除成功','info'=>'']);
+		return json($this->work->ProcessApi('ProcessDelAll',input('flow_id')));
 	}
 	/**
 	 * 添加流程
@@ -187,57 +124,18 @@ class Flowdesign extends Admin {
     public function add_process()
     {
         $flow_id = input('flow_id');
-        $one = db('flow')->find($flow_id);
+        $one = $this->work->FlowApi('GetFlowInfo',$flow_id);
         if(!$one){
           return json(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
         }
-        $process_count = db('flow_process')->where('flow_id',$flow_id)->count();
-        $process_type = 'is_step';
-        if($process_count<=0)
-            $process_type = 'is_one';
-        $data = [
-           'flow_id'=>$flow_id, 
-           'process_type'=>$process_type,'style'=>json_encode(['width'=>'120','height'=>'38','color'=>'#0e76a8'])
-        ];
-        $processid = db('flow_process')->insertGetId($data);
-        if($processid<=0){
-            return json(['status'=>0,'msg'=>'添加失败','info'=>'']);
-        }
-        $data=['status'=>1,'msg'=>'success','info'=>['id'=>$processid,'flow_id'=>$flow_id,'process_name'=>'步骤'.$process_count+1,'process_to'=>'','style'=>'left:100px;top:100px;color:#0e76a8;']];
-		return $data;
+		return json($this->work->ProcessApi('ProcessAdd',$flow_id));
     }
     /**
 	 * 保存布局  位置 和 步骤连接
 	 **/
     public function save_canvas()
     {
-        $flow_id = input('flow_id');
-        $process_info = trim(input('process_info'));
-		$process_info = json_decode(htmlspecialchars_decode($process_info),true);
-        if($flow_id<=0 or !$process_info){
-			$this->return_iframe_ajax(['status'=>0,'msg'=>'参数有误，请重试','info'=>'']);
-        }
-        $one = db('flow')->find($flow_id);
-        if(!$one){
-           $this->return_iframe_ajax(['status'=>0,'msg'=>'未找到流程数据','info'=>'']);
-        }
-        //保存数据
-        foreach($process_info as $process_id=>$value){
-            $map = array(
-                'id'=>$process_id,
-                'flow_id'=>$flow_id,
-                'is_del'=>0,
-            );
-            $datas = array(
-                'setleft'=>(int)$value['left'],
-                'settop'=>(int)$value['top'],
-                'process_to'=>$this->ids_parse($value['process_to']),
-                'updatetime'=>time()
-            );
-            $ret = db('flow_process')->where('id','eq',$process_id)->where('flow_id','eq',$flow_id)->update($datas);
-        }
-        $data = json(['status'=>1,'msg'=>'^_^ 保存成功','info'=>'']);
-		return $data;
+		return json($this->work->ProcessApi('ProcessLink',input('flow_id'),input('process_info')));
     }
     
     public function ids_parse($str,$dot_tmp=',')

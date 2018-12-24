@@ -157,11 +157,30 @@ require_once BEASE_URL . '/msg/mail.php';
 				} else if ($wf_type == "GetFlowInfo")  { 
 					$info = FlowDb::GetFlow($data); //获取工作流详情
 				}else{
-					
+					throw new \Exception ( "参数出错！" );
 				}
-				
-				
-				
+			return $info;
+		}
+		/*
+		 * ProcessDesc API
+		 *
+		 **/
+		
+		function ProcessApi($ProcessType,$flow_id,$data='')
+		{
+			if ($ProcessType == "All") {
+					$info = FlowDb::ProcessAll($flow_id);
+				} else if ($ProcessType == "ProcessDel") {
+					$info = FlowDb::ProcessDel($flow_id,$data);
+				} else if ($ProcessType == "ProcessDelAll") {
+					$info = FlowDb::ProcessDelAll($flow_id);
+				} else if ($ProcessType == "ProcessAdd")  { 
+					$info = FlowDb::ProcessAdd($flow_id); 
+				} else if ($ProcessType == "ProcessLink")  { 
+					$info = FlowDb::ProcessLink($flow_id,$data); 
+				}else{
+					throw new \Exception ( "参数出错！" );
+				}
 			return $info;
 		}
 		
