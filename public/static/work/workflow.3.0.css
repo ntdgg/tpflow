@@ -1,4 +1,5 @@
 html,body{height:100%;}
+
 .calendar {
 	background: #fff;
 	border: 1px solid #a4bed4;
@@ -120,7 +121,7 @@ html,body{height:100%;}
   z-index: 20;
 }
 .wf_btn {
-	padding: 4px 12px;
+	padding: 4px 8px;
     box-sizing: border-box;
     cursor: pointer;
     text-align: center;
@@ -129,4 +130,22 @@ html,body{height:100%;}
     border: solid 1px #ddd;
     background-color: #fff;
     width: auto;
+}
+.smalls{
+    width: 90px;
+	padding: 4px 6px;
+	display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+	border: 1px solid #cccccc;
+	background-color: #ffffff;
+}
+.tables th, .tables td {
+    padding: 6px;
+    line-height: 18px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
 }

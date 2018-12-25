@@ -286,18 +286,11 @@ $(function(){
   
     //步骤select 2
   $('#process_multiple').multiselect2side({
-      selectedPosition: 'left',
-      moveOptions: true,
-      labelTop: '最顶',
-      labelBottom: '最底',
-      labelUp: '上移',
-      labelDown: '下移',
-      labelSort: '排序',
       labelsx: '<i class="icon-ok"></i> 下一步步骤',
       labeldx: '<i class="icon-list"></i> 备选步骤',
-      autoSort: false,
-      autoSortAvailable: true,
-      minSize: 7
+      selectedPosition: 'right',  
+	  moveOptions: false, 
+      minSize: 5
     });
 
 

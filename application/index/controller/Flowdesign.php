@@ -10,27 +10,13 @@ class Flowdesign extends Admin {
         parent::initialize();
         $this->work = new workflow();
     }
-	/**
-	 *前置方法
-	 */
-	protected $beforeActionList = [
-        'type'  =>  ['only'=>'add,edit,lists'],
-    ];
-	/**
-	 *前置方法角色及类别部署
-	 */
-	protected function type()
-    {
-        $wf_type = ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息'];
-		$this->assign('type', $wf_type);
-    }
     /**
 	 * 流程设计首页
 	 * @param $map 查询参数
 	 */
     public function lists($map = []){
-		$list = $this->work->FlowApi('List');
-        $this->assign('list', $list);
+        $this->assign('list',$this->work->FlowApi('List'));
+		$this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
         return  $this->fetch();
     }
     /**
@@ -49,6 +35,7 @@ class Flowdesign extends Admin {
 				return msg_return($ret['data'],1);
 			}
 	   }
+	   $this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
        return  $this->fetch();
     }
 	 /**
@@ -68,6 +55,7 @@ class Flowdesign extends Admin {
 	   if(input('id')){
 		 $this->assign('info', $this->work->FlowApi('GetFlowInfo',input('id')));
 	   }
+	   $this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
        return $this->fetch('add');
     }
 	/**
@@ -147,12 +135,7 @@ class Flowdesign extends Admin {
 	    $data = input('post.');
 		return json($this->work->ProcessApi('ProcessAttSave',$data['process_id'],$data));
     }
-    //返回给firame提交的表单
-    public function return_iframe_ajax($ajax_return)
-    {
-        echo '<script type="text/javascript">parent.saveAttribute('.json_encode($ajax_return).');</script>';
-        exit;
-    }
+   
 	//用户选择控件
     public function super_user()
     {

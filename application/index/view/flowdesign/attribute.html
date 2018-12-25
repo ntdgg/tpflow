@@ -1,183 +1,15 @@
 {include file='pub/base' /}
-<link rel="stylesheet" type="text/css" href="__Flow__/js/flowdesign/flowdesign.css"/>
-<link rel="stylesheet" type="text/css" href="__Flow__/js/jquery.multiselect2side/css/jquery.multiselect2side.css"/>
-<link href="__Flow__/css/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<ul class="nav nav-tabs" id="attributeTab">
-  <li {if condition="$op eq 'basic'"} class="active"{/if}><a href="#attrBasic">常规</a></li>
-  <li><a href="#attrPower">权限</a></li>
-  <li><a href="#attrOperate">操作</a></li>
-  <li {if condition="$op eq 'judge'"} class="active"{/if} id="tab_attrJudge"><a href="#attrJudge">转出条件</a></li>
-  <li {if condition="$op eq 'style'"} class="active"{/if}><a href="#attrStyle">样式</a></li>
-</ul>
-
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow.3.0.css"/>
+<link rel="stylesheet" type="text/css" href="__Flow__/multiselect2side.css"/>
 <form  class="form-horizontal" action="{:url('save_attribute')}" method="post" name="form" id="form">
 <input type="hidden" name="flow_id" value="{$one.flow_id}"/>
 <input type="hidden" name="process_id" value="{$one.id}"/>
-  <div class="tab-content">
-    <div class="tab-pane {if condition="$op eq 'basic'"}active{/if}" id="attrBasic">
-          步骤名称 <input type="text" id="process_name" placeholder="步骤名称" name="process_name" value="{$one.process_name}"><br/>
-         步骤类型
-                <input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
-                <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>设为第一步
-		   <div id="current_flow">
-          <div  >
-            <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
-            {volist name="process_to_list" id="vo"}
-                {if condition="$vo['id'] neq $one['id']"}
-                    <option value="{$vo.id}" {if condition="in_array($vo['id'],$one['process_to'])"}selected="selected"{/if}>{$vo.process_name}</option>
-                {/if}
-            {/volist}
-            </select>
-          </div>
-        </div>
-	<hr/>
-	</div>
-    <div class="tab-pane" id="attrPower">
-        <div class="control-group">
-           办理人员<select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
-                <option value="">请选择办理人员或者角色</option>
-				 {if condition="$one.process_type neq 'is_one'"}<option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>{/if}
-				 <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
-                <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
-              </select>
-              <span class="help-inline">*选择人员或者办理的角色！</span>
-          
-           
-			<div id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}>
-              办理人
-                    <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
-					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','600','350')">选择</a>
-				
-            </div>
-            <div id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}>
-              办理人<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
-					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','600','350')">选择</a>
-				
-            </div>
-            <div id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}>
-              指定角色
-                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
-					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','600','350')">选择</a>
-               
-            </div>
-          </div>
-    </div><!-- attrPower end -->
-    <div class="tab-pane" id="attrOperate">
-        会签方式
-            <select name="is_sing" >
-              <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
-              <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
-            </select>
-         
-	<hr/>
-
-       回退方式
-            <select name="is_back" >
-              <option value="1" {if condition="$one.is_back eq 1"}selected="selected"{/if}>不允许</option>
-              <option value="2" {if condition="$one.is_back eq 2"}selected="selected"{/if}>允许回退</option>
-            </select>
-        
-
-    </div><!-- attrOperate end -->
-    <div class="tab-pane  {if condition="$op eq 'judge'"}active{/if}" id="attrJudge">
-
-       
-    <table class="table" >
-      <thead>
-        <tr>
-          <th style="width:100px;">转出步骤</th>
-          <th>转出条件设置</th>
-        </tr>
-      </thead>
-      <tbody>
-
-<!--模板-->
-<tr id="tpl" class="hide">    
-<td style="width: 100px;">@text</td>
-<td>
-    <table class="table table-condensed">
-    <tbody>
-      <tr>
-        <td>
-            <select id="field_@a" class="input-medium">
-              <option value="">选择字段</option>
-			  {volist name='from' id='v'}
-			  <option value="{$key}">{$v}</option>
-			  {/volist}
-              <!-- 表单字段 start -->
-             
-              <!-- 表单字段 end -->  
-            </select>
-            <select id="condition_@a" class="input-small">
-				<option value="=">等于</option>
-				<option value="&lt;&gt;">不等于</option>
-				<option value="&gt;">大于</option>
-				<option value="&lt;">小于</option>
-				<option value="&gt;=">大于等于</option>
-				<option value="&lt;=">小于等于</option>
-				<option value="include">包含</option>
-				<option value="exclude">不包含</option>
-            </select>
-            <input type="text" id="item_value_@a" class="input-small">
-            <select id="relation_@a" class="input-small">
-        <option value="AND">与</option>
-        <option value="OR">或者</option>
-            </select>
-        </td>
-        <td>
-            <div class="btn-group">
-        <button type="button" class="btn btn-small" onclick="fnAddLeftParenthesis('@a')">（</button>
-        <button type="button" class="btn btn-small" onclick="fnAddRightParenthesis('@a')">）</button>
-        <button type="button" onclick="fnAddConditions('@a')" class="btn btn-small">新增</button>
-            </div>
-        </td>
-       </tr>
-       <tr>
-        <td>
-            <select id="conList_@a" multiple="" style="width: 100%;height: 80px;"></select>
-        </td>
-        <td>
-            <div class="btn-group">
-        <button type="button" onclick="fnDelCon('@a')" class="btn btn-small">删行</button>
-        <button type="button" onclick="fnClearCon('@a')" class="btn btn-small">清空</button>
-            </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-            <input id="process_in_desc_@a" type="text" name="process_in_desc_@a" style="width:98%;">
-            <input name="process_in_set_@a" id="process_in_set_@a" type="hidden">
-        </td>
-        <td>
-            <span class="xc1">不符合条件时的提示</span>
-        </td>
-      </tr>
-    </tbody>
-    </table>
-</td>
-</tr>
-
-
-  </tbody>
-  <tbody id="ctbody">
-
-  </tbody>
-</table>
-<input type="hidden" name="process_condition" id="process_condition">
-    </div><!-- attrJudge end -->
-    <div class="tab-pane  {if condition="$op eq 'style'"}active{/if}" id="attrStyle">
-
-        <div class="control-group">
-          尺寸
-            <input type="text" class="input-small" name="style_width" id="style_width" placeholder="宽度PX" value="{$one.style.width}"> X <input type="text" class="input-small" name="style_height" id="style_height" placeholder="高度PX"  value="{$one.style.height}">
-          
-        </div>
-
-       字体颜色
-            <input type="text" class="input-small" name="style_color" id="style_color" placeholder="#000000" value="{$one.style.color}">
+<table class="tables">
+<tr><td>步骤名称</td><td><input type="text" class="smalls" name="process_name" value="{$one.process_name}"></td><td>步骤尺寸</td><td>
+<input type="text" class="smalls" name="style_width" value="{$one.style.width}" style='width:60px'> X 
+			<input type="text" class="smalls" name="style_height" value="{$one.style.height}" style='width:60px'></td></tr>
+<tr></tr>
+<tr><td>字体颜色</td><td  colspan='3'><input type="text" class="smalls" name="style_color" id="style_color" placeholder="#000000" value="{$one.style.color}">
             <div class="colors" org-bind="style_color">
                 <ul>
                   <li class="Black active" org-data="#000" title="Black">1</li>
@@ -191,10 +23,130 @@
                   <li class="pink" org-data="#ff66b5" title="Pink">9</li>
                   <li class="purple" org-data="#6a5a8c" title="Purple">10</li>
                 </ul>
+            </div></td></tr>
+<tr><td>步骤类型</td><td  colspan='3'><input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
+                <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>设为第一步</td></tr>
+<tr><td>会签方式</td><td><select name="is_sing" >
+              <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
+              <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
+            </select></td>
+			
+			<td>回退方式</td><td><select name="is_back" >
+              <option value="1" {if condition="$one.is_back eq 1"}selected="selected"{/if}>不允许</option>
+              <option value="2" {if condition="$one.is_back eq 2"}selected="selected"{/if}>允许回退</option>
+            </select></td>
+			</tr>
+<tr><td>办理人员</td><td colspan='3'><select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
+                <option value="">请选择办理人员或者角色</option>
+				 {if condition="$one.process_type neq 'is_one'"}<option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>{/if}
+				 <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
+                <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
+              </select>
+              <span class="help-inline">*选择人员或者办理的角色！</span>
+          
+           
+			<div id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}>
+              办理人
+                    <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
+					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','350','500')">选择</a>
+				
             </div>
-         
-    </div><!-- attrStyle end -->
-  </div>
+            <div id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}>
+              办理人<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
+					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','350','500')">选择</a>
+				
+            </div>
+            <div id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}>
+              指定角色
+                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
+					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a>
+               
+            </div></td></tr>
+<tr><td>步骤过程</td><td colspan=3> <div id="current_flow">
+            <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
+            {volist name="process_to_list" id="vo"}
+                {if condition="$vo['id'] neq $one['id']"}
+                    <option value="{$vo.id}" {if condition="in_array($vo['id'],$one['process_to'])"}selected="selected"{/if}>{$vo.process_name}</option>
+                {/if}
+            {/volist}
+            </select>
+        </div></td></tr>
+<tr><td colspan=4>
+<table class="table" >
+      <thead>
+        <tr>
+          <th style="width:30px;">步骤</th>
+          <th>转出条件设置</th>
+        </tr>
+      </thead>
+      <tbody>
+
+<!--模板-->
+<tr id="tpl" class="hide">    
+<td style="width: 30px;">@text</td>
+<td>
+    <table class="table table-condensed">
+    <tbody>
+      <tr>
+        <td>
+            <select id="field_@a" class="smalls">
+              <option value="">选择字段</option>
+			  {volist name='from' id='v'}
+			  <option value="{$key}">{$v}</option>
+			  {/volist}
+            </select>
+            <select id="condition_@a" class="smalls" style="width: 60px;">
+				<option value="=">=</option>
+				<option value="&lt;&gt;"><></option>
+				<option value="&gt;">></option>
+				<option value="&lt;"><</option>
+				<option value="&gt;=">>=</option>
+				<option value="&lt;="><=</option>
+				<option value="include">含</option>
+				<option value="exclude">不含</option>
+            </select>
+            <input type="text" id="item_value_@a" class="smalls" style="width: 40px;">
+            <select id="relation_@a" class="smalls" style="width: 40px;"><option value="AND">AND</option><option value="OR">OR</option>
+            </select>
+        </td>
+        <td>
+			<button type="button" class="wf_btn" onclick="fnAddLeftParenthesis('@a')">（</button>
+			<button type="button" class="wf_btn" onclick="fnAddRightParenthesis('@a')">）</button>
+			<button type="button" onclick="fnAddConditions('@a')" class="wf_btn">新增</button>
+        </td>
+       </tr>
+       <tr>
+        <td>
+            <select id="conList_@a" multiple="" style="width: 100%;height: 80px;"></select>
+        </td>
+        <td>
+           
+        <button type="button" onclick="fnDelCon('@a')" class="wf_btn">删行</button>
+        <button type="button" onclick="fnClearCon('@a')" class="wf_btn">清空</button>
+           
+        </td>
+      </tr>
+     
+    </tbody>
+    </table>
+</td>
+</tr>
+
+
+  </tbody>
+  <tbody id="ctbody">
+
+  </tbody>
+</table>
+</td></tr>
+</table>
+
+    
+<input type="hidden" name="process_condition" id="process_condition">
+
 <div>
   <hr/>
   <span class="pull-right">
@@ -203,15 +155,13 @@
   </span>
 </div>
 </form>
-<script type="text/javascript" src="__Flow__/js/jquery-1.7.2.min.js?"></script>
+<script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js?"></script>
 
-<script type="text/javascript" src="__Flow__/css/bootstrap/js/bootstrap.min.js?"></script>
-<script type="text/javascript" src="__Flow__/js/jquery-ui/jquery-ui-1.9.2-min.js?" ></script>
-<script type="text/javascript" src="__Flow__/js/jquery.contextmenu.r2.js?"></script>
+<script type="text/javascript" src="__Flow__/jquery-ui-1.9.2-min.js?" ></script>
 <!--select 2-->
-<script type="text/javascript" src="__Flow__/js/jquery.multiselect2side/js/jquery.multiselect2side.js?" ></script>
+<script type="text/javascript" src="__Flow__/multiselect2side.js?" ></script>
 <!--flowdesign-->
-<script type="text/javascript" src="__Flow__/js/flowdesign/attribute.js"></script>
+<script type="text/javascript" src="__Flow__/workflow-att.3.0.js"></script>
 
 <script type="text/javascript">
 var _out_condition_data = [];
