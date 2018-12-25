@@ -235,9 +235,10 @@ class FlowDb{
 			   if($value>0){
 				   $condition = trim($datas['process_in_set_'.$value],"@wf@");
 				   $condition = $condition ? explode("@wf@",$condition) : array();
-				   $out_condition[$value] =['condition'=>$condition,'condition_desc'=>trim($datas['process_in_desc_'.$value])];
+				   $out_condition[$value] =['condition'=>$condition];
 			   }
 		   }
+		  
         $data = [
 			'process_name'=>$datas['process_name'],
 			'process_type'=>$datas['process_type'],
@@ -313,7 +314,7 @@ class FlowDb{
                         $val_text = $val;
                 }
                 
-                $condition.='<option value="'.$val.'">'.$val_text.'</option>';
+                $condition.='<option value="'.$val.'">'.$val.'</option>';
             }
             
             $value['condition'] = $condition;

@@ -133,6 +133,7 @@ class Flowdesign extends Admin {
     public function save_attribute()
     {
 	    $data = input('post.');
+		
 		return json($this->work->ProcessApi('ProcessAttSave',$data['process_id'],$data));
     }
    

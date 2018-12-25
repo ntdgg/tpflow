@@ -258,9 +258,10 @@ function saveAttribute(data)
                     if(_out_condition_data)
                     {
                         $.each(_out_condition_data,function(i,n){
+							alert(n.condition);
                             if(i==id && _id('conList_'+i )){
                                 $('#conList_'+i).append(n.condition);
-                                $('#process_in_desc_'+i).val(n.condition_desc);
+                              
                             }
                         });
                     }
