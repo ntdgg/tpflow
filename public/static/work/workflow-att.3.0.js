@@ -174,11 +174,39 @@ function saveAttribute(data)
                     oObj.options[sLength-1].value += " " + sRelation + " " + sNewText;
                 }
             }
+			check_from();
         } else {
             alert("请补充完整条件");
             return;
         }
     }
+	function check_from(){
+      //条件检测
+      var cond_data  = $("#process_condition").val();
+      if( cond_data !== ''){
+          var pcarr = cond_data.split(',');
+          for( var i = 0;i < pcarr.length;i++ ){
+              if( pcarr[i]!=='' ){
+                  var obj = _id('conList_'+pcarr[i]);
+                  if(obj.length>0){
+                      var constr = '';
+                      for( var j=0;j<obj.options.length;j++){
+                          constr += obj.options[j].value+'@wf@';
+                          if(!fnCheckExp(constr)){
+                              alert("条件表达式书写错误,请检查括号匹配");
+                              $('#condition').click();
+                              return false;
+                          }
+                      }
+                      _id('process_in_set_'+pcarr[i]).value = constr;
+                  } else {
+                      _id('process_in_set_'+pcarr[i]).value = '';
+                  }
+              }
+          }
+      }
+
+  };
     function fnDelCon(id){
         var oObj = _id('conList_'+id);
         var maxOpt = oObj.options.length;
@@ -439,33 +467,7 @@ $(function(){
 
 
   //表单提交前检测
-  $("#flow_attribute").submit(function(){
-      //条件检测
-      var cond_data  = $("#process_condition").val();
-      if( cond_data !== ''){
-          var pcarr = cond_data.split(',');
-          for( var i = 0;i < pcarr.length;i++ ){
-              if( pcarr[i]!=='' ){
-                  var obj = _id('conList_'+pcarr[i]);
-                  if(obj.length>0){
-                      var constr = '';
-                      for( var j=0;j<obj.options.length;j++){
-                          constr += obj.options[j].value+'@wf@';
-                          if(!fnCheckExp(constr)){
-                              alert("条件表达式书写错误,请检查括号匹配");
-                              $('#condition').click();
-                              return false;
-                          }
-                      }
-                      _id('process_in_set_'+pcarr[i]).value = constr;
-                  } else {
-                      _id('process_in_set_'+pcarr[i]).value = '';
-                  }
-              }
-          }
-      }
 
-  });
 
    //条件设置
   fnSetCondition();
