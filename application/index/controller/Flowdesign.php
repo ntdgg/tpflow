@@ -349,7 +349,7 @@ class Flowdesign extends Admin {
                         $val_text = $val;
                 }
                 
-                $condition.='<option value="'.$val.'">'.$val_text.'</option>';
+                $condition.='<option value="'.$val.'">'.$val.'</option>';
             }
             
             $value['condition'] = $condition;
