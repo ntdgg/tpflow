@@ -248,7 +248,7 @@ class FlowDb
             }
         }
 
-        $data = [ 
+        $data = [
             'process_name' => $datas['process_name'],
             'process_type' => $datas['process_type'],
             'auto_person' => $datas['auto_person'],
@@ -268,8 +268,9 @@ class FlowDb
             $data['process_to'] = self::ids_parse($datas['process_to']);
         }
 
-        $ret = Db::name('flow_process')->where('id', $process_id)->update($data);
-        if ($ret) {
+        $ret = Db::name('flow_process')->where('id', $process_id)->setField($data);
+
+        if ($ret!==false) {
             return ['code' => 0, 'msg' => '保存成功！', 'info' => ''];
         } else {
             return ['code' => 1, 'msg' => '保存失败！', 'info' => ''];
