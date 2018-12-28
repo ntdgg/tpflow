@@ -1,401 +1,411 @@
 <?php
 /**
-*+------------------
-* 流信息处理
-*+------------------ 
-*/
+ *+------------------
+ * 流信息处理
+ *+------------------
+ */
+
 namespace workflow;
 
 use think\Db;
 use think\facade\Session;
 
-class FlowDb{
-	/**
-	 * 获取类别工作流
-	 *
-	 * @param $wf_type
-	 */
-	public static function getWorkflowByType($wf_type) 
-	{
-		$workflow = array ();
-		if ($wf_type == '') {
-			return $workflow;
-		}
-		$info = Db::name('flow')->where('is_del','eq',0)->where('status','eq',0)->where('type','eq',$wf_type)->select();
-		return  $info;
-	}
-	/**
-	 * 获取流程信息
-	 *
-	 * @param $fid
-	 */
-	public static function GetFlowInfo($fid)
-	{
-		if ($fid == '') {
-			return false;
-		}
-		$info = Db::name('flow')->find($fid);		
-		if($info){
-			return  $info['flow_name'];
-			}else{
-			return  false;
-		}
-	}
-	/**
-	 * 判断工作流是否存在
-	 *
-	 * @param $wf_id
-	 */
-	public static function getWorkflow($wf_id) 
-	{
-		if ($wf_id == '') {
-			return false;
-		}
-		$info = Db::name('flow')->find($wf_id);
-		if($info){
-			return  $info;
-			}else{
-			return  false;
-		}
-	}
-	/**
-	 * 获取步骤信息
-	 *
-	 * @param $id
-	 */
-	public static function getflowprocess($id) 
-	{
-		if ($id == '') {
-			return false;
-		}
-		$info = Db::name('flow_process')->field('*')->find($id);
-		if($info){
-			return  $info;
-			}else{
-			return  false;
-		}
-	}
-	/**
-	 * API获取工作流列表
-	 * API接口调用
-	 */
-	public static function GetFlow($info='')
-	{
-		if($info ==''){
-			$list = Db::name('flow')->order('id desc')->where('is_del','0')->paginate('10');
-			$list->each(function($item, $key){
-				$item['edit'] = Db::name('run')->where('flow_id',$item['id'])->where('status','0')->value('id');
-				return $item;
-			});
-		}else{
-			$list = Db::name('flow')->find($info);
-		}
-		return $list;
-	}
-	/**
-	 * API 新增工作流
-	 * @param $data POST提交的数据
-	 */
-	public static function AddFlow($data)
-	{
+class FlowDb
+{
+    /**
+     * 获取类别工作流
+     *
+     * @param $wf_type
+     */
+    public static function getWorkflowByType($wf_type)
+    {
+        $workflow = array();
+        if ($wf_type == '') {
+            return $workflow;
+        }
+        $info = Db::name('flow')->where('is_del', 'eq', 0)->where('status', 'eq', 0)->where('type', 'eq', $wf_type)->select();
+        return $info;
+    }
+
+    /**
+     * 获取流程信息
+     *
+     * @param $fid
+     */
+    public static function GetFlowInfo($fid)
+    {
+        if ($fid == '') {
+            return false;
+        }
+        $info = Db::name('flow')->find($fid);
+        if ($info) {
+            return $info['flow_name'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 判断工作流是否存在
+     *
+     * @param $wf_id
+     */
+    public static function getWorkflow($wf_id)
+    {
+        if ($wf_id == '') {
+            return false;
+        }
+        $info = Db::name('flow')->find($wf_id);
+        if ($info) {
+            return $info;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 获取步骤信息
+     *
+     * @param $id
+     */
+    public static function getflowprocess($id)
+    {
+        if ($id == '') {
+            return false;
+        }
+        $info = Db::name('flow_process')->field('*')->find($id);
+        if ($info) {
+            return $info;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * API获取工作流列表
+     * API接口调用
+     */
+    public static function GetFlow($info = '')
+    {
+        if ($info == '') {
+            $list = Db::name('flow')->order('id desc')->where('is_del', '0')->paginate('10');
+            $list->each(function ($item, $key) {
+                $item['edit'] = Db::name('run')->where('flow_id', $item['id'])->where('status', '0')->value('id');
+                return $item;
+            });
+        } else {
+            $list = Db::name('flow')->find($info);
+        }
+        return $list;
+    }
+
+    /**
+     * API 新增工作流
+     * @param $data POST提交的数据
+     */
+    public static function AddFlow($data)
+    {
         $id = Db::name('flow')->insertGetId($data);
-		if($id){
-			return ['code'=>0,'data'=>$id];
-		}else{
-			return ['code'=>1,'data'=>'Db0001-写入数据库出错！'];
-		}
-	}
-	/**
-	 * API 编辑工作流
-	 * @param $data POST提交的数据
-	 */
-	public static function EditFlow($data)
-	{
+        if ($id) {
+            return ['code' => 0, 'data' => $id];
+        } else {
+            return ['code' => 1, 'data' => 'Db0001-写入数据库出错！'];
+        }
+    }
+
+    /**
+     * API 编辑工作流
+     * @param $data POST提交的数据
+     */
+    public static function EditFlow($data)
+    {
         $id = Db::name('flow')->update($data);
-		if($id){
-			return ['code'=>0,'data'=>$id];
-		}else{
-			return ['code'=>1,'data'=>'Db0001-写入数据库出错！'];
-		}
-	}
-	
-	public static function ProcessAll($flow_id)
-	{
-		$list = Db::name('flow_process')->where('flow_id',$flow_id)->order('id asc')->select();
+        if ($id) {
+            return ['code' => 0, 'data' => $id];
+        } else {
+            return ['code' => 1, 'data' => 'Db0001-写入数据库出错！'];
+        }
+    }
+
+    public static function ProcessAll($flow_id)
+    {
+        $list = Db::name('flow_process')->where('flow_id', $flow_id)->order('id asc')->select();
         $process_data = [];
         $process_total = 0;
-        foreach($list as $value)
-        {
-            $process_total +=1;
-            $style = json_decode($value['style'],true);
+        foreach ($list as $value) {
+            $process_total += 1;
+            $style = json_decode($value['style'], true);
             $process_data[] = [
-                'id'=>$value['id'],
-                'flow_id'=>$value['flow_id'], 
-                'process_name'=>$value['process_name'],
-                'process_to'=>$value['process_to'],
-                'style'=>'width:'.$style['width'].'px;height:'.$style['height'].'px;line-height:30px;color:'.$style['color'].';left:'.$value['setleft'].'px;top:'.$value['settop'].'px;',
+                'id' => $value['id'],
+                'flow_id' => $value['flow_id'],
+                'process_name' => $value['process_name'],
+                'process_to' => $value['process_to'],
+                'style' => 'width:' . $style['width'] . 'px;height:' . $style['height'] . 'px;line-height:30px;color:' . $style['color'] . ';left:' . $value['setleft'] . 'px;top:' . $value['settop'] . 'px;',
             ];
         }
-		return json_encode(['total'=>$process_total,'list'=>$process_data]);
-	}
-	
-	public static function ProcessDel($flow_id,$process_id)
-	{
-        if($process_id<=0 or $flow_id<=0){
-            return ['status'=>0,'msg'=>'操作不正确'];
+        return json_encode(['total' => $process_total, 'list' => $process_data]);
+    }
+
+    public static function ProcessDel($flow_id, $process_id)
+    {
+        if ($process_id <= 0 or $flow_id <= 0) {
+            return ['status' => 0, 'msg' => '操作不正确'];
         }
-        $map = ['id'=>$process_id,'flow_id'=>$flow_id,'is_del'=>0];
+        $map = ['id' => $process_id, 'flow_id' => $flow_id, 'is_del' => 0];
         $process_model = Db::name('flow_process');
-        $process_model->startTrans(); 
+        $process_model->startTrans();
         $trans = $process_model->where($map)->delete();
-        if(!$trans){
+        if (!$trans) {
             $process_model->rollback();
-            return ['status'=>0,'msg'=>'删除失败','info'=>''];
+            return ['status' => 0, 'msg' => '删除失败', 'info' => ''];
         }
-        $list = Db::name('flow_process')->field('id,process_to')->where('flow_id',$flow_id)->where('is_del',0)->where('','exp',"FIND_IN_SET(".$process_id.",process_to)")->select();
-		if(is_array($list)){
-			foreach($list as $value){
-				$arr = explode(',',$value['process_to']);
-				$k = array_search($process_id,$arr);
-				unset($arr[$k]);
-				$process_to = '';
-				if(!empty($arr)){
-					$process_to = implode(',',$arr);
-				}
-				$data = ['process_to'=>$process_to,'updatetime'=>time()];
-				$trans = Db::name('flow_process')->where('id',$value['id'])->update($data);
-				if(!$trans){//有错误，跳出
-					break;
-				}
-			}
+        $list = Db::name('flow_process')->field('id,process_to')->where('flow_id', $flow_id)->where('is_del', 0)->where('', 'exp', "FIND_IN_SET(" . $process_id . ",process_to)")->select();
+        if (is_array($list)) {
+            foreach ($list as $value) {
+                $arr = explode(',', $value['process_to']);
+                $k = array_search($process_id, $arr);
+                unset($arr[$k]);
+                $process_to = '';
+                if (!empty($arr)) {
+                    $process_to = implode(',', $arr);
+                }
+                $data = ['process_to' => $process_to, 'updatetime' => time()];
+                $trans = Db::name('flow_process')->where('id', $value['id'])->update($data);
+                if (!$trans) {//有错误，跳出
+                    break;
+                }
+            }
         }
-        if(!$trans){
+        if (!$trans) {
             $process_model->rollback();
-            return ['status'=>0,'msg'=>'删除失败，请重试','info'=>''];
+            return ['status' => 0, 'msg' => '删除失败，请重试', 'info' => ''];
         }
         $process_model->commit();
-        return ['status'=>1,'msg'=>'删除成功','info'=>''];
-	}
-	
-	public static function ProcessDelAll($flow_id)
-	{
-        $res = Db::name('flow_process')->where('flow_id',$flow_id)->delete();
-		if($res){
-			return ['status'=>1,'data'=>$res,'msg'=>'操作成功！'];
-		}else{
-			return ['status'=>0,'msg'=>'操作错误！'];
-		}
-	}
-	public static function ProcessAdd($flow_id)
-	{
-		$process_count = Db::name('flow_process')->where('flow_id',$flow_id)->count();
+        return ['status' => 1, 'msg' => '删除成功', 'info' => ''];
+    }
+
+    public static function ProcessDelAll($flow_id)
+    {
+        $res = Db::name('flow_process')->where('flow_id', $flow_id)->delete();
+        if ($res) {
+            return ['status' => 1, 'data' => $res, 'msg' => '操作成功！'];
+        } else {
+            return ['status' => 0, 'msg' => '操作错误！'];
+        }
+    }
+
+    public static function ProcessAdd($flow_id)
+    {
+        $process_count = Db::name('flow_process')->where('flow_id', $flow_id)->count();
         $process_type = 'is_step';
-        if($process_count<=0)
+        if ($process_count <= 0)
             $process_type = 'is_one';
-			$data = [
-			   'flow_id'=>$flow_id, 
-			   'process_type'=>$process_type,'style'=>json_encode(['width'=>'120','height'=>'38','color'=>'#0e76a8'])
-			];
-			$processid = Db::name('flow_process')->insertGetId($data);
-			if($processid<=0){
-				return ['status'=>0,'msg'=>'添加失败！','info'=>''];
-			}else{
-				return ['status'=>1,'msg'=>'添加成功！','info'=>''];
-			}
-	}
-	
-	public static function ProcessLink($flow_id,$process_info)
-	{
-		$one = self::GetFlow($flow_id);;
-        if(!$one){
-           return ['status'=>0,'msg'=>'未找到流程数据','info'=>''];
-        }
-		$process_info = json_decode(htmlspecialchars_decode(trim($process_info)),true);
-        if($flow_id<=0 or !$process_info){
-			return ['status'=>0,'msg'=>'参数有误，请重试','info'=>''];
-        }
-        foreach($process_info as $process_id=>$value){
-            $datas = [
-                'setleft'=>(int)$value['left'],
-                'settop'=>(int)$value['top'],
-                'process_to'=>self::ids_parse($value['process_to']),
-                'updatetime'=>time()
-            ];
-            $ret =  Db::name('flow_process')->where('id','eq',$process_id)->where('flow_id','eq',$flow_id)->update($datas);
-        }
-		return ['status'=>1,'msg'=>'添加成功！','info'=>''];
-	}
-	public static function ProcessAttSave($process_id,$datas)
-	{
-		   $process_condition =  trim($datas['process_condition'],',');//process_to
-		   $process_condition = explode(',',$process_condition);
-		   $out_condition = array();
-		   foreach($process_condition as $value){
-			   $value = intval($value);
-			   if($value>0){
-				   $condition = trim($datas['process_in_set_'.$value],"@wf@");
-				   $condition = $condition ? explode("@wf@",$condition) : array();
-				   $out_condition[$value] =['condition'=>$condition];
-			   }
-		   }
-		  
         $data = [
-			'process_name'=>$datas['process_name'],
-			'process_type'=>$datas['process_type'],
-			'process_to'=>self::ids_parse($datas['process_to']),
-			'auto_person'=>$datas['auto_person'],
-			'auto_sponsor_ids'=>$datas['auto_sponsor_ids'],
-			'auto_sponsor_text'=>$datas['auto_sponsor_text'],
-			'auto_role_ids'=>$datas['auto_role_ids'],
-			'auto_role_text'=>$datas['auto_role_text'],
-			'range_user_ids'=>$datas['range_user_ids'],
-			'range_user_text'=>$datas['range_user_text'],
-			'is_sing'=>$datas['is_sing'],
-			'is_back'=>$datas['is_back'],
-			'out_condition'=>json_encode($out_condition),
-			'style'=>json_encode(['width'=>$datas['style_width'],'height'=>$datas['style_height'],'color'=>$datas['style_color']])];
-			$ret = Db::name('flow_process')->where('id',$process_id)->update($data);
-			if($ret){
-				return ['code'=>0,'msg'=>'保存成功！','info'=>''];
-			}else{
-				return ['code'=>1,'msg'=>'保存失败！','info'=>''];
-			}
-		
-	}
-	public static function ProcessAttView($process_id)
-	{
-		 //连接数据表用的。表 model 
+            'flow_id' => $flow_id,
+            'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => '38', 'color' => '#0e76a8'])
+        ];
+        $processid = Db::name('flow_process')->insertGetId($data);
+        if ($processid <= 0) {
+            return ['status' => 0, 'msg' => '添加失败！', 'info' => ''];
+        } else {
+            return ['status' => 1, 'msg' => '添加成功！', 'info' => ''];
+        }
+    }
+
+    public static function ProcessLink($flow_id, $process_info)
+    {
+        $one = self::GetFlow($flow_id);;
+        if (!$one) {
+            return ['status' => 0, 'msg' => '未找到流程数据', 'info' => ''];
+        }
+        $process_info = json_decode(htmlspecialchars_decode(trim($process_info)), true);
+        if ($flow_id <= 0 or !$process_info) {
+            return ['status' => 0, 'msg' => '参数有误，请重试', 'info' => ''];
+        }
+        foreach ($process_info as $process_id => $value) {
+            $datas = [
+                'setleft' => (int)$value['left'],
+                'settop' => (int)$value['top'],
+                'process_to' => self::ids_parse($value['process_to']),
+                'updatetime' => time()
+            ];
+            $ret = Db::name('flow_process')->where('id', 'eq', $process_id)->where('flow_id', 'eq', $flow_id)->update($datas);
+        }
+        return ['status' => 1, 'msg' => '添加成功！', 'info' => ''];
+    }
+
+    public static function ProcessAttSave($process_id, $datas)
+    {
+        $process_condition = trim($datas['process_condition'], ',');//process_to
+        $process_condition = explode(',', $process_condition);
+        $out_condition = array();
+        foreach ($process_condition as $value) {
+            $value = intval($value);
+            if ($value > 0) {
+                $condition = trim($datas['process_in_set_' . $value], "@wf@");
+                $condition = $condition ? explode("@wf@", $condition) : array();
+                $out_condition[$value] = ['condition' => $condition];
+            }
+        }
+
+        $data = [ 
+            'process_name' => $datas['process_name'],
+            'process_type' => $datas['process_type'],
+            'auto_person' => $datas['auto_person'],
+            'auto_sponsor_ids' => $datas['auto_sponsor_ids'],
+            'auto_sponsor_text' => $datas['auto_sponsor_text'],
+            'auto_role_ids' => $datas['auto_role_ids'],
+            'auto_role_text' => $datas['auto_role_text'],
+            'range_user_ids' => $datas['range_user_ids'],
+            'range_user_text' => $datas['range_user_text'],
+            'is_sing' => $datas['is_sing'],
+            'is_back' => $datas['is_back'],
+            'out_condition' => json_encode($out_condition),
+            'style' => json_encode(['width' => $datas['style_width'], 'height' => $datas['style_height'], 'color' => $datas['style_color']])
+        ];
+        //在没有下一步骤的时候保存属性
+        if (isset($datas["process_to"])) {
+            $data['process_to'] = self::ids_parse($datas['process_to']);
+        }
+
+        $ret = Db::name('flow_process')->where('id', $process_id)->update($data);
+        if ($ret) {
+            return ['code' => 0, 'msg' => '保存成功！', 'info' => ''];
+        } else {
+            return ['code' => 1, 'msg' => '保存失败！', 'info' => ''];
+        }
+
+    }
+
+    public static function ProcessAttView($process_id)
+    {
+        //连接数据表用的。表 model 
         $flow_model = db('flow');
         $process_model = db('flow_process');
         $one = self::getflowprocess($process_id);
-        if(!$one){
-			return ['status'=>0,'msg'=>'未找到步骤信息!','info'=>''];
+        if (!$one) {
+            return ['status' => 0, 'msg' => '未找到步骤信息!', 'info' => ''];
         }
         $flow_one = self::GetFlow($one['flow_id']);
-        if(!$flow_one){
-			return ['status'=>0,'msg'=>'未找到流程信息!','info'=>''];
-        }        
-		$one['process_to'] = $one['process_to']=='' ? array() : explode(',',$one['process_to']);
-        $one['style'] = json_decode($one['style'],true);
-        $one['write_fields'] = $one['write_fields']=='' ? array() : explode(',',$one['write_fields']);//可写字段
-        $one['secret_fields'] = $one['secret_fields']=='' ? array() : explode(',',$one['secret_fields']);//保密 隐藏的字段
-        $one['out_condition'] = self::parse_out_condition($one['out_condition'],'');//json
-        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('flow_id',$one['flow_id'])->where('is_del',0)->select();
-        $child_flow_list = db('flow')->field('id,flow_name')->where('is_del',0)->select();
-		return ['show'=>'basic','info'=>$one,'process_to_list'=>$process_to_list,'child_flow_list'=>$child_flow_list,'from'=>self::get_db_column_comment($flow_one['type'])];
-	}
-	 //$json_data is json    
+        if (!$flow_one) {
+            return ['status' => 0, 'msg' => '未找到流程信息!', 'info' => ''];
+        }
+        $one['process_to'] = $one['process_to'] == '' ? array() : explode(',', $one['process_to']);
+        $one['style'] = json_decode($one['style'], true);
+        $one['write_fields'] = $one['write_fields'] == '' ? array() : explode(',', $one['write_fields']);//可写字段
+        $one['secret_fields'] = $one['secret_fields'] == '' ? array() : explode(',', $one['secret_fields']);//保密 隐藏的字段
+        $one['out_condition'] = self::parse_out_condition($one['out_condition'], '');//json
+        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('flow_id', $one['flow_id'])->where('is_del', 0)->select();
+        $child_flow_list = db('flow')->field('id,flow_name')->where('is_del', 0)->select();
+        return ['show' => 'basic', 'info' => $one, 'process_to_list' => $process_to_list, 'child_flow_list' => $child_flow_list, 'from' => self::get_db_column_comment($flow_one['type'])];
+    }
+    //$json_data is json    
     //return json
-    public static function parse_out_condition($json_data,$field_data)
+    public static function parse_out_condition($json_data, $field_data)
     {
-        $array = json_decode($json_data,true);
-        if(!$array)
-        {
+        $array = json_decode($json_data, true);
+        if (!$array) {
             return '[]';
         }
-        
+
         $json_data = array();//重置
-        foreach($array as $key=>$value)
-        {
+        foreach ($array as $key => $value) {
             $condition = '';
-            foreach($value['condition'] as $val)
-            {
+            foreach ($value['condition'] as $val) {
                 //匹配 $field_data 
                 //把data_x 替换回 中文名称
-                $preg =  "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
-                preg_match_all($preg,$val,$temparr);
+                $preg = "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
+                preg_match_all($preg, $val, $temparr);
                 $val_text = '';
-                foreach($temparr[0] as $k=>$v)
-                {
-                    $field_name = self::get_field_name($temparr[1][$k],$field_data);
-                    if($field_name)
-                        $val_text = str_replace($v,"'".$field_name."'",$val);
+                foreach ($temparr[0] as $k => $v) {
+                    $field_name = self::get_field_name($temparr[1][$k], $field_data);
+                    if ($field_name)
+                        $val_text = str_replace($v, "'" . $field_name . "'", $val);
                     else
                         $val_text = $val;
                 }
-                
-                $condition.='<option value="'.$val.'">'.$val.'</option>';
+
+                $condition .= '<option value="' . $val . '">' . $val . '</option>';
             }
-            
+
             $value['condition'] = $condition;
             $json_data[$key] = $value;
         }
-        
+
         return json_encode($json_data);
     }
-    
+
     //通过 name  data_x 找到 title
-    public static function get_field_name($field,$field_data)
+    public static function get_field_name($field, $field_data)
     {
         $field = trim($field);
-        if(!$field) return '';
+        if (!$field) return '';
         $title = '';
-        foreach($field_data as $value)
-        {
-            if($value['leipiplugins'] =='checkboxs' && $value['parse_name']==$field)
-            {
+        foreach ($field_data as $value) {
+            if ($value['leipiplugins'] == 'checkboxs' && $value['parse_name'] == $field) {
                 $title = $value['title'];
                 break;
-            }else if($value['name']==$field)
-            {
+            } else if ($value['name'] == $field) {
                 $title = $value['title'];
                 break;
             }
         }
         return $title;
     }
-	public static function ids_parse($str,$dot_tmp=',')
-	{
-		if(!$str) return '';
-		if(is_array($str)){
-			$idarr = $str;
-		}else{
-			$idarr = explode(',',$str);
-		}
-		$idarr = array_unique($idarr);
-		$dot = '';
-		$idstr ='';
-		foreach($idarr as $id){
-			$id = intval($id);
-			if($id>0){
-				$idstr.=$dot.$id;
-				$dot = $dot_tmp;
-			}
-		}
-		if(!$idstr) $idstr=0;
-		return $idstr;
-	}
-	
-	
-	/**
-	 * 获取表字段信息
-	 * 
-	 */
-	public static function get_db_column_comment($table_name = '', $field = true, $table_schema = ''){
-		$database = config('database.');
-		$table_schema = empty($table_schema) ? $database['database'] : $table_schema;
-		$table_name = $database['prefix'] . $table_name;
-		$fieldName = $field === true ? 'allField' : $field;
-		$cacheKeyName = 'db_' . $table_schema . '_' . $table_name . '_' . $fieldName;
-		$param = [
-			$table_name,
-			$table_schema
-		];
-		$columeName = '';
-		if($field !== true){
-			$param[] = $field;
-			$columeName = "AND COLUMN_NAME = ?";
-		}
-		$res = Db::query("SELECT COLUMN_NAME as field,column_comment as comment FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = ? AND table_schema = ? $columeName", $param);
-		$result=array(); 
-		foreach($res as $k =>$value){
-			foreach($value as $key=>$v){  
-				if($value['comment'] !=''){
-					$result[$value['field']]=$value['comment'];
-				}
-			}  
-		}
-		return count($result) == 1 ? reset($result) : $result;
-	}
-	
+
+    public static function ids_parse($str, $dot_tmp = ',')
+    {
+        if (!$str) return '';
+        if (is_array($str)) {
+            $idarr = $str;
+        } else {
+            $idarr = explode(',', $str);
+        }
+        $idarr = array_unique($idarr);
+        $dot = '';
+        $idstr = '';
+        foreach ($idarr as $id) {
+            $id = intval($id);
+            if ($id > 0) {
+                $idstr .= $dot . $id;
+                $dot = $dot_tmp;
+            }
+        }
+        if (!$idstr) $idstr = 0;
+        return $idstr;
+    }
+
+
+    /**
+     * 获取表字段信息
+     *
+     */
+    public static function get_db_column_comment($table_name = '', $field = true, $table_schema = '')
+    {
+        $database = config('database.');
+        $table_schema = empty($table_schema) ? $database['database'] : $table_schema;
+        $table_name = $database['prefix'] . $table_name;
+        $fieldName = $field === true ? 'allField' : $field;
+        $cacheKeyName = 'db_' . $table_schema . '_' . $table_name . '_' . $fieldName;
+        $param = [
+            $table_name,
+            $table_schema
+        ];
+        $columeName = '';
+        if ($field !== true) {
+            $param[] = $field;
+            $columeName = "AND COLUMN_NAME = ?";
+        }
+        $res = Db::query("SELECT COLUMN_NAME as field,column_comment as comment FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = ? AND table_schema = ? $columeName", $param);
+        $result = array();
+        foreach ($res as $k => $value) {
+            foreach ($value as $key => $v) {
+                if ($value['comment'] != '') {
+                    $result[$value['field']] = $value['comment'];
+                }
+            }
+        }
+        return count($result) == 1 ? reset($result) : $result;
+    }
+
 }
