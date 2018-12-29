@@ -174,13 +174,21 @@ function saveAttribute(data)
                     oObj.options[sLength-1].value += " " + sRelation + " " + sNewText;
                 }
             }
+<<<<<<< HEAD:public/static/work/js/flowdesign/attribute.js
 			check_form();
+=======
+			check_from();
+>>>>>>> 7f7b8f4901dce2882aee6d27b214c9634443f064:public/static/work/workflow-att.3.0.js
         } else {
             alert("请补充完整条件");
             return;
         }
     }
+<<<<<<< HEAD:public/static/work/js/flowdesign/attribute.js
 	  function check_form(){
+=======
+	function check_from(){
+>>>>>>> 7f7b8f4901dce2882aee6d27b214c9634443f064:public/static/work/workflow-att.3.0.js
       //条件检测
       var cond_data  = $("#process_condition").val();
       if( cond_data !== ''){
@@ -191,7 +199,11 @@ function saveAttribute(data)
                   if(obj.length>0){
                       var constr = '';
                       for( var j=0;j<obj.options.length;j++){
+<<<<<<< HEAD:public/static/work/js/flowdesign/attribute.js
                           constr += obj.options[j].value+'@leipi@';
+=======
+                          constr += obj.options[j].value+'@wf@';
+>>>>>>> 7f7b8f4901dce2882aee6d27b214c9634443f064:public/static/work/workflow-att.3.0.js
                           if(!fnCheckExp(constr)){
                               alert("条件表达式书写错误,请检查括号匹配");
                               $('#condition').click();
@@ -258,9 +270,10 @@ function saveAttribute(data)
                     if(_out_condition_data)
                     {
                         $.each(_out_condition_data,function(i,n){
+							alert(n.condition);
                             if(i==id && _id('conList_'+i )){
                                 $('#conList_'+i).append(n.condition);
-                                $('#process_in_desc_'+i).val(n.condition_desc);
+                              
                             }
                         });
                     }
@@ -314,18 +327,11 @@ $(function(){
   
     //步骤select 2
   $('#process_multiple').multiselect2side({
-      selectedPosition: 'left',
-      moveOptions: true,
-      labelTop: '最顶',
-      labelBottom: '最底',
-      labelUp: '上移',
-      labelDown: '下移',
-      labelSort: '排序',
       labelsx: '<i class="icon-ok"></i> 下一步步骤',
       labeldx: '<i class="icon-list"></i> 备选步骤',
-      autoSort: false,
-      autoSortAvailable: true,
-      minSize: 7
+      selectedPosition: 'right',  
+	  moveOptions: false, 
+      minSize: 5
     });
 
 

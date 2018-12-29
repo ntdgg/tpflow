@@ -140,8 +140,55 @@ require_once BEASE_URL . '/msg/mail.php';
 		{
 			return InfoDB::worklist();
 		}
+		
+		/*
+		 * FlowDesc API
+		 *
+		 **/
+		
+		function FlowApi($wf_type,$data='')
+		{
+			if ($wf_type == "List") {
+					$info = FlowDb::GetFlow();		//获取工作流列表
+				} else if ($wf_type == "AddFlow") {
+					$info = FlowDb::AddFlow($data); //新增工作流
+				} else if ($wf_type == "EditFlow") {
+					$info = FlowDb::EditFlow($data);//更新工作流
+				} else if ($wf_type == "GetFlowInfo")  { 
+					$info = FlowDb::GetFlow($data); //获取工作流详情
+				}else{
+					throw new \Exception ( "参数出错！" );
+				}
+			return $info;
+		}
+		/*
+		 * ProcessDesc API
+		 * 
+		 **/
+		
+		function ProcessApi($ProcessType,$flow_id,$data='')
+		{
+			if ($ProcessType == "All") {
+					$info = FlowDb::ProcessAll($flow_id); 
+				} else if ($ProcessType == "ProcessDel") {       //删除步骤
+					$info = FlowDb::ProcessDel($flow_id,$data);
+				} else if ($ProcessType == "ProcessDelAll") {    //删除步骤
+					$info = FlowDb::ProcessDelAll($flow_id);
+				} else if ($ProcessType == "ProcessAdd")  {      //新增步骤
+					$info = FlowDb::ProcessAdd($flow_id); 
+				} else if ($ProcessType == "ProcessLink")  { 
+					$info = FlowDb::ProcessLink($flow_id,$data); //保存设计样式
+				} else if ($ProcessType == "ProcessAttSave")  { 
+					$info = FlowDb::ProcessAttSave($flow_id,$data); //保存步骤属性
+				} else if ($ProcessType == "ProcessAttView")  { 
+					$info = FlowDb::ProcessAttView($flow_id,$data); //查看属性设计
+				}else{
+					throw new \Exception ( "参数出错！" );
+				}
+			return $info;
+		}
+		
 		function getprocessinfo($pid,$run_id){
-			
 			if( @$pid=='' || @$run_id ==''){
 		       	throw new \Exception ( "config参数信息不全！" );
 			}

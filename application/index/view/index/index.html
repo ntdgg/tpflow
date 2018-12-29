@@ -3,17 +3,10 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="{:url('index')}">
 		Tpflow</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml"></a> 
-			<span class="logo navbar-slogan f-l mr-10 hidden-xs"> V2.1</span> 
-			<span class='logo navbar-slogan f-l mr-10 hidden-xs'><b>这可能是Thinkphp第一款开源的，工作流插件</b>  </span>
+			<span class="logo navbar-slogan f-l mr-10 hidden-xs"> V3.0-dev</span> 
+			<span class='logo navbar-slogan f-l mr-10 hidden-xs'><b>工作流插件</b>  </span>
 			<span class='logo navbar-slogan f-l mr-10 hidden-xs'>开源协议：MIT  </span>
 			<span class='logo navbar-slogan f-l mr-10 hidden-xs'>作者：蝈蝈（1838188896） 交流群：532797225</span>
-		</nav>
-		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
-			<ul class="cl">
-				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">{if condition='$Think.session.uid'}欢迎您：{$Think.session.uname} 使用本插件！{else/}请先模拟登入！{/if}</a>
-			</li>
-			</ul>
 		</nav>
 	</div>
 </div>
@@ -22,30 +15,23 @@
 <aside class="Hui-aside">
 		<div class="menu_dropdown bk_2" >
 			<dl>
-				<dt><i class="Hui-iconfont"></i> 新闻管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dt><i class="Hui-iconfont"></i> 测试业务<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>
-				<li><a data-href="{:url('news/index')}" data-title="新闻管理" href="javascript:void(0)">新闻管理</a></li>
+				<li><a data-href="{:url('news/index')}" data-title="测试业务" href="javascript:void(0)">测试业务</a></li>
 				</dd>
 				</dl>
 			<dl>
-			<dl>
-				<dt><i class="Hui-iconfont"></i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-				<dd style="display: block;"><ul>
-				<li><a data-href="{:url('user/index')}" data-title="用户列表" href="javascript:void(0)">用户列表</a></li>
-				<li><a data-href="{:url('user/role')}" data-title="角色列表" href="javascript:void(0)">角色列表</a></li>
-				</dd>
-				</dl>
-			<dl>
-				<dt><i class="Hui-iconfont"></i> 表单自定义设计<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-				<dd style="display: block;"><ul>
-				<li><a data-href="{:url('Formdesign/index')}" data-title="工作流列表" href="javascript:void(0)">表单设计</a></li>
-				</dd>
-			</dl>
 			<dl>
 				<dt><i class="Hui-iconfont"></i> 工作流设计<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
 				<dd style="display: block;"><ul>
 				<li><a data-href="{:url('flowdesign/lists')}" data-title="工作流列表" href="javascript:void(0)">工作流列表</a></li>
 				<li><a data-href="{:url('flow/index')}" data-title="工作流监控" href="javascript:void(0)">工作流监控</a></li>
+				</dd>
+			</dl>
+			<dl>
+				<dt><i class="Hui-iconfont"></i> 表单自定义设计<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+				<dd style="display: block;"><ul>
+				<li><a data-href="{:url('Formdesign/index')}" data-title="工作流列表" href="javascript:void(0)">表单设计</a></li>
 				</dd>
 			</dl>
 			<dl>
