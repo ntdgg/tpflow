@@ -26,6 +26,9 @@
             </div></td></tr>
 <tr><td>步骤类型</td><td  colspan='3'><input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
                 <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>设为第一步</td></tr>
+				<tr><td>步骤模式</td><td  colspan='3'>
+				<input type="radio">
+				转出模式|<input type="radio">同步模式|<input type="radio">单一模式|<input type="radio">散性步骤</td></tr>
 <tr><td>会签方式</td><td><select name="is_sing" >
               <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
               <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
@@ -65,7 +68,7 @@
 					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a>
                
             </div></td></tr>
-<tr><td>步骤过程</td><td colspan=3> <div id="current_flow">
+<!-- <tr><td>步骤过程</td><td colspan=3> <div id="current_flow">
             <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
             {volist name="process_to_list" id="vo"}
                 {if condition="$vo['id'] neq $one['id']"}
@@ -73,7 +76,7 @@
                 {/if}
             {/volist}
             </select>
-        </div></td></tr>
+        </div></td></tr> -->
 <tr><td colspan=4>
 <table class="table" >
       <thead>
