@@ -99,8 +99,7 @@ require_once BEASE_URL . '/msg/mail.php';
 			if ($wf_fid == '' || $wf_type == '') {
 				return ['msg'=>'单据编号，单据表不可为空！','code'=>'-1'];
 			}
-			$wf = InfoDB::workflowInfo($wf_fid,$wf_type);
-			return $wf;
+			return InfoDB::workflowInfo($wf_fid,$wf_type);
 		}
 		/*
 		 * 获取下一步骤信息

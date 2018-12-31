@@ -81,7 +81,6 @@
 
 <!--模板-->
 {volist name='process_to_list' id='k'}
-{if condition="$k['id'] neq $one['id']"}
 {if condition="in_array($k['id'],$one['process_to'])"}
 <tr>    
 <td style="width: 30px;">{$k.process_name}{$k.id}</td>
@@ -134,7 +133,7 @@
     </table>
 </td>
 </tr>
-{/if}{/if}
+{/if}
 {/volist}
 {/if}
 

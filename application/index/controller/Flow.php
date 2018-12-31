@@ -134,7 +134,7 @@ class Flow extends Controller {
 		$flowinfo = $workflow->getprocessinfo($pid,$run_id);
 		return $flowinfo;
 	}
-	 public function upindex()
+	 public function wfup()
     {
         return $this->fetch('upload');
     }

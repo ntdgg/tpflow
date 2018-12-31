@@ -1,10 +1,10 @@
 {include file='pub/base' /}
 <article class="page-container">
 		{present name="info.id"}
-			<form action="{:url('edit')}" method="post" name="form" id="form">
+			<form action="{:url('wfedit')}" method="post" name="form" id="form">
 			<input type="hidden" name="id" value="{$info.id}">
 		{else /}
-			<form action="{:url('add')}" method="post" name="form" id="form">
+			<form action="{:url('wfadd')}" method="post" name="form" id="form">
 		{/present}
 		<table class="table table-border table-bordered table-bg">
 			<tr>

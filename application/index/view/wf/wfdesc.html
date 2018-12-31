@@ -61,7 +61,7 @@ $(function(){
     var _canvas = $("#flowdesign_canvas").Flowdesign({
                       "processData":{$process_data|raw}
                       ,fnClick:function(){ /*步骤单击*/
-						  var url = "{:url('attribute')}?id="+_canvas.getActiveId();
+						  var url = "{:url('wfatt')}?id="+_canvas.getActiveId();
 						  $('#iframepage').attr('src',url);
                       },fnDbClick:function(){
 						if(confirm("你确定删除步骤吗？")){

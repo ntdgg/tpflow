@@ -42,7 +42,6 @@ class ProcessDb{
 	 **/
 	public static function GetNexProcessInfo($wf_type,$wf_fid,$pid)
 	{
-		$info = Db::name($wf_type)->find($wf_fid);
 		$nex = Db::name('flow_process')->find($pid);
 		if($nex['process_to'] !=''){
 		$nex_pid = explode(",",$nex['process_to']);

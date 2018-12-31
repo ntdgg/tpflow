@@ -146,9 +146,12 @@ class InfoDB{
 		$workflow = [];
 		require ( BEASE_URL . '/config/config.php');//  
 		$count = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->count();
+		
 		if($count > 0){
 			$result = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('status','eq',0)->find();
+			
 			$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
+			
 			if ($result) {
 				$workflow ['sing_st'] = 0;
 				$workflow ['flow_id'] = $result['flow_id'];
@@ -156,11 +159,16 @@ class InfoDB{
 				$workflow ['status'] = $info;
 				$workflow ['flow_process'] = $info['run_flow_process'];
 				$workflow ['run_process'] = $info['id'];
+					
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
+				
 				$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process']);
 				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process']);
+				
 				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);
+				
 				$workflow ['singuser'] = UserDb::GetUser();
+			
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 				if($result['is_sing']==1){
 					$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
@@ -177,6 +185,7 @@ class InfoDB{
 			$workflow ['bill_check'] = '';
 			$workflow ['bill_time'] = '';
 		}
+		
 		return $workflow;
 	}
 	
