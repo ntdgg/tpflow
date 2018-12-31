@@ -123,6 +123,7 @@ class Flowdesign extends Admin {
     public function attribute()
     {
 	    $info = $this->work->ProcessApi('ProcessAttView',input('id'));
+		//dump($info);
 	    $this->assign('op',$info['show']);
         $this->assign('one',$info['info']);
 		$this->assign('from',$info['from']);
@@ -130,72 +131,9 @@ class Flowdesign extends Admin {
         $this->assign('child_flow_list',$info['child_flow_list']);
 		return $this->fetch();
     }
-    
-    //$json_data is json    
-    //return json
-    public function parse_out_condition($json_data,$field_data)
-    {
-        $array = json_decode($json_data,true);
-        if(!$array)
-        {
-            return '[]';
-        }
-        
-        $json_data = array();//重置
-        foreach($array as $key=>$value)
-        {
-            $condition = '';
-            foreach($value['condition'] as $val)
-            {
-                //匹配 $field_data 
-                //把data_x 替换回 中文名称
-                $preg =  "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
-                preg_match_all($preg,$val,$temparr);
-                $val_text = '';
-                foreach($temparr[0] as $k=>$v)
-                {
-                    $field_name = self::get_field_name($temparr[1][$k],$field_data);
-                    if($field_name)
-                        $val_text = str_replace($v,"'".$field_name."'",$val);
-                    else
-                        $val_text = $val;
-                }
-                
-                $condition.='<option value="'.$val.'">'.$val.'</option>';
-            }
-            
-            $value['condition'] = $condition;
-            $json_data[$key] = $value;
-        }
-        
-        return json_encode($json_data);
-    }
-    
-    //通过 name  data_x 找到 title
-    public function get_field_name($field,$field_data)
-    {
-        $field = trim($field);
-        if(!$field) return '';
-        $title = '';
-        foreach($field_data as $value)
-        {
-            if($value['leipiplugins'] =='checkboxs' && $value['parse_name']==$field)
-            {
-                $title = $value['title'];
-                break;
-            }else if($value['name']==$field)
-            {
-                $title = $value['title'];
-                break;
-            }
-        }
-        return $title;
-    }
-    
     public function save_attribute()
     {
 	    $data = input('post.');
-		
 		return json($this->work->ProcessApi('ProcessAttSave',$data['process_id'],$data));
     }
    

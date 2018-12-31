@@ -81,11 +81,6 @@ function saveAttribute(data)
        // $('#conList_'+id+' option').eq(current).text(sText)
        $('#conList_'+id).append('<option value="( ">( </option>');
 
-       /* var oMyop = document.createElement('option');
-        oMyop.text = "( ";
-        var nPos = oObj.options.length;
-        oObj.appendChild(oMyop,nPos);*/
-
     }
     /**
      * 增加右括号表达式
@@ -174,21 +169,15 @@ function saveAttribute(data)
                     oObj.options[sLength-1].value += " " + sRelation + " " + sNewText;
                 }
             }
-<<<<<<< HEAD:public/static/work/js/flowdesign/attribute.js
-			check_form();
-=======
+
 			check_from();
->>>>>>> 7f7b8f4901dce2882aee6d27b214c9634443f064:public/static/work/workflow-att.3.0.js
         } else {
             alert("请补充完整条件");
             return;
         }
     }
-<<<<<<< HEAD:public/static/work/js/flowdesign/attribute.js
-	  function check_form(){
-=======
+	 
 	function check_from(){
->>>>>>> 7f7b8f4901dce2882aee6d27b214c9634443f064:public/static/work/workflow-att.3.0.js
       //条件检测
       var cond_data  = $("#process_condition").val();
       if( cond_data !== ''){
@@ -199,11 +188,7 @@ function saveAttribute(data)
                   if(obj.length>0){
                       var constr = '';
                       for( var j=0;j<obj.options.length;j++){
-<<<<<<< HEAD:public/static/work/js/flowdesign/attribute.js
-                          constr += obj.options[j].value+'@leipi@';
-=======
                           constr += obj.options[j].value+'@wf@';
->>>>>>> 7f7b8f4901dce2882aee6d27b214c9634443f064:public/static/work/workflow-att.3.0.js
                           if(!fnCheckExp(constr)){
                               alert("条件表达式书写错误,请检查括号匹配");
                               $('#condition').click();
@@ -240,102 +225,10 @@ function saveAttribute(data)
     function fnClearCon(id){
         $('#conList_' + id).html('');
     }
-    //根据基本信息的下一步骤，设置《条件设置》tab的条件列表
-    function fnSetCondition(){
-		
-        if($("#process_multiple option:selected").length<=1)
-        {
-            $('#tab_attrJudge').hide();
-        }else
-        {
-            var ids = '';
-            $('#ctbody').html('');
-            $('#tab_attrJudge').show();
-            $("#process_multiple option").each(function(){
-                if($(this).val()>0 && $(this).attr("selected"))
-                {
-                    var id = $(this).val(),
-                        text=$(this).text(),
-                        node = $('#tpl').html();
-
-                    var s = node.replace(/\@a/g,id);
-                    if(id!=0){
-                        text = '<span class="badge badge-inverse">' +id+'</span><br/>' +text;
-                    }
-                    s = s.replace(/\@text/g,text);
-                    s = "<tr>"+s+"<tr>";
-                    $('#ctbody').append(s);
-                    ids += id +',';
-                    
-                    if(_out_condition_data)
-                    {
-                        $.each(_out_condition_data,function(i,n){
-							alert(n.condition);
-                            if(i==id && _id('conList_'+i )){
-                                $('#conList_'+i).append(n.condition);
-                              
-                            }
-                        });
-                    }
-                }
-            });
-            if(ids)
-            {
-                $("#process_condition").val(ids);
-            }
-  
-        }
-    }
     
 //-----条件设置--end----------------
 
 $(function(){
-//TAB
-    $('#attributeTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-      if($(this).attr("href")=='#attrJudge')
-      {
-          //加载下一步数据 处理 决策项目 
-      }
-    })
-
-  //步骤类型
-  $('input[name="process_type"]').on('click',function(){
-     
-      if($(this).val()=='is_child')
-      {
-          $('#current_flow').hide();
-          $('#child_flow').show();
-      }else
-      {
-          $('#current_flow').show();
-          $('#child_flow').hide();
-      }
-  });
-  //返回步骤
-  $('input[name="child_after"]').on('click',function(){
-     
-      if($(this).val()==2)
-      {
-          $("#child_back_id").show();
-      }else
-      {
-          $("#child_back_id").hide();
-      }
-  });
-  
-    //步骤select 2
-  $('#process_multiple').multiselect2side({
-      labelsx: '<i class="icon-ok"></i> 下一步步骤',
-      labeldx: '<i class="icon-list"></i> 备选步骤',
-      selectedPosition: 'right',  
-	  moveOptions: false, 
-      minSize: 5
-    });
-
-
-
   //选人方式
   $("#auto_person_id").on('change',function(){
       var apid = $(this).val();
@@ -349,107 +242,22 @@ $(function(){
 	  if(apid==3)//指定用户
       {
           $("#auto_person_3").show();
-      }else
-      {
+      }else{
           $("#auto_person_3").hide();
       }
       if(apid==4)//指定用户
       {
           $("#auto_person_4").show();
-      }else
-      {
+      }else{
           $("#auto_person_4").hide();
       }
       if(apid==5)//指定角色
       {
           $("#auto_person_5").show();
-      }else
-      {
+      }else{
           $("#auto_person_5").hide();
       }
   });
- 
-
-
-
-    /*---------表单字段 start---------*/
-  //可写字段
-  function write_click(e){
-      var id = $(e).attr('key');
-      if(!$(e).attr('disabled')){
-          if($(e).attr('checked')){
-              $('#secret_'+id).attr({'disabled':true,'checked':false});
-          } else {
-              $('#secret_'+id).removeAttr('disabled').attr('checked',false);
-          }
-      }
-  }
-  //保密字段
-  function secret_click(e){
-      var id = $(e).attr('key');
-
-      if(!$(e).attr('disabled')){
-          if($(e).attr('checked')){
-              $('#write_'+id).attr({'disabled':true,'checked':false});
-          } else {
-              $('#write_'+id).removeAttr('disabled').attr('checked',false);
-          }
-      }
-  }
-  //checkbox全选及反选操作
-  function icheck(ac,op){
-      if(ac=='write'){
-          $("input[name='write_fields[]']").each(function(){
-              if(this.disabled !== true){
-                  this.checked = op;
-              }
-              write_click(this);
-          })
-      } else if(ac == 'secret') {
-          $("input[name='secret_fields[]']").each(function(){
-              if(this.disabled !== true){
-                  this.checked = op;
-              }
-              secret_click(this);
-          })
-      }
-  }
-
-  $('#write').click(function(){
-      if($(this).attr('checked')){
-          icheck('write',true);
-          $('#secret').attr({'disabled':true,'checked':false});
-          $('#check').attr('checked',false).removeAttr('disabled');
-      } else {
-          icheck('write',false);
-          $('#secret').attr('checked',false).removeAttr('disabled');
-          $('#check').attr({'disabled':true,'checked':false});
-      }
-  })
-  $('#secret').click(function(){
-      if($(this).attr('checked')){
-          icheck('secret',true)
-          $('#write').attr({'disabled':true,'checked':false});
-      } else {
-          icheck('secret',false);
-          $('#write').attr('checked',false).removeAttr('disabled');
-      }
-  })
-
-  $("input[name='write_fields[]']").click(function(){
-      write_click(this);
-      $('#write').removeAttr('disabled');
-      if($('#write').attr('checked')==true){
-          $('#write').attr('checked',false)
-      }
-  })
-  $("input[name='secret_fields[]']").click(function(){
-      secret_click(this);
-      $('#secret').removeAttr('disabled');
-      if($('#secret').attr('checked')==true){
-          $('#secret').attr('checked',false)
-      }
-  })
   /*---------表单字段 end---------*/
 
   /*样式*/
@@ -459,30 +267,10 @@ $(function(){
         self.siblings().removeClass('active');
       }
       var color = self.attr('org-data') ? self.attr('org-data') : '';
-
-     
       var parentDiv = self.parents(".colors");
       var orgBind = parentDiv.attr("org-bind");
-      if(orgBind == 'style_icon')
-      {
-          /*$("#"+orgBind).css({ color:'#fff',background: color });*/
-          $("#"+orgBind).val(color);
-          $("#style_icon_preview").attr("class",color + " icon-white");
-      }else//颜色
-      {
-          $("#"+orgBind).css({ color:'#fff',background: color });
-          $("#"+orgBind).val(color);
-      }
+      $("#"+orgBind).css({ color:'#fff',background: color });
+      $("#"+orgBind).val(color);
       self.addClass('active');
   });
-
-
-
-
-  //表单提交前检测
-
-
-   //条件设置
-  fnSetCondition();
-
 });

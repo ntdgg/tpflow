@@ -68,15 +68,7 @@
 					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a>
                
             </div></td></tr>
-<!-- <tr><td>步骤过程</td><td colspan=3> <div id="current_flow">
-            <select multiple="multiple" size="6" name="process_to[]" id="process_multiple" >
-            {volist name="process_to_list" id="vo"}
-                {if condition="$vo['id'] neq $one['id']"}
-                    <option value="{$vo.id}" {if condition="in_array($vo['id'],$one['process_to'])"}selected="selected"{/if}>{$vo.process_name}</option>
-                {/if}
-            {/volist}
-            </select>
-        </div></td></tr> -->
+{if condition='count($one.process_to)>0'}
 <tr><td colspan=4>
 <table class="table" >
       <thead>
@@ -88,20 +80,23 @@
       <tbody>
 
 <!--模板-->
-<tr id="tpl" class="hide">    
-<td style="width: 30px;">@text</td>
+{volist name='process_to_list' id='k'}
+{if condition="$k['id'] neq $one['id']"}
+{if condition="in_array($k['id'],$one['process_to'])"}
+<tr>    
+<td style="width: 30px;">{$k.process_name}{$k.id}</td>
 <td>
     <table class="table table-condensed">
     <tbody>
       <tr>
         <td>
-            <select id="field_@a" class="smalls">
+            <select id="field_{$k.id}" class="smalls">
               <option value="">选择字段</option>
 			  {volist name='from' id='v'}
 			  <option value="{$key}">{$v}</option>
 			  {/volist}
             </select>
-            <select id="condition_@a" class="smalls" style="width: 60px;">
+            <select id="condition_{$k.id}" class="smalls" style="width: 60px;">
 				<option value="=">=</option>
 				<option value="&lt;&gt;"><></option>
 				<option value="&gt;">></option>
@@ -111,25 +106,27 @@
 				<option value="include">含</option>
 				<option value="exclude">不含</option>
             </select>
-            <input type="text" id="item_value_@a" class="smalls" style="width: 40px;">
-            <select id="relation_@a" class="smalls" style="width: 40px;"><option value="AND">AND</option><option value="OR">OR</option>
+            <input type="text" id="item_value_{$k.id}" class="smalls" style="width: 40px;">
+            <select id="relation_{$k.id}" class="smalls" style="width: 40px;"><option value="AND">AND</option><option value="OR">OR</option>
             </select>
         </td>
         <td>
-			<button type="button" class="wf_btn" onclick="fnAddLeftParenthesis('@a')">（</button>
-			<button type="button" class="wf_btn" onclick="fnAddRightParenthesis('@a')">）</button>
-			<button type="button" onclick="fnAddConditions('@a')" class="wf_btn">新增</button>
+			<button type="button" class="wf_btn" onclick="fnAddLeftParenthesis('{$k.id}')">（</button>
+			<button type="button" class="wf_btn" onclick="fnAddRightParenthesis('{$k.id}')">）</button>
+			<button type="button" onclick="fnAddConditions('{$k.id}')" class="wf_btn">新增</button>
         </td>
        </tr>
        <tr>
         <td>
-            <select id="conList_@a" multiple="" style="width: 100%;height: 80px;"></select>
+            <select id="conList_{$k.id}" multiple="" style="width: 100%;height: 80px;">
+			{$k.condition|raw}
+			</select>
         </td>
         <td>
            
-        <button type="button" onclick="fnDelCon('@a')" class="wf_btn">删行</button>
-        <button type="button" onclick="fnClearCon('@a')" class="wf_btn">清空</button>
-           <input name="process_in_set_@a" id="process_in_set_@a" type="hidden">
+        <button type="button" onclick="fnDelCon('{$k.id}')" class="wf_btn">删行</button>
+        <button type="button" onclick="fnClearCon('{$k.id}')" class="wf_btn">清空</button>
+           <input name="process_in_set_{$k.id}" id="process_in_set_{$k.id}" type="hidden">
         </td>
       </tr>
      
@@ -137,18 +134,18 @@
     </table>
 </td>
 </tr>
-
+{/if}{/if}
+{/volist}
+{/if}
 
   </tbody>
-  <tbody id="ctbody">
-
-  </tbody>
+  
 </table>
 </td></tr>
 </table>
 
     
-<input type="hidden" name="process_condition" id="process_condition">
+<input type="hidden" name="process_condition" id="process_condition" value='{$one.process_tos}'>
 
 <div>
   <hr/>
@@ -166,9 +163,6 @@
 <!--flowdesign-->
 <script type="text/javascript" src="__Flow__/workflow-att.3.0.js"></script>
 
-<script type="text/javascript">
-var _out_condition_data = {$one.out_condition|raw};
-</script>
 
 <script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
 <script type="text/javascript">

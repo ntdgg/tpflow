@@ -291,12 +291,15 @@ class FlowDb
         if (!$flow_one) {
             return ['status' => 0, 'msg' => '未找到流程信息!', 'info' => ''];
         }
+		$one['process_tos'] = $one['process_to'];
         $one['process_to'] = $one['process_to'] == '' ? array() : explode(',', $one['process_to']);
         $one['style'] = json_decode($one['style'], true);
-        $one['write_fields'] = $one['write_fields'] == '' ? array() : explode(',', $one['write_fields']);//可写字段
-        $one['secret_fields'] = $one['secret_fields'] == '' ? array() : explode(',', $one['secret_fields']);//保密 隐藏的字段
         $one['out_condition'] = self::parse_out_condition($one['out_condition'], '');//json
-        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('flow_id', $one['flow_id'])->where('is_del', 0)->select();
+        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('id','in' ,$one['process_tos'])->where('is_del', 0)->select();
+		foreach($process_to_list as $k=>$v){
+			$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
+		}
+		
         $child_flow_list = db('flow')->field('id,flow_name')->where('is_del', 0)->select();
         return ['show' => 'basic', 'info' => $one, 'process_to_list' => $process_to_list, 'child_flow_list' => $child_flow_list, 'from' => self::get_db_column_comment($flow_one['type'])];
     }
@@ -333,7 +336,7 @@ class FlowDb
             $json_data[$key] = $value;
         }
 
-        return json_encode($json_data);
+        return $json_data;
     }
 
     //通过 name  data_x 找到 title
