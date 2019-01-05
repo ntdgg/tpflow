@@ -161,6 +161,19 @@ require_once BEASE_URL . '/msg/mail.php';
 			return $info;
 		}
 		/*
+		 * FlowLog API
+		 *
+		 **/
+		function FlowLog($logtype,$wf_fid,$wf_type)
+		{
+			if ($logtype == "logs") {
+					$info = ProcessDb::RunLog($wf_fid,$wf_type);//获取log
+				}else{
+					throw new \Exception ( "参数出错！" );
+				}
+			return $info;
+		}
+		/*
 		 * ProcessDesc API
 		 * 
 		 **/
