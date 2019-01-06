@@ -200,6 +200,23 @@ require_once BEASE_URL . '/msg/mail.php';
 			return $info;
 		}
 		
+		/*
+		 * SuperApi API
+		 * 
+		 **/
+		function SuperApi($stype,$key,$data='')
+		{
+			$taskService = new TaskService();//工作流服务
+			if ($stype == "WfEnd") {
+					$ret = $taskService->doSupEnd($key,$data); //终止工作流
+				} else if ($UserType == "Role") {    
+					$info = UserDb::GetRole();
+				}else{
+					throw new \Exception ( "参数出错！" );
+				}
+			return $ret;
+		}
+
 		function getprocessinfo($pid,$run_id){
 			if( @$pid=='' || @$run_id ==''){
 		       	throw new \Exception ( "config参数信息不全！" );
