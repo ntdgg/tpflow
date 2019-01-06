@@ -209,7 +209,7 @@ require_once BEASE_URL . '/msg/mail.php';
 			$taskService = new TaskService();//工作流服务
 			if ($stype == "WfEnd") {
 					$ret = $taskService->doSupEnd($key,$data); //终止工作流
-				} else if ($UserType == "Role") {    
+				} else if ($stype == "Role") {    
 					$info = UserDb::GetRole();
 				}else{
 					throw new \Exception ( "参数出错！" );

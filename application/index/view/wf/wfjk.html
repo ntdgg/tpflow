@@ -12,6 +12,7 @@
 				<th >当前状态</th>
 				<th >业务办理人</th>
 				<th >业务描述</th>
+				<th >操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,12 +30,33 @@
 				</td>
 				<td>{$k.user}</td>
 				<td>{:date('Y-m-d H:i:s',$k['dateline'])}</td>
+				<td>
+				<a onclick='end({$k.id})'>终止</a>  |  
+				{:action('wf/btn',['wf_fid'=>$k.id,'wf_type'=>$k.from_table,'status'=>100])}
+				</td>
 				
 			</tr>
 			{/volist}
 		</tbody>
 	</table>
 </div>
-
+<script>
+function end(id){
+		layer.confirm('你确定终止此流程？[此操作无法恢复]',function(index){
+			$.ajax({
+				type: 'POST',
+				url: '{:U("wfend")}?id='+id,
+				dataType: 'json',
+				success: function(data){
+					layer.msg('操作成功!',{icon:1,time:1000});
+					//setTimeout("location.reload()",1000);
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});		
+		});
+	}
+</script>
 </body>
 </html>

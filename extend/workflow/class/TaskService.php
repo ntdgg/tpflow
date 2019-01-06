@@ -17,7 +17,7 @@ class TaskService{
 	public function doTask($config,$uid){
 		require_once BEASE_URL . '/class/command/TaskFlow.php';
 		$command = new TaskFlow();
-		$command->doTask($config,$uid);
+		return $command->doTask($config,$uid);
 	}
 	/**
 	 * 流程驳回
@@ -28,7 +28,7 @@ class TaskService{
 	public function doBack($config,$uid){
 		require_once BEASE_URL . '/class/command/BackFlow.php';
 		$command = new BackFlow();
-		$command->doTask($config,$uid);
+		return $command->doTask($config,$uid);
 	}
 	/**
 	 * 会签操作
@@ -39,7 +39,7 @@ class TaskService{
 	public function doSing($config,$uid){
 		require_once BEASE_URL . '/class/command/SingFlow.php';
 		$command = new SingFlow();
-		$command->doTask($config,$uid);
+		return $command->doTask($config,$uid);
 	}
 	
 	/**
@@ -51,6 +51,17 @@ class TaskService{
 	public function doSingEnt($config,$uid,$wf_actionid){
 		require_once BEASE_URL . '/class/command/SingFlow.php';
 		$command = new SingFlow();
-		$command->doSingEnt($config,$uid,$wf_actionid);
+		return $command->doSingEnt($config,$uid,$wf_actionid);
+	}
+	/**
+	 * 实例超级接口
+	 * 
+	 * @param  $wfid 工作流ID run_id
+	 * @param  $uid  用户ID
+	 */
+	public function doSupEnd($wfid,$uid){
+		require_once BEASE_URL . '/class/command/DosupFlow.php';
+		$command = new DosupFlow();
+		return $command->doSupEnd($wfid,$uid);
 	}
 }

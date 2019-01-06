@@ -200,7 +200,9 @@ class wf extends Admin {
 				}else{
 				 return '<span class="btn  radius size-S">无权限</span>';
 			}
-		
+		case 100:
+			echo '<span class="btn btn-primary" onclick=layer_show(\'代审\',"'.$url.'?sup=1","850","650")>代审</span>';
+		  break;
 		 
 		  break;
 		default:
@@ -265,6 +267,12 @@ class wf extends Admin {
     {
         return $this->fetch();
     }
+	
+	public function wfend()
+	{
+		$flowinfo =  $this->work->SuperApi('WfEnd',input('get.id'),$this->uid);
+		return msg_return('Success!');
+	}
 	public function wfupsave()
     {
         $files = $this->request->file('file');
