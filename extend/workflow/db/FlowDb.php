@@ -297,9 +297,12 @@ class FlowDb
         $one['out_condition'] = self::parse_out_condition($one['out_condition'], '');//json
         $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('id','in' ,$one['process_tos'])->where('is_del', 0)->select();
 		foreach($process_to_list as $k=>$v){
-			$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
+			if(count($one['out_condition'])>0){
+				$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
+			}else{
+				$process_to_list[$k]['condition'] = '';
+			}
 		}
-		
         $child_flow_list = db('flow')->field('id,flow_name')->where('is_del', 0)->select();
         return ['show' => 'basic', 'info' => $one, 'process_to_list' => $process_to_list, 'child_flow_list' => $child_flow_list, 'from' => self::get_db_column_comment($flow_one['type'])];
     }
