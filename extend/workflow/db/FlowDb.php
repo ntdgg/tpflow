@@ -239,14 +239,16 @@ class FlowDb
         $process_condition = trim($datas['process_condition'], ',');//process_to
         $process_condition = explode(',', $process_condition);
         $out_condition = array();
-        foreach ($process_condition as $value) {
-            $value = intval($value);
-            if ($value > 0) {
-                $condition = trim($datas['process_in_set_' . $value], "@wf@");
-                $condition = $condition ? explode("@wf@", $condition) : array();
-                $out_condition[$value] = ['condition' => $condition];
-            }
-        }
+		if(count($process_condition)>1){
+			foreach ($process_condition as $value) {
+				$value = intval($value);
+				if ($value > 0) {
+					$condition = trim($datas['process_in_set_' . $value], "@wf@");
+					$condition = $condition ? explode("@wf@", $condition) : array();
+					$out_condition[$value] = ['condition' => $condition];
+				}
+			}
+		}
 
         $data = [
             'process_name' => $datas['process_name'],
