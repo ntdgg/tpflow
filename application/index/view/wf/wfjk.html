@@ -45,7 +45,7 @@ function end(id){
 		layer.confirm('你确定终止此流程？[此操作无法恢复]',function(index){
 			$.ajax({
 				type: 'POST',
-				url: '{:U("wfend")}?id='+id,
+				url: '{:url("wfend")}?id='+id,
 				dataType: 'json',
 				success: function(data){
 					layer.msg('操作成功!',{icon:1,time:1000});

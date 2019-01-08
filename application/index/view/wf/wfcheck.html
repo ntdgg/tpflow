@@ -10,7 +10,7 @@
 <input type="hidden" value="{$flowinfo.run_id}" name="run_id" id='run_id'>
 <input type="hidden" value="{$flowinfo.run_process}" name="run_process">
 <input type="hidden" value="{$flowinfo['nexprocess']['id']}" name="npid">
-<input type="hidden" value="{$_GET['sup']}" name="sup">
+<input type="hidden" value="{$_GET['sup'] ?? ''}" name="sup">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
 			<tr>
@@ -109,7 +109,7 @@
 		<table class="table table-border table-bordered mt-20" style='width:98%'>
 		<tr><td>
 		
-		<iframe src="{:url('news/view',['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+		<iframe src="{:url($info.wf_type.'/view',['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
 		
 		</td></tr>
 		</table>
