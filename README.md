@@ -12,9 +12,57 @@
 ## 码云唯一开源的PHP工作流插件，欢迎加入我们，完善插件
 
 
-
 ---
 > 新增众多接口，3.0正式版发布在即，欢迎提出更多建议和意见。
+
+
+## 接口示例，以Thinkphp为例
+
+```
+<?php
+namespace app\index\Controller;
+use app\common\controller\admin;
+use workflow\workflow;
+
+class Flowdesign extends Admin {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->work = new workflow();
+    }
+    /**
+	 * 流程设计首页
+	 */
+   public function lists($map = []){
+        $this->assign('list',$this->work->FlowApi('List'));
+		$this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
+        return  $this->fetch();
+    }
+.......
+```
+>## FlowApi 用法很简单，主要是对Flow工作流的数据封装
+>详细可以阅读以下API调用方法及示例
+
+| 参数名称  | 参数变量 |示例/说明 |
+|---|---|---|
+| List  |  ~~~ |$work->FlowApi('List'); //直接获取到工作流列表数据 |
+| AddFlow  |  $work->FlowApi('AddFlow',$data) | $data //POST数据 |
+| EditFlow|  $work->FlowApi('EditFlow',$data); |$data //POST数据 |
+| GetFlowInfo|  $work->FlowApi('GetFlowInfo',input('id')) |$id 为Flow组件 |
+
+
+
+>## ProcessApi用法很简单，主要是对工作流的步骤进行封装
+>详细可以阅读以下API调用方法及示例
+
+| 参数名称  | 参数变量 |示例/说明 |
+|---|---|---|
+| All| $flow_id 流程主键 |$this->work->ProcessApi('All',$flow_id); //获取对应流程所有步骤信息，返回JSON json_encode(['total'=>$process_total,'list'=>$process_data]
+| ProcessDel|  $this->work->ProcessApi('ProcessDel',$flow_id,$process_id) | $process_id $flow_id 返回Array 
+| ProcessDelAll| $this->work->ProcessApi('ProcessDelAll',$flow_id); |$flow_id  清空所有步骤
+| ProcessLink|  $this->work->ProcessApi('ProcessLink',$flow_id,$process_info) |保存设计 |
+| ProcessAttView|  $this->work->ProcessApi('ProcessAttView',input('id')) |查看步骤设置 |
+| ProcessAttSave|  $this->work->ProcessApi('ProcessAttSave',$data['process_id'],$data) |保存步骤信息 |
 
 ---
 
@@ -25,7 +73,6 @@
 > 工作流手册：https://www.kancloud.cn/guowenbin/tpflow
 
 > 视频教程：http://www.cojz8.com/article/86
-
 
 ---
 
