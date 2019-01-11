@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-12-21 16:19:50
+Date: 2019-01-11 17:15:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,7 +37,7 @@ CREATE TABLE `wf_flow` (
 -- ----------------------------
 INSERT INTO `wf_flow` VALUES ('1', 'news', '测试', '2', '1', '0', '0', '8', '1531985796');
 INSERT INTO `wf_flow` VALUES ('2', 'news', '测试', '223', '1', '0', '0', '7', '1543372377');
-INSERT INTO `wf_flow` VALUES ('3', 'news', '2222', '11', '11', '0', '0', '7', '1545377581');
+INSERT INTO `wf_flow` VALUES ('3', 'news', '22222', '11', '11', '0', '0', '7', '1545377581');
 
 -- ----------------------------
 -- Table structure for `wf_flow_process`
@@ -87,21 +87,23 @@ CREATE TABLE `wf_flow_process` (
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `wf_mode` int(10) unsigned DEFAULT '0' COMMENT '0 单一线性，1，转出条件 2，同步模式',
+  `wf_action` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_flow_process
 -- ----------------------------
-INSERT INTO `wf_flow_process` VALUES ('1', '1', '新建步骤', 'is_one', '2', '0', null, '1', '0', null, null, null, null, null, null, '4', '0', '7', '市场部员工1', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '662', '269', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1533519195', '0');
-INSERT INTO `wf_flow_process` VALUES ('2', '1', '新建步骤', 'is_step', '', '0', null, '1', '0', null, null, null, null, null, null, '4', '0', '9', '新闻部员工1', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '1049', '392', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1533519195', '0');
-INSERT INTO `wf_flow_process` VALUES ('3', '1', '新建步骤', 'is_step', '', '0', null, '1', '0', null, null, null, null, null, null, '0', '1', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '825', '510', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1533519195', '0');
-INSERT INTO `wf_flow_process` VALUES ('4', '1', '新建步骤', 'is_step', '', '0', null, '1', '0', null, null, null, null, null, null, '0', '1', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '872', '566', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1533519195', '0');
-INSERT INTO `wf_flow_process` VALUES ('19', '2', '步骤', 'is_one', '20', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '269', '378', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545360137', '0');
-INSERT INTO `wf_flow_process` VALUES ('20', '2', '步骤', 'is_step', '', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '600', '473', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545360137', '0');
-INSERT INTO `wf_flow_process` VALUES ('21', '2', '步骤', 'is_step', '19,22', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '100', '100', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545360137', '0');
-INSERT INTO `wf_flow_process` VALUES ('22', '2', '步骤', 'is_step', '', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '533', '198', '{\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545360137', '0');
-INSERT INTO `wf_flow_process` VALUES ('23', '2', '步骤', 'is_step', '', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '737', '265', '{\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545360137', '0');
+INSERT INTO `wf_flow_process` VALUES ('1', '1', '新建步骤', 'is_one', '2', '0', null, '1', '0', null, null, null, null, null, null, '4', '0', '7', '市场部员工1', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '662', '269', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1533519195', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('2', '1', '新建步骤', 'is_step', '', '0', null, '1', '0', null, null, null, null, null, null, '4', '0', '9', '新闻部员工1', '', '', '', '', '0', '', '', '', '', '', '', '0', '0', '0', '1', '0', '1', '[]', '1049', '392', '{\"width\":120,\"height\":30,\"color\":\"#0e76a8\",\"icon\":\"icon-star\"}', '0', '1533519195', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('3', '1', '新建步骤', 'is_step', '', '0', null, '1', '0', null, null, null, null, null, null, '0', '1', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '825', '510', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1533519195', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('4', '1', '新建步骤', 'is_step', '', '0', null, '1', '0', null, null, null, null, null, null, '0', '1', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '872', '566', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"30\",\"color\":\"#0e76a8\"}', '0', '1533519195', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('19', '2', '步骤', 'is_step', '20', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '269', '378', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545623256', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('20', '2', '步骤', 'is_step', '', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '600', '473', '{\"icon\":\"icon-star\",\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545623256', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('21', '2', '步骤', 'is_one', '19,22', '0', null, '0', '0', null, null, null, null, null, null, '4', '0', '7', '市场部员工1', '', '', '', '', '0', '7,10', '市场部员工1,新闻部经理', null, null, null, null, '0', '0', '0', '1', '0', '1', '[]', '100', '100', '{\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545623257', '0', '1', 'view');
+INSERT INTO `wf_flow_process` VALUES ('22', '2', '步骤', 'is_step', '', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '854', '200', '{\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '1545623257', '0', '0', 'view');
+INSERT INTO `wf_flow_process` VALUES ('23', '3', '步骤', 'is_one', '', '0', null, '0', '0', null, null, null, null, null, null, '0', '0', '', '', '', '', '', '', '0', null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', null, '100', '100', '{\"width\":\"120\",\"height\":\"38\",\"color\":\"#0e76a8\"}', '0', '0', '0', '0', 'view');
 
 -- ----------------------------
 -- Table structure for `wf_form`
@@ -176,13 +178,14 @@ CREATE TABLE `wf_news` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '-1回退修改0 保存中1流程中 2通过',
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_news
 -- ----------------------------
 INSERT INTO `wf_news` VALUES ('1', '8', '1531985783', '测试', '1', '1', '&lt;p&gt;测试&lt;/p&gt;', null, '2', '1531985887');
-INSERT INTO `wf_news` VALUES ('2', '7', '1533519292', '123', '1', '1', '&lt;p&gt;123&lt;/p&gt;', null, '1', '1533519298');
+INSERT INTO `wf_news` VALUES ('2', '7', '1533519292', '123', '1', '1', '&lt;p&gt;123&lt;/p&gt;', null, '2', '1547175275');
+INSERT INTO `wf_news` VALUES ('3', '7', '1546587578', '123', '1', '1', '			3123			', null, '2', '1547175445');
 
 -- ----------------------------
 -- Table structure for `wf_news_type`
@@ -281,13 +284,14 @@ CREATE TABLE `wf_run` (
   KEY `cache_run_id` (`cache_run_id`),
   KEY `uid` (`uid`),
   KEY `is_del` (`is_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_run
 -- ----------------------------
 INSERT INTO `wf_run` VALUES ('1', '0', 'news', '1', '0', '0', '8', '1', '0', '1', '1', '2', '', '1531985887', '1', '0', '0', '1531985853', '0', null);
-INSERT INTO `wf_run` VALUES ('2', '0', 'news', '2', '0', '0', '7', '1', '0', '2', '1', '2', '', '0', '0', '0', '0', '1533519298', '0', null);
+INSERT INTO `wf_run` VALUES ('2', '0', 'news', '2', '0', '0', '7', '1', '0', '2', '1', '2', '', '1547175275', '1', '0', '0', '1533519298', '0', null);
+INSERT INTO `wf_run` VALUES ('3', '0', 'news', '3', '0', '0', '7', '1', '0', '3', '1', '1', '', '1547175445', '1', '0', '0', '1546587585', '0', null);
 
 -- ----------------------------
 -- Table structure for `wf_run_cache`
@@ -306,13 +310,14 @@ CREATE TABLE `wf_run_cache` (
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `run_id` (`run_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_run_cache
 -- ----------------------------
 INSERT INTO `wf_run_cache` VALUES ('1', '1', '1', '1', '', '{\"id\":1,\"uid\":8,\"add_time\":1531985783,\"new_title\":\"\\u6d4b\\u8bd5\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;\\u6d4b\\u8bd5&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":1,\"flow_id\":1,\"process_name\":\"\\u65b0\\u5efa\\u6b65\\u9aa4\",\"process_type\":\"is_one\",\"process_to\":\"2\",\"child_id\":0,\"child_relation\":null,\"child_after\":1,\"child_back_process\":0,\"return_sponsor_ids\":null,\"return_respon_ids\":null,\"write_fields\":null,\"secret_fields\":null,\"lock_fields\":null,\"check_fields\":null,\"auto_person\":4,\"auto_unlock\":0,\"auto_sponsor_ids\":\"7\",\"auto_sponsor_text\":\"\\u5e02\\u573a\\u90e8\\u5458\\u5de51\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":662,\"settop\":269,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1531985810,\"dateline\":0}', '0', '0', '1531985853');
 INSERT INTO `wf_run_cache` VALUES ('2', '2', '2', '2', '', '{\"id\":2,\"uid\":7,\"add_time\":1533519292,\"new_title\":\"123\",\"new_type\":1,\"new_top\":1,\"new_con\":\"&lt;p&gt;123&lt;\\/p&gt;\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":1,\"flow_id\":1,\"process_name\":\"\\u65b0\\u5efa\\u6b65\\u9aa4\",\"process_type\":\"is_one\",\"process_to\":\"2\",\"child_id\":0,\"child_relation\":null,\"child_after\":1,\"child_back_process\":0,\"return_sponsor_ids\":null,\"return_respon_ids\":null,\"write_fields\":null,\"secret_fields\":null,\"lock_fields\":null,\"check_fields\":null,\"auto_person\":4,\"auto_unlock\":0,\"auto_sponsor_ids\":\"7\",\"auto_sponsor_text\":\"\\u5e02\\u573a\\u90e8\\u5458\\u5de51\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":662,\"settop\":269,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1533519195,\"dateline\":0}', '0', '0', '1533519298');
+INSERT INTO `wf_run_cache` VALUES ('3', '3', '3', '3', '', '{\"id\":3,\"uid\":7,\"add_time\":1546587578,\"new_title\":\"123\",\"new_type\":1,\"new_top\":1,\"new_con\":\"\\t\\t\\t3123\\t\\t\\t\",\"new_user\":null,\"status\":0,\"uptime\":null}', '{\"id\":1,\"flow_id\":1,\"process_name\":\"\\u65b0\\u5efa\\u6b65\\u9aa4\",\"process_type\":\"is_one\",\"process_to\":\"2\",\"child_id\":0,\"child_relation\":null,\"child_after\":1,\"child_back_process\":0,\"return_sponsor_ids\":null,\"return_respon_ids\":null,\"write_fields\":null,\"secret_fields\":null,\"lock_fields\":null,\"check_fields\":null,\"auto_person\":4,\"auto_unlock\":0,\"auto_sponsor_ids\":\"7\",\"auto_sponsor_text\":\"\\u5e02\\u573a\\u90e8\\u5458\\u5de51\",\"auto_respon_ids\":\"\",\"auto_respon_text\":\"\",\"auto_role_ids\":\"\",\"auto_role_text\":\"\",\"auto_process_sponsor\":0,\"range_user_ids\":\"\",\"range_user_text\":\"\",\"range_dept_ids\":\"\",\"range_dept_text\":\"\",\"range_role_ids\":\"\",\"range_role_text\":\"\",\"receive_type\":0,\"is_user_end\":0,\"is_userop_pass\":0,\"is_sing\":1,\"sign_look\":0,\"is_back\":1,\"out_condition\":\"[]\",\"setleft\":662,\"settop\":269,\"style\":\"{\\\"width\\\":120,\\\"height\\\":30,\\\"color\\\":\\\"#0e76a8\\\",\\\"icon\\\":\\\"icon-star\\\"}\",\"is_del\":0,\"updatetime\":1533519195,\"dateline\":0}', '0', '0', '1546587586');
 
 -- ----------------------------
 -- Table structure for `wf_run_log`
@@ -332,7 +337,7 @@ CREATE TABLE `wf_run_log` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `run_id` (`run_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_run_log
@@ -342,6 +347,9 @@ INSERT INTO `wf_run_log` VALUES ('2', '7', '1', 'news', '1', '0', '123', '153198
 INSERT INTO `wf_run_log` VALUES ('3', '9', '1', 'news', '1', '0', '123123', '1531985887', 'ok', '');
 INSERT INTO `wf_run_log` VALUES ('4', '7', '2', 'news', '2', '0', '1', '1533519298', 'Send', '');
 INSERT INTO `wf_run_log` VALUES ('5', '7', '2', 'news', '2', '0', '111', '1533520525', 'ok', '');
+INSERT INTO `wf_run_log` VALUES ('6', '7', '3', 'news', '3', '0', '123', '1546587586', 'Send', '');
+INSERT INTO `wf_run_log` VALUES ('7', '9', '2', 'news', '2', '0', '1', '1547175275', 'ok', '');
+INSERT INTO `wf_run_log` VALUES ('8', '9', '3', 'news', '3', '0', '编号：9的超级管理员终止了本流程！', '1547175445', 'SupEnd', '');
 
 -- ----------------------------
 -- Table structure for `wf_run_process`
@@ -376,7 +384,7 @@ CREATE TABLE `wf_run_process` (
   KEY `run_id` (`run_id`),
   KEY `status` (`status`),
   KEY `is_del` (`is_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_run_process
@@ -384,7 +392,8 @@ CREATE TABLE `wf_run_process` (
 INSERT INTO `wf_run_process` VALUES ('1', '8', '1', '1', '1', '0', '0', '0', '123', '0', '4', '市场部员工1', '7', '0', '0', '0', '2', '1531985853', '1531985875', '0', '0', '0', '1531985853');
 INSERT INTO `wf_run_process` VALUES ('2', '7', '1', '1', '2', '0', '0', '0', '123123', '0', '4', '新闻部员工1', '9', '0', '0', '0', '2', '1531985875', '1531985887', '0', '0', '0', '1531985875');
 INSERT INTO `wf_run_process` VALUES ('3', '7', '2', '1', '1', '0', '0', '0', '111', '0', '4', '市场部员工1', '7', '0', '0', '0', '2', '1533519298', '1533520525', '0', '0', '0', '1533519298');
-INSERT INTO `wf_run_process` VALUES ('4', '7', '2', '1', '2', '0', '0', '0', '', '0', '4', '新闻部员工1', '9', '0', '0', '0', '0', '1533520525', '0', '0', '0', '0', '1533520525');
+INSERT INTO `wf_run_process` VALUES ('4', '7', '2', '1', '2', '0', '0', '0', '1', '0', '4', '新闻部员工1', '9', '0', '0', '0', '2', '1533520525', '1547175275', '0', '0', '0', '1533520525');
+INSERT INTO `wf_run_process` VALUES ('5', '7', '3', '1', '1', '0', '0', '0', '编号：9的超级管理员终止了本流程！', '0', '4', '市场部员工1', '7', '0', '0', '0', '2', '1546587585', '1547175445', '0', '0', '0', '1546587585');
 
 -- ----------------------------
 -- Table structure for `wf_run_sign`
