@@ -24,12 +24,19 @@
                   <li class="purple" org-data="#6a5a8c" title="Purple">10</li>
                 </ul>
             </div></td></tr>
-<tr><td>步骤类型</td><td  colspan='3'><input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
+			<tr><td>步骤类型</td><td  colspan='3'>
+				<input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
                 <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>设为第一步</td></tr>
 				<tr><td>步骤模式</td><td  colspan='3'>
-				<input type="radio">
-				转出模式|<input type="radio">同步模式|<input type="radio">单一模式|<input type="radio">散性步骤</td></tr>
-<tr><td>会签方式</td><td><select name="is_sing" >
+				{if condition='count($one.process_to)>1'}
+				<input type="radio" name="wf_mode" value="1" {if condition="$one.wf_mode eq '1'"}checked="checked"{/if}>转出模式（符合执行）|
+				<input type="radio" name="wf_mode" value="2" {if condition="$one.wf_mode eq '2'"}checked="checked"{/if}>同步模式（均需办理）
+				{else/}
+				<input type="radio" name="wf_mode" value="0" checked>单线模式（流程为直线型单一办理模式）
+				{/if}
+				
+				</td></tr>
+			<tr><td>会签方式</td><td><select name="is_sing" >
               <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
               <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
             </select></td>
@@ -46,29 +53,26 @@
                 <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
               </select>
               <span class="help-inline">*选择人员或者办理的角色！</span>
-          
-           
 			<div id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}>
               办理人
-                    <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
+                    <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}" datatype="*" nullmsg="请选择办理人员！">
                     <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
 					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','350','500')">选择</a>
 				
             </div>
             <div id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}>
-              办理人<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
+              办理人<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}" datatype="*" nullmsg="请选择办理人员！">
                     <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
 					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','350','500')">选择</a>
-				
             </div>
             <div id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}>
               指定角色
-                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}">
+                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}" datatype="*" nullmsg="请选择办理角色！">
                     <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
 					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a>
                
             </div></td></tr>
-{if condition='count($one.process_to)>1'}
+{if condition='(count($one.process_to)>1)and($one.wf_mode == 1)'}
 <tr><td colspan=4>
 <table class="table" >
       <thead>

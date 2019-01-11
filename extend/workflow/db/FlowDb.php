@@ -239,11 +239,14 @@ class FlowDb
         $process_condition = trim($datas['process_condition'], ',');//process_to
         $process_condition = explode(',', $process_condition);
         $out_condition = array();
-		if(count($process_condition)>1){
+		if(count($process_condition)>1 and  $datas['wf_mode']==1){
 			foreach ($process_condition as $value) {
 				$value = intval($value);
 				if ($value > 0) {
 					$condition = trim($datas['process_in_set_' . $value], "@wf@");
+					 if ($condition=='') {
+						return ['code' => 1, 'msg' => '转出条件必须设置！!', 'info' => ''];
+					}
 					$condition = $condition ? explode("@wf@", $condition) : array();
 					$out_condition[$value] = ['condition' => $condition];
 				}
@@ -254,6 +257,7 @@ class FlowDb
             'process_name' => $datas['process_name'],
             'process_type' => $datas['process_type'],
             'auto_person' => $datas['auto_person'],
+			'wf_mode' => $datas['wf_mode'],
             'auto_sponsor_ids' => $datas['auto_sponsor_ids'],
             'auto_sponsor_text' => $datas['auto_sponsor_text'],
             'auto_role_ids' => $datas['auto_role_ids'],
@@ -269,9 +273,7 @@ class FlowDb
         if (isset($datas["process_to"])) {
             $data['process_to'] = self::ids_parse($datas['process_to']);
         }
-
         $ret = Db::name('flow_process')->where('id', $process_id)->setField($data);
-
         if ($ret!==false) {
             return ['code' => 0, 'msg' => '保存成功！', 'info' => ''];
         } else {

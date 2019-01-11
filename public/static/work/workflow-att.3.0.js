@@ -1,22 +1,3 @@
-/*确定保存时调用的方式*/
-function saveAttribute(data)
-{	
-    try{
-        if(data.status!=1)
-        {
-            alert(data.msg);//失败时不关闭 attributeModal 所以用 alert
-        }else
-        {
-            $("#attributeModal").modal("hide");
-            mAlert(data.msg);
-            //刷新加载样式，体验不太好 万一未保存设计
-            //location.reload();
-        }
-    }catch(e)
-    {
-        alert(data.msg);
-    }
-}
 
 //-----条件设置--strat----------------
     function _id(id) {
@@ -145,15 +126,9 @@ function saveAttribute(data)
                     return;
                 }
             }
-            
             var sRelation = $('#relation_'+id).val();
-
             if( bAdd ){
-                //var oMyop = document.createElement('option');
                 var nPos = oObj.options.length;
-                //oMyop.text = sNewText_text;
-               // oMyop.value = sNewText;
-                //oObj.appendChild(oMyop,nPos);
                 $('#conList_'+id).append('<option value="'+sNewText+'">'+sNewText_text+'</option>');
                 if( nPos>0 ){
                     oObj.options[nPos-1].text += "  " + sRelation;
@@ -169,7 +144,6 @@ function saveAttribute(data)
                     oObj.options[sLength-1].value += " " + sRelation + " " + sNewText;
                 }
             }
-
 			check_from();
         } else {
             alert("请补充完整条件");
@@ -225,20 +199,11 @@ function saveAttribute(data)
     function fnClearCon(id){
         $('#conList_' + id).html('');
     }
-    
-//-----条件设置--end----------------
 
 $(function(){
   //选人方式
   $("#auto_person_id").on('change',function(){
       var apid = $(this).val();
-      if(apid>0)
-      {
-          $('#auto_unlock_id').show();
-      }else
-      {
-          $('#auto_unlock_id').hide();
-      }
 	  if(apid==3)//指定用户
       {
           $("#auto_person_3").show();
@@ -258,7 +223,6 @@ $(function(){
           $("#auto_person_5").hide();
       }
   });
-  /*---------表单字段 end---------*/
 
   /*样式*/
   $('.colors li').click(function() {
