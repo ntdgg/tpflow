@@ -263,6 +263,11 @@ class wf extends Admin {
 		$flowinfo =  $this->work->getprocessinfo(input('back_id'),input('run_id'));
 		return $flowinfo;
 	}
+	public function Checkflow($fid)
+	{
+		return $this->work->SuperApi('CheckFlow',$fid);
+	}
+	
 	 public function wfup()
     {
         return $this->fetch();

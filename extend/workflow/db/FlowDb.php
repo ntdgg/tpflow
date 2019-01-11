@@ -258,6 +258,7 @@ class FlowDb
             'process_type' => $datas['process_type'],
             'auto_person' => $datas['auto_person'],
 			'wf_mode' => $datas['wf_mode'],
+			'wf_action' => $datas['wf_action'],
             'auto_sponsor_ids' => $datas['auto_sponsor_ids'],
             'auto_sponsor_text' => $datas['auto_sponsor_text'],
             'auto_role_ids' => $datas['auto_role_ids'],
@@ -285,8 +286,8 @@ class FlowDb
     public static function ProcessAttView($process_id)
     {
         //连接数据表用的。表 model 
-        $flow_model = db('flow');
-        $process_model = db('flow_process');
+        $flow_model =  Db::name('flow');
+        $process_model =  Db::name('flow_process');
         $one = self::getflowprocess($process_id);
         if (!$one) {
             return ['status' => 0, 'msg' => '未找到步骤信息!', 'info' => ''];
@@ -299,7 +300,7 @@ class FlowDb
         $one['process_to'] = $one['process_to'] == '' ? array() : explode(',', $one['process_to']);
         $one['style'] = json_decode($one['style'], true);
         $one['out_condition'] = self::parse_out_condition($one['out_condition'], '');//json
-        $process_to_list = db('flow_process')->field('id,process_name,process_type')->where('id','in' ,$one['process_tos'])->where('is_del', 0)->select();
+        $process_to_list =  Db::name('flow_process')->field('id,process_name,process_type')->where('id','in' ,$one['process_tos'])->where('is_del', 0)->select();
 		foreach($process_to_list as $k=>$v){
 			if(count($one['out_condition'])>0){
 				$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
@@ -307,10 +308,29 @@ class FlowDb
 				$process_to_list[$k]['condition'] = '';
 			}
 		}
-        $child_flow_list = db('flow')->field('id,flow_name')->where('is_del', 0)->select();
+        $child_flow_list =  Db::name('flow')->field('id,flow_name')->where('is_del', 0)->select();
         return ['show' => 'basic', 'info' => $one, 'process_to_list' => $process_to_list, 'child_flow_list' => $child_flow_list, 'from' => self::get_db_column_comment($flow_one['type'])];
     }
-    //$json_data is json    
+	
+	public  static function CheckFlow($wfid)
+	{
+		$flow = Db::name('flow')->find($wfid);
+		if (!$wfid) {
+            return ['status' => 0, 'msg' => '参数出错!', 'info' => ''];
+        }
+		$pinfo =  Db::name('flow_process')->where('flow_id',$wfid)->select();
+		if (count($pinfo)<1) {
+            return ['status' => 0, 'msg' => '没有找到步骤信息!', 'info' => ''];
+        }
+		$one_pinfo =Db::name('flow_process')->where('flow_id',$wfid)->where('process_type','is_one')->count();
+		if ($one_pinfo<1) {
+            return ['status' => 0, 'msg' => '没有设置第一步骤,请修改!', 'info' => ''];
+        }
+		if ($one_pinfo>1) {
+            return ['status' => 0, 'msg' => '有两个起始步骤，请注意哦！', 'info' => ''];
+        }
+		return ['status' => 1, 'msg' => '简单逻辑检查通过，请自行检查转出条件！', 'info' => ''];
+	}
     //return json
     public static function parse_out_condition($json_data, $field_data)
     {

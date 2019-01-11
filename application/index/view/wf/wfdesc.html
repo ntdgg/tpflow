@@ -93,10 +93,25 @@ $(function(){
 			  location.reload();
 		});
 		$("#wfHelp").bind('click',function(){
-			  layer.msg("欢迎使用");
+			  layer.open({
+			  type: 2,
+			  title: '工作流官网',
+			  shadeClose: true,
+			  shade: false,
+			  maxmin: true, //开启最大化最小化按钮
+			  area: ['893px', '600px'],
+			  content: '//cojz8.com/'
+			});
 		});
 		$("#wfCheck").bind('click',function(){
-			  layer.msg("系统开发中");
+			  var url = "{:url('Checkflow')}";
+			  $.post(url,{"fid":the_flow_id},function(data){
+				if(data.status==1){
+					layer.msg(data.msg);
+					}else{
+					layer.msg(data.msg);
+				   }
+				},'json');
 		});
 		$("#wfAdd").bind('click',function(){
 			var url = "{:url('add_process')}";
