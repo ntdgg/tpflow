@@ -32,7 +32,7 @@
 				<td>{:date('Y-m-d H:i:s',$k['dateline'])}</td>
 				<td>
 				<a onclick='end({$k.id})'>终止</a>  |  
-				{:action('wf/btn',['wf_fid'=>$k.id,'wf_type'=>$k.from_table,'status'=>100])}
+				{:action('wf/btn',['wf_fid'=>$k.from_id,'wf_type'=>$k.from_table,'status'=>100])}
 				</td>
 				
 			</tr>
