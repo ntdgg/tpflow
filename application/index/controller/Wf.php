@@ -183,7 +183,6 @@ class wf extends Admin {
 		case 1:
 			$st = 0;
 			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type);
-			exit;
 			$user = explode(",", $flowinfo['status']['sponsor_ids']);
 				if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
 					if (in_array($this->uid, $user)) {
