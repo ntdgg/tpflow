@@ -23,7 +23,12 @@ class BackFlow{
 		$flow_id = $config['flow_id'];
 		$npid = $config['npid'];//下一步骤流程id
 		$run_id = $config['run_id'];
-		$check_con = $config['check_con'];
+		if($config['sup']=='1'){
+			$check_con = '[管理员代办]'.$config['check_con'];
+			$config['check_con'] = '[管理员代办]'.$config['check_con'];
+		}else{
+			$check_con = $config['check_con'];
+		}
 		$run_process = $config['run_process'];//运行中的process
 		$submit_to_save = $config['submit_to_save'];
 		$wf_backflow = $config['wf_backflow'];//退回的步骤ID，如果等于0则默认是第一步

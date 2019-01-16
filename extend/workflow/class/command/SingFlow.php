@@ -24,7 +24,12 @@ class SingFlow{
 		$run_process = $config['run_process'];
 		$npid = $config['npid'];//下一步骤流程id
 		$run_id = $config['run_id'];
-		$check_con = $config['check_con'];
+		if($config['sup']=='1'){
+			$check_con = '[管理员代办]'.$config['check_con'];
+			$config['check_con'] = '[管理员代办]'.$config['check_con'];
+		}else{
+			$check_con = $config['check_con'];
+		}
 		$submit_to_save = $config['submit_to_save'];
 		$sid = $this->AddSing($config);
 		//结束当前流程，给个会签标志

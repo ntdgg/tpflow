@@ -21,7 +21,12 @@ class TaskFlow{
 		$npid = $config['npid'];//下一步骤流程id
 		$run_id = $config['run_id'];//运行中的id
 		$run_process = $config['run_process'];//运行中的process
-		$check_con = $config['check_con'];
+		if($config['sup']=='1'){
+			$check_con = '[管理员代办]'.$config['check_con'];
+			$config['check_con'] = '[管理员代办]'.$config['check_con'];
+		}else{
+			$check_con = $config['check_con'];
+		}
 		$submit_to_save = $config['submit_to_save'];
 		if(isset($config['todo'])){
 			$todo = $config['todo'];
