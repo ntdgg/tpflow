@@ -75,7 +75,7 @@ class wf extends Admin {
 		 $this->assign('info', $this->work->FlowApi('GetFlowInfo',input('id')));
 	   }
 	   $this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
-       return $this->fetch('add');
+       return $this->fetch('wfadd');
     }
 	/**
 	 * 状态改变

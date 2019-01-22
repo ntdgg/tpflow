@@ -302,7 +302,7 @@ class FlowDb
         $one['out_condition'] = self::parse_out_condition($one['out_condition'], '');//json
         $process_to_list =  Db::name('flow_process')->field('id,process_name,process_type')->where('id','in' ,$one['process_tos'])->where('is_del', 0)->select();
 		foreach($process_to_list as $k=>$v){
-			if(count($one['out_condition'])>0){
+			if((count($one['out_condition'])>1)){
 				$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
 			}else{
 				$process_to_list[$k]['condition'] = '';
