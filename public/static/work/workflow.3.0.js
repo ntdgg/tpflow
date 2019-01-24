@@ -132,7 +132,7 @@
             .attr("process_to",row.process_to)
             .attr("process_id",row.id)
             .addClass("process-step wf_btn")
-            .html('<span class="process-flag"><img src="/static/work/process.png"></span>&nbsp;' +row.id+ row.process_name )
+            .html('<span class="process-flag"><img src="/static/work/process.png"></span>&nbsp;' +row.process_name )
             .mousedown(function(e){
               if( e.which == 3 ) { //右键绑定
                   _canvas.find('#wf_active_id').val(row.id);
