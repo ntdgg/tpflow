@@ -165,16 +165,11 @@ class InfoDB{
 				$workflow ['status'] = $info;
 				$workflow ['flow_process'] = $info['run_flow_process'];
 				$workflow ['run_process'] = $info['id'];
-					
 				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
-				
 				$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process']);
 				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process']);
-				
 				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);
-				
 				$workflow ['singuser'] = UserDb::GetUser();
-			
 				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
 				if($result['is_sing']==1){
 					$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
