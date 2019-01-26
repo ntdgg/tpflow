@@ -9,7 +9,13 @@
 <input type="hidden" value="{$flowinfo.flow_process}" name="flow_process">
 <input type="hidden" value="{$flowinfo.run_id}" name="run_id" id='run_id'>
 <input type="hidden" value="{$flowinfo.run_process}" name="run_process">
+{if condition='$flowinfo.status.wf_mode != 2'}
 <input type="hidden" value="{$flowinfo['nexprocess']['id']}" name="npid">
+{else/}
+<input type="hidden" value="{$flowinfo.process.process_to}" name="npid">
+{/if}
+
+
 <input type="hidden" value="{$_GET['sup'] ?? ''}" name="sup">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
@@ -29,6 +35,8 @@
 				<tr id='nex_process'>
 				<th style='width:30px' >下一步骤</th>
 				<th>
+				
+				{if condition='$flowinfo.status.wf_mode != 2'}
 				{if condition='$flowinfo.nexprocess.auto_person != 3'}
 					{$flowinfo['nexprocess']['process_name']}({$flowinfo['nexprocess']['todo']})
 				{else/}
@@ -39,9 +47,16 @@
 					<option value="{$todo}*%*{$flowinfo['nexprocess']['todo']['text'][$key]}">{$flowinfo['nexprocess']['todo']['text'][$key]}</option>
 					{/volist}
 					</select>
+				{/if}
+				{else/}
+					{volist name='$flowinfo.nexprocess' id='v'}
+						{$v['process_name']}({$v['todo']})<br/>
+					{/volist}
 				
 				
 				{/if}
+				
+				
 				</th>
 				</tr>
 				<tr style='display:none' id='back_process'>

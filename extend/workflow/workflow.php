@@ -1,7 +1,14 @@
 <?php
 /**
-* 工作流类库
-*/
+ *+------------------
+ * Tpflow 工作流核心驱动类
+ *+------------------
+ * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ *+------------------
+ * Author: guoguo(1838188896@qq.com)
+ *+------------------
+ */
+
 namespace workflow;
 
 define ( 'BEASE_URL', realpath ( dirname ( __FILE__ ) ) );

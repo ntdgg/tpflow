@@ -223,6 +223,24 @@ $(function(){
           $("#auto_person_5").hide();
       }
   });
+    $("#wf_mode_id").on('change',function(){
+      var apid = $(this).val();
+	  if(apid==0)//单一转出模式
+      {
+          $("#wf_mode_2").hide();
+      }
+      if(apid==2)//转出模式
+      {
+         $("#wf_mode_2").hide();
+      }
+      if(apid==1)//同步模式
+      {
+          $("#wf_mode_2").show();
+      }else{
+          $("#wf_mode_2").hide();
+      }
+  });
+  
 
   /*样式*/
   $('.colors li').click(function() {

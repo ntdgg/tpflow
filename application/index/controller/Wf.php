@@ -183,7 +183,9 @@ class wf extends Admin {
 		case 1:
 			$st = 0;
 			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type);
+			
 			$user = explode(",", $flowinfo['status']['sponsor_ids']);
+			
 				if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
 					if (in_array($this->uid, $user)) {
 						$st = 1;
@@ -249,6 +251,7 @@ class wf extends Admin {
 	{
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
 		$this->assign('info',$info);
+		dump($this->work->workflowInfo(input('wf_fid'),input('wf_type')));
 		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type')));
 		return $this->fetch();
 	}

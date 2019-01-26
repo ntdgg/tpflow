@@ -1,7 +1,11 @@
 <?php
 /**
 *+------------------
-* 流信息处理
+* Tpflow 流信息处理
+*+------------------
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+*+------------------
+* Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
 namespace workflow;
@@ -102,6 +106,8 @@ class InfoDB{
 			'auto_person'=>$wf_process['auto_person'],//办理类别
             'js_time'=>time(),
             'dateline'=>time(),
+			'wf_mode'=>$wf_process['wf_mode'],
+			 'wf_action'=>$wf_process['wf_action'],
         );
         $process_id = Db::name('run_process')->insertGetId($data);
 		if(!$process_id)

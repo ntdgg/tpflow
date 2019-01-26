@@ -1,7 +1,11 @@
 <?php
 /**
  *+------------------
- * 流信息处理
+ * Tpflow 流信息处理
+ *+------------------
+ * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ *+------------------
+ * Author: guoguo(1838188896@qq.com)
  *+------------------
  */
 
@@ -126,7 +130,10 @@ class FlowDb
             return ['code' => 1, 'data' => 'Db0001-写入数据库出错！'];
         }
     }
-
+	 /**
+     * 获取所有步骤信息
+     * @param $flow_id 
+     */
     public static function ProcessAll($flow_id)
     {
         $list = Db::name('flow_process')->where('flow_id', $flow_id)->order('id asc')->select();
@@ -145,7 +152,11 @@ class FlowDb
         }
         return json_encode(['total' => $process_total, 'list' => $process_data]);
     }
-
+	/**
+     * 删除步骤信息
+     * @param $flow_id 
+	 * @param $process_id 
+     */
     public static function ProcessDel($flow_id, $process_id)
     {
         if ($process_id <= 0 or $flow_id <= 0) {
@@ -183,7 +194,10 @@ class FlowDb
         $process_model->commit();
         return ['status' => 1, 'msg' => '删除成功', 'info' => ''];
     }
-
+	/**
+     * 删除步骤信息
+     * @param $flow_id 
+     */
     public static function ProcessDelAll($flow_id)
     {
         $res = Db::name('flow_process')->where('flow_id', $flow_id)->delete();
@@ -193,15 +207,28 @@ class FlowDb
             return ['status' => 0, 'msg' => '操作错误！'];
         }
     }
-
+	/**
+     * 新增步骤信息
+     * @param $flow_id 
+     */
     public static function ProcessAdd($flow_id)
     {
         $process_count = Db::name('flow_process')->where('flow_id', $flow_id)->count();
         $process_type = 'is_step';
-        if ($process_count <= 0)
+        if ($process_count <= 0){
             $process_type = 'is_one';
+			$process_setleft = '100';
+			$process_settop = '100';			
+		}else{
+			//新建步骤显示在上一个步骤下方
+			$style = Db::name('flow_process')->order('id desc')->where('flow_id',$flow_id)->limit(1)->find();
+			$process_type = 'is_step';
+			$process_setleft = $style['setleft']+30;
+			$process_settop = $style['settop']+30;
+			
+		}
         $data = [
-            'flow_id' => $flow_id,
+            'flow_id' => $flow_id,'setleft' => $process_setleft,'settop' => $process_settop,
             'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => '38', 'color' => '#0e76a8'])
         ];
         $processid = Db::name('flow_process')->insertGetId($data);
@@ -211,7 +238,11 @@ class FlowDb
             return ['status' => 1, 'msg' => '添加成功！', 'info' => ''];
         }
     }
-
+	/**
+     * 步骤连接
+     * @param $flow_id 
+	 * @param $process_info 
+     */
     public static function ProcessLink($flow_id, $process_info)
     {
         $one = self::GetFlow($flow_id);;
@@ -233,7 +264,11 @@ class FlowDb
         }
         return ['status' => 1, 'msg' => '添加成功！', 'info' => ''];
     }
-
+	/**
+     * 属性保存
+     * @param $process_id 
+	 * @param $datas 
+     */
     public static function ProcessAttSave($process_id, $datas)
     {
         $process_condition = trim($datas['process_condition'], ',');//process_to
@@ -282,7 +317,10 @@ class FlowDb
         }
 
     }
-
+	/**
+     * 属性查看
+	 * @param $process_id
+     */
     public static function ProcessAttView($process_id)
     {
         //连接数据表用的。表 model 
@@ -311,7 +349,10 @@ class FlowDb
         $child_flow_list =  Db::name('flow')->field('id,flow_name')->where('is_del', 0)->select();
         return ['show' => 'basic', 'info' => $one, 'process_to_list' => $process_to_list, 'child_flow_list' => $child_flow_list, 'from' => self::get_db_column_comment($flow_one['type'])];
     }
-	
+	/**
+     * 步骤逻辑检查
+     * @param $wfid 
+     */
 	public  static function CheckFlow($wfid)
 	{
 		$flow = Db::name('flow')->find($wfid);
@@ -331,20 +372,21 @@ class FlowDb
         }
 		return ['status' => 1, 'msg' => '简单逻辑检查通过，请自行检查转出条件！', 'info' => ''];
 	}
-    //return json
+    /**
+     * JSON 转换处理
+     * @param $flow_id 
+	 * @param $process_info 
+     */
     public static function parse_out_condition($json_data, $field_data)
     {
         $array = json_decode($json_data, true);
         if (!$array) {
             return '[]';
         }
-
         $json_data = array();//重置
         foreach ($array as $key => $value) {
             $condition = '';
             foreach ($value['condition'] as $val) {
-                //匹配 $field_data 
-                //把data_x 替换回 中文名称
                 $preg = "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
                 preg_match_all($preg, $val, $temparr);
                 $val_text = '';
@@ -355,18 +397,17 @@ class FlowDb
                     else
                         $val_text = $val;
                 }
-
                 $condition .= '<option value="' . $val . '">' . $val . '</option>';
             }
-
             $value['condition'] = $condition;
             $json_data[$key] = $value;
         }
-
         return $json_data;
     }
 
-    //通过 name  data_x 找到 title
+    /**
+     * 获取字段名称
+     */
     public static function get_field_name($field, $field_data)
     {
         $field = trim($field);
@@ -383,7 +424,9 @@ class FlowDb
         }
         return $title;
     }
-
+	/**
+     * IDS数组转换
+     */
     public static function ids_parse($str, $dot_tmp = ',')
     {
         if (!$str) return '';

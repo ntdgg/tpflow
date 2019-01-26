@@ -34,13 +34,15 @@
 				
 				</tr>
 				<tr><td>步骤模式</td><td  colspan='3'>
-				{if condition='count($one.process_to)>1'}
-				<input type="radio" name="wf_mode" value="1" {if condition="$one.wf_mode eq '1'"}checked="checked"{/if}>转出模式（符合执行）|
-				<input type="radio" name="wf_mode" value="2" {if condition="$one.wf_mode eq '2'"}checked="checked"{/if}>同步模式（均需办理）
-				{else/}
-				<input type="radio" name="wf_mode" value="0" checked>单线模式（流程为直线型单一办理模式）
-				{/if}
-				
+					<select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择步骤模式">
+					<option value="">请选择步骤模式</option>
+					{if condition='count($one.process_to)>1'}
+					 <option value="1" {if condition="$one['wf_mode'] eq 1"}selected="selected"{/if}>转出模式（符合执行）</option>
+					 <option value="2" {if condition="$one['wf_mode'] eq 2"}selected="selected"{/if}>同步模式（均需办理）</option>
+					 {else/}
+					 <option value="0" {if condition="$one['wf_mode'] eq 0"}selected="selected"{/if}>单线模式（流程为直线型单一办理模式）</option>
+					{/if}
+				  </select>
 				</td></tr>
 			<tr><td>会签方式</td><td><select name="is_sing" >
               <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
@@ -78,8 +80,11 @@
 					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a>
                
             </div></td></tr>
-{if condition='(count($one.process_to)>1)and($one.wf_mode == 1)'}
-<tr><td colspan=4>
+<!--重新设计，带转出模式-->
+
+
+<tr id='wf_mode_2' {if condition="$one['wf_mode'] neq 1"}class="hide"{/if}>
+<td colspan=4>
 <table class="table" >
       <thead>
         <tr>
@@ -145,7 +150,6 @@
 </tr>
 {/if}
 {/volist}
-{/if}
 
   </tbody>
   

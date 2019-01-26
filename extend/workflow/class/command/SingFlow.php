@@ -1,8 +1,12 @@
 <?php
 /**
 *+------------------
-* 工作流回退
+* Tpflow 工作流回退
 *+------------------ 
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+*+------------------
+* Author: guoguo(1838188896@qq.com)
+*+------------------
 */
 namespace workflow;
 
@@ -62,7 +66,6 @@ class SingFlow{
 		$sing_id = Db::name('run')->where('id',$config['run_id'])->value('sing_id');
 		$this->EndSing($sing_id,$config['check_con']);//结束当前会签
 		if ($wf_actionid == "sok") {//提交处理
-			
 			if($config['npid'] !=''){
 				$wf_process = ProcessDb::GetProcessInfo($config['npid']);
 				InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);
@@ -72,7 +75,7 @@ class SingFlow{
 			$this->up_run($config['run_id']);
 			
 			//日志记录
-		} else if ($wf_actionid == "sback") {//退回处理
+		}else if($wf_actionid == "sback") {//退回处理
 			//$end = $this->end_flow($config['run_id']);//结束当前工作流
 			//判断是否是第一步，第一步：更新单据，发起修改，不是第一步，写入新的工作流
 			$wf_backflow = $config['wf_backflow'];//退回的步骤ID，如果等于0则默认是第一步

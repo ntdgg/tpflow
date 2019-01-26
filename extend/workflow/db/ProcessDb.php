@@ -1,7 +1,11 @@
 <?php
 /**
 *+------------------
-* 工作流步骤
+* Tpflow 工作流步骤
+*+------------------
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+*+------------------
+* Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
 
@@ -34,6 +38,32 @@ class ProcessDb{
 		return $info;
 	}
 	/**
+	 * 同步步骤信息
+	 *
+	 * @param $pid 步骤编号
+	 */
+	public static function GetProcessInfos($ids)
+	{
+		$info = Db::name('flow_process')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back')
+				->where('id','in',$ids)
+				->select();
+		foreach($info as $k=>$v){
+			if($v['auto_person']==3){ //办理人员
+				$ids = explode(",",$info['range_user_text']);
+				$info[$k]['todo'] = ['ids'=>explode(",",$v['range_user_ids']),'text'=>explode(",",$v['range_user_text'])];
+			}
+			if($v['auto_person']==4){ //办理人员
+				$info[$k]['todo'] = $v['auto_sponsor_text'];
+			}
+			if($v['auto_person']==5){ //办理角色
+				$info[$k]['todo'] = $v['auto_role_text'];
+			}
+		}
+		
+		return $info;
+	}
+	/**
 	 * 获取下个审批流信息
 	 *
 	 * @param $wf_type 单据表
@@ -46,8 +76,13 @@ class ProcessDb{
 		if($nex['process_to'] !=''){
 		$nex_pid = explode(",",$nex['process_to']);
 		$out_condition = json_decode($nex['out_condition'],true);
-			if(count($nex_pid)>=2){
-			//多个审批流
+			//加入同步模式 2为同步模式
+			switch ($nex['wf_mode']){
+			case 0:
+			  $process = self::GetProcessInfo($nex_pid);
+			  break;
+			case 1:
+				//多个审批流
 				foreach($out_condition as $key=>$val){
 					$where =implode(",",$val['condition']);
 					//根据条件寻找匹配符合的工作流id
@@ -58,8 +93,9 @@ class ProcessDb{
 					}
 				}
 				$process = self::GetProcessInfo($nexprocessid);
-			}else{
-				$process = self::GetProcessInfo($nex_pid);	
+			case 2:
+				$process = self::GetProcessInfos($nex_pid);
+			  break;
 			}
 		}else{
 			$process = ['auto_person'=>'','id'=>'','process_name'=>'END','todo'=>'结束'];
