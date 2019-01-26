@@ -1,6 +1,6 @@
 # V3.0.1 预览版本
 
-![markdown](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=dark "tpflow")
+![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=dark "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg "tpflow") 
 
 # TpFlow 工作流插件
 
