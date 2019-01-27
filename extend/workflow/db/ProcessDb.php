@@ -23,7 +23,7 @@ class ProcessDb{
 	public static function GetProcessInfo($pid)
 	{
 		$info = Db::name('flow_process')
-				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back,wf_mode,wf_action')
 				->find($pid);
 		if($info['auto_person']==3){ //办理人员
 			$ids = explode(",",$info['range_user_text']);
@@ -45,7 +45,7 @@ class ProcessDb{
 	public static function GetProcessInfos($ids)
 	{
 		$info = Db::name('flow_process')
-				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back,wf_mode,wf_action')
 				->where('id','in',$ids)
 				->select();
 		foreach($info as $k=>$v){
@@ -73,6 +73,7 @@ class ProcessDb{
 	public static function GetNexProcessInfo($wf_type,$wf_fid,$pid)
 	{
 		$nex = Db::name('flow_process')->find($pid);
+		//先判断下上一个流程是什么模式
 		if($nex['process_to'] !=''){
 		$nex_pid = explode(",",$nex['process_to']);
 		$out_condition = json_decode($nex['out_condition'],true);

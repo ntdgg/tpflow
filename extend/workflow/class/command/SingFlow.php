@@ -1,7 +1,7 @@
 <?php
 /**
 *+------------------
-* Tpflow 工作流回退
+* Tpflow 会签模块
 *+------------------ 
 * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
@@ -67,12 +67,22 @@ class SingFlow{
 		$this->EndSing($sing_id,$config['check_con']);//结束当前会签
 		if ($wf_actionid == "sok") {//提交处理
 			if($config['npid'] !=''){
-				$wf_process = ProcessDb::GetProcessInfo($config['npid']);
-				InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);
+				/*
+				 * 2019年1月27日21:20:13
+				 ***/
+				$nex_pid = explode(",",$config['npid']);
+				foreach($nex_pid as $v){
+					$wf_process = ProcessDb::GetProcessInfo($v);
+					$add_process = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);	
+				}
 				$this->up_flow_press($config['run_id'],$config['npid']);
 			}
 			
 			$this->up_run($config['run_id']);
+			$run_log = LogDb::AddrunLog($uid,$config['run_id'],$config,'sok');
+			if(!$run_log){
+					return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
+				}
 			
 			//日志记录
 		}else if($wf_actionid == "sback") {//退回处理
@@ -99,6 +109,10 @@ class SingFlow{
 				$wf_run_process = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);
 				$this->up_run($config['run_id']);
 				//消息通知发起人
+				$run_log = LogDb::AddrunLog($uid,$config['run_id'],$config,'SingBack');
+				if(!$run_log){
+						return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
+					}
 			}
 			//日志记录
 		} else if ($wf_actionid == "ssing") {//会签

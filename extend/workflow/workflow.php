@@ -100,13 +100,12 @@ require_once BEASE_URL . '/msg/mail.php';
 		  * @$wf_fid 单据编号
 		  * @$wf_type 单据表 
 		  **/
-		function workflowInfo($wf_fid,$wf_type)
+		function workflowInfo($wf_fid,$wf_type,$userinfo=[])
 		{
-			$workflowInfo = array ();
 			if ($wf_fid == '' || $wf_type == '') {
 				return ['msg'=>'单据编号，单据表不可为空！','code'=>'-1'];
 			}
-			return InfoDB::workflowInfo($wf_fid,$wf_type);
+			return InfoDB::workflowInfo($wf_fid,$wf_type,$userinfo);
 		}
 		/*
 		 * 获取下一步骤信息

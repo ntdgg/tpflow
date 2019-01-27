@@ -107,7 +107,7 @@ class InfoDB{
             'js_time'=>time(),
             'dateline'=>time(),
 			'wf_mode'=>$wf_process['wf_mode'],
-			 'wf_action'=>$wf_process['wf_action'],
+			'wf_action'=>$wf_process['wf_action'],
         );
         $process_id = Db::name('run_process')->insertGetId($data);
 		if(!$process_id)
@@ -148,36 +148,89 @@ class InfoDB{
 	 * @param $run_id  运行的id
 	 * @param $wf_type 业务表名
 	 */
-	public static function workflowInfo($wf_fid,$wf_type) {
+	public static function workflowInfo($wf_fid,$wf_type,$userinfo) {
 		$workflow = [];
-		require ( BEASE_URL . '/config/config.php');//  
+		require ( BEASE_URL . '/config/config.php');
+		//根据表信息，判断当前流程是否还在运行  
 		$count = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->count();
 		
 		if($count > 0){
+			//获取当前运行的信息
 			$result = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('status','eq',0)->find();
 			
-			$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
+			
+			$info_list = Db::name('run_process')
+					->where('run_id','eq',$result['id'])
+					->where('run_flow','eq',$result['flow_id'])
+					->where('run_flow_process','in',$result['run_flow_process'])
+					->where('status','eq',0)
+					->select();
+			
+			if(count($info_list)==0){
+				 $info_list[0]=Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
+			}
+			
+			/*
+			 * 2019年1月27日
+			 *1、先计算当前流程下有几个步骤
+			 *2、如果有多个步骤，判定为同步模式，（特别注意，同步模式下最后一个步骤，也会认定会是单一步骤）
+			 *3、根据多个步骤进行循环，找出当前登入用户对应的步骤
+			 *4、将对应的步骤设置为当前审批步骤
+			 *5、修改下一步骤处理模式
+			 *6、修改提醒模式
+			 */
+			//如果有两个以上的运行步骤，则认定为师同步模式
+			if(count($info_list)<2){
+				$info = $info_list[0];
+				$workflow ['wf_mode'] = 0;//wf_mode
+			}else{
+				$workflow ['wf_mode'] = 2;//同步模式
+				foreach($info_list as $k=>$v){
+					//userinfo //自由选人
+					if($v['auto_person']==4||$v['auto_person']==3){
+							$uids = explode(",", $v['sponsor_ids']);
+							if (in_array($userinfo['uid'], $uids)) {
+								$info = $v;
+								 break;
+							}
+						}else{
+						$uids = explode(",", $v['sponsor_ids']);
+						if (in_array($userinfo['role'], $uids)) {
+							$info = $v;
+							 break;
+						}
+					}
+				}
+				if(!isset($info)){
+					return -1;
+				}
+			}
 			
 			if ($result) {
-				$workflow ['sing_st'] = 0;
-				$workflow ['flow_id'] = $result['flow_id'];
-				$workflow ['run_id'] = $result['id'];
-				$workflow ['status'] = $info;
-				$workflow ['flow_process'] = $info['run_flow_process'];
-				$workflow ['run_process'] = $info['id'];
-				$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
-				$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process']);
-				$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process']);
-				$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);
-				$workflow ['singuser'] = UserDb::GetUser();
-				$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
-				if($result['is_sing']==1){
-					$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
-				   $workflow ['sing_st'] = 1;
-				   $workflow ['flow_process'] = $result['run_flow_process'];
-				   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
-				   $workflow ['run_process'] = $info['id'];
-				}
+					$workflow ['sing_st'] = 0;
+					$workflow ['flow_id'] = $result['flow_id'];
+					$workflow ['run_id'] = $result['id'];
+					$workflow ['status'] = $info;//$flowinfo.status.wf_mode != 2
+					$workflow ['flow_process'] = $info['run_flow_process'];
+					$workflow ['run_process'] = $info['id'];
+					$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
+					$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process']);
+					$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process']);
+					$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);
+					$workflow ['singuser'] = UserDb::GetUser();
+					$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
+					if($result['is_sing']==1){
+						$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
+					   $workflow ['sing_st'] = 1;
+					   $workflow ['flow_process'] = $result['run_flow_process'];
+					   //flowinfo.status.wf_mode
+					   $process = ProcessDb::GetProcessInfo($result['run_flow_process']);
+					   $workflow ['status']['wf_mode'] = $process['wf_mode'];
+					   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
+					   $workflow ['process'] = $process;
+					   $workflow ['run_process'] = $info['id'];//dump($result);
+					   $workflow ['sing_info'] = Db::name('run_sign')->find($result['sing_id']);
+					}
 			} else {
 				$workflow ['bill_check'] = '';
 				$workflow ['bill_time'] = '';
@@ -186,7 +239,6 @@ class InfoDB{
 			$workflow ['bill_check'] = '';
 			$workflow ['bill_time'] = '';
 		}
-		
 		return $workflow;
 	}
 	

@@ -14,7 +14,7 @@
 {else/}
 <input type="hidden" value="{$flowinfo.process.process_to}" name="npid">
 {/if}
-
+<input type="hidden" value="{$flowinfo.wf_mode}" name="wf_mode">
 
 <input type="hidden" value="{$_GET['sup'] ?? ''}" name="sup">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
@@ -35,25 +35,25 @@
 				<tr id='nex_process'>
 				<th style='width:30px' >下一步骤</th>
 				<th>
+				{if condition='$flowinfo.wf_mode == 2'}[同步]{/if}
 				
 				{if condition='$flowinfo.status.wf_mode != 2'}
-				{if condition='$flowinfo.nexprocess.auto_person != 3'}
-					{$flowinfo['nexprocess']['process_name']}({$flowinfo['nexprocess']['todo']})
+					{if condition='$flowinfo.nexprocess.auto_person != 3'}
+						{$flowinfo['nexprocess']['process_name']}({$flowinfo['nexprocess']['todo']})
+					{else/}
+						<span class="select-box">
+						<select name="todo" id='todo'  class="select"  datatype="*" >
+						<option value="">请指定办理人员</option>
+						{volist name='$flowinfo.nexprocess.todo.ids' id='todo'}
+						<option value="{$todo}*%*{$flowinfo['nexprocess']['todo']['text'][$key]}">{$flowinfo['nexprocess']['todo']['text'][$key]}</option>
+						{/volist}
+						</select>
+					{/if}
 				{else/}
-					<span class="select-box">
-					<select name="todo" id='todo'  class="select"  datatype="*" >
-					<option value="">请指定办理人员</option>
-					{volist name='$flowinfo.nexprocess.todo.ids' id='todo'}
-					<option value="{$todo}*%*{$flowinfo['nexprocess']['todo']['text'][$key]}">{$flowinfo['nexprocess']['todo']['text'][$key]}</option>
-					{/volist}
-					</select>
-				{/if}
-				{else/}
+					<!--同步模式-->
 					{volist name='$flowinfo.nexprocess' id='v'}
 						{$v['process_name']}({$v['todo']})<br/>
 					{/volist}
-				
-				
 				{/if}
 				
 				

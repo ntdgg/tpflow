@@ -182,25 +182,35 @@ class wf extends Admin {
 		  break;
 		case 1:
 			$st = 0;
-			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type);
+			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
 			
-			$user = explode(",", $flowinfo['status']['sponsor_ids']);
-			
-				if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
-					if (in_array($this->uid, $user)) {
-						$st = 1;
+			if($flowinfo!=-1){
+				$user = explode(",", $flowinfo['status']['sponsor_ids']);
+					if($flowinfo['sing_st']==0){
+						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
+							if (in_array($this->uid, $user)) {
+								$st = 1;
+							}
+						}
+						if($flowinfo['status']['auto_person']==5){
+							if (in_array($this->role, $user)) {
+								$st = 1;
+							}
+						}
+					}else{
+						if($flowinfo['sing_info']['uid']==$this->uid){
+								$st = 1;
+						}
 					}
-				}
-				if($flowinfo['status']['auto_person']==5){
-					if (in_array($this->role, $user)) {
-						$st = 1;
-					}
-				}
-			if($st == 1){
-				 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核</span>';
 				}else{
-				 return '<span class="btn  radius size-S">无权限</span>';
-			}
+					 return '<span class="btn  radius size-S">无权限</span>';
+				}	
+				if($st == 1){
+					 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核</span>';
+					}else{
+					 return '<span class="btn  radius size-S">无权限</span>';
+				}
+			
 		case 100:
 			echo '<span class="btn btn-primary" onclick=layer_show(\'代审\',"'.$url.'?sup=1","850","650")>代审</span>';
 		  break;
@@ -251,8 +261,8 @@ class wf extends Admin {
 	{
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
 		$this->assign('info',$info);
-		dump($this->work->workflowInfo(input('wf_fid'),input('wf_type')));
-		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type')));
+		
+		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		return $this->fetch();
 	}
 	public function do_check_save()

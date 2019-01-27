@@ -43,11 +43,22 @@ class TaskFlow{
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			} 
-			//更新单据信息
-			$run_update = $this->up($run_id,$npid);
-			//记录下一个流程->消息记录
-			$run = $this->Run($config,$uid,$todo);
-
+			/*
+			 * 2019年1月27日
+			 * 同步模式下，只写入记录
+			 */
+			if($config['wf_mode']!=2){
+				//更新单据信息
+				$run_update = $this->up($run_id,$npid);
+				//记录下一个流程->消息记录
+					$run = $this->Run($config,$uid,$todo);
+				}else{
+			//日志记录
+					$run_log = LogDb::AddrunLog($uid,$config['run_id'],$config,'ok');
+					if(!$run_log){
+							return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
+					}	
+			}
 			}else{ 
 				//结束该流程
 				$end = $this->end_flow($run_id);
@@ -89,15 +100,19 @@ class TaskFlow{
 	 **/
 	public function Run($config,$uid,$todo)
 	{
-		$wf_process = ProcessDb::GetProcessInfo($config['npid']);
-		//添加流程步骤日志
-		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);
+		
+		$nex_pid = explode(",",$config['npid']);
+		foreach($nex_pid as $v){
+			$wf_process = ProcessDb::GetProcessInfo($v);
+			//添加流程步骤日志
+			$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);	
+		}
 		if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
 		//日志记录
 		$run_log = LogDb::AddrunLog($uid,$config['run_id'],$config,'ok');
-		if(!$wf_process_log){
+		if(!$run_log){
 				return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
 			}
 	}
