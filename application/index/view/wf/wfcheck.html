@@ -124,7 +124,7 @@
 		<table class="table table-border table-bordered mt-20" style='width:98%'>
 		<tr><td>
 		
-		<iframe src="{:url($info.wf_type.'/view',['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+		<iframe src="{:url($info.wf_type.'/'.$flowinfo.status.wf_action,['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
 		
 		</td></tr>
 		</table>

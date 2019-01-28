@@ -47,8 +47,8 @@ class BackFlow{
 			$todo = '';
 		}
 		if($back){//第一步
-			$end = $this->end_flow($run_id);//结束流程
-			$end = $this->end_process($run_process,$check_con);
+			$end = FlowDb::end_flow($run_id);//结束流程
+			$end = FlowDb::end_process($run_process,$check_con);
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			} 
@@ -64,14 +64,13 @@ class BackFlow{
 					return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
 				}
 		}else{ //结束流程
-			//$end = $this->end_flow($run_id);//结束该流程
-			$end = $this->end_process($run_process,$check_con);
+			$end = FlowDb::end_process($run_process,$check_con);
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			}
 			$run = $this->Run($config,$uid,$todo);//添加回退步骤流程
 			//消息通知发起人
-			$run_update = $this->up($run_id,$wf_backflow);
+			$run_update = FlowDb::up($run_id,$wf_backflow);
 		}
 	}
 	/**
@@ -87,24 +86,6 @@ class BackFlow{
 		}else{
 			return false;
 		}
-	}
-	/**
-	 *结束工作流
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function end_flow($run_id)
-	{
-		return Db::name('run')->where('id','eq',$run_id)->update(['status'=>1,'endtime'=>time()]);
-	}
-	/**
-	 *结束结束流程缓存
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function end_process($run_process,$check_con)
-	{
-		return Db::name('run_process')->where('id','eq',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
 	}
 	/**
 	 *运行
@@ -126,14 +107,4 @@ class BackFlow{
 				return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
 			}
 	}
-	/**
-	 *更新单据信息
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function up($run_id,$flow_process)
-	{
-		return Db::name('run')->where('id','eq',$run_id)->update(['run_flow_process'=>$flow_process]);	
-	}
-	
 }

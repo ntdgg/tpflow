@@ -220,12 +220,11 @@ class FlowDb
 			$process_setleft = '100';
 			$process_settop = '100';			
 		}else{
-			//新建步骤显示在上一个步骤下方
+			//新建步骤显示在上一个步骤下方 2019年1月28日14:32:45
 			$style = Db::name('flow_process')->order('id desc')->where('flow_id',$flow_id)->limit(1)->find();
 			$process_type = 'is_step';
 			$process_setleft = $style['setleft']+30;
 			$process_settop = $style['settop']+30;
-			
 		}
         $data = [
             'flow_id' => $flow_id,'setleft' => $process_setleft,'settop' => $process_settop,
@@ -372,6 +371,34 @@ class FlowDb
         }
 		return ['status' => 1, 'msg' => '简单逻辑检查通过，请自行检查转出条件！', 'info' => ''];
 	}
+	
+	/**
+	 *结束工作流主状态
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
+	public static function end_flow($run_id)
+	{
+		return Db::name('run')->where('id','eq',$run_id)->update(['status'=>1,'endtime'=>time()]);
+	}
+	/**
+	 *结束工作流步骤信息
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
+	public static function end_process($run_process,$check_con)
+	{
+		return Db::name('run_process')->where('id',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
+	}
+	/**
+	 *更新流程主信息
+	 *
+	 *@param $run_flow_process 工作流ID
+	 **/
+	public static function up($run_id,$flow_process)
+	{
+		return Db::name('run')->where('id','eq',$run_id)->update(['run_flow_process'=>$flow_process]);	
+	}
     /**
      * JSON 转换处理
      * @param $flow_id 
@@ -481,5 +508,6 @@ class FlowDb
         }
         return count($result) == 1 ? reset($result) : $result;
     }
+	
 
 }

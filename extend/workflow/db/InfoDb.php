@@ -157,8 +157,6 @@ class InfoDB{
 		if($count > 0){
 			//获取当前运行的信息
 			$result = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('status','eq',0)->find();
-			
-			
 			$info_list = Db::name('run_process')
 					->where('run_id','eq',$result['id'])
 					->where('run_flow','eq',$result['flow_id'])
@@ -169,7 +167,6 @@ class InfoDB{
 			if(count($info_list)==0){
 				 $info_list[0]=Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
 			}
-			
 			/*
 			 * 2019年1月27日
 			 *1、先计算当前流程下有几个步骤
@@ -186,7 +183,6 @@ class InfoDB{
 			}else{
 				$workflow ['wf_mode'] = 2;//同步模式
 				foreach($info_list as $k=>$v){
-					//userinfo //自由选人
 					if($v['auto_person']==4||$v['auto_person']==3){
 							$uids = explode(",", $v['sponsor_ids']);
 							if (in_array($userinfo['uid'], $uids)) {
@@ -210,7 +206,7 @@ class InfoDB{
 					$workflow ['sing_st'] = 0;
 					$workflow ['flow_id'] = $result['flow_id'];
 					$workflow ['run_id'] = $result['id'];
-					$workflow ['status'] = $info;//$flowinfo.status.wf_mode != 2
+					$workflow ['status'] = $info;
 					$workflow ['flow_process'] = $info['run_flow_process'];
 					$workflow ['run_process'] = $info['id'];
 					$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
@@ -223,12 +219,11 @@ class InfoDB{
 						$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
 					   $workflow ['sing_st'] = 1;
 					   $workflow ['flow_process'] = $result['run_flow_process'];
-					   //flowinfo.status.wf_mode
 					   $process = ProcessDb::GetProcessInfo($result['run_flow_process']);
 					   $workflow ['status']['wf_mode'] = $process['wf_mode'];
 					   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
 					   $workflow ['process'] = $process;
-					   $workflow ['run_process'] = $info['id'];//dump($result);
+					   $workflow ['run_process'] = $info['id'];
 					   $workflow ['sing_info'] = Db::name('run_sign')->find($result['sing_id']);
 					}
 			} else {
@@ -266,7 +261,6 @@ class InfoDB{
             return  false;
         }
         return $result;
-		
 	} 
 	/**
 	 * 工作流列表

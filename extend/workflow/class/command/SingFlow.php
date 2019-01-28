@@ -39,20 +39,10 @@ class SingFlow{
 		//结束当前流程，给个会签标志
 		$end = $this->up_flow($run_id,$sid);
 		//结束process
-		$end = $this->end_process($run_process,$check_con);
+		$end = FlowDb::end_process($run_process,$check_con);
 		//加入会签
 		$run_log = LogDb::AddrunLog($uid,$run_id,$config,'Sing');
 		//日志记录
-	}
-	/**
-	 *结束工作流
-	 *
-	 * @param $run_process 流程ID
-	 * @param $check_con 审批意见
-	 **/
-	public function end_process($run_process,$check_con)
-	{
-		return Db::name('run_process')->where('id',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
 	}
 	/**
 	 *会签确认
@@ -86,7 +76,6 @@ class SingFlow{
 			
 			//日志记录
 		}else if($wf_actionid == "sback") {//退回处理
-			//$end = $this->end_flow($config['run_id']);//结束当前工作流
 			//判断是否是第一步，第一步：更新单据，发起修改，不是第一步，写入新的工作流
 			$wf_backflow = $config['wf_backflow'];//退回的步骤ID，如果等于0则默认是第一步
 			
@@ -184,14 +173,5 @@ class SingFlow{
 	public function up_flow($run_id,$sid)
 	{
 		return Db::name('run')->where('id',$run_id)->update(['is_sing'=>1,'sing_id'=>$sid,'endtime'=>time()]);
-	}
-	/**
-	 *结束工作流
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function end_flow($run_id)
-	{
-		return Db::name('run')->where('id',$run_id)->update(['status'=>1,'endtime'=>time()]);
 	}
 }

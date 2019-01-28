@@ -64,8 +64,8 @@ class TaskService{
 	 * @param  $uid  用户ID
 	 */
 	public function doSupEnd($wfid,$uid){
-		require_once BEASE_URL . '/class/command/DosupFlow.php';
-		$command = new DosupFlow();
+		require_once BEASE_URL . '/class/command/SupFlow.php';
+		$command = new SupFlow();
 		return $command->doSupEnd($wfid,$uid);
 	}
 }

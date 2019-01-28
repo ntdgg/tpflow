@@ -78,11 +78,20 @@ class ProcessDb{
 		$nex_pid = explode(",",$nex['process_to']);
 		$out_condition = json_decode($nex['out_condition'],true);
 			//加入同步模式 2为同步模式
+			/*
+			 * 2019年1月28日14:30:52
+			 *1、加入同步模式
+			 *2、先获取本步骤信息
+			 *3、获取本步骤的模式
+			 *4、根据模式进行读取
+			 *5、获取下一步骤需要的信息
+			 **/
 			switch ($nex['wf_mode']){
 			case 0:
 			  $process = self::GetProcessInfo($nex_pid);
 			  break;
 			case 1:
+			
 				//多个审批流
 				foreach($out_condition as $key=>$val){
 					$where =implode(",",$val['condition']);
@@ -94,6 +103,7 @@ class ProcessDb{
 					}
 				}
 				$process = self::GetProcessInfo($nexprocessid);
+			   break;
 			case 2:
 				$process = self::GetProcessInfos($nex_pid);
 			  break;

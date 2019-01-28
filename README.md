@@ -1,73 +1,45 @@
-# V3.0.1 预览版本
+**欢迎使用 Tpflow 工作流引擎**
 
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=dark "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg "tpflow") 
 
-# TpFlow 工作流插件
+### 主要特性
 
-> 交流群：532797225
++ 基于  `<jsPlumb>` 可视化设计流程图
+    + 支持可视化界面设计
+    + 支持拖拽式流程绘制
+    + 三布局便捷调整
+    + 基于`workflow.3.0.js` `workflow.3.0.js ` 引擎
++ 超级强大的API 对接功能
+    + `flowApi` 可支持工作流设计开发管理
+    + `ProcessApi` 步骤管理API，可以对步骤进行管理、读取
+    + `SuperApi ` 超级管理接口，对流程进行终止，代审
++ 完善的流引擎机制
+    + 规范的命名空间，可拓展的集成化开发
+    + 支持 直线式、会签式、转出式、同步审批式等多格式的工作流格式
++ 提供基于 `Thinkphp5.1.X` 的样例Demo
++ 提供完整的设计手册
 
-> 对您有帮助，给我们个Star吧
+### 在线文档
 
+[看云文档](https://www.kancloud.cn/guowenbin/tpflow/573177 "安装手册")   [官方博客](http://www.cojz8.com/tag/30 "官方博客")
 
-> tpflow 已经走过了一个年头，我们一共发布的2个版本，为数百位开发者提供了方便，同时我们也得到了100多位朋友的支持与赞助。本开源项目将持续开源，不断的完善项目，为更多开发者提供更多的便利。
+### 在线演示
 
-## 码云唯一开源的PHP工作流插件，欢迎加入我们，完善插件
+[http://tpflow.cojz8.com](http://tpflow.cojz8.com "http://tpflow.cojz8.com")   
 
+提　示：演示站供各位测试使用，请勿随意填写数据操作。
 
-
----
-> 新增众多接口，3.0正式版发布在即，欢迎提出更多建议和意见。
+### 界面截图
 
 ![markdown](http://files.git.oschina.net/group1/M00/06/3A/PaAvDFw4NRKAK6CCAAEZKRKE9TE045.png?token=cc97060f3fa5ed3cb7356ccdab6b10ae&ts=1547187474&attname=1.png "tpflow")
 
-## 接口示例，以Thinkphp为例
+### 问题反馈
+我们建议直接提交 ISSUE 问题反馈给我们，或者加入我们QQ群
 
-```
-<?php
-namespace app\index\Controller;
-use app\common\controller\admin;
-use workflow\workflow;
-
-class Flowdesign extends Admin {
-    public function initialize()
-    {
-        parent::initialize();
-        $this->work = new workflow();
-    }
-    /**
-	 * 流程设计首页
-	 */
-   public function lists($map = []){
-        $this->assign('list',$this->work->FlowApi('List'));
-		$this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
-        return  $this->fetch();
-    }
-.......
-```
->## FlowApi 用法很简单，主要是对Flow工作流的数据封装
->详细可以阅读以下API调用方法及示例
-
-| 参数名称  | 参数变量 |示例/说明 |
-|---|---|---|
-| List  |  ~~~ |$work->FlowApi('List'); //直接获取到工作流列表数据 |
-| AddFlow  |  $work->FlowApi('AddFlow',$data) | $data //POST数据 |
-| EditFlow|  $work->FlowApi('EditFlow',$data); |$data //POST数据 |
-| GetFlowInfo|  $work->FlowApi('GetFlowInfo',input('id')) |$id 为Flow组件 |
+>在使用中有任何问题，请使用以下联系方式联系我们
 
 
-
->## ProcessApi用法很简单，主要是对工作流的步骤进行封装
->详细可以阅读以下API调用方法及示例
-
-| 参数名称  | 参数变量 |示例/说明 |
-|---|---|---|
-| All| $flow_id 流程主键 |$this->work->ProcessApi('All',$flow_id); //获取对应流程所有步骤信息，返回JSON json_encode(['total'=>$process_total,'list'=>$process_data]
-| ProcessDel|  $this->work->ProcessApi('ProcessDel',$flow_id,$process_id) | $process_id $flow_id 返回Array 
-| ProcessDelAll| $this->work->ProcessApi('ProcessDelAll',$flow_id); |$flow_id  清空所有步骤
-| ProcessLink|  $this->work->ProcessApi('ProcessLink',$flow_id,$process_info) |保存设计 |
-| ProcessAttView|  $this->work->ProcessApi('ProcessAttView',input('id')) |查看步骤设置 |
-| ProcessAttSave|  $this->work->ProcessApi('ProcessAttSave',$data['process_id'],$data) |保存步骤信息 |
-
+### 相关链接
 ---
 
 > 官方博客：http://www.cojz8.com/
@@ -80,4 +52,16 @@ class Flowdesign extends Admin {
 
 ---
 
+## 版权信息
 
+Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
+
+本项目包含的第三方源码和二进制文件之版权信息另行标注。
+
+版权所有Copyright © 2018-2020 by Tpflow (http://cojz8.com)
+
+All rights reserved。
+
+~~~
+对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！
+~~~

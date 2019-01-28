@@ -39,7 +39,7 @@ class TaskFlow{
 		}
 		if($npid != ''){//判断是否为最后
 			//结束流程
-			$end = $this->end_process($run_process,$check_con);
+			$end = FlowDb::end_process($run_process,$check_con);
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			} 
@@ -49,7 +49,7 @@ class TaskFlow{
 			 */
 			if($config['wf_mode']!=2){
 				//更新单据信息
-				$run_update = $this->up($run_id,$npid);
+				$run_update = FlowDb::up($run_id,$npid);
 				//记录下一个流程->消息记录
 					$run = $this->Run($config,$uid,$todo);
 				}else{
@@ -61,8 +61,8 @@ class TaskFlow{
 			}
 			}else{ 
 				//结束该流程
-				$end = $this->end_flow($run_id);
-				$end = $this->end_process($run_process,$check_con);
+				$end = FlowDb::end_flow($run_id);
+				$end = FlowDb::end_process($run_process,$check_con);
 				$run_log = LogDb::AddrunLog($uid,$run_id,$config,'ok');
 				if(!$end){
 					return ['msg'=>'结束流程错误！！！','code'=>'-1'];
@@ -74,24 +74,6 @@ class TaskFlow{
 			}
 			//消息通知发起人
 		}
-	}
-	/**
-	 *结束工作流
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function end_flow($run_id)
-	{
-		return Db::name('run')->where('id',$run_id)->update(['status'=>1,'endtime'=>time()]);	
-	}
-	/**
-	 *结束工作流
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function end_process($run_process,$check_con)
-	{
-		return Db::name('run_process')->where('id',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
 	}
 	/**
 	 *运行记录
@@ -115,14 +97,5 @@ class TaskFlow{
 		if(!$run_log){
 				return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
 			}
-	}
-	/**
-	 *更新单据信息
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
-	public function up($run_id,$flow_process)
-	{
-		return Db::name('run')->where('id',$run_id)->update(['run_flow_process'=>$flow_process]);	
 	}
 }
