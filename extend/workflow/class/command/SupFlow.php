@@ -32,7 +32,7 @@ class SupFlow{
             ];
 		//结束当前run 工作流
 		$end = FlowDb::end_flow($wfid);
-		$end = FlowDb::end_process($wfinfo,'编号：'.$uid.'的超级管理员终止了本流程！');
+		$end = FlowDb::end_process($wfinfo['run_flow_process'],$config['check_con']);
 		$run_log = LogDb::AddrunLog($uid,$wfid,$config,'SupEnd');
 		
 		if(!$end){
