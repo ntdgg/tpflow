@@ -254,7 +254,7 @@ CREATE TABLE `wf_run` (
   `cat_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程分类ID即公文分类ID',
   `run_name` varchar(255) DEFAULT '' COMMENT '公文名称',
   `run_flow_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转到什么流程 最新流程，查询优化，进入子流程时将简化查询，子流程与父流程同步',
-  `run_flow_process` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '流转到第几步',
+  `run_flow_process` varchar(255) DEFAULT NULL COMMENT '流转到第几步',
   `att_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '公文附件ids',
   `endtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '结束时间',
   `status` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0流程中，1通过,2回退',

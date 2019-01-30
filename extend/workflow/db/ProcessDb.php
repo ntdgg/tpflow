@@ -91,7 +91,6 @@ class ProcessDb{
 			  $process = self::GetProcessInfo($nex_pid);
 			  break;
 			case 1:
-			
 				//多个审批流
 				foreach($out_condition as $key=>$val){
 					$where =implode(",",$val['condition']);

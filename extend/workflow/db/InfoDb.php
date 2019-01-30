@@ -167,6 +167,7 @@ class InfoDB{
 			if(count($info_list)==0){
 				 $info_list[0]=Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
 			}
+			
 			/*
 			 * 2019年1月27日
 			 *1、先计算当前流程下有几个步骤
@@ -201,7 +202,6 @@ class InfoDB{
 					return -1;
 				}
 			}
-			
 			if ($result) {
 					$workflow ['sing_st'] = 0;
 					$workflow ['flow_id'] = $result['flow_id'];
