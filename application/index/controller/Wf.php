@@ -253,7 +253,7 @@ class wf extends Admin {
 		$data = $this->request->param();
 		$flow = $this->work->startworkflow($data,$this->uid);
 		if($flow['code']==1){
-			return msg_return('Success!');
+			return $this->msg_return('Success!');
 		}
 	}
 	
@@ -269,7 +269,7 @@ class wf extends Admin {
 	{
 		$data = $this->request->param();
 		$flowinfo =  $this->work->workdoaction($data,$this->uid);
-		return msg_return('Success!');
+		return $this->msg_return('Success!');
 	}
 	public function ajax_back(){
 		$flowinfo =  $this->work->getprocessinfo(input('back_id'),input('run_id'));
@@ -288,7 +288,7 @@ class wf extends Admin {
 	public function wfend()
 	{
 		$flowinfo =  $this->work->SuperApi('WfEnd',input('get.id'),$this->uid);
-		return msg_return('Success!');
+		return $this->msg_return('Success!');
 	}
 	public function wfupsave()
     {
@@ -303,6 +303,18 @@ class wf extends Admin {
                 $error[] = $file->getError();
             }
         }
-        return msg_return($data,0,$info->getInfo('name'));
+        return $this->msg_return($data,0,$info->getInfo('name'));
     }
+	public function msg_return($msg = "操作成功！", $code = 0,$data = [],$redirect = 'parent',$alert = '', $close = false, $url = '')
+	{
+		$ret = ["code" => $code, "msg" => $msg, "data" => $data];
+		$extend['opt'] = [
+			'alert'    => $alert,
+			'close'    => $close,
+			'redirect' => $redirect,
+			'url'      => $url,
+		];
+		$ret = array_merge($ret, $extend);
+		return json($ret);
+	}
 }
