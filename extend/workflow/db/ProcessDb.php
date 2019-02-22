@@ -194,6 +194,7 @@ class ProcessDb{
 		$run_log = Db::name('run_log')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->select();
 		foreach($run_log as $k=>$v)
         {
+		   require ( BEASE_URL . '/config/config.php');// 
            $run_log[$k]['user'] =Db::name($user_table['user'][0])->where($user_table['user'][1],'eq',$v['uid'])->value($user_table['user'][2]);
         }
 		return $run_log;
