@@ -4,6 +4,8 @@
 
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=dark "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg "tpflow") 
 
+### 有问题请提交ISSUE 48小时内解决~~
+
 ### 主要特性
 
 + 基于  `<jsPlumb>` 可视化设计流程图
@@ -63,6 +65,10 @@ Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
 版权所有Copyright © 2018-2020 by Tpflow (http://cojz8.com)
 
 All rights reserved。
+
+~~~
+对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！
+~~~
 
 ~~~
 对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！
