@@ -74,9 +74,9 @@ CREATE TABLE `wf_flow_process` (
   `receive_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0明确指定主办人1先接收者为主办人',
   `is_user_end` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '允许主办人在非最后步骤也可以办结流程',
   `is_userop_pass` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '经办人可以转交下一步',
-  `is_sing` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '会签选项0禁止会签1允许会签（默认） 2强制会签',
+  `is_sing` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '会签选项1禁止会签2允许会签（默认） 2强制会签',
   `sign_look` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '会签可见性0总是可见（默认）,1本步骤经办人之间不可见2针对其他步骤不可见',
-  `is_back` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否允许回退0不允许（默认） 1允许退回上一步2允许退回之前步骤',
+  `is_back` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否允许回退2不允许（默认） 1允许退回上一步2允许退回之前步骤',
   `out_condition` text COMMENT '转出条件',
   `setleft` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '左 坐标',
   `settop` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '上 坐标',
@@ -93,63 +93,6 @@ CREATE TABLE `wf_flow_process` (
 -- Records of wf_flow_process
 -- ----------------------------
 
--- ----------------------------
--- Table structure for `wf_form`
--- ----------------------------
-DROP TABLE IF EXISTS `wf_form`;
-CREATE TABLE `wf_form` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL COMMENT '表单名称',
-  `name` varchar(255) DEFAULT NULL COMMENT '表名',
-  `file` varchar(255) DEFAULT NULL COMMENT '生成文件',
-  `menu` int(11) NOT NULL DEFAULT '0',
-  `flow` int(11) NOT NULL DEFAULT '0',
-  `ziduan` longtext,
-  `uid` varchar(255) DEFAULT NULL,
-  `add_time` int(11) DEFAULT NULL,
-  `status` int(11) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of wf_form
--- ----------------------------
-INSERT INTO `wf_form` VALUES ('1', '业务测试', 'ywtest', 'all', '0', '0', null, null, '1547513664', '0');
-
--- ----------------------------
--- Table structure for `wf_form_function`
--- ----------------------------
-DROP TABLE IF EXISTS `wf_form_function`;
-CREATE TABLE `wf_form_function` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fid` int(11) DEFAULT NULL,
-  `sql` longtext,
-  `name` varchar(255) DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
-  `add_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of wf_form_function
--- ----------------------------
-
--- ----------------------------
--- Table structure for `wf_menu`
--- ----------------------------
-DROP TABLE IF EXISTS `wf_menu`;
-CREATE TABLE `wf_menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
-  `add_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of wf_menu
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `wf_news`
@@ -188,6 +131,8 @@ CREATE TABLE `wf_news_type` (
 -- ----------------------------
 -- Records of wf_news_type
 -- ----------------------------
+
+INSERT INTO `wf_news_type` (`type`) VALUES ('测试类别');
 
 -- ----------------------------
 -- Table structure for `wf_role`

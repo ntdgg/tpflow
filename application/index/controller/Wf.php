@@ -261,7 +261,6 @@ class wf extends Admin {
 	{
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
 		$this->assign('info',$info);
-		
 		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		return $this->fetch();
 	}
