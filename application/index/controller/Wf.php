@@ -185,8 +185,9 @@ class wf extends Admin {
 			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
 			
 			if($flowinfo!=-1){
-				$user = explode(",", $flowinfo['status']['sponsor_ids']);
+				
 					if($flowinfo['sing_st']==0){
+						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
 							if (in_array($this->uid, $user)) {
 								$st = 1;
