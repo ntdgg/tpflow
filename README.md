@@ -6,6 +6,10 @@
 
 ### 有问题请提交ISSUE 48小时内解决~~
 
+### Laravel版本的工作流
+
+[Laravel版本](http://gadmin.cojz8.com/group-topic-id-25.html "Laravel版本")
+
 ### 主要特性
 
 + 基于  `<jsPlumb>` 可视化设计流程图
