@@ -9,7 +9,6 @@ class Index  extends Controller{
     public function index(){
 		
 	  $this->assign('user',db('user')->field('id,username,role')->select());
-	  $this->assign('menu',db('menu')->select());
       return $this->fetch();
     }
 	public function welcome(){
