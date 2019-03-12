@@ -158,9 +158,9 @@ class wf extends Admin {
 	{
 		 $type = trim(input('type'));
 		 if($type=='user'){
-			$info =  db('user')->where('username','like','%'.input('key').'%')->field('id as vlaue,username as text')->select();
+			$info =  db('user')->where('username','like','%'.input('key').'%')->field('id as value,username as text')->select();
 		 }else{
-			 $info =  db('role')->where('name','like','%'.input('key').'%')->field('id as vlaue,name as text')->select();
+			 $info =  db('role')->where('name','like','%'.input('key').'%')->field('id as value,name as text')->select();
 		 }
 		 return ['data'=>$info,'code'=>1,'msg'=>'查询成功！'];
 	}
