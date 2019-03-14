@@ -3,7 +3,7 @@
 *+------------------
 * Tpflow 工作流步骤
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
@@ -191,9 +191,11 @@ class ProcessDb{
 	 */
 	public static function RunLog($wf_fid,$wf_type) 
 	{
+		$type = ['Send'=>'流程发起','ok'=>'同意提交','Back'=>'退回修改','SupEnd'=>'终止流程','Sing'=>'会签提交','sok'=>'会签同意','SingBack'=>'会签退回','SingSing'=>'会签再会签'];
 		$run_log = Db::name('run_log')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->select();
 		foreach($run_log as $k=>$v)
         {
+		   $run_log[$k]['btn'] =$type[$v['btn']] ?? '';
 		   require ( BEASE_URL . '/config/config.php');// 
            $run_log[$k]['user'] =Db::name($user_table['user'][0])->where($user_table['user'][1],'eq',$v['uid'])->value($user_table['user'][2]);
         }

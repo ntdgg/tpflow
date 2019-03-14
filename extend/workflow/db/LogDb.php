@@ -4,7 +4,7 @@ namespace workflow;
 *+------------------
 * Tpflow 工作流日志消息
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------
