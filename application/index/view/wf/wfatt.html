@@ -189,4 +189,8 @@ $(function(){
             }
         });
 });
+var wf_mode = "{:isset($one.wf_mode)?$one.wf_mode:'0'}";
+if(wf_mode ==1){
+	check_from();	
+}
 </script>
