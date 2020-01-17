@@ -152,7 +152,7 @@ class InfoDB{
 		$workflow = [];
 		require ( BEASE_URL . '/config/config.php');
 		//根据表信息，判断当前流程是否还在运行  
-		$count = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('is_del','eq',0)->count();
+		$count = Db::name('run')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->where('is_del','eq',0)->where('status','eq',0)->count();
 		
 		if($count > 0){
 			//获取当前运行的信息
