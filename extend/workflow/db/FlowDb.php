@@ -379,7 +379,7 @@ class FlowDb
 	 **/
 	public static function end_flow($run_id)
 	{
-		return Db::name('run')->where('id','eq',$run_id)->update(['status'=>1,'endtime'=>time()]);
+		return Db::name('run')->where('id','eq','in',$run_id)->update(['status'=>1,'endtime'=>time()]);
 	}
 	/**
 	 *结束工作流步骤信息
