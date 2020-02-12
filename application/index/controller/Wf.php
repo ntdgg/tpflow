@@ -185,7 +185,9 @@ class wf extends Admin {
 			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
 			
 			if($flowinfo!=-1){
-				
+					if(!isset($flowinfo['status'])){
+						return '<span class="btn btn-danger  radius size-S" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
+					}
 					if($flowinfo['sing_st']==0){
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
