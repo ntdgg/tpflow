@@ -2,6 +2,8 @@
 
 **欢迎使用 Tpflow 工作流引擎**
 
+![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=dark "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg "tpflow") 
+
 ### 主要特性
 
 + 基于  `<jsPlumb>` 可视化设计流程图
@@ -19,11 +21,26 @@
 + 提供基于 `Thinkphp5.1.X` 的样例Demo
 + 提供完整的设计手册
 
+>3.1独有的新特性及功能
+*   基于`<WordDb>`驱动的事务管理模块
+    * 可以根据不同的需求对业务进行更广阔全面的调用
+    * 可以使得流程步骤的设计更加灵活多变
+*  新增事物接受者处理
+    * 事务接受让环形审批流变得更加方便
+*  全新的工作流设计界面  `步骤更清晰` `设计更简单`
+    * 独立化步骤显示
+    * TAB式步骤属性配置
+    * 步骤审批、步骤模式更加清晰
+ *  环形审批流模式
+    * 解决以往A发起人->B审核人->C核准人->A发起人完结 的环型审批流
+
 ### 在线文档
 
 [看云文档](https://www.kancloud.cn/guowenbin/tpflow "安装手册")   [官方博客](http://www.cojz8.com/tag/30 "官方博客")
 
+### 界面截图
 
+![markdown](https://files.gitee.com/group1/M00/0B/B4/wKgCNF5EA5eAHMixAAC-sDsZjhw734.png?token=052e7d0fd927a219ccf877f1c295f15c&ts=1581515684&attname=j-1.png&disposition=attachment"tpflow")
 
 ### 相关链接
 ---
