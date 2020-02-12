@@ -13,9 +13,6 @@
 		  <button class="btn btn-info" type="button" id="wfCleam">清空步骤</button><br/><br/>
 		  <button class="btn btn-info" type="button" id="wfHelp">设计帮助</button><br/><br/>
 		  <button class="btn btn-info" type="button" id="wfRefresh">刷新设计</button><br/><br/>
-		  使用小技巧：<br/><br/>
-		  1、双击可删除该步骤；<br/>
-		  2、点击步骤设计；
       </div></div> 
    </div>
   </div> 
@@ -61,8 +58,8 @@ $(function(){
     var _canvas = $("#flowdesign_canvas").Flowdesign({
                       "processData":{$process_data|raw}
                       ,fnClick:function(){ /*步骤单击*/
-						  var url = "{:url('wfatt')}?id="+_canvas.getActiveId();
-						  $('#iframepage').attr('src',url);
+						 var url = "{:url('wfatt')}?id="+_canvas.getActiveId();
+						 $('#iframepage').attr('src',url);
                       },fnDbClick:function(){
 						if(confirm("你确定删除步骤吗？")){
 							var activeId = _canvas.getActiveId();//右键当前的ID

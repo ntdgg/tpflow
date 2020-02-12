@@ -3,7 +3,7 @@
 *+------------------
 * Tpflow 流信息处理
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
@@ -85,6 +85,10 @@ class InfoDB{
 				$sponsor_text = $wf_process['auto_role_text'];
 				$sponsor_ids = $wf_process['auto_role_ids'];
 			}
+			if($wf_process['auto_person']==6){ //事务接收者 2020年1月17日15:28:37
+				$sponsor_text =$wf_process['user_info']['username'];
+				$sponsor_ids =  $wf_process['user_info']['id'];
+			}
 		}else{
 			$todo = explode("*%*",$todo);
 			$sponsor_text = $todo[1];
@@ -102,7 +106,7 @@ class InfoDB{
             'is_sponsor'=>0,
             'status'=>0,
 			'sponsor_ids'=>$sponsor_ids,//办理人id
-			'sponsor_text'=>$sponsor_text,//办理人信息
+			'sponsor_text'=>$sponsor_text.'xx',//办理人信息
 			'auto_person'=>$wf_process['auto_person'],//办理类别
             'js_time'=>time(),
             'dateline'=>time(),
@@ -168,6 +172,7 @@ class InfoDB{
 				 $info_list[0]=Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->where('status','eq',0)->find();
 			}
 			
+			
 			/*
 			 * 2019年1月27日
 			 *1、先计算当前流程下有几个步骤
@@ -178,6 +183,7 @@ class InfoDB{
 			 *6、修改提醒模式
 			 */
 			//如果有两个以上的运行步骤，则认定为师同步模式
+			
 			if(count($info_list)<2){
 				$info = $info_list[0];
 				$workflow ['wf_mode'] = 0;//wf_mode
@@ -202,6 +208,7 @@ class InfoDB{
 					return -1;
 				}
 			}
+	
 			if ($result) {
 					$workflow ['sing_st'] = 0;
 					$workflow ['flow_id'] = $result['flow_id'];
@@ -210,19 +217,18 @@ class InfoDB{
 					$workflow ['flow_process'] = $info['run_flow_process'];
 					$workflow ['run_process'] = $info['id'];
 					$workflow ['flow_name'] = FlowDb::GetFlowInfo($result['flow_id']);
-					$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process']);
-					$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process']);
-					$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);
-					$workflow ['singuser'] = UserDb::GetUser();
-					$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);
+					$workflow ['process'] = ProcessDb::GetProcessInfo($info['run_flow_process'],$result['id']);
+					$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process'],$result['id'],$workflow ['wf_mode']);//获取下一个步骤
+					$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);//获取前几个步骤信息，用于步骤回退
+					$workflow ['singuser'] = UserDb::GetUser();//获取所有会签人员
+					$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);//获取所有办理日志
 					if($result['is_sing']==1){
 						$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
 					   $workflow ['sing_st'] = 1;
 					   $workflow ['flow_process'] = $result['run_flow_process'];
 					   $process = ProcessDb::GetProcessInfo($result['run_flow_process']);
 					   $workflow ['status']['wf_mode'] = $process['wf_mode'];
-					   $workflow ['status']['wf_action'] = $process['wf_action'];
-					   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process']);
+					   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process'],$result['id']);
 					   $workflow ['process'] = $process;
 					   $workflow ['run_process'] = $info['id'];
 					   $workflow ['sing_info'] = Db::name('run_sign')->find($result['sing_id']);
@@ -264,6 +270,21 @@ class InfoDB{
         return $result;
 	} 
 	/**
+	 * 更新单据信息
+	 *
+	 * @param $wf_fid  运行的id
+	 * @param $wf_type 业务表名
+	 * @param $status  单据状态
+	 */
+	public static function GetBillValue($table,$id,$value)
+	{
+		$result = Db::name($table)->where('id','eq',$id)->value($value);
+		 if(!$result){
+            return  false;
+        }
+        return $result;
+	} 
+	/**
 	 * 工作流列表
 	 *
 	 */
@@ -274,8 +295,11 @@ class InfoDB{
 		{
 			$result[$k]['flow_name'] = Db::name('flow')->where('id','eq',$v['flow_id'])->value('flow_name');
 			$process = Db::name('flow_process')->where('id','eq',$v['run_flow_process'])->find();
+			
 			if($process['auto_person'] == 4){
 				$result[$k]['user'] =$process['auto_sponsor_text'];
+				}elseif($process['auto_person'] == 6){
+				$result[$k]['user'] =$process['range_user_text'];
 				}else{
 				$result[$k]['user'] =$process['auto_role_text'];
 			}

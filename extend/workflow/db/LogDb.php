@@ -4,7 +4,7 @@ namespace workflow;
 *+------------------
 * Tpflow 工作流日志消息
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------
@@ -26,25 +26,30 @@ class LogDb{
 	 **/
 	public static function AddrunLog($uid,$run_id,$config,$btn)
 	{
+		$work_return ='';
+		if($btn<>'Send'){
+			$work_return = WorkDb::WorkApi($config);//在日志记录前加载节点钩子
+		}
 		 if (!isset($config['art'])) {
                $config['art'] = '';
          }
+		
 		$run_log = array(
                 'uid'=>$uid,
 				'from_id'=>$config['wf_fid'],
 				'from_table'=>$config['wf_type'],
                 'run_id'=>$run_id,
                 'content'=>$config['check_con'],
+				'work_info'=>$work_return,
 				'art'=>$config['art'],
                 'btn'=>$btn,//从 serialize 改用  json_encode 兼容其它语言
                 'dateline'=>time()
             );
 			 $run_log = Db::name('run_log')->insertGetId($run_log);
-			 if(!$run_log)
-				{
+			 if(!$run_log){
 					return  false;
-				}
-				return $run_log;
+			 }
+		return $run_log;
 	}
 	
 	

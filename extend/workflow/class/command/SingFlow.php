@@ -3,7 +3,7 @@
 *+------------------
 * Tpflow 会签模块
 *+------------------ 
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------
@@ -43,6 +43,7 @@ class SingFlow{
 		//加入会签
 		$run_log = LogDb::AddrunLog($uid,$run_id,$config,'Sing');
 		//日志记录
+		return ['msg'=>'success!','code'=>'0'];
 	}
 	/**
 	 *会签确认
@@ -62,7 +63,7 @@ class SingFlow{
 				 ***/
 				$nex_pid = explode(",",$config['npid']);
 				foreach($nex_pid as $v){
-					$wf_process = ProcessDb::GetProcessInfo($v);
+					$wf_process = ProcessDb::GetProcessInfo($v,$config['run_id']);
 					$add_process = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);	
 				}
 				$this->up_flow_press($config['run_id'],$config['npid']);

@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost_3306
 Source Server Version : 50553
 Source Host           : localhost:3306
-Source Database       : tpflow
+Source Database       : tpflow3.1
 
 Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-01-28 14:57:30
+Date: 2020-02-12 16:48:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,8 +27,8 @@ CREATE TABLE `wf_flow` (
   `sort_order` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0不可用1正常',
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `uid` int(11) DEFAULT NULL,
-  `add_time` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL COMMENT '添加用户',
+  `add_time` int(11) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='*工作流表';
 
@@ -46,53 +46,34 @@ CREATE TABLE `wf_flow_process` (
   `process_name` varchar(255) NOT NULL DEFAULT '步骤' COMMENT '步骤名称',
   `process_type` char(10) NOT NULL DEFAULT '' COMMENT '步骤类型',
   `process_to` varchar(255) NOT NULL DEFAULT '' COMMENT '转交下一步骤号',
-  `child_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'is_child 子流程id有return_step_to结束后继续父流程下一步',
-  `child_relation` text COMMENT '[保留功能]父子流程字段映射关系',
-  `child_after` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '子流程 结束后动作 0结束并更新父流程节点为结束  1结束并返回父流程步骤',
-  `child_back_process` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '子流程结束返回的步骤id',
-  `return_sponsor_ids` text COMMENT '[保留功能]主办人 子流程结束后下一步的主办人',
-  `return_respon_ids` text COMMENT '[保留功能]经办人 子流程结束后下一步的经办人',
-  `write_fields` text COMMENT '这个步骤可写的字段',
-  `secret_fields` text COMMENT '这个步骤隐藏的字段',
-  `lock_fields` text COMMENT '锁定不能更改宏控件的值',
-  `check_fields` text COMMENT '字段验证规则',
-  `auto_person` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '本步骤的自动选主办人规则0:为不自动选择1：流程发起人2：本部门主管3指定默认人4上级主管领导5. 一级部门主管6. 指定步骤主办人',
-  `auto_unlock` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否允许修改主办人auto_type>0 0不允许 1允许（默认）',
-  `auto_sponsor_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '3指定步骤主办人ids',
-  `auto_sponsor_text` varchar(255) NOT NULL DEFAULT '' COMMENT '3指定步骤主办人text',
-  `auto_respon_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '3指定步骤主办人ids',
-  `auto_respon_text` varchar(255) NOT NULL DEFAULT '' COMMENT '3指定步骤主办人text',
-  `auto_role_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '制定默认角色ids',
-  `auto_role_text` varchar(255) NOT NULL DEFAULT '' COMMENT '制定默认角色 text',
-  `auto_process_sponsor` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '[保留功能]指定其中一个步骤的主办人处理',
-  `range_user_ids` text COMMENT '本步骤的经办人授权范围ids',
-  `range_user_text` text COMMENT '本步骤的经办人授权范围text',
-  `range_dept_ids` text COMMENT '本步骤的经办部门授权范围',
-  `range_dept_text` text COMMENT '本步骤的经办部门授权范围text',
-  `range_role_ids` text COMMENT '本步骤的经办角色授权范围ids',
-  `range_role_text` text COMMENT '本步骤的经办角色授权范围text',
-  `receive_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0明确指定主办人1先接收者为主办人',
-  `is_user_end` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '允许主办人在非最后步骤也可以办结流程',
-  `is_userop_pass` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '经办人可以转交下一步',
-  `is_sing` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '会签选项1禁止会签2允许会签（默认） 2强制会签',
-  `sign_look` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '会签可见性0总是可见（默认）,1本步骤经办人之间不可见2针对其他步骤不可见',
-  `is_back` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否允许回退2不允许（默认） 1允许退回上一步2允许退回之前步骤',
+  `auto_person` tinyint(1) unsigned NOT NULL DEFAULT '4' COMMENT '3自由选择|4指定人员|5指定角色|6事务接受',
+  `auto_sponsor_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '4指定步骤主办人ids',
+  `auto_sponsor_text` varchar(255) NOT NULL DEFAULT '' COMMENT '4指定步骤主办人text',
+  `work_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '6事务接受',
+  `work_text` varchar(255) NOT NULL DEFAULT '' COMMENT '6事务接受',
+  `auto_role_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '5角色ids',
+  `auto_role_text` varchar(255) NOT NULL DEFAULT '' COMMENT '5角色 text',
+  `range_user_ids` text COMMENT '3自由选择IDS',
+  `range_user_text` text COMMENT '3自由选择用户ID',
+  `is_sing` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1允许|2不允许',
+  `is_back` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1允许|2不允许',
   `out_condition` text COMMENT '转出条件',
   `setleft` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '左 坐标',
   `settop` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '上 坐标',
   `style` text COMMENT '样式 序列化',
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
+  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   `wf_mode` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0 单一线性，1，转出条件 2，同步模式',
   `wf_action` varchar(255) NOT NULL DEFAULT 'view' COMMENT '对应方法',
+  `work_sql` longtext,
+  `work_msg` longtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_flow_process
 -- ----------------------------
-
 
 -- ----------------------------
 -- Table structure for `wf_news`
@@ -122,17 +103,17 @@ CREATE TABLE `wf_news` (
 DROP TABLE IF EXISTS `wf_news_type`;
 CREATE TABLE `wf_news_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL COMMENT '新闻类别',
   `uid` int(11) DEFAULT NULL,
   `add_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='新闻类别';
 
 -- ----------------------------
 -- Records of wf_news_type
 -- ----------------------------
-
-INSERT INTO `wf_news_type` (`type`) VALUES ('测试类别');
+INSERT INTO `wf_news_type` VALUES ('1', '新闻', null, null);
+INSERT INTO `wf_news_type` VALUES ('2', '公告', null, null);
 
 -- ----------------------------
 -- Table structure for `wf_role`
@@ -148,18 +129,18 @@ CREATE TABLE `wf_role` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='模拟用户角色表';
 
 -- ----------------------------
 -- Records of wf_role
 -- ----------------------------
-INSERT INTO `wf_role` VALUES ('15', '市场部', '0', '1', '0', '');
-INSERT INTO `wf_role` VALUES ('16', '工程部', '0', '1', '0', '');
-INSERT INTO `wf_role` VALUES ('17', '新闻部', '0', '1', '0', '');
-INSERT INTO `wf_role` VALUES ('18', '新闻部经理', '0', '1', '0', '');
-INSERT INTO `wf_role` VALUES ('19', '工程部经理', '0', '1', '0', '');
-INSERT INTO `wf_role` VALUES ('20', '市场部经理', '0', '1', '0', '');
-INSERT INTO `wf_role` VALUES ('21', '总经理', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('1', '员工部', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('2', '经理部', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('3', '主管部', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('4', '主任部', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('5', '副总', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('6', '总经理', '0', '1', '0', '');
+INSERT INTO `wf_role` VALUES ('7', '董事长', '0', '1', '0', '');
 
 -- ----------------------------
 -- Table structure for `wf_role_user`
@@ -175,13 +156,13 @@ CREATE TABLE `wf_role_user` (
 -- ----------------------------
 -- Records of wf_role_user
 -- ----------------------------
-INSERT INTO `wf_role_user` VALUES ('7', '15');
-INSERT INTO `wf_role_user` VALUES ('8', '15');
-INSERT INTO `wf_role_user` VALUES ('9', '17');
-INSERT INTO `wf_role_user` VALUES ('10', '18');
-INSERT INTO `wf_role_user` VALUES ('11', '20');
-INSERT INTO `wf_role_user` VALUES ('12', '19');
-INSERT INTO `wf_role_user` VALUES ('13', '21');
+INSERT INTO `wf_role_user` VALUES ('1', '1');
+INSERT INTO `wf_role_user` VALUES ('2', '2');
+INSERT INTO `wf_role_user` VALUES ('3', '3');
+INSERT INTO `wf_role_user` VALUES ('4', '4');
+INSERT INTO `wf_role_user` VALUES ('5', '5');
+INSERT INTO `wf_role_user` VALUES ('6', '6');
+INSERT INTO `wf_role_user` VALUES ('7', '7');
 
 -- ----------------------------
 -- Table structure for `wf_run`
@@ -249,15 +230,16 @@ CREATE TABLE `wf_run_cache` (
 DROP TABLE IF EXISTS `wf_run_log`;
 CREATE TABLE `wf_run_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(10) unsigned NOT NULL DEFAULT '0',
-  `from_id` int(11) DEFAULT NULL,
-  `from_table` varchar(255) DEFAULT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `from_id` int(11) DEFAULT NULL COMMENT '单据ID',
+  `from_table` varchar(255) DEFAULT NULL COMMENT '单据表',
   `run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转id',
-  `run_flow` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程ID,子流程时区分run step',
+  `run_flow` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程ID',
   `content` text NOT NULL COMMENT '日志内容',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
-  `btn` varchar(255) DEFAULT NULL,
-  `art` longtext,
+  `btn` varchar(255) DEFAULT NULL COMMENT '提交操作信息',
+  `art` longtext COMMENT '附件日志',
+  `work_info` varchar(255) DEFAULT NULL COMMENT '事务日志',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `run_id` (`run_id`)
@@ -357,10 +339,28 @@ CREATE TABLE `wf_user` (
 -- ----------------------------
 -- Records of wf_user
 -- ----------------------------
-INSERT INTO `wf_user` VALUES ('7', '市场部员工1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '15', '0', '1', '1522372036', '127.0.0.1', '0', '新建用户', '1522372036');
-INSERT INTO `wf_user` VALUES ('8', '工程部员工1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '15', '0', '1', '1522372556', '127.0.0.1', '0', '新建用户', '1522372556');
-INSERT INTO `wf_user` VALUES ('9', '新闻部员工1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '17', '0', '1', '1522376353', '127.0.0.1', '0', '新建用户', '1522376353');
-INSERT INTO `wf_user` VALUES ('10', '新闻部经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '18', '0', '1', '1522376372', '127.0.0.1', '0', '新建用户', '1522376372');
-INSERT INTO `wf_user` VALUES ('11', '市场部经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '20', '0', '1', '1522376385', '127.0.0.1', '0', '新建用户', '1522376385');
-INSERT INTO `wf_user` VALUES ('12', '工程部经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '19', '0', '1', '1522376401', '127.0.0.1', '0', '新建用户', '1522376401');
-INSERT INTO `wf_user` VALUES ('13', '总经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '21', '0', '1', '1522376413', '127.0.0.1', '0', '新建用户', '1522376413');
+INSERT INTO `wf_user` VALUES ('1', '员工', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '1', '0', '1', '1522372036', '127.0.0.1', '0', '新建用户', '1522372036');
+INSERT INTO `wf_user` VALUES ('2', '经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '2', '0', '1', '1522372556', '127.0.0.1', '0', '新建用户', '1522372556');
+INSERT INTO `wf_user` VALUES ('3', '主管', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '3', '0', '1', '1522376353', '127.0.0.1', '0', '新建用户', '1522376353');
+INSERT INTO `wf_user` VALUES ('4', '主任', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '4', '0', '1', '1522376372', '127.0.0.1', '0', '新建用户', '1522376372');
+INSERT INTO `wf_user` VALUES ('5', '副总', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '5', '0', '1', '1522376385', '127.0.0.1', '0', '新建用户', '1522376385');
+INSERT INTO `wf_user` VALUES ('6', '总经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '6', '0', '1', '1522376401', '127.0.0.1', '0', '新建用户', '1522376401');
+INSERT INTO `wf_user` VALUES ('7', '董事长', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '7', '0', '1', '1522376413', '127.0.0.1', '0', '新建用户', '1522376413');
+
+-- ----------------------------
+-- Table structure for `wf_workinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_workinfo`;
+CREATE TABLE `wf_workinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bill_info` longtext COMMENT '单据JSON',
+  `data` longtext COMMENT '处理数据',
+  `info` longtext COMMENT '处理结果',
+  `datetime` datetime DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL COMMENT '类型',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_workinfo
+-- ----------------------------

@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 流信息处理
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+ * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -142,12 +142,47 @@ class FlowDb
         foreach ($list as $value) {
             $process_total += 1;
             $style = json_decode($value['style'], true);
+			$mode = '<font color=red>未设置</font>';
+			$name = '<font color=red>未设置</font>';
+			if($value['auto_person']==3){ 
+				$mode = '办理人员';
+				$name = $value['range_user_text'];
+			}
+			if($value['auto_person']==4){ //
+				$mode = '办理人员';
+				$name = $value['auto_sponsor_text'];
+			}
+			if($value['auto_person']==5){ //
+				$mode = '办理角色';
+				$name = $value['auto_role_text'];
+			}
+			if($value['auto_person']==6){ //
+				$work = ['1'=>'制单人员','2'=>'制单人员领导'];
+				$mode = '<font color=blue>事务处理</font>';
+				$name = $work[$value['work_ids']];
+			}
+			if($value['process_type']=='is_one'){ //
+				$name_att = '<font color=blue>[开始]</font>';
+				
+			}else{
+				if($value['wf_mode']==0){ //
+					$name_att = '[直线]';
+				}elseif($value['wf_mode']==1){
+					$name_att = '<font color=green>[转出]</font>';	
+				}else{
+					$name_att = '<font color=red>[同步]</font>';	
+				}
+			}
+			
+			
             $process_data[] = [
                 'id' => $value['id'],
+				'mode' => $mode,
+				'name' => $name,
                 'flow_id' => $value['flow_id'],
-                'process_name' => $value['process_name'],
+                'process_name' => $name_att.$value['process_name'],
                 'process_to' => $value['process_to'],
-                'style' => 'width:' . $style['width'] . 'px;height:' . $style['height'] . 'px;line-height:30px;color:' . $style['color'] . ';left:' . $value['setleft'] . 'px;top:' . $value['settop'] . 'px;',
+                'style' => 'width:' . $style['width'] . 'px;height:' . $style['height'] . 'px;line-height:30px;color:#0e76a8;left:' . $value['setleft'] . 'px;top:' . $value['settop'] . 'px;',
             ];
         }
         return json_encode(['total' => $process_total, 'list' => $process_data]);
@@ -228,7 +263,7 @@ class FlowDb
 		}
         $data = [
             'flow_id' => $flow_id,'setleft' => $process_setleft,'settop' => $process_settop,
-            'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => '38', 'color' => '#0e76a8'])
+            'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => 'auto', 'color' => '#0e76a8'])
         ];
         $processid = Db::name('flow_process')->insertGetId($data);
         if ($processid <= 0) {
@@ -299,10 +334,14 @@ class FlowDb
             'auto_role_text' => $datas['auto_role_text'],
             'range_user_ids' => $datas['range_user_ids'],
             'range_user_text' => $datas['range_user_text'],
+			 'work_text' => $datas['work_text'],//新增事务功能
+            'work_ids' => $datas['work_ids'],  //新增事务功能
+			 'work_msg' => $datas['work_msg'],  //新增事务MSG
+			  'work_sql' => $datas['work_sql'],  //新增事务SQL
             'is_sing' => $datas['is_sing'],
             'is_back' => $datas['is_back'],
             'out_condition' => json_encode($out_condition),
-            'style' => json_encode(['width' => $datas['style_width'], 'height' => $datas['style_height'], 'color' => $datas['style_color']])
+            'style' => json_encode(['width' => $datas['style_width'], 'height' => $datas['style_height'], 'color' => '#0e76a8'])
         ];
         //在没有下一步骤的时候保存属性
         if (isset($datas["process_to"])) {
@@ -379,7 +418,7 @@ class FlowDb
 	 **/
 	public static function end_flow($run_id)
 	{
-		return Db::name('run')->where('id','eq','in',$run_id)->update(['status'=>1,'endtime'=>time()]);
+		return Db::name('run')->where('id','eq',$run_id)->update(['status'=>1,'endtime'=>time()]);
 	}
 	/**
 	 *结束工作流步骤信息
@@ -388,7 +427,7 @@ class FlowDb
 	 **/
 	public static function end_process($run_process,$check_con)
 	{
-		return Db::name('run_process')->where('id',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
+		return Db::name('run_process')->where('id','in',$run_process)->update(['status'=>2,'remark'=>$check_con,'bl_time'=>time()]);
 	}
 	/**
 	 *更新流程主信息

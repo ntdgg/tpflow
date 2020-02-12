@@ -3,7 +3,7 @@
 *+------------------
 * Tpflow 普通提交工作流
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
@@ -43,5 +43,6 @@ class SupFlow{
 		if(!$bill_update){
 			return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 		}
+		return ['msg'=>'success!','code'=>'0'];
 	}
 }

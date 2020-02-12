@@ -1,14 +1,6 @@
-# Tpflow 3.0 正式版
+# Tpflow 3.1 正式版
 
 **欢迎使用 Tpflow 工作流引擎**
-
-![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=dark "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg "tpflow") 
-
-### 有问题请提交ISSUE 48小时内解决~~
-
-### Laravel版本的工作流
-
-[Laravel版本](http://gadmin.cojz8.com/group-topic-id-25.html "Laravel版本")
 
 ### 主要特性
 
@@ -31,20 +23,6 @@
 
 [看云文档](https://www.kancloud.cn/guowenbin/tpflow "安装手册")   [官方博客](http://www.cojz8.com/tag/30 "官方博客")
 
-### 在线演示
-
-[http://tpflow.cojz8.com](http://tpflow.cojz8.com "http://tpflow.cojz8.com")   
-
-提　示：演示站供各位测试使用，请勿随意填写数据操作。
-
-### 界面截图
-
-![markdown](http://files.git.oschina.net/group1/M00/06/3A/PaAvDFw4NRKAK6CCAAEZKRKE9TE045.png?token=cc97060f3fa5ed3cb7356ccdab6b10ae&ts=1547187474&attname=1.png "tpflow")
-
-### 问题反馈
-我们建议直接提交 ISSUE 问题反馈给我们，或者加入我们QQ群
-
->在使用中有任何问题，请使用以下联系方式联系我们
 
 
 ### 相关链接
@@ -69,10 +47,6 @@ Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
 版权所有Copyright © 2018-2020 by Tpflow (http://cojz8.com)
 
 All rights reserved。
-
-~~~
-对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！
-~~~
 
 ~~~
 对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！

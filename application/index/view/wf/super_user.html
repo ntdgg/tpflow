@@ -14,11 +14,10 @@
 			</td></tr>
 			<tr><td>
 			 <select name="dialog_searchable" id="dialog_searchable" multiple="multiple" style="display:none;">
-           <!--  <option value="all">【全部】</option> -->
 			{volist name='user' id='k'}
             <option value="{$k.id}" >{$k.username}</option>
 			{/volist}
-        </select>
+			</select>
 			</td></tr>
 			<tr><td>
 			<button class="btn btn-info" type="button" onclick='call_back()' id="dialog_confirm">确定</button>
@@ -30,6 +29,7 @@
 	function call_back(){
 			var nameText = [];
             var idText = [];
+			var html = "<table class='tables'><tr><td>序号</td><td>名称</td></tr>";
             if(!$('#dialog_searchable').val())
             {
                layer.msg('未选择');
@@ -39,18 +39,16 @@
               $('#dialog_searchable option').each(function(){
                 if($(this).attr("selected"))
                 {
-                    if($(this).val()=='all')//有全部，其它就不要了
-                    {
-                        nameText = [];
-                        idText = [];
-                        nameText.push($(this).text());
-                        idText.push($(this).val());
-                        return false;
-                    }
                     nameText.push($(this).text());
                     idText.push($(this).val());
                 }
                 });
+				for (x in nameText){
+					html += '<tr><td>'+x+'</td><td>';
+					html += nameText[x];
+					html += '</td></tr>';
+				}
+					html += '</table>';
                 var name = nameText.join(',');
 				var ids = idText.join(',');
             }
@@ -58,6 +56,7 @@
 		parent.layer.msg('设置成功');
 		parent.$('#{$kid}_ids').val(ids);
 		parent.$('#{$kid}_text').val(name);
+		parent.$('#{$kid}_html').html(html);
 		parent.layer.close(index);
 	}
     $(function(){

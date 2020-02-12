@@ -26,6 +26,7 @@ class wf extends Admin {
 	 * 工作流设计界面
 	 */
     public function wfdesc(){
+		 
         $flow_id = intval(input('flow_id'));
         if($flow_id<=0){
             $this->error('参数有误，请返回重试!');
@@ -127,7 +128,6 @@ class wf extends Admin {
     public function wfatt()
     {
 	    $info = $this->work->ProcessApi('ProcessAttView',input('id'));
-		//dump($info);
 	    $this->assign('op',$info['show']);
         $this->assign('one',$info['info']);
 		$this->assign('from',$info['from']);
@@ -158,9 +158,9 @@ class wf extends Admin {
 	{
 		 $type = trim(input('type'));
 		 if($type=='user'){
-			$info =  db('user')->where('username','like','%'.input('key').'%')->field('id as value,username as text')->select();
+			$info =  db('user')->where('username','like','%'.input('key').'%')->field('id as vlaue,username as text')->select();
 		 }else{
-			 $info =  db('role')->where('name','like','%'.input('key').'%')->field('id as value,name as text')->select();
+			 $info =  db('role')->where('name','like','%'.input('key').'%')->field('id as vlaue,name as text')->select();
 		 }
 		 return ['data'=>$info,'code'=>1,'msg'=>'查询成功！'];
 	}
@@ -183,14 +183,13 @@ class wf extends Admin {
 		case 1:
 			$st = 0;
 			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
-			
 			if($flowinfo!=-1){
-					if(!isset($flowinfo['status'])){
-						return '<span class="btn btn-danger  radius size-S" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
-					}
+				if(!isset($flowinfo['status'])){
+					 return '<span class="btn btn-danger  radius size-S" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
+				}
+				$user = explode(",", $flowinfo['status']['sponsor_ids']);
 					if($flowinfo['sing_st']==0){
-						$user = explode(",", $flowinfo['status']['sponsor_ids']);
-						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4){
+						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4||$flowinfo['status']['auto_person']==6){
 							if (in_array($this->uid, $user)) {
 								$st = 1;
 							}
@@ -209,15 +208,14 @@ class wf extends Admin {
 					 return '<span class="btn  radius size-S">无权限</span>';
 				}	
 				if($st == 1){
-					 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核</span>';
+					 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核('.$flowinfo['status']['sponsor_text'].')</span>';
 					}else{
-					 return '<span class="btn  radius size-S">无权限</span>';
+					 return '<span class="btn  radius size-S">无权限('.$flowinfo['status']['sponsor_text'].')</span>';
 				}
 			
 		case 100:
 			echo '<span class="btn btn-primary" onclick=layer_show(\'代审\',"'.$url.'?sup=1","850","650")>代审</span>';
 		  break;
-		 
 		  break;
 		default:
 		  return '';
@@ -264,14 +262,23 @@ class wf extends Admin {
 	{
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
 		$this->assign('info',$info);
+		
 		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		return $this->fetch();
 	}
 	public function do_check_save()
 	{
 		$data = $this->request->param();
+		//dump($data);
+		
+		//exit;
 		$flowinfo =  $this->work->workdoaction($data,$this->uid);
-		return $this->msg_return('Success!');
+		
+		if($flowinfo['code']=='0'){
+			return $this->msg_return('Success!');
+			}else{
+			return $this->msg_return($flowinfo['msg'],1);
+		}
 	}
 	public function ajax_back(){
 		$flowinfo =  $this->work->getprocessinfo(input('back_id'),input('run_id'));

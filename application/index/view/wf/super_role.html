@@ -29,6 +29,7 @@
 	function call_back(){
 			var nameText = [];
             var idText = [];
+			var html = "<table class='tables'><tr><td>序号</td><td>名称</td></tr>";
             if(!$('#dialog_searchable').val())
             {
                layer.msg('未选择');
@@ -52,11 +53,18 @@
                 });
                 var name = nameText.join(',');
 				var ids = idText.join(',');
+				for (x in nameText){
+					html += '<tr><td>'+x+'</td><td>';
+					html += nameText[x];
+					html += '</td></tr>';
+				}
+				html += '</table>';
             }
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.msg('设置成功');
 		parent.$('#auto_role_value').val(ids);
 		parent.$('#auto_role_text').val(name);
+		parent.$('#auto_role_html').html(html);
 		parent.layer.close(index);
 	}
     $(function(){

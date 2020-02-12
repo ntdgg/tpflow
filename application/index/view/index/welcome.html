@@ -2,24 +2,16 @@
 <body onload="prettyPrint()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 欢迎使用，Tpflow 工作流插件示例</nav>
 <div class="page-container">
-<span class="btn btn-success radius" data-title="官方博客" data-href="http://www.cojz8.com" onclick="Hui_admin_tab(this)">官方博客</span>
-<span class="btn btn-success radius" data-title="开发文档" data-href="{:url('doc')}" onclick="Hui_admin_tab(this)">在线开发文档（精简）</span>
-<span class="btn btn-success radius" data-title="完整文档" data-href="https://www.kancloud.cn/guowenbin/tpflow/" onclick="Hui_admin_tab(this)">看云完整文档</span>
-<span class="btn btn-success radius" data-title="源码下载" data-href="https://gitee.com/ntdgg/tpflow/" onclick="Hui_admin_tab(this)">源码下载</span>
-<br/>
+<h3>当前版本为：V3.1-正式版</h3>
 
+<article class="f-14 l-30 mt-20 mr-50">
+			<p>致亲爱的Tpflow用户：</p>
+			<p style="text-indent:2em">首先感谢你们一路的支持，Tpflow上线以来收货颇多，这也是开源平台第一个工作流开源项目，我们希望做得更好。我们深知这非常不容易，目前团队只有一个人开发，希望有志之士的加入！</p>
+			<p style="text-indent:2em">希望各路大神，一起完善，改进这个开源的工作流。不管是公司，还是个人，UI前端，还是后端，若有建议，不妨提出。开源精神，与君共勉！</p>
+			
+			<p class="text-r">蝈蝈<br>2018.07.19</p>
+</article>
 
-<h4>模拟登入(点击姓名，进行模拟登入)：
-<mark>
-{if condition='$Think.session.uid'}
-欢迎您：{$Think.session.uname} 使用本插件！
-{else/}
-	请先模拟登入！
-{/if}
-</mark></h4>
-{volist name='user' id='k'}
-	<a href="{:url('login',['id'=>$k.id,'user'=>$k.username,'role'=>$k.role])}" class="btn btn-primary radius">{$k.username}</a>
-{/volist}
 
 </body>
 </html>

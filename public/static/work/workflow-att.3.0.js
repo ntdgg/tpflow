@@ -194,7 +194,7 @@
                 oObj.removeChild(oObj.options[i]);
                 i--;
             }
-            check_from();
+			check_from();
         }
     }
     function fnClearCon(id){
@@ -223,6 +223,12 @@ $(function(){
       }else{
           $("#auto_person_5").hide();
       }
+	  if(apid==6)//指定角色
+      {
+          $("#auto_person_6").show();
+      }else{
+          $("#auto_person_6").hide();
+      }
   });
     $("#wf_mode_id").on('change',function(){
       var apid = $(this).val();
@@ -240,20 +246,5 @@ $(function(){
       }else{
           $("#wf_mode_2").hide();
       }
-  });
-  
-
-  /*样式*/
-  $('.colors li').click(function() {
-      var self = $(this);
-      if (!self.hasClass('active')) {
-        self.siblings().removeClass('active');
-      }
-      var color = self.attr('org-data') ? self.attr('org-data') : '';
-      var parentDiv = self.parents(".colors");
-      var orgBind = parentDiv.attr("org-bind");
-      $("#"+orgBind).css({ color:'#fff',background: color });
-      $("#"+orgBind).val(color);
-      self.addClass('active');
   });
 });

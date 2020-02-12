@@ -2,37 +2,157 @@
 <link rel="stylesheet" type="text/css" href="__Flow__/workflow.3.0.css"/>
 <link rel="stylesheet" type="text/css" href="__Flow__/multiselect2side.css"/>
 <form  class="form-horizontal" action="{:url('save_attribute')}" method="post" name="form" id="form">
-<input type="hidden" name="flow_id" value="{$one.flow_id}"/>
-<input type="hidden" name="process_id" value="{$one.id}"/>
-<table class="tables">
-<tr><td>步骤名称</td><td><input type="text" class="smalls" name="process_name" value="{$one.process_name}"></td><td>步骤尺寸</td><td>
-<input type="text" class="smalls" name="style_width" value="{$one.style.width}" style='width:60px'> X 
-			<input type="text" class="smalls" name="style_height" value="{$one.style.height}" style='width:60px'></td></tr>
-<tr></tr>
-<tr><td>字体颜色</td><td  colspan='3'><input type="text" class="smalls" name="style_color" id="style_color" placeholder="#000000" value="{$one.style.color}">
-            <div class="colors" org-bind="style_color">
-                <ul>
-                  <li class="Black active" org-data="#000" title="Black">1</li>
-                  <li class="red" org-data="#d54e21" title="Red">2</li>
-                  <li class="green" org-data="#78a300" title="Green">3</li>
-                  <li class="blue" org-data="#0e76a8" title="Blue">4</li>
-                  <li class="aero" org-data="#9cc2cb" title="Aero">5</li>
-                  <li class="grey" org-data="#73716e" title="Grey">6</li>
-                  <li class="orange" org-data="#f70" title="Orange">7</li>
-                  <li class="yellow" org-data="#fc0" title="Yellow">8</li>
-                  <li class="pink" org-data="#ff66b5" title="Pink">9</li>
-                  <li class="purple" org-data="#6a5a8c" title="Purple">10</li>
-                </ul>
-            </div></td></tr>
-			<tr><td>步骤类型</td><td>
-				<input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
-                <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>第一步</td>
-				<td>调用方法</td>
-				<td>
-					<input type="text" class="smalls" name="wf_action"  value="{$one.wf_action ?? 'view'}">
-				</td>
+
+   <style type="text/css">
+       #box{
+           height: auto;
+           width: auto;
+           border: 1px solid #ccc;
+           
+       }
+       ul{
+           height: 30px;
+           width: 600px;
+           padding: 0;
+           margin: 0;
+       }
+       li{
+           display: block;
+           text-align: center;
+           width: 80px;
+           float: left;
+           list-style: none;
+           cursor: pointer;
+           height: 30px;
+           line-height: 30px;
+       }
+       .choice{
+               background: #409EFF;
+               color: #fff;
+       }
+       .tab-item{
+           display: none;
+       }
+       .show{
+           display: block;
+       }
+   </style>
+</head>
+<body>
+   <ul>
+       <li tabid="1" class="choice">节点信息</li>
+       <li tabid="2">节点属性</li>
+       <li tabid="3">节点人员</li>
+	   <li tabid="4">节点转出</li>
+	   <li tabid="5">节点事务</li>
+   </ul>
+   <div id="box">
+       <div class="tab-item show">
+	   <input type="hidden" name="flow_id" value="{$one.flow_id}"/>
+	<input type="hidden" name="process_id" value="{$one.id}"/>
+		<table class="tables">
+			<tr><td>节点ID</td><td>{$one.id}</td></tr>
+			<tr><td>步骤名称</td><td><input type="text" class="smalls" name="process_name" value="{$one.process_name}"></td></tr>
+			<tr><td>步骤尺寸</td><td><input type="text" class="smalls" name="style_width" value="{$one.style.width}" style='width:60px'> X <input type="text" class="smalls" name="style_height" value="{$one.style.height}" readonly style='width:60px'></td></tr>
+		</table>
+	   
+	   </div>
+       <div class="tab-item">
+	   <table class="tables">
+	   <tr><td>步骤类型</td><td><input type="radio" name="process_type" value="is_step" {if condition="$one.process_type eq 'is_step'"}checked="checked"{/if}>正常步骤
+                <input type="radio" name="process_type" value="is_one" {if condition="$one.process_type eq 'is_one'"}checked="checked"{/if}>第一步</td></tr>
+		<tr><td>调用方法</td><td><input type="text" class="smalls" name="wf_action"  value="{$one.wf_action ?? 'view'}"></td></tr>	
+<tr><td>会签方式</td><td><select name="is_sing" >
+              <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
+              <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
+            </select></td></tr>	
+<tr><td>回退方式</td><td><select name="is_back" >
+              <option value="1" {if condition="$one.is_back eq 1"}selected="selected"{/if}>不允许</option>
+              <option value="2" {if condition="$one.is_back eq 2"}selected="selected"{/if}>允许回退</option>
+            </select></td></tr>			
+		
+	   </table></div>
+       <div class="tab-item"> <table class="tables">
+	   <tr><td>办理人员</td><td colspan='3'><select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
+                <option value="">请选择</option>
+				 {if condition="$one.process_type neq 'is_one'"}<option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>{/if}
+				 <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
+                <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
+				<option value="6" {if condition="$one['auto_person'] eq 6"}selected="selected"{/if}>事务接受</option>
+              </select></td></tr> 
+			<tr id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}><td>自由选择</br>
+			<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','350','500')">选择</a>
+			</td><td> 
+				<input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
+                    <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
+					
+					<span id='range_user_html'>
+					{if condition='count(explode(",",$one.range_user_text)) gt 1'}
+					<table class='tables'><tr><td>序号</td><td>名称</td></tr>
+						{volist name=':explode(",",$one.range_user_text)' id="vo"  }
+							<tr><td>{$key}</td><td>{$vo}</td></tr>
+						{/volist}
+						</table>{else/}
+						<h4>Tip:请按右侧选择添加办理人员</h4>
+						{/if}
+					</span>
+					
+					</td>	
+			</tr>
+			<tr id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}><td>指定人员
+			</br/><a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','350','500')">选择</a></td><td> 
+			
+			<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
+             <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
+				<span id='auto_sponsor_html'>
+				{if condition='count(explode(",",$one.auto_sponsor_text)) gt 1'}
+					<table class='tables'><tr><td>序号</td><td>名称</td></tr>
+						{volist name=':explode(",",$one.auto_sponsor_text)' id="vo"  }
+							<tr><td>{$key}</td><td>{$vo}</td></tr>
+						{/volist}
+						</table>	{else/}
+						<h4>Tip:请按右侧选择添加办理人员</h4>{/if}
+					</span>	
+					</td>	
+			</tr>
+			<tr id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}><td>指定角色<br/><a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a></td><td> 
+			<input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}" >
+			
+			<span id='auto_role_html'>
+			{if condition='count(explode(",",$one.auto_role_text)) gt 1'}
+					<table class='tables'><tr><td>序号</td><td>名称</td></tr>
+						{volist name=':explode(",",$one.auto_role_text)' id="vo"  }
+							<tr><td>{$key}</td><td>{$vo}</td></tr>
+						{/volist}
+						</table>
+						{else/}
+						<h4>Tip:请按右侧选择添加办理人员</h4>
+						{/if}
+			</span>
 				
-				</tr>
+            <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
+			</td>	
+			</tr>
+			<tr id="auto_person_6" {if condition="$one['auto_person'] neq 6"}class="hide"{/if}><td>事务接受</td><td> 
+				取业务表<select   class="smalls" name='work_text'>
+              <option value="">选择字段</option>
+			  {volist name='from' id='v'}
+			  <option value="{$key}" {if condition='$key eq $one["work_text"]'}selected{/if}>{$v}</option>
+			  {/volist}
+            </select>的 
+			<select name="work_ids"  nullmsg="人员">
+				<option value="1" {if condition='1 eq $one["work_ids"]'}selected{/if}>制单人员</option>
+				<!-- <option value="2" {if condition='2 eq $one["work_ids"]'}selected{/if}>制单人员上级</option> -->
+			</select>
+			</td>	
+			</tr>
+			
+			
+			
+			</table>
+	   </div>
+	   <div class="tab-item">
+	    <table class="tables">
 				<tr><td>步骤模式</td><td  colspan='3'>
 					<select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择步骤模式">
 					<option value="">请选择步骤模式</option>
@@ -43,57 +163,11 @@
 					 <option value="0" {if condition="$one['wf_mode'] eq 0"}selected="selected"{/if}>单线模式（流程为直线型单一办理模式）</option>
 					{/if}
 				  </select>
-				</td></tr>
-			<tr><td>会签方式</td><td><select name="is_sing" >
-              <option value="1" {if condition="$one.is_sing eq 1"}selected="selected"{/if}>允许会签</option>
-              <option value="2" {if condition="$one.is_sing eq 2"}selected="selected"{/if}>禁止会签</option>
-            </select></td>
-			
-			<td>回退方式</td><td><select name="is_back" >
-              <option value="1" {if condition="$one.is_back eq 1"}selected="selected"{/if}>不允许</option>
-              <option value="2" {if condition="$one.is_back eq 2"}selected="selected"{/if}>允许回退</option>
-            </select></td>
-			</tr>
-			<tr><td>办理人员</td><td colspan='3'><select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！">
-                <option value="">请选择办理人员或者角色</option>
-				 {if condition="$one.process_type neq 'is_one'"}<option value="3" {if condition="$one['auto_person'] eq 3"}selected="selected"{/if}>自由选择</option>{/if}
-				 <option value="4" {if condition="$one['auto_person'] eq 4"}selected="selected"{/if}>指定人员</option>
-                <option value="5" {if condition="$one['auto_person'] eq 5"}selected="selected"{/if}>指定角色</option>
-              </select>
-              <span class="help-inline">*选择人员或者办理的角色！</span>
-			<div id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}>
-              办理人
-                    <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
-					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','350','500')">选择</a>
-				
-            </div>
-            <div id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}>
-              办理人<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
-					<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','350','500')">选择</a>
-            </div>
-            <div id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}>
-              指定角色
-                    <input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}" >
-                    <input class="input-xlarge" readonly="readonly" type="text" placeholder="指定角色" name="auto_role_text" id="auto_role_text" value="{$one.auto_role_text ?? ''}">
-					<a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a>
-               
-            </div></td></tr>
+				</td></tr>	
 <!--重新设计，带转出模式-->
-
-
 <tr id='wf_mode_2' {if condition="$one['wf_mode'] neq 1"}class="hide"{/if}>
 <td colspan=4>
-<table class="table" >
-      <thead>
-        <tr>
-          <th style="width:30px;">步骤</th>
-          <th>转出条件设置</th>
-        </tr>
-      </thead>
-      <tbody>
-
+<table class="table" ><thead><tr><th style="width:30px;">步骤</th><th>转出条件设置</th></tr></thead><tbody>
 <!--模板-->
 {volist name='process_to_list' id='k'}
 {if condition="in_array($k['id'],$one['process_to'])"}
@@ -137,7 +211,6 @@
 			</select>
         </td>
         <td>
-           
         <button type="button" onclick="fnDelCon('{$k.id}')" class="wf_btn">删行</button>
         <button type="button" onclick="fnClearCon('{$k.id}')" class="wf_btn">清空</button>
            <input name="process_in_set_{$k.id}" id="process_in_set_{$k.id}" type="hidden">
@@ -150,33 +223,64 @@
 </tr>
 {/if}
 {/volist}
+</table></td></tr></table>
+	   </div>
+   
+  <div class="tab-item">
+  <table class="tables">
+		<tr><td width='160px'style="display:table-cell; vertical-align:middle">事务SQL
+		<hr>
+		单据ID：@from_id<br/>
+		节点ID：@run_id<br/>
+		提交意见：@check_con
+		
+		</td><td><textarea name='work_sql'  type="text/plain" style="width:100%;height:100px;">{$one.work_sql ?? ''}</textarea>
+		Tip:UPDATE Table SET field1=value1 WHERE id=@run_id;
+		</td></tr>		
+		<tr><td style="display:table-cell; vertical-align:middle">事务MSG
+		<hr>
+		单据ID：@from_id<br/>
+		节点ID：@run_id<br/>
+		提交意见：@check_con
+		</td><td><textarea name='work_msg'  type="text/plain" style="width:100%;height:100px;">{$one.work_msg ?? '您好,您有需要审批的业务,业务编号为：@run_id'}</textarea></td></tr>	
+   </table>
+   
+   </div>  
+   
+   
+   </div> 
+   <table class="tables">
+   <tr>
+   <td style='text-align: center;'>
+   <a onclick="layer_close()" class="btn" >取消</a>
+   <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+</td></tr>	
+    </table>
+   
+   <script type="text/javascript">
+       $("li").click(function(){
+           $(this).attr("class","choice")
+           $(this).siblings().attr("class","")
+           var itemId = $(this).attr("tabid")-1;
+	
+           $("#box").find("div:eq("+itemId+")").attr("class","show")
+           $("#box").find("div:eq("+itemId+")").siblings().attr("class","tab-item")
+       })
+   </script>
 
-  </tbody>
-  
-</table>
-</td></tr>
-</table>
 
     
 <input type="hidden" name="process_condition" id="process_condition" value='{$one.process_tos}'>
 
 <div>
-  <hr/>
-  <span class="pull-right">
-      <a onclick="layer_close()" class="btn" >取消</a>
-      <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-  </span>
+
+ 
 </div>
 </form>
 <script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js?"></script>
-
 <script type="text/javascript" src="__Flow__/jquery-ui-1.9.2-min.js?" ></script>
-<!--select 2-->
 <script type="text/javascript" src="__Flow__/multiselect2side.js?" ></script>
-<!--flowdesign-->
 <script type="text/javascript" src="__Flow__/workflow-att.3.0.js"></script>
-
-
 <script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
 <script type="text/javascript">
 $(function(){

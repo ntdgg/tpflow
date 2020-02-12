@@ -3,7 +3,7 @@
 *+------------------
 * Tpflow 工作流步骤
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
@@ -20,10 +20,10 @@ class ProcessDb{
 	 *
 	 * @param $pid 步骤编号
 	 */
-	public static function GetProcessInfo($pid)
+	public static function GetProcessInfo($pid,$run_id='')
 	{
 		$info = Db::name('flow_process')
-				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back,wf_mode,wf_action')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,is_back,wf_mode,wf_action,work_ids,work_text,flow_id')
 				->find($pid);
 		if($info['auto_person']==3){ //办理人员
 			$ids = explode(",",$info['range_user_text']);
@@ -35,6 +35,14 @@ class ProcessDb{
 		if($info['auto_person']==5){ //办理角色
 			$info['todo'] = $info['auto_role_text'];
 		}
+		if($info['auto_person']==6){ //办理角色
+				$wf  =  Db::name('run')->find($run_id);
+				$user_id = InfoDB::GetBillValue($wf['from_table'],$wf['from_id'],$info['work_text']);
+				$user_info = UserDb::GetUserInfo($user_id);
+				$info['user_info']= $user_info;
+				$info['todo']= $user_info['username'];
+			}
+			
 		return $info;
 	}
 	/**
@@ -42,10 +50,10 @@ class ProcessDb{
 	 *
 	 * @param $pid 步骤编号
 	 */
-	public static function GetProcessInfos($ids)
+	public static function GetProcessInfos($ids,$run_id)
 	{
 		$info = Db::name('flow_process')
-				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,sign_look,is_back,wf_mode,wf_action')
+				->field('id,process_name,process_type,process_to,auto_person,auto_sponsor_ids,auto_role_ids,auto_sponsor_text,auto_role_text,range_user_ids,range_user_text,is_sing,is_back,wf_mode,wf_action,work_ids,work_text')
 				->where('id','in',$ids)
 				->select();
 		foreach($info as $k=>$v){
@@ -59,6 +67,13 @@ class ProcessDb{
 			if($v['auto_person']==5){ //办理角色
 				$info[$k]['todo'] = $v['auto_role_text'];
 			}
+			if($v['auto_person']==6){ //办理角色
+				$wf  =  Db::name('run')->find($run_id);
+				$user_id = InfoDB::GetBillValue($wf['from_table'],$wf['from_id'],$info[$k]['work_text']);
+				$user_info = UserDb::GetUserInfo($user_id);
+				$info['user_info']= $user_info;
+				$info[$k]['todo']= $user_info['username'];
+			}
 		}
 		
 		return $info;
@@ -69,10 +84,12 @@ class ProcessDb{
 	 * @param $wf_type 单据表
 	 * @param $wf_fid  单据id
 	 * @param $pid   流程id
+	 * @param $premode   上一个步骤的模式
 	 **/
-	public static function GetNexProcessInfo($wf_type,$wf_fid,$pid)
+	public static function GetNexProcessInfo($wf_type,$wf_fid,$pid,$run_id,$premode='')
 	{
 		$nex = Db::name('flow_process')->find($pid);
+	
 		//先判断下上一个流程是什么模式
 		if($nex['process_to'] !=''){
 		$nex_pid = explode(",",$nex['process_to']);
@@ -88,7 +105,7 @@ class ProcessDb{
 			 **/
 			switch ($nex['wf_mode']){
 			case 0:
-			  $process = self::GetProcessInfo($nex_pid);
+			  $process = self::GetProcessInfo($nex_pid,$run_id);
 			  break;
 			case 1:
 				//多个审批流
@@ -101,10 +118,10 @@ class ProcessDb{
 						break;	
 					}
 				}
-				$process = self::GetProcessInfo($nexprocessid);
+				$process = self::GetProcessInfo($nexprocessid,$run_id);
 			   break;
 			case 2:
-				$process = self::GetProcessInfos($nex_pid);
+				$process = self::GetProcessInfos($nex_pid,$run_id);
 			  break;
 			}
 		}else{
@@ -191,15 +208,22 @@ class ProcessDb{
 	 */
 	public static function RunLog($wf_fid,$wf_type) 
 	{
-		$type = ['Send'=>'流程发起','ok'=>'同意提交','Back'=>'退回修改','SupEnd'=>'终止流程','Sing'=>'会签提交','sok'=>'会签同意','SingBack'=>'会签退回','SingSing'=>'会签再会签'];
 		$run_log = Db::name('run_log')->where('from_id','eq',$wf_fid)->where('from_table','eq',$wf_type)->select();
 		foreach($run_log as $k=>$v)
         {
-		   $run_log[$k]['btn'] =$type[$v['btn']] ?? '';
-		   require ( BEASE_URL . '/config/config.php');// 
-           $run_log[$k]['user'] =Db::name($user_table['user'][0])->where($user_table['user'][1],'eq',$v['uid'])->value($user_table['user'][2]);
+           $run_log[$k]['user'] =Db::name('user')->where('id','eq',$v['uid'])->value('username');
         }
 		return $run_log;
+	}
+	/**
+	 * 阻止重复提交
+	 *
+	 * @param $id
+	 */
+	public static function run_check($id) 
+	{
+		return Db::name('run_process')->where('id','eq',$id)->value('status');
+
 	}
 	
 	

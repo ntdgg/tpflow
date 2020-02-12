@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 工作流核心驱动类
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+ * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -21,6 +21,7 @@ require_once BEASE_URL . '/db/FlowDb.php';
 require_once BEASE_URL . '/db/ProcessDb.php';
 require_once BEASE_URL . '/db/LogDb.php';
 require_once BEASE_URL . '/db/UserDb.php';
+require_once BEASE_URL . '/db/WorkDb.php';
 //类库
 require_once BEASE_URL . '/class/TaskService.php';
 //配置全局类
@@ -122,6 +123,11 @@ require_once BEASE_URL . '/msg/mail.php';
 			$wf_actionid = $config['submit_to_save'];
 			$sing_st = $config['sing_st'];
 			if($sing_st == 0){
+				$run_check = ProcessDb::run_check($config['run_process']);//校验流程状态
+				if($run_check==2){
+					return ['msg'=>'该业务已办理，请勿重复提交！','code'=>'-1'];
+				}
+				
 				if ($wf_actionid == "ok") {//提交处理
 					$ret = $taskService->doTask($config,$uid);
 				} else if ($wf_actionid == "back") {//退回处理

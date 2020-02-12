@@ -3,7 +3,7 @@
 *+------------------
 * Tpflow 普通提交工作流
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------
@@ -36,6 +36,20 @@ class TaskFlow{
 			$todo = $config['todo'];
 		}else{
 			$todo = '';
+		}
+		if($config['wf_mode']==2){
+			$run_info = Db::name('run')->find($config['run_id']);
+			$info_list = Db::name('run_process')
+					->where('run_id','eq',$config['run_id'])
+					->where('status','eq',0)
+					->where('id','neq',$config['run_process'])
+					->select();
+			if(count($info_list)>0){
+				foreach($info_list as $k=>$v){
+						$npids[] = $v['run_flow_process'];
+					}
+					$npid = implode(",", $npids);		
+			}
 		}
 		if($npid != ''){//判断是否为最后
 			//结束流程
@@ -74,6 +88,7 @@ class TaskFlow{
 			}
 			//消息通知发起人
 		}
+		return ['msg'=>'success!','code'=>'0'];
 	}
 	/**
 	 *运行记录
@@ -85,7 +100,7 @@ class TaskFlow{
 		
 		$nex_pid = explode(",",$config['npid']);
 		foreach($nex_pid as $v){
-			$wf_process = ProcessDb::GetProcessInfo($v);
+			$wf_process = ProcessDb::GetProcessInfo($v,$config['run_id']);
 			//添加流程步骤日志
 			$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);	
 		}

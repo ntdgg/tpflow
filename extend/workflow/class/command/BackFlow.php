@@ -3,7 +3,7 @@
 *+------------------
 * TPFLOW 工作流回退
 *+------------------
-* Copyright (c) 2006~2018 http://cojz8.com All rights reserved.
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
 *+------------------
 * Author: guoguo(1838188896@qq.com)
 *+------------------
@@ -72,6 +72,7 @@ class BackFlow{
 			//消息通知发起人
 			$run_update = FlowDb::up($run_id,$wf_backflow);
 		}
+		return ['msg'=>'success!','code'=>'0'];
 	}
 	/**
 	 *判断是否是第一步
@@ -94,7 +95,7 @@ class BackFlow{
 	 **/
 	public function Run($config,$uid,$todo)
 	{
-		$wf_process = ProcessDb::GetProcessInfo($config['wf_backflow']);
+		$wf_process = ProcessDb::GetProcessInfo($config['wf_backflow'],$config['run_id']);
 		//添加流程步骤日志
 		$wf_process_log = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid,$todo);
 		if(!$wf_process_log){
