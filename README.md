@@ -40,7 +40,7 @@
 
 ### 界面截图
 
-![markdown](https://files.gitee.com/group1/M00/0B/B4/wKgCNF5EA5eAHMixAAC-sDsZjhw734.png?token=052e7d0fd927a219ccf877f1c295f15c&ts=1581515684&attname=j-1.png&disposition=attachment"tpflow")
+![markdown](https://files.gitee.com/group1/M00/0B/B4/wKgCNF5EA5eAHMixAAC-sDsZjhw734.png?token=b9c77b71b7d0f8d314e64e5d116ba4b1&ts=1581597485&attname=j-1.png&disposition=inline)
 
 ### 相关链接
 ---
