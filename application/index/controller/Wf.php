@@ -182,13 +182,15 @@ class wf extends Admin {
 		  break;
 		case 1:
 			$st = 0;
+			$user_name ='';
 			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
 			if($flowinfo!=-1){
 				if(!isset($flowinfo['status'])){
 					 return '<span class="btn btn-danger  radius size-S" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
 				}
-				$user = explode(",", $flowinfo['status']['sponsor_ids']);
 					if($flowinfo['sing_st']==0){
+						$user = explode(",", $flowinfo['status']['sponsor_ids']);
+						$user_name =$flowinfo['status']['sponsor_text'];
 						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4||$flowinfo['status']['auto_person']==6){
 							if (in_array($this->uid, $user)) {
 								$st = 1;
@@ -201,16 +203,18 @@ class wf extends Admin {
 						}
 					}else{
 						if($flowinfo['sing_info']['uid']==$this->uid){
-								$st = 1;
+							  $st = 1;
+						}else{
+							   $user_name =$flowinfo['sing_info']['uid'];
 						}
 					}
 				}else{
 					 return '<span class="btn  radius size-S">无权限</span>';
 				}	
 				if($st == 1){
-					 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核('.$flowinfo['status']['sponsor_text'].')</span>';
+					 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核('.$user_name.')</span>';
 					}else{
-					 return '<span class="btn  radius size-S">无权限('.$flowinfo['status']['sponsor_text'].')</span>';
+					 return '<span class="btn  radius size-S">无权限('.$user_name.')</span>';
 				}
 			
 		case 100:
@@ -263,6 +267,7 @@ class wf extends Admin {
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
 		$this->assign('info',$info);
 		
+		dump($this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		return $this->fetch();
 	}

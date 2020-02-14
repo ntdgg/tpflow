@@ -74,7 +74,6 @@ class SingFlow{
 			if(!$run_log){
 					return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
 				}
-			
 			//日志记录
 		}else if($wf_actionid == "sback") {//退回处理
 			//判断是否是第一步，第一步：更新单据，发起修改，不是第一步，写入新的工作流
@@ -114,7 +113,7 @@ class SingFlow{
 		} else { //通过
 			throw new \Exception ("参数出错！");
 		}
-		
+		return ['msg'=>'success!','code'=>'0'];
 	}
 	/**
 	 *会签执行

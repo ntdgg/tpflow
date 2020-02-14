@@ -228,6 +228,7 @@ class InfoDB{
 					   $workflow ['flow_process'] = $result['run_flow_process'];
 					   $process = ProcessDb::GetProcessInfo($result['run_flow_process']);
 					   $workflow ['status']['wf_mode'] = $process['wf_mode'];
+					   $workflow ['status']['wf_action'] = $process['wf_action'];
 					   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process'],$result['id']);
 					   $workflow ['process'] = $process;
 					   $workflow ['run_process'] = $info['id'];
