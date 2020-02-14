@@ -242,7 +242,9 @@
 		单据ID：@from_id<br/>
 		节点ID：@run_id<br/>
 		提交意见：@check_con
-		</td><td><textarea name='work_msg'  type="text/plain" style="width:100%;height:100px;">{$one.work_msg ?? '您好,您有需要审批的业务,业务编号为：@run_id'}</textarea></td></tr>	
+		</td><td><textarea name='work_msg'  type="text/plain" style="width:100%;height:100px;">{$one.work_msg ?? ''}</textarea>
+		Tip:您好,您有需要审批的业务,业务编号为：@run_id;
+		</td></tr>	
    </table>
    
    </div>  
