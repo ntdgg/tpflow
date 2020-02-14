@@ -22,6 +22,7 @@
 + 提供完整的设计手册
 
 >3.1独有的新特性及功能
+
 *   基于`<WordDb>`驱动的事务管理模块
     * 可以根据不同的需求对业务进行更广阔全面的调用
     * 可以使得流程步骤的设计更加灵活多变
@@ -40,7 +41,7 @@
 
 ### 界面截图
 
-![markdown](https://files.gitee.com/group1/M00/0B/B4/wKgCNF5EA5eAHMixAAC-sDsZjhw734.png?token=b9c77b71b7d0f8d314e64e5d116ba4b1&ts=1581597485&attname=j-1.png&disposition=inline)
+![markdown](https://img.kancloud.cn/42/7a/427adc1dcc2ff3ffb52087b1cfde346b_1366x622.png)
 
 ### 相关链接
 ---
