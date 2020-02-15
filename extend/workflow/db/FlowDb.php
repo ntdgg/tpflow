@@ -447,7 +447,7 @@ class FlowDb
     {
         $array = json_decode($json_data, true);
         if (!$array) {
-            return '[]';
+            return [];
         }
         $json_data = array();//重置
         foreach ($array as $key => $value) {

@@ -266,8 +266,6 @@ class wf extends Admin {
 	{
 		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
 		$this->assign('info',$info);
-		
-		dump($this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		$this->assign('flowinfo',$this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role]));
 		return $this->fetch();
 	}
@@ -330,5 +328,26 @@ class wf extends Admin {
 		];
 		$ret = array_merge($ret, $extend);
 		return json($ret);
+	}
+	public function wflogs($id,$wf_type,$type='logs'){
+		$logs = $this->work->FlowLog('logs',$id,$wf_type);
+		$html ='
+		 <style type="text/css">
+			.new_table{border-collapse: collapse;margin: 0 auto;text-align: center;}
+			.new_table td, table th{border: 1px solid #cad9ea;color: #666;height: 30px;}
+			.new_table thead th{background-color: #CCE8EB;width: 100px;}
+			.new_table tr:nth-child(odd){background: #fff;}
+			.new_table tr:nth-child(even){background: #F5FAFA;}
+		</style>
+		<table class="new_table" style="margin-top:20px"><tr><th colspan="4">工作流</th></tr><tr><tr><td>审批人</td><td>审批意见</td><td>审批操作</td><td>审批时间</td></tr></tr>';
+		foreach($logs as $k=>$v){
+			$down = '';
+			if($v['art']<>''){
+				$down = '附件：<a class="btn btn-success" href="/uploads/'.$v['art'].'" target="download">下载</a>';
+			}
+			$html .='<tr><td>'.$v['user'].'</td><td>'.$v['content'].$down.'</td><td>'.$v['btn'].'</td><td>'.date('m-d H:i',$v['dateline']).'</td></tr>';
+		}
+		$html .='</table>';
+		echo $html;
 	}
 }
