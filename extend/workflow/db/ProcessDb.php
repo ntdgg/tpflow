@@ -213,7 +213,8 @@ class ProcessDb{
 		foreach($run_log as $k=>$v)
         {
 			$run_log[$k]['btn'] =$type[$v['btn']];
-           $run_log[$k]['user'] =Db::name('user')->where('id','eq',$v['uid'])->value('username');
+			  require ( BEASE_URL . '/config/config.php');// 
+			   $run_log[$k]['user'] =Db::name($user_table['user'][0])->where($user_table['user'][1],'eq',$v['uid'])->value($user_table['user'][2]);
         }
 		return $run_log;
 	}

@@ -106,7 +106,7 @@ class InfoDB{
             'is_sponsor'=>0,
             'status'=>0,
 			'sponsor_ids'=>$sponsor_ids,//办理人id
-			'sponsor_text'=>$sponsor_text.'xx',//办理人信息
+			'sponsor_text'=>$sponsor_text,//办理人信息
 			'auto_person'=>$wf_process['auto_person'],//办理类别
             'js_time'=>time(),
             'dateline'=>time(),
