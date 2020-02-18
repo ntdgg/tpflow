@@ -2,8 +2,7 @@
 <link rel="stylesheet" type="text/css" href="__Flow__/workflow.3.0.css"/>
 <link rel="stylesheet" type="text/css" href="__Flow__/multiselect2side.css"/>
 <form  class="form-horizontal" action="{:url('save_attribute')}" method="post" name="form" id="form">
-
-   <style type="text/css">
+<style type="text/css">
        #box{
            height: auto;
            width: auto;
@@ -87,7 +86,7 @@
                     <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
 					
 					<span id='range_user_html'>
-					{if condition='count(explode(",",$one.range_user_text)) gt 1'}
+					{if condition='count(explode(",",$one.range_user_text)) egt 1'}
 					<table class='tables'><tr><td>序号</td><td>名称</td></tr>
 						{volist name=':explode(",",$one.range_user_text)' id="vo"  }
 							<tr><td>{$key}</td><td>{$vo}</td></tr>
@@ -105,7 +104,7 @@
 			<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
              <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
 				<span id='auto_sponsor_html'>
-				{if condition='count(explode(",",$one.auto_sponsor_text)) gt 1'}
+				{if condition='count(explode(",",$one.auto_sponsor_text)) egt 1'}
 					<table class='tables'><tr><td>序号</td><td>名称</td></tr>
 						{volist name=':explode(",",$one.auto_sponsor_text)' id="vo"  }
 							<tr><td>{$key}</td><td>{$vo}</td></tr>
@@ -119,7 +118,7 @@
 			<input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}" >
 			
 			<span id='auto_role_html'>
-			{if condition='count(explode(",",$one.auto_role_text)) gt 1'}
+			{if condition='count(explode(",",$one.auto_role_text)) egt 1'}
 					<table class='tables'><tr><td>序号</td><td>名称</td></tr>
 						{volist name=':explode(",",$one.auto_role_text)' id="vo"  }
 							<tr><td>{$key}</td><td>{$vo}</td></tr>
@@ -142,7 +141,6 @@
             </select>的 
 			<select name="work_ids"  nullmsg="人员">
 				<option value="1" {if condition='1 eq $one["work_ids"]'}selected{/if}>制单人员</option>
-				<!-- <option value="2" {if condition='2 eq $one["work_ids"]'}selected{/if}>制单人员上级</option> -->
 			</select>
 			</td>	
 			</tr>

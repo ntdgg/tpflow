@@ -180,10 +180,27 @@ require_once BEASE_URL . '/msg/mail.php';
 		{
 			if ($logtype == "logs") {
 					$info = ProcessDb::RunLog($wf_fid,$wf_type);//获取log
+					$html ='
+					 <style type="text/css">
+						.new_table{border-collapse: collapse;margin: 0 auto;text-align: center;}
+						.new_table td, table th{border: 1px solid #cad9ea;color: #666;height: 30px;}
+						.new_table thead th{background-color: #CCE8EB;width: 100px;}
+						.new_table tr:nth-child(odd){background: #fff;}
+						.new_table tr:nth-child(even){background: #F5FAFA;}
+					</style>
+					<table class="new_table" style="margin-top:5px"><tr><tr><td>审批人</td><td>审批意见</td><td>审批操作</td><td>审批时间</td></tr></tr>';
+					foreach($info as $k=>$v){
+						$down = '';
+						if($v['art']<>''){
+							$down = '附件：<a class="btn btn-success" href="/uploads/'.$v['art'].'" target="download">下载</a>';
+						}
+						$html .='<tr><td>'.$v['user'].'</td><td>'.$v['content'].$down.'</td><td>'.$v['btn'].'</td><td>'.date('m-d H:i',$v['dateline']).'</td></tr>';
+					}
+					$html .='</table>';
 				}else{
 					throw new \Exception ( "参数出错！" );
 				}
-			return $info;
+			return ['logs'=>$info,'html'=>$html];
 		}
 		/*
 		 * ProcessDesc API

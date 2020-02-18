@@ -74,10 +74,8 @@
             labelsx: '备选',
             labeldx: '已选',
             autoSort: true
-            //,autoSortAvailable: true
         });
-        //搜索用户
-        $("#search").on("click",function(){
+    $("#search").on("click",function(){
 			var url = "{:url('super_get')}";
 			$.post(url,{"type":'role',"key":$('#key').val()},function(data){
 				layer.msg(data.msg);

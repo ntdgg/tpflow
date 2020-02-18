@@ -12,6 +12,7 @@ class wf extends Admin {
         $this->work = new workflow();
 		$this->uid = session('uid');
 	    $this->role = session('role');
+		$this->Tmp  = '../extend/workflow/view/';
     }
     /**
 	 * 流程设计首页
@@ -170,7 +171,6 @@ class wf extends Admin {
 		$this->assign('list', $this->work->worklist());
 		return $this->fetch();
 	}
-	
 	public function btn($wf_fid,$wf_type,$status)
 	{
 		$url = url("/index/wf/wfcheck/",["wf_type"=>$wf_type,"wf_title"=>'2','wf_fid'=>$wf_fid]);
@@ -272,9 +272,6 @@ class wf extends Admin {
 	public function do_check_save()
 	{
 		$data = $this->request->param();
-		//dump($data);
-		
-		//exit;
 		$flowinfo =  $this->work->workdoaction($data,$this->uid);
 		
 		if($flowinfo['code']=='0'){
@@ -283,12 +280,12 @@ class wf extends Admin {
 			return $this->msg_return($flowinfo['msg'],1);
 		}
 	}
-	public function ajax_back(){
+	public function ajax_back()
+	{
 		$flowinfo =  $this->work->getprocessinfo(input('back_id'),input('run_id'));
 		return $flowinfo;
 	}
-	public function Checkflow($fid)
-	{
+	public function Checkflow($fid){
 		return $this->work->SuperApi('CheckFlow',$fid);
 	}
 	
@@ -329,25 +326,11 @@ class wf extends Admin {
 		$ret = array_merge($ret, $extend);
 		return json($ret);
 	}
-	public function wflogs($id,$wf_type,$type='logs'){
+	public function wflogs($id,$wf_type,$type='html'){
 		$logs = $this->work->FlowLog('logs',$id,$wf_type);
-		$html ='
-		 <style type="text/css">
-			.new_table{border-collapse: collapse;margin: 0 auto;text-align: center;}
-			.new_table td, table th{border: 1px solid #cad9ea;color: #666;height: 30px;}
-			.new_table thead th{background-color: #CCE8EB;width: 100px;}
-			.new_table tr:nth-child(odd){background: #fff;}
-			.new_table tr:nth-child(even){background: #F5FAFA;}
-		</style>
-		<table class="new_table" style="margin-top:20px"><tr><th colspan="4">工作流</th></tr><tr><tr><td>审批人</td><td>审批意见</td><td>审批操作</td><td>审批时间</td></tr></tr>';
-		foreach($logs as $k=>$v){
-			$down = '';
-			if($v['art']<>''){
-				$down = '附件：<a class="btn btn-success" href="/uploads/'.$v['art'].'" target="download">下载</a>';
-			}
-			$html .='<tr><td>'.$v['user'].'</td><td>'.$v['content'].$down.'</td><td>'.$v['btn'].'</td><td>'.date('m-d H:i',$v['dateline']).'</td></tr>';
-		}
-		$html .='</table>';
-		echo $html;
+		echo $logs[$type];
+	}
+	public function wfgl(){
+		return $this->fetch($this->Tmp.'wfgl.html');
 	}
 }

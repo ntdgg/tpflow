@@ -112,14 +112,8 @@
 			</td>
 			<td valign="top" >
 				<div style='width:98%;overflow-y:scroll; height:200px'>
-				<table class="table table-border table-bordered " style='width:98%;'>
-					<tr><td>审批人</td><td>审批意见</td><td>审批操作</td><td>审批时间</td></tr>
-					{volist name='$flowinfo.log' id='k'}
-						<tr><td>{$k.user}</td><td>{$k.content}
-						{if condition='$k.art  != ""'}<a class="btn btn-success" href="/uploads/{$k.art}" target="download">下载</a>{else/}{/if}
-						</td><td>{$k.btn}</td><td>{:date('m-d H:i',$k['dateline'])}</td></tr>
-					{/volist}
-				</table>
+					{:action('wf/wflogs',['id'=>$info.wf_fid,'wf_type'=>$info.wf_type])}
+				
 				</div>
 			</td>
 			</tr>

@@ -221,7 +221,6 @@ class InfoDB{
 					$workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process'],$result['id'],$workflow ['wf_mode']);//获取下一个步骤
 					$workflow ['preprocess'] = ProcessDb::GetPreProcessInfo($info['id']);//获取前几个步骤信息，用于步骤回退
 					$workflow ['singuser'] = UserDb::GetUser();//获取所有会签人员
-					$workflow ['log'] = ProcessDb::RunLog($wf_fid,$wf_type);//获取所有办理日志
 					if($result['is_sing']==1){
 						$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
 					   $workflow ['sing_st'] = 1;
