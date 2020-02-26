@@ -43,14 +43,27 @@
 
 ![markdown](https://img.kancloud.cn/42/7a/427adc1dcc2ff3ffb52087b1cfde346b_1366x622.png)
 
+
+### 官方教程连接
+
+> https://www.cojz8.com/article/119   Tpflow3.1版本工作流设计-----教程一
+
+> https://www.cojz8.com/article/120   工作流集成及API接口文档---教程二
+
+> https://www.cojz8.com/article/121   Tpflow工作流引擎在事务方面的表现
+
+> https://www.cojz8.com/article/123   工作流类型详解---教程三
+
+
+
 ### 相关链接
 ---
 
 > 官方博客：http://www.cojz8.com/
 
-> 官方博客：http://tpflow.cojz8.com/   
+> 演示站点：http://tpflow.cojz8.com/   
 
-> 工作流手册：https://www.kancloud.cn/guowenbin/tpflow
+> 工作流手册：https://www.kancloud.cn/guowenbin/tpflow  赞助用户【VIP群】1062040103
 
 > 视频教程：http://www.cojz8.com/article/86
 
