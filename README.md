@@ -4,6 +4,10 @@
 
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow") 
 
+### Tpflow V4.0 for Thinkphp6.0.2
+
+> 链接地址：https://gitee.com/ntdgg/tpflow/tree/4.0-dev/
+
 ### 主要特性
 
 + 基于  `<jsPlumb>` 可视化设计流程图
@@ -55,6 +59,8 @@
 > https://www.cojz8.com/article/123   工作流类型详解---教程三
 
 > https://www.cojz8.com/article/124   工作流实战教程----教程四
+
+> https://www.cojz8.com/article/126   Tpflow工作流引擎升级Tp6.0版本----教程五
 
 
 
