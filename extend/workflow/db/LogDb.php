@@ -27,7 +27,7 @@ class LogDb{
 	public static function AddrunLog($uid,$run_id,$config,$btn)
 	{
 		$work_return ='';
-		if($btn<>'Send'){
+		if($btn<>'Send' && $btn<>'SupEnd'){
 			$work_return = WorkDb::WorkApi($config);//在日志记录前加载节点钩子
 		}
 		 if (!isset($config['art'])) {
