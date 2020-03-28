@@ -8,6 +8,16 @@
 
 > 链接地址：https://gitee.com/ntdgg/tpflow/tree/4.0-dev/
 
+----
+### 作者相关开源软件
+
+
+> SFDP超级表单设计器：http://sfdp.cojz8.com/
+
+> 下载地址：https://gitee.com/ntdgg/sfdp
+
+![SFDP Logo](http://sfdp.cojz8.com/logo.png "SFDP Logo")
+
 ### 主要特性
 
 + 基于  `<jsPlumb>` 可视化设计流程图
@@ -49,6 +59,8 @@
 
 
 ### 官方教程连接
+
+> https://www.cojz8.com/article/133   PHP工作流引擎的开发计划V202004
 
 > https://www.cojz8.com/article/119   Tpflow3.1版本工作流设计-----教程一
 
