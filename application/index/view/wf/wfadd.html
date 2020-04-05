@@ -17,7 +17,7 @@
 			<span class="select-box">
 				<select name="type"  class="select"  datatype="*" >
 					{volist name='type' id='k'}
-					<option value="{$key}">{$k}</option>
+					<option value="{$k.name}">{$k.title}</option>
 					{/volist}
 				</select>
 				</span>

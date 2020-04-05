@@ -91,7 +91,7 @@ CREATE TABLE `wf_news` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '-1回退修改0 保存中1流程中 2通过',
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='[work]新闻表';;
 
 -- ----------------------------
 -- Records of wf_news

@@ -13,6 +13,7 @@ class wf extends Admin {
 		$this->uid = session('uid');
 	    $this->role = session('role');
 		$this->Tmp  = '../extend/workflow/view/';
+		$this->table  = Db :: query("select replace(TABLE_NAME,'".config('database.prefix')."','')as name,TABLE_COMMENT as title from information_schema.tables where table_schema='".config('database.database')."' and table_type='base table' and TABLE_COMMENT like '[work]%';");
     }
     /**
 	 * 流程设计首页
@@ -20,7 +21,7 @@ class wf extends Admin {
 	 */
     public function wfindex($map = []){
         $this->assign('list',$this->work->FlowApi('List'));
-		$this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
+		$this->assign('type', $this->table);
         return  $this->fetch();
     }
 	/**
@@ -56,7 +57,7 @@ class wf extends Admin {
 				return msg_return($ret['data'],1);
 			}
 	   }
-	   $this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
+	   $this->assign('type', $this->table);
        return  $this->fetch();
     }
 	 /**
@@ -76,7 +77,7 @@ class wf extends Admin {
 	   if(input('id')){
 		 $this->assign('info', $this->work->FlowApi('GetFlowInfo',input('id')));
 	   }
-	   $this->assign('type', ['news'=>'新闻信息','cnt'=>'合同信息','paper'=>'证件信息']);
+	   $this->assign('type', $this->table);
        return $this->fetch('wfadd');
     }
 	/**
