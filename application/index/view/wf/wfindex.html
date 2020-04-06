@@ -17,7 +17,7 @@
     <tr>
         <td>{$vo.id}</td>
         <td><span title="{$vo.flow_desc}">{$vo.flow_name}</span></td>
-        <td>{$type[$vo.type]}</td>
+        <td>{$type[$vo.type] ?? ''}</td>
         <td>{:date('Y/m/d H:i',$vo['add_time'])}</td>
 		 <td>
 		 {if condition='$vo.status == 0'}

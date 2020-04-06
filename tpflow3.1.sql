@@ -235,7 +235,7 @@ CREATE TABLE `wf_run_log` (
   `from_table` varchar(255) DEFAULT NULL COMMENT '单据表',
   `run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转id',
   `run_flow` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程ID',
-  `content` text NOT NULL COMMENT '日志内容',
+  `content` text DEFAULT NULL COMMENT '日志内容',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `btn` varchar(255) DEFAULT NULL COMMENT '提交操作信息',
   `art` longtext COMMENT '附件日志',
