@@ -71,6 +71,13 @@ class InfoDB{
 	 */
 	public static function addWorkflowProcess($wf_id,$wf_process,$run_id,$uid,$todo = '')
 	{
+		if($wf_process['auto_person']==6 && $wf_process['process_type']=='is_one'){ //事务人员
+				$wf  =  Db::name('run')->find($run_id);
+				$user_id = InfoDB::GetBillValue($wf['from_table'],$wf['from_id'],$wf_process['work_text']);
+				$user_info = UserDb::GetUserInfo($user_id);
+				$wf_process['user_info']= $user_info;
+				$wf_process['todo']= $user_info['username'];
+		}
 		//非自由
 		if($todo == ''){
 			if($wf_process['auto_person']==3){ //办理人员
