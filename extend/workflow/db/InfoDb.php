@@ -301,15 +301,12 @@ class InfoDB{
 		foreach($result as $k=>$v)
 		{
 			$result[$k]['flow_name'] = Db::name('flow')->where('id','eq',$v['flow_id'])->value('flow_name');
-			$process = Db::name('flow_process')->where('id','eq',$v['run_flow_process'])->find();
-			
-			if($process['auto_person'] == 4){
-				$result[$k]['user'] =$process['auto_sponsor_text'];
-				}elseif($process['auto_person'] == 6){
-				$result[$k]['user'] =$process['range_user_text'];
-				}else{
-				$result[$k]['user'] =$process['auto_role_text'];
+			$process = Db::name('run_process')->where('run_id','eq',$v['id'])->where('run_flow_process','eq',$v['run_flow_process'])->select();
+			$sponsor_text= '';
+			foreach($process as $p=>$s){
+				$sponsor_text .=  $s['sponsor_text'].',';
 			}
+			$result[$k]['user'] = rtrim($sponsor_text,",");
 		}
         return $result;
 	}
