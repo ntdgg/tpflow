@@ -232,7 +232,7 @@ class InfoDB{
 						$info = Db::name('run_process')->where('run_id','eq',$result['id'])->where('run_flow','eq',$result['flow_id'])->where('run_flow_process','eq',$result['run_flow_process'])->find();
 					   $workflow ['sing_st'] = 1;
 					   $workflow ['flow_process'] = $result['run_flow_process'];
-					   $process = ProcessDb::GetProcessInfo($result['run_flow_process']);
+					   $process = ProcessDb::GetProcessInfo($result['run_flow_process'],$result['id');
 					   $workflow ['status']['wf_mode'] = $process['wf_mode'];
 					   $workflow ['status']['wf_action'] = $process['wf_action'];
 					   $workflow ['nexprocess'] = ProcessDb::GetNexProcessInfo($wf_type,$wf_fid,$result['run_flow_process'],$result['id']);

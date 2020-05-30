@@ -67,6 +67,11 @@ class SingFlow{
 					$add_process = InfoDB::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);	
 				}
 				$this->up_flow_press($config['run_id'],$config['npid']);
+			}else{
+				$bill_update = InfoDB::UpdateBill($config['wf_fid'],$config['wf_type'],2);
+				if(!$bill_update){
+					return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
+				}
 			}
 			
 			$this->up_run($config['run_id']);
@@ -86,7 +91,7 @@ class SingFlow{
 			}
 			if($back){//第一步
 				//更新单据状态
-				$bill_update = InfoDB::UpdateBill($config['wf_fid'],$config['wf_type'],'-1');
+				$bill_update = InfoDB::UpdateBill($config['wf_fid'],$config['wf_type'],0);
 				if(!$bill_update){
 					return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 				}

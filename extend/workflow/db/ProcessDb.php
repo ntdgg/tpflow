@@ -88,6 +88,9 @@ class ProcessDb{
 	 **/
 	public static function GetNexProcessInfo($wf_type,$wf_fid,$pid,$run_id,$premode='')
 	{
+		if($pid==''){
+			return [];
+		}
 		$nex = Db::name('flow_process')->find($pid);
 	
 		//先判断下上一个流程是什么模式
