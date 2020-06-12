@@ -52,9 +52,9 @@ class wf extends Admin {
 			$data['add_time']=time();
 			$ret= $this->work->FlowApi('AddFlow',$data);
 			if($ret['code']==0){
-				return msg_return('发布成功！');
+				return $this->msg_return('发布成功！');
 				}else{
-				return msg_return($ret['data'],1);
+				return $this->msg_return($ret['data'],1);
 			}
 	   }
 	   $this->assign('type', $this->table);
@@ -69,9 +69,9 @@ class wf extends Admin {
 			$data = input('post.');
 			$ret= $this->work->FlowApi('EditFlow',$data);
 			if($ret['code']==0){
-				return msg_return('修改成功！');
+				return $this->msg_return('修改成功！');
 				}else{
-				return msg_return($ret['data'],1);
+				return $this->msg_return($ret['data'],1);
 			}
 	   }
 	   if(input('id')){
