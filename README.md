@@ -57,7 +57,7 @@
 
 ### 在线文档
 
-[看云文档](https://www.kancloud.cn/guowenbin/tpflow "安装手册")   [官方博客](http://www.cojz8.com/tag/30 "官方博客")
+[看云文档](https://www.kancloud.cn/guowenbin/tpflow "安装手册")   [官方博客](https://www.cojz8.com/ "官方博客")
 
 ### 界面截图
 
@@ -87,13 +87,13 @@
 ### 相关链接
 ---
 
-> 官方博客：http://www.cojz8.com/
+> 官方博客：https://www.cojz8.com/
 
-> 演示站点：http://tpflow.cojz8.com/   
+> 演示站点：https://tpflow.cojz8.com/   
 
 > 工作流手册：https://www.kancloud.cn/guowenbin/tpflow  赞助用户【VIP群】1062040103
 
-> 视频教程：http://www.cojz8.com/article/86
+> 视频教程：https://www.kancloud.cn/guowenbin/tpflow_video 【付费】实战视频教程
 
 ---
 
@@ -103,10 +103,11 @@ Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2018-2020 by Tpflow (http://cojz8.com)
+版权所有Copyright © 2018-2020 by Tpflow (https://cojz8.com)
 
 All rights reserved。
 
 ~~~
 对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！
+特别声明：坚决打击网络诈骗行为，严禁将本插件集成在任何违法违规的程序上。
 ~~~
