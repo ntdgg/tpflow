@@ -1,16 +1,6 @@
 /*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost_3306
-Source Server Version : 50553
-Source Host           : localhost:3306
-Source Database       : tpflow3.1
-
-Target Server Type    : MYSQL
-Target Server Version : 50553
-File Encoding         : 65001
-
-Date: 2020-02-12 16:48:06
+Name: Tpflow Sql
+Date: 2020-09-22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -91,7 +81,7 @@ CREATE TABLE `wf_news` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '-1回退修改0 保存中1流程中 2通过',
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='[work]新闻表';;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='[work]新闻表';
 
 -- ----------------------------
 -- Records of wf_news
@@ -170,20 +160,20 @@ INSERT INTO `wf_role_user` VALUES ('7', '7');
 DROP TABLE IF EXISTS `wf_run`;
 CREATE TABLE `wf_run` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'work_run父流转公文ID 值大于0则这个是子流程，完成后或者要返回父流程',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'work_run ID ',
   `from_table` varchar(255) DEFAULT NULL COMMENT '单据表，不带前缀',
   `from_id` int(11) DEFAULT NULL,
-  `pid_flow_step` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '父pid的flow_id中的第几步骤进入的,取回这个work_flow_step的child_over决定结束子流程的动作',
-  `cache_run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '多个子流程时pid无法识别cache所以加这个字段pid>0',
+  `pid_flow_step` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '',
+  `cache_run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '',
   `uid` int(10) unsigned NOT NULL DEFAULT '0',
   `flow_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程id 正常流程',
-  `cat_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程分类ID即公文分类ID',
+  `cat_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程分类ID',
   `run_name` varchar(255) DEFAULT '' COMMENT '公文名称',
-  `run_flow_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转到什么流程 最新流程，查询优化，进入子流程时将简化查询，子流程与父流程同步',
+  `run_flow_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转到什么流程',
   `run_flow_process` varchar(255) DEFAULT NULL COMMENT '流转到第几步',
-  `att_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '公文附件ids',
+  `att_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '附件ids',
   `endtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '结束时间',
-  `status` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0流程中，1通过,2回退',
+  `status` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0流程中，2通过,1回退',
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
