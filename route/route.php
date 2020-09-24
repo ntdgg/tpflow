@@ -9,6 +9,4 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-return [
-
-];
+Route::get('index/wf/wfindx/sid/:sid','\wf\Api@wfindx');
