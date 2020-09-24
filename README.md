@@ -1,4 +1,4 @@
-# Tpflow 3.1 正式版
+# Tpflow 3.2 开发版
 
 **欢迎使用 Tpflow 工作流引擎**
 
@@ -89,7 +89,7 @@
 
 > 官方博客：https://www.cojz8.com/
 
-> 演示站点：https://tpflow.cojz8.com/   
+> 演示站点：http://tpflow.cojz8.com/   
 
 > 工作流手册：https://www.kancloud.cn/guowenbin/tpflow  赞助用户【VIP群】1062040103
 
