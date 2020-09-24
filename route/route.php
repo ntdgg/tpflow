@@ -9,4 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('index/wf/wfindx/sid/:sid','\wf\Api@wfindx');
+//列表
+Route::get('index/wf/wfindex','\workflow\Api@wfindex');
+//工作流添加
+Route::get('index/wf/wfadd','\workflow\Api@wfadd');

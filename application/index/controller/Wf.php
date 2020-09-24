@@ -19,11 +19,7 @@ class wf extends Admin {
 	 * 流程设计首页
 	 * @param $map 查询参数
 	 */
-    public function wfindex($map = []){
-        $this->assign('list',$this->work->FlowApi('List'));
-		$this->assign('type', $this->table);
-        return  $this->fetch();
-    }
+
 	/**
 	 * 工作流设计界面
 	 */
@@ -41,25 +37,7 @@ class wf extends Admin {
         $this->assign('process_data',$this->work->ProcessApi('All',$flow_id));
         return $this->fetch();
     }
-    /**
-	 * 流程添加
-	 */
-    public function wfadd()
-    {
-		if ($this->request->isPost()) {
-			$data = input('post.');
-			$data['uid']=session('uid');
-			$data['add_time']=time();
-			$ret= $this->work->FlowApi('AddFlow',$data);
-			if($ret['code']==0){
-				return $this->msg_return('发布成功！');
-				}else{
-				return $this->msg_return($ret['data'],1);
-			}
-	   }
-	   $this->assign('type', $this->table);
-       return  $this->fetch();
-    }
+
 	 /**
 	 * 流程修改
 	 */
