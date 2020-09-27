@@ -13,3 +13,4 @@
 Route::get('index/wf/wfindex','\workflow\Api@wfindex');
 //工作流添加
 Route::get('index/wf/wfadd','\workflow\Api@wfadd');
+Route::post('index/wf/wfadd','\workflow\Api@wfadd');

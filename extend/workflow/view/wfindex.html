@@ -1,70 +1,8 @@
-<style type="text/css">
-			*{margin: 0;padding: 0;}
-			table {
-				*border-collapse: collapse; /* IE7 and lower */
-				border-spacing: 0;
-				width: 100%;
-			}
-			/*----------------------*/
-			.zebra td, 
-			.zebra th {
-				
-				padding: 10px;
-				border-bottom: 1px solid #f2f2f2;
-			}
-			.zebra .alternate,
-			.zebra tbody tr:nth-child(even) {
-				background: #f5f5f5;
-				-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
-				-moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
-				box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
-			}
-			.zebra th {
-				text-align: left;
-				text-shadow: 0 1px 0 rgba(255,255,255,.5);
-				border-bottom: 1px solid #ccc;
-				background-color: #eee;
-				background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
-				background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
-				background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
-				background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
-				background-image: -o-linear-gradient(top, #f5f5f5, #eee);
-				background-image: linear-gradient(top, #f5f5f5, #eee);
-				filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
-				-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
-			}
-			.zebra th:first-child {
-				-moz-border-radius: 6px 0 0 0;
-				-webkit-border-radius: 6px 0 0 0;
-				border-radius: 6px 0 0 0;
-			}
-			.zebra th:last-child {
-				-moz-border-radius: 0 6px 0 0;
-				-webkit-border-radius: 0 6px 0 0;
-				border-radius: 0 6px 0 0;
-			}
-			.zebra tfoot td {
-				border-bottom: 0;
-				border-top: 1px solid #fff;
-				background-color: #f1f1f1;
-			}
-			.zebra tfoot td:first-child {
-				-moz-border-radius: 0 0 0 6px;
-				-webkit-border-radius: 0 0 0 6px;
-				border-radius: 0 0 0 6px;
-			}
-			.zebra tfoot td:last-child {
-				-moz-border-radius: 0 0 6px 0;
-				-webkit-border-radius: 0 0 6px 0;
-				border-radius: 0 0 6px 0;
-			}
-			</style>
-
-<a onclick="layer_open('添加工作流','{:url('/index/wf/wfadd')}','550px','400px')" class="button ">添加工作流</a><br/>
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow-common.css"/>
+<a onclick="layer_open('添加工作流','{:url($int_url.'/wf/wfadd')}','550px','400px')" class="button ">添加工作流</a><br/>
 <br/>
-
-
-<table class="zebra" >
+<div class="page-container">
+<table class="table" >
     <tr>
         <th>ID</th>
         <th>流程名称</th>
@@ -77,7 +15,7 @@
     <tr>
         <td>{$vo.id}</td>
         <td><span title="{$vo.flow_desc}">{$vo.flow_name}</span></td>
-        <td>{$type[$vo.type] ?? ''}</td>
+        <td>{$type[$vo.type] ?? ''}{$vo.type}</td>
         <td>{:date('Y/m/d H:i',$vo['add_time'])}</td>
 		 <td>
 		 {if condition='$vo.status == 0'}正常{else/}禁用{/if}
@@ -98,6 +36,7 @@
     </tr>
     {/volist}
 </table>
+</div>
 <script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js" ></script>
 <script type="text/javascript" src="__Flow__/lib/layer/2.4/layer.js" ></script>
 <script type="text/javascript" src="__Flow__/workflow-common.3.0.js" ></script>
