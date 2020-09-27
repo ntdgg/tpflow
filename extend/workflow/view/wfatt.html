@@ -1,7 +1,7 @@
-{include file='pub/base' /}
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow-common.css"/>
 <link rel="stylesheet" type="text/css" href="__Flow__/workflow.3.0.css"/>
-<link rel="stylesheet" type="text/css" href="__Flow__/multiselect2side.css"/>
-<form  class="form-horizontal" action="{:url('save_attribute')}" method="post" name="form" id="form">
+<script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js?"></script>
+<form  class="form-horizontal" action="{:url($int_url.'/wf/save_attribute')}" method="post" name="form" id="form">
 <style type="text/css">
        #box{
            height: auto;
@@ -34,6 +34,9 @@
        }
        .show{
            display: block;
+       }
+	    .hide{
+           display: none;
        }
    </style>
 </head>
@@ -249,12 +252,8 @@
    
    
    </div> 
-   <table class="tables">
-   <tr>
-   <td style='text-align: center;'>
-   <a onclick="layer_close()" class="btn" >取消</a>
-   <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-</td></tr>	
+   <table>
+   <tr><td style='text-align: center;'><button  class="button" type="submit">保存</button></td></tr>	
     </table>
    
    <script type="text/javascript">
@@ -266,26 +265,25 @@
            $("#box").find("div:eq("+itemId+")").attr("class","show")
            $("#box").find("div:eq("+itemId+")").siblings().attr("class","tab-item")
        })
-   </script>
-
-
-    
+   </script>  
 <input type="hidden" name="process_condition" id="process_condition" value='{$one.process_tos}'>
 
 <div>
-
- 
 </div>
 </form>
-<script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js?"></script>
 <script type="text/javascript" src="__Flow__/jquery-ui-1.9.2-min.js?" ></script>
-<script type="text/javascript" src="__Flow__/multiselect2side.js?" ></script>
 <script type="text/javascript" src="__Flow__/workflow-att.3.0.js"></script>
 <script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__Flow__/lib/layer/2.4/layer.js" ></script>
+<script type="text/javascript" src="__Flow__/workflow-common.3.0.js" ></script>
 <script type="text/javascript">
 $(function(){
 	$("#form").Validform({
-            tiptype:1,
+           tiptype:function(msg,o,cssctl){
+					if (o.type == 3){
+						layer.msg(msg, {time: 800}); 
+					}
+			},
             ajaxPost:true,
             showAllError:true,
             callback:function(ret){

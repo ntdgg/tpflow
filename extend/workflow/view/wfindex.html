@@ -22,8 +22,8 @@
 		 </td>
         <td>
 		{if condition='$vo.edit ==""'}
-	   <a class='btn  radius size-S' onclick="layer_open('修改','{:url('wfedit',['id'=>$vo.id])}','550','400')"> 修改</a>
-       <a class='btn  radius size-S' data-title="设计流程" data-href="{:url('/index/wf/wfdesc',['flow_id'=>$vo['id']])}" onclick="Hui_admin_tab(this)" > 设计流程</a>
+	   <a class='btn  radius size-S' onclick="layer_open('修改','{:url($int_url.'/wf/wfedit',['id'=>$vo.id])}','550','400')"> 修改</a>
+       <a class='btn  radius size-S' onclick="layer_open('流程设计','{:url($int_url.'/wf/wfdesc',['flow_id'=>$vo.id])}')"> 设计流程</a>
 		{else/}
 		<a class='btn  radius size-S'> 运行中....</a>
 	   {/if}

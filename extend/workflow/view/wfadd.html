@@ -44,11 +44,16 @@
 <script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js" ></script>
 <script type="text/javascript" src="__Flow__/lib/layer/2.4/layer.js" ></script>
 <script type="text/javascript" src="__Flow__/workflow-common.3.0.js" ></script>
+<script type="text/javascript" src="__Flow__/lib/Validform/5.3.2/Validform.min.js" ></script>
 <script type="text/javascript">
 $(function(){
 	$("[name='type']").find("[value='{$info.type ?? '0'}']").attr("selected",true);
 	$("#form").Validform({
-            tiptype:2,
+             tiptype:function(msg,o,cssctl){
+					if (o.type == 3){
+						layer.msg(msg, {time: 800}); 
+					}
+			},
             ajaxPost:true,
             showAllError:true,
             callback:function(ret){
