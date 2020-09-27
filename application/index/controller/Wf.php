@@ -20,8 +20,12 @@ class wf extends Admin {
 	 * @param $map 查询参数
 	 */
     public function wfindex($map = []){
+		$type = [];
+		foreach($this->table as $k=>$v){
+			$type[$v['name']] = str_replace('[work]', '', $v['title']);;
+		}
         $this->assign('list',$this->work->FlowApi('List'));
-		$this->assign('type', $this->table);
+		$this->assign('type', $type);
         return  $this->fetch();
     }
 	/**
