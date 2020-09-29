@@ -31,10 +31,10 @@ class UserDb{
 	public static function AjaxGet($type,$keyword){
 		require ( BEASE_URL . '/config/config.php');// 
 		if($type=='user'){
-			$map[$user_table['user'][4]]  = array('like','%'.$keyword.'%');
+			$map[]  = [$user_table['user'][4],'like','%'.$keyword.'%'];
 			return Db::name($user_table['user'][0])->where($map)->field($user_table['user'][3])->select();
 		 }else{
-			$map[$user_table['role'][4]]  = array('like','%'.$keyword.'%');
+			 $map[]  = [$user_table['role'][4],'like','%'.$keyword.'%'];
 			return Db::name($user_table['role'][0])->where($map)->field($user_table['role'][3])->select();
 		 }
 	}

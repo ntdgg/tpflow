@@ -1,14 +1,16 @@
-{include file='pub/base' /}
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow-common.css"/>
 <link rel="stylesheet" type="text/css" href="__Flow__/multiselect2side.css" media="screen" />
 <script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="__Flow__/multiselect2side.js" ></script>
+<script type="text/javascript" src="__Flow__/lib/layer/2.4/layer.js" ></script>
+<script type="text/javascript" src="__Flow__/workflow-common.3.0.js" ></script>
 <article class="page-container">
 <table class="table table-bordered table-bg">
 			<tr><td>
 	<form method="post">
 		<div class="text-l">
 			<input type="text" id="key" style="width:150px" class="input-text">
-			<a id="search" class="btn btn-success size-S">搜人员</a>
+			<a id="search" class="button">搜人员</a>
 			</div>
 		</form>
 			</td></tr>
@@ -70,16 +72,16 @@
         });
         //搜索用户
         $("#search").on("click",function(){
-			var url = "{:url('super_get')}";
+			var url = "{:url($int_url.'/wf/super_get')}";
 			$.post(url,{"type":'user',"key":$('#key').val()},function(data){
 				layer.msg(data.msg);
 				var userdata = data.data;
 				var optionList = [];
             for(var i=0;i<userdata.length;i++){
                 optionList.push('<option value="');
-                optionList.push(userdata[i].value);
+                optionList.push(userdata[i].id);
                 optionList.push('">');
-                optionList.push(userdata[i].text);
+                optionList.push(userdata[i].username);
                 optionList.push('</option>');
             }
             $('#dialog_searchablems2side__sx').html(optionList.join(''));

@@ -53,6 +53,27 @@ define('ROOT_PATH',\Env::get('root_path') );
 		}
 		return view($this->patch.'/wfindex.html',['int_url'=>$this->int_url,'type'=>$type,'list'=>$this->work->FlowApi('List')]);
     }
+	/*流程监控*/
+	public function wfjk($map = [])
+	{
+		return view($this->patch.'/wfjk.html',['int_url'=>$this->int_url,'list'=>$this->work->worklist()]);
+	}
+		//用户选择控件
+    public function super_user()
+    {
+		return view($this->patch.'/super_user.html',['int_url'=>$this->int_url,'user'=>UserDb::GetUser(),'kid'=>input('kid')]);
+    }
+	//用户选择控件
+    public function super_role()
+    {
+		return view($this->patch.'/super_role.html',['int_url'=>$this->int_url,'role'=>UserDb::GetRole()]);
+        
+    }
+	public function super_get()
+	{
+		 $type = trim(input('type'));
+		 return ['data'=>UserDb::AjaxGet($type,input('key')),'code'=>1,'msg'=>'查询成功！'];
+	}
 	/**
 	 * 流程添加
 	 */
@@ -124,6 +145,19 @@ define('ROOT_PATH',\Env::get('root_path') );
         }
 		return json($this->work->ProcessApi('ProcessAdd',$flow_id));
     }
+	public function wfchange()
+	{
+		 if ($this->request::isGet()) {
+			$data = ['id'=>input('id'),'status'=>input('status')];
+			$ret= $this->work->FlowApi('EditFlow',$data);
+			if($ret['code']==0){
+					echo "<script language='javascript'>alert('操作成功！！'); top.location.reload();</script>";exit;
+				}else{
+					echo "<script language='javascript'>alert('操作失败！！'); top.location.reload();</script>";exit;
+			
+			}
+		 }
+	}
 	/**
 	 * 保存布局
 	 **/

@@ -296,7 +296,7 @@ class FlowDb
             ];
             $ret = Db::name('flow_process')->where('id', 'eq', $process_id)->where('flow_id', 'eq', $flow_id)->update($datas);
         }
-        return ['status' => 1, 'msg' => '添加成功！', 'info' => ''];
+        return ['status' => 1, 'msg' => '保存成功！', 'info' => ''];
     }
 	/**
      * 属性保存

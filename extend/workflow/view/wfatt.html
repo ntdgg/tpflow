@@ -83,7 +83,7 @@
 				<option value="6" {if condition="$one['auto_person'] eq 6"}selected="selected"{/if}>事务接受</option>
               </select></td></tr> 
 			<tr id="auto_person_3" {if condition="$one['auto_person'] neq 3"}class="hide"{/if}><td>自由选择</br>
-			<a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'range_user'])}','350','500')">选择</a>
+			<a class="button" onclick="layer_open('办理人','{:url($int_url.'/wf/super_user',['kid'=>'range_user'])}','350','500')">选择</a>
 			</td><td> 
 				<input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one.range_user_ids}">
                     <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one.range_user_text ?? ''}"> 
@@ -102,7 +102,7 @@
 					</td>	
 			</tr>
 			<tr id="auto_person_4" {if condition="$one['auto_person'] neq 4"}class="hide"{/if}><td>指定人员
-			</br/><a class="btn" onclick="layer_show('办理人','{:url('super_user',['kid'=>'auto_sponsor'])}','350','500')">选择</a></td><td> 
+			</br/><a class="button" onclick="layer_open('办理人','{:url($int_url.'/wf/super_user',['kid'=>'auto_sponsor'])}','350','500')">选择</a></td><td> 
 			
 			<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one.auto_sponsor_ids}">
              <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one.auto_sponsor_text ?? ''}"> 
@@ -117,7 +117,7 @@
 					</span>	
 					</td>	
 			</tr>
-			<tr id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}><td>指定角色<br/><a class="btn" onclick="layer_show('办理人','{:url('super_role')}','350','500')">选择</a></td><td> 
+			<tr id="auto_person_5" {if condition="$one['auto_person'] neq 5"}class="hide"{/if}><td>指定角色<br/><a class="button" onclick="layer_open('办理角色','{:url($int_url.'/wf/super_role')}','350','500')">选择</a></td><td> 
 			<input type="hidden" name="auto_role_ids" id="auto_role_value" value="{$one.auto_role_ids}" >
 			
 			<span id='auto_role_html'>
@@ -147,9 +147,6 @@
 			</select>
 			</td>	
 			</tr>
-			
-			
-			
 			</table>
 	   </div>
 	   <div class="tab-item">
