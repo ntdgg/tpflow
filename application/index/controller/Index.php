@@ -7,7 +7,6 @@ use workflow\workflow;
 
 class Index  extends Controller{
     public function index(){
-		
 	  $this->assign('user',db('user')->field('id,username,role')->select());
       return $this->fetch();
     }
