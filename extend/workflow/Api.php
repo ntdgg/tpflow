@@ -42,6 +42,78 @@ define('ROOT_PATH',\Env::get('root_path') );
 		<span style="font-size:19px;">PHP开源工作流引擎系统</span></p>
 		<span style="font-size:15px;">[ ©2018-2020 Guoguo <a href="https://www.cojz8.com/">TpFlow</a> 本版权不可删除！ ]</span></div>';
     }
+	public static function wfbtn($wf_fid,$wf_type,$status)
+	{
+		$url = url("/index/wf/wfcheck/",["wf_type"=>$wf_type,"wf_title"=>'2','wf_fid'=>$wf_fid]);
+		$url_star = url("/index/wf/wfstart/",["wf_type"=>$wf_type,"wf_title"=>'2','wf_fid'=>$wf_fid]);
+		switch ($status)
+		{
+		case 0:
+		  return '<span class="btn  radius size-S" onclick=layer_show(\'发起工作流\',"'.$url_star.'","450","350")>发起工作流</span>';
+		  break;
+		case 1:
+			$st = 0;
+			$user_name ='';
+			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
+			if($flowinfo!=-1){
+				if(!isset($flowinfo['status'])){
+					 return '<span class="btn btn-danger  radius size-S" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
+				}
+					if($flowinfo['sing_st']==0){
+						$user = explode(",", $flowinfo['status']['sponsor_ids']);
+						$user_name =$flowinfo['status']['sponsor_text'];
+						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4||$flowinfo['status']['auto_person']==6){
+							if (in_array($this->uid, $user)) {
+								$st = 1;
+							}
+						}
+						if($flowinfo['status']['auto_person']==5){
+							if (in_array($this->role, $user)) {
+								$st = 1;
+							}
+						}
+					}else{
+						if($flowinfo['sing_info']['uid']==$this->uid){
+							  $st = 1;
+						}else{
+							   $user_name =$flowinfo['sing_info']['uid'];
+						}
+					}
+				}else{
+					 return '<span class="btn  radius size-S">无权限</span>';
+				}	
+				if($st == 1){
+					 return '<span class="btn  radius size-S" onclick=layer_show(\'审核\',"'.$url.'","850","650")>审核('.$user_name.')</span>';
+					}else{
+					 return '<span class="btn  radius size-S">无权限('.$user_name.')</span>';
+				}
+			
+		case 100:
+			echo '<span class="btn btn-primary" onclick=layer_show(\'代审\',"'.$url.'?sup=1","850","650")>代审</span>';
+		  break;
+		  break;
+		default:
+		  return '';
+		}
+	}
+	 
+	 public static function wfstatus($status)
+	{
+		switch ($status)
+		{
+		case 0:
+		  echo '<span class="label radius">保存中</span>';
+		  break;
+		case 1:
+		  echo '<span class="label radius" >流程中</span>';
+		  break;
+		case 2:
+		  echo '<span class="label label-success radius" >审核通过</span>';
+		  break;
+		default: //-1
+		  echo '<span class="label label-danger radius" >退回修改</span>';
+		}
+	}
 	/**
 	 * 流程设计首页
 	 * @param $map 查询参数
