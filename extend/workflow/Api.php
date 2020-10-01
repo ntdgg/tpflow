@@ -114,6 +114,15 @@ define('ROOT_PATH',\Env::get('root_path') );
 		  echo '<span class="label label-danger radius" >退回修改</span>';
 		}
 	}
+	/*发起流程，选择工作流*/
+	public function wfstart()
+	{
+		$info = ['wf_type'=>input('wf_type'),'wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid')];
+		$flow =  $this->work->getWorkFlow(input('wf_type'));
+		return view($this->patch.'/wfstart.html',['int_url'=>$this->int_url,'info'=>$info,'flow'=>$flow]);
+		
+		return $this->fetch();
+	}
 	/**
 	 * 流程设计首页
 	 * @param $map 查询参数

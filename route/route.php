@@ -39,5 +39,9 @@ Route::post('index/wf/save_attribute','\workflow\Api@save_attribute'); //步骤�
 //用户查询
 Route::post('index/wf/super_get','\workflow\Api@super_get');//查询用户或者角色
 
+//流程启动
+
+Route::get('index/wf/wfstart','\workflow\Api@wfstart'); //设计界面
+
 
 
