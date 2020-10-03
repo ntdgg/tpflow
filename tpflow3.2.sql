@@ -6,7 +6,7 @@ Date: 2020-09-22
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `wf_flow`
+-- Table structure for wf_flow
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_flow`;
 CREATE TABLE `wf_flow` (
@@ -27,7 +27,7 @@ CREATE TABLE `wf_flow` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_flow_process`
+-- Table structure for wf_flow_process
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_flow_process`;
 CREATE TABLE `wf_flow_process` (
@@ -66,7 +66,7 @@ CREATE TABLE `wf_flow_process` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_news`
+-- Table structure for wf_news
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_news`;
 CREATE TABLE `wf_news` (
@@ -88,7 +88,7 @@ CREATE TABLE `wf_news` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_news_type`
+-- Table structure for wf_news_type
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_news_type`;
 CREATE TABLE `wf_news_type` (
@@ -106,7 +106,7 @@ INSERT INTO `wf_news_type` VALUES ('1', '新闻', null, null);
 INSERT INTO `wf_news_type` VALUES ('2', '公告', null, null);
 
 -- ----------------------------
--- Table structure for `wf_role`
+-- Table structure for wf_role
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_role`;
 CREATE TABLE `wf_role` (
@@ -133,7 +133,7 @@ INSERT INTO `wf_role` VALUES ('6', '总经理', '0', '1', '0', '');
 INSERT INTO `wf_role` VALUES ('7', '董事长', '0', '1', '0', '');
 
 -- ----------------------------
--- Table structure for `wf_role_user`
+-- Table structure for wf_role_user
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_role_user`;
 CREATE TABLE `wf_role_user` (
@@ -155,7 +155,7 @@ INSERT INTO `wf_role_user` VALUES ('6', '6');
 INSERT INTO `wf_role_user` VALUES ('7', '7');
 
 -- ----------------------------
--- Table structure for `wf_run`
+-- Table structure for wf_run
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_run`;
 CREATE TABLE `wf_run` (
@@ -163,8 +163,8 @@ CREATE TABLE `wf_run` (
   `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'work_run ID ',
   `from_table` varchar(255) DEFAULT NULL COMMENT '单据表，不带前缀',
   `from_id` int(11) DEFAULT NULL,
-  `pid_flow_step` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '',
-  `cache_run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '',
+  `pid_flow_step` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `cache_run_id` int(10) unsigned NOT NULL DEFAULT '0',
   `uid` int(10) unsigned NOT NULL DEFAULT '0',
   `flow_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程id 正常流程',
   `cat_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程分类ID',
@@ -192,7 +192,7 @@ CREATE TABLE `wf_run` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_run_cache`
+-- Table structure for wf_run_cache
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_run_cache`;
 CREATE TABLE `wf_run_cache` (
@@ -215,7 +215,7 @@ CREATE TABLE `wf_run_cache` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_run_log`
+-- Table structure for wf_run_log
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_run_log`;
 CREATE TABLE `wf_run_log` (
@@ -225,7 +225,7 @@ CREATE TABLE `wf_run_log` (
   `from_table` varchar(255) DEFAULT NULL COMMENT '单据表',
   `run_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流转id',
   `run_flow` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程ID',
-  `content` text DEFAULT NULL COMMENT '日志内容',
+  `content` text COMMENT '日志内容',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `btn` varchar(255) DEFAULT NULL COMMENT '提交操作信息',
   `art` longtext COMMENT '附件日志',
@@ -240,7 +240,7 @@ CREATE TABLE `wf_run_log` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_run_process`
+-- Table structure for wf_run_process
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_run_process`;
 CREATE TABLE `wf_run_process` (
@@ -281,7 +281,7 @@ CREATE TABLE `wf_run_process` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_run_sign`
+-- Table structure for wf_run_sign
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_run_sign`;
 CREATE TABLE `wf_run_sign` (
@@ -290,7 +290,7 @@ CREATE TABLE `wf_run_sign` (
   `run_id` int(10) unsigned NOT NULL DEFAULT '0',
   `run_flow` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '流程ID,子流程时区分run step',
   `run_flow_process` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '当前步骤编号',
-  `content` text NOT NULL COMMENT '会签内容',
+  `content` text COMMENT '会签内容',
   `is_agree` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核意见：1同意；2不同意',
   `sign_att_id` int(10) unsigned NOT NULL DEFAULT '0',
   `sign_look` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '步骤设置的会签可见性,0总是可见（默认）,1本步骤经办人之间不可见2针对其他步骤不可见',
@@ -305,7 +305,7 @@ CREATE TABLE `wf_run_sign` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `wf_user`
+-- Table structure for wf_user
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_user`;
 CREATE TABLE `wf_user` (
@@ -338,7 +338,7 @@ INSERT INTO `wf_user` VALUES ('6', '总经理', 'c4ca4238a0b923820dcc509a6f75849
 INSERT INTO `wf_user` VALUES ('7', '董事长', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '7', '0', '1', '1522376413', '127.0.0.1', '0', '新建用户', '1522376413');
 
 -- ----------------------------
--- Table structure for `wf_workinfo`
+-- Table structure for wf_workinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_workinfo`;
 CREATE TABLE `wf_workinfo` (
