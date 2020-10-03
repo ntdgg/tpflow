@@ -42,8 +42,16 @@ define('ROOT_PATH',\Env::get('root_path') );
 		<span style="font-size:19px;">PHP开源工作流引擎系统</span></p>
 		<span style="font-size:15px;">[ ©2018-2020 Guoguo <a href="https://www.cojz8.com/">TpFlow</a> 本版权不可删除！ ]</span></div>';
     }
+	public static function wflogs($id,$wf_type,$type='html'){
+		$work = new workflow();
+		$logs = $work->FlowLog('logs',$id,$wf_type);
+		echo $logs[$type];
+	}
 	public static function wfbtn($wf_fid,$wf_type,$status)
 	{
+		$work = new workflow();
+		$thisuid = session('uid');
+		$thisrole = session('role');
 		$url = url("/index/wf/wfcheck/",["wf_type"=>$wf_type,"wf_title"=>'2','wf_fid'=>$wf_fid]);
 		$url_star = url("/index/wf/wfstart/",["wf_type"=>$wf_type,"wf_title"=>'2','wf_fid'=>$wf_fid]);
 		switch ($status)
@@ -54,7 +62,7 @@ define('ROOT_PATH',\Env::get('root_path') );
 		case 1:
 			$st = 0;
 			$user_name ='';
-			$flowinfo =  $this->work->workflowInfo($wf_fid,$wf_type,['uid'=>$this->uid,'role'=>$this->role]);
+			$flowinfo =  $work->workflowInfo($wf_fid,$wf_type,['uid'=>$thisuid,'role'=>$thisrole]);
 			if($flowinfo!=-1){
 				if(!isset($flowinfo['status'])){
 					 return '<span class="btn btn-danger  radius size-S" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
@@ -63,17 +71,17 @@ define('ROOT_PATH',\Env::get('root_path') );
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						$user_name =$flowinfo['status']['sponsor_text'];
 						if($flowinfo['status']['auto_person']==3||$flowinfo['status']['auto_person']==4||$flowinfo['status']['auto_person']==6){
-							if (in_array($this->uid, $user)) {
+							if (in_array($thisuid, $user)) {
 								$st = 1;
 							}
 						}
 						if($flowinfo['status']['auto_person']==5){
-							if (in_array($this->role, $user)) {
+							if (in_array($thisrole, $user)) {
 								$st = 1;
 							}
 						}
 					}else{
-						if($flowinfo['sing_info']['uid']==$this->uid){
+						if($flowinfo['sing_info']['uid']==$thisuid){
 							  $st = 1;
 						}else{
 							   $user_name =$flowinfo['sing_info']['uid'];
@@ -89,7 +97,7 @@ define('ROOT_PATH',\Env::get('root_path') );
 				}
 			
 		case 100:
-			echo '<span class="btn btn-primary" onclick=layer_show(\'代审\',"'.$url.'?sup=1","850","650")>代审</span>';
+			echo '<span class="btn btn-primary" onclick=layer_open(\'代审\',"'.$url.'?sup=1","850","650")>代审</span>';
 		  break;
 		  break;
 		default:
@@ -121,6 +129,32 @@ define('ROOT_PATH',\Env::get('root_path') );
 		$flow =  $this->work->getWorkFlow(input('wf_type'));
 		return view($this->patch.'/wfstart.html',['int_url'=>$this->int_url,'info'=>$info,'flow'=>$flow]);
 	}
+	/*正式发起工作流*/
+	public function statr_save()
+	{
+		$data = input('post.');
+		$flow = $this->work->startworkflow($data,$this->uid);
+		if($flow['code']==1){
+			return $this->msg_return('Success!');
+		}
+	}
+	public function wfcheck()
+	{
+		$info = ['wf_title'=>input('wf_title'),'wf_fid'=>input('wf_fid'),'wf_type'=>input('wf_type')];
+		
+		return view($this->patch.'/wfcheck.html',['int_url'=>$this->int_url,'info'=>$info,'flowinfo'=>$this->work->workflowInfo(input('wf_fid'),input('wf_type'),['uid'=>$this->uid,'role'=>$this->role])]);
+	}
+	public function do_check_save()
+	{
+		$data = input('post.');
+		$flowinfo =  $this->work->workdoaction($data,$this->uid);
+		if($flowinfo['code']=='0'){
+			return $this->msg_return('Success!');
+			}else{
+			return $this->msg_return($flowinfo['msg'],1);
+		}
+	}
+	
 	/**
 	 * 流程设计首页
 	 * @param $map 查询参数
@@ -212,6 +246,9 @@ define('ROOT_PATH',\Env::get('root_path') );
 		];
 		return view($this->patch.'/wfdesc.html',['url'=>$urls,'one'=>$one,'process_data'=>$this->work->ProcessApi('All',$flow_id)]);
     }
+	public function Checkflow($fid){
+		return $this->work->SuperApi('CheckFlow',$fid);
+	}
 	/**
 	 * 添加流程
 	 **/
@@ -277,6 +314,37 @@ define('ROOT_PATH',\Env::get('root_path') );
 		];
 		$ret = array_merge($ret, $extend);
 		return json($ret);
+	}
+	
+	public function wfup()
+    {
+        return view($this->patch.'/wfup.html',['int_url'=>$this->int_url]);
+    }
+	public function wfupsave()
+    {
+        $files = $this->request::file('file');
+        $insert = [];
+        foreach ($files as $file) {
+            $path = \Env::get('root_path') . '/public/uploads/';
+            $info = $file->move($path);
+            if ($info) {
+                $data[] = $info->getSaveName();
+            } else {
+                $error[] = $file->getError();
+            }
+        }
+        return $this->msg_return($data,0,$info->getInfo('name'));
+    }
+	public function ajax_back()
+	{
+		$flowinfo =  $this->work->getprocessinfo(input('back_id'),input('run_id'));
+		return $flowinfo;
+	}
+	
+	public function wfend()
+	{
+		$flowinfo =  $this->work->SuperApi('WfEnd',input('get.id'),$this->uid);
+		return $this->msg_return('Success!');
 	}
 
 		

@@ -1,7 +1,6 @@
-{include file='pub/base' /}
-<link rel="stylesheet" href="__LIB__/multiple-select/multiple-select.css" />
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow-common.css"/>
 <div class="page-container" style='width:98%'>
-<form action="{:url('do_check_save')}" method="post" name="form" id="forms">
+<form action="{:url($int_url.'/wf/do_check_save')}" method="post" name="form" id="forms">
 <input type="hidden" value="{$info.wf_title}" name="wf_title">
 <input type="hidden" value="{$info.wf_fid}" name="wf_fid">
 <input type="hidden" value="{$info.wf_type}" name="wf_type">
@@ -28,13 +27,13 @@
 			<td style='height:80px'>
 				<table class="table table-border table-bordered table-bg">
 				<tr>
-				<th style='width:30px'>
-				{if condition='$flowinfo.sing_st == 0'}审批{else/}会签{/if}意见</th>
-				<th><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </th>
+				<td style='width:30px'>
+				{if condition='$flowinfo.sing_st == 0'}审批{else/}会签{/if}意见</td>
+				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </td>
 				</tr>
 				<tr id='nex_process'>
-				<th style='width:30px' >下一步骤</th>
-				<th>
+				<td style='width:30px' >下一步骤</td>
+				<td>
 				{if condition='$flowinfo.wf_mode == 2'}[同步]{/if}
 				
 				{if condition='$flowinfo.status.wf_mode != 2'}
@@ -57,11 +56,11 @@
 				{/if}
 				
 				
-				</th>
+				</td>
 				</tr>
 				<tr style='display:none' id='back_process'>
-				<th style='width:30px'>回退步骤</th>
-				<th>
+				<td style='width:30px'>回退步骤</td>
+				<td>
 					<span class="select-box">
 					<select name="wf_backflow" id='backflow'  class="select"  datatype="*" onchange='find()'>
 					<option value="">请选择回退步骤</option>
@@ -71,11 +70,11 @@
 					</select>
 					<input type="hidden" value="" name="btodo" id='btodo'>
 				</span>
-				</th>
+				</td>
 				</tr>
 				<tr style='display:none' id='sing_process'>
-				<th style='width:30px'>会签步骤</th>
-				<th>
+				<td style='width:30px'>会签步骤</td>
+				<td>
 					<span class="select-box">
 					<select name="wf_singflow" id='singflow'  class="select"  datatype="*" >
 					<option value="">请选择会签人</option>
@@ -84,7 +83,7 @@
 					{/volist}
 					</select>
 				
-				</th>
+				</td>
 				</tr>
 				<tr>
 				<td colspan=2 class='text-c'>
@@ -92,18 +91,18 @@
 				<input id='upload' name='art' value='' type='hidden'>
 				<input  name='sing_st' value='{$flowinfo.sing_st}' type='hidden'>
 				{if condition='$flowinfo.sing_st == 0'}
-					<a class="btn btn-primary radius" id='nexbton' onclick='tj("ok")' >提交</a> 
+					<a class="button" id='nexbton' onclick='tj("ok")' >提交</a> 
 					{if condition='$flowinfo.process.is_back != 2'}
-					<a class="btn btn-primary radius" id='backbton' onclick='tj("back")'value='back' >回退</a> 
+					<a class="button" id='backbton' onclick='tj("back")'value='back' >回退</a> 
 					{/if}
 					{if condition='$flowinfo.process.is_sing != 2'}
-					<a class="btn btn-primary radius" id='singbton' onclick='tj("sing")' value='sing' >会签</a>
+					<a class="button" id='singbton' onclick='tj("sing")' value='sing' >会签</a>
 					{/if}
-					<a class="btn btn-primary radius" id='bupload'onclick="layer_show('上传','{:url(\'wfup\', [\'id\' => \'upload\'])}','140','160')">附件</a> 
+					<a class="button" id='bupload'onclick="layer_open('上传','{:url($int_url.'/wf/wfup', ['id' => 'upload'])}','180','180')">附件</a> 
 				{else/}
-					<a class="btn btn-primary radius" id='nexbton' onclick='sing("sok")' >会签提交</a> 
-					<a class="btn btn-primary radius" id='backbton' onclick='sing("sback")'value='back' >会签回退</a> 
-					<a class="btn btn-primary radius" id='singbton' onclick='sing("ssing")' value='sing' >再会签</a>
+					<a class="button" id='nexbton' onclick='sing("sok")' >会签提交</a> 
+					<a class="button" id='backbton' onclick='sing("sback")'value='back' >会签回退</a> 
+					<a class="button" id='singbton' onclick='sing("ssing")' value='sing' >再会签</a>
 				{/if}
 				
 				</td>
@@ -112,7 +111,7 @@
 			</td>
 			<td valign="top" >
 				<div style='width:98%;overflow-y:scroll; height:200px'>
-					{:action('wf/wflogs',['id'=>$info.wf_fid,'wf_type'=>$info.wf_type])}
+					{:\\workflow\\Api::wflogs($info.wf_fid,$info.wf_type);}
 				
 				</div>
 			</td>
@@ -122,17 +121,24 @@
 		<table class="table table-border table-bordered mt-20" style='width:98%'>
 		<tr><td>
 		
-		<iframe src="{:url($info.wf_type.'/'.$flowinfo.status.wf_action,['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+		<iframe src="{:url($int_url.'/'.$info.wf_type.'/'.$flowinfo.status.wf_action,['id'=>$info.wf_fid])}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
 		
 		</td></tr>
 		</table>
 	
 </div>
-
+<script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js" ></script>
+<script type="text/javascript" src="__Flow__/lib/layer/2.4/layer.js" ></script>
+<script type="text/javascript" src="__Flow__/workflow-common.3.0.js" ></script>
+<script type="text/javascript" src="__Flow__/lib/Validform/5.3.2/Validform.min.js" ></script>
 <script type="text/javascript">
 $(function(){
 	$("#forms").Validform({
-            tiptype:2,
+            tiptype:function(msg,o,cssctl){
+				if (o.type == 3){
+					layer.msg(msg, {time: 800}); 
+				}
+			},
             ajaxPost:true,
             showAllError:true,
             callback:function(ret){
@@ -217,7 +223,7 @@ function iFrameHeight() {
 		}   
 } 
 function find(){
-	$.post("{:url('ajax_back')}",{"back_id":$('#backflow').val(),"run_id":$('#run_id').val()},function(data){
+	$.post("{:url($int_url.'/wf/ajax_back')}",{"back_id":$('#backflow').val(),"run_id":$('#run_id').val()},function(data){
 				if(data != ''){
 					$('#btodo').val(data);
 				}
@@ -225,6 +231,5 @@ function find(){
 			},'json');
 }
 </script>
-<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

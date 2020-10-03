@@ -35,13 +35,25 @@ Route::get('index/wf/wfchange','\workflow\Api@wfchange');//工作流启用关闭
 //步骤属性设计
 Route::get('index/wf/wfatt','\workflow\Api@wfatt'); //设计界面
 Route::post('index/wf/save_attribute','\workflow\Api@save_attribute'); //步骤属性保存
+Route::post('index/wf/Checkflow','\workflow\Api@Checkflow'); //步骤属性保存
 
 //用户查询
 Route::post('index/wf/super_get','\workflow\Api@super_get');//查询用户或者角色
 
-//流程启动
+//流程启动  
 
-Route::get('index/wf/wfstart','\workflow\Api@wfstart'); //设计界面
+Route::get('index/wf/wfcheck','\workflow\Api@wfcheck'); //发起工作流界面
+Route::get('index/wf/wfstart','\workflow\Api@wfstart'); //发起工作流界面
+Route::post('index/wf/statr_save','\workflow\Api@statr_save');//发起工作流保存
+Route::post('index/wf/do_check_save','\workflow\Api@do_check_save');//审核保存
+//附件接口
+
+Route::get('index/wf/wfup','\workflow\Api@wfup'); //发起工作流界面
+Route::post('index/wf/wfupsave','\workflow\Api@wfupsave');//审核保存
+Route::post('index/wf/wfend','\workflow\Api@wfend');//终止工作流接口
+Route::post('index/wf/ajax_back','\workflow\Api@ajax_back');//终止工作流接口
+
+
 
 
 

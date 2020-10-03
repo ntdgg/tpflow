@@ -1,19 +1,18 @@
-{include file='pub/base' /}
-  <link rel="stylesheet" href="__LIB__/multiple-select/multiple-select.css" />
+<link rel="stylesheet" type="text/css" href="__Flow__/workflow-common.css"/>
 <article class="page-container">
-		<form action="{:url('statr_save')}" method="post" name="form" id="form">
+		<form action="{:url($int_url.'/wf/statr_save')}" method="post" name="form" id="form">
 		<input type='hidden' value='{$info.wf_type}' name='wf_type'>
 		<input type='hidden' value='{$info.wf_fid}' name='wf_fid'>
-		<table class="table table-border table-bordered table-bg">
+		<table class="table">
 			<tr>
-			<td style='width:75px'>项目名称：</td>
-			<td style='width:330px'>{$info.wf_title}</td>
+			<td style='width:85px'>项目名称：</td>
+			<td>{$info.wf_title}</td>
 			</tr>
 			<tr>
 			<td>选择工作流：</td><td>
 			<span class="select-box">
 				<select name="wf_id"  class="select"  datatype="*" >
-					<option value="0">请选择工作流</option>
+					<option value="">请选择工作流</option>
 					{volist name='flow' id='k'}
 					<option value="{$k.id}">{$k.flow_name}</option>
 					{/volist}
@@ -42,25 +41,27 @@
 			<tr>
 			<td colspan='2' class='text-c'>
 			
-			<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-				<button  class="btn btn-default radius" type="button" onclick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td>
+			<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+				<button  class="button" type="button" onclick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td>
 			</tr>
 		</table>
 		
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				
-			</div>
-		</div>
+		
 	</form>
 </article>
 
-
+<script type="text/javascript" src="__Flow__/jquery-1.7.2.min.js" ></script>
+<script type="text/javascript" src="__Flow__/lib/layer/2.4/layer.js" ></script>
+<script type="text/javascript" src="__Flow__/workflow-common.3.0.js" ></script>
+<script type="text/javascript" src="__Flow__/lib/Validform/5.3.2/Validform.min.js" ></script>
 <script type="text/javascript">
 $(function(){
-	
 	$("#form").Validform({
-            tiptype:2,
+            tiptype:function(msg,o,cssctl){
+				if (o.type == 3){
+					layer.msg(msg, {time: 800}); 
+				}
+			},
             ajaxPost:true,
             showAllError:true,
             callback:function(ret){
@@ -70,6 +71,5 @@ $(function(){
 
 });
 </script>
-<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>
