@@ -10,9 +10,17 @@
 
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow") 
 
-### Tpflow V4.0 for Thinkphp6.0.2
+### Tpflow V4.0 开发版
 
 > 链接地址：https://gitee.com/ntdgg/tpflow/tree/4.0-dev/
+
+### Tpflow V3.0 正式版
+
+> 链接地址：https://gitee.com/ntdgg/tpflow/tree/3.0
+
+### Tpflow V3.2 正式版
+
+> 链接地址：https://gitee.com/ntdgg/tpflow/tree/3.2
 
 ----
 ### 作者相关开源软件
@@ -101,6 +109,9 @@
 > 视频教程：https://www.kancloud.cn/guowenbin/tpflow_video 【付费】实战视频教程
 
 ---
+~~~
+设计器、源代码标注有版权的位置，未经许可，严禁删除及修改，违者将承担法律侵权责任！
+~~~
 
 ## 版权信息
 
@@ -113,7 +124,7 @@ Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
 All rights reserved。
 
 ~~~
-对设计器，源代码标注有版权的位置，未经许可，严禁删除，及修改！
+设计器、源代码标注有版权的位置，未经许可，严禁删除及修改，违者将承担法律侵权责任！
 对您有帮助的话，你可以在下方赞助我们，让我们更好的维护开发，谢谢！
 特别声明：坚决打击网络诈骗行为，严禁将本插件集成在任何违法违规的程序上。
 ~~~
