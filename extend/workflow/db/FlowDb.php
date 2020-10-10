@@ -379,7 +379,12 @@ class FlowDb
         $process_to_list =  Db::name('flow_process')->field('id,process_name,process_type')->where('id','in' ,$one['process_tos'])->where('is_del', 0)->select();
 		foreach($process_to_list as $k=>$v){
 			if((count((array)$one['out_condition'])>1)){
-				$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
+				//修复设计完成后，新增转出条件报错问题
+				if(isset($one['out_condition'][$v['id']])){
+					$process_to_list[$k]['condition'] = $one['out_condition'][$v['id']]['condition'];
+				}else{
+					$process_to_list[$k]['condition'] = '';
+				}
 			}else{
 				$process_to_list[$k]['condition'] = '';
 			}
