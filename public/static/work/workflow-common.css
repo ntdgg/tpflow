@@ -1,16 +1,30 @@
 .page-container {
 	padding: 10px;
 }
-.table {
-		width: 100%;
+.table
+{
+	 border-radius: 5px;
+	width: 100%;
 		empty-cells: show;
 		background-color: transparent;
 		border-spacing: 0;
 		border: 1px solid #ddd;
-		border-collapse: separate;
 		border-left: 0;
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: center;
 }
-.table td {
+.table td, table th
+{
+	border: 1px solid #cad9ea;
+	color: #666;
+	height: 30px;
+}
+.table th
+{
+	width: 100px;
+	font-weight: bold;
+	background-color: #f5fafe;
     border-left: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 8px;
@@ -18,10 +32,8 @@
     word-break: break-all;
 }
 
-.table th {
-	font-weight: bold;
-	background-color: #f5fafe;
-	    border-left: 1px solid #ddd;
+.table td {
+    border-left: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 8px;
     line-height: 20px;
