@@ -115,6 +115,8 @@ class InfoDB{
 			'sponsor_ids'=>$sponsor_ids,//办理人id
 			'sponsor_text'=>$sponsor_text,//办理人信息
 			'auto_person'=>$wf_process['auto_person'],//办理类别
+			'is_sing'=>$wf_process['is_sing'],//是否会签
+			'is_back'=>$wf_process['is_back'],//是否会签
             'js_time'=>time(),
             'dateline'=>time(),
 			'wf_mode'=>$wf_process['wf_mode'],

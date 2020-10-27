@@ -92,10 +92,10 @@
 				<input  name='sing_st' value='{$flowinfo.sing_st}' type='hidden'>
 				{if condition='$flowinfo.sing_st == 0'}
 					<a class="button" id='nexbton' onclick='tj("ok")' >提交</a> 
-					{if condition='$flowinfo.process.is_back != 2'}
+					{if condition='$flowinfo.status.is_back != 2'}
 					<a class="button" id='backbton' onclick='tj("back")'value='back' >回退</a> 
 					{/if}
-					{if condition='$flowinfo.process.is_sing != 2'}
+					{if condition='$flowinfo.status.is_sing != 2'}
 					<a class="button" id='singbton' onclick='tj("sing")' value='sing' >会签</a>
 					{/if}
 					<a class="button" id='bupload'onclick="layer_open('上传','{:url($int_url.'/wf/wfup', ['id' => 'upload'])}','180','180')">附件</a> 
