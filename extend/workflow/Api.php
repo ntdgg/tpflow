@@ -20,7 +20,7 @@ define('ROOT_PATH',\Env::get('root_path') );
 		public $patch = '';
 		public $topconfig = '';
 		function __construct(Request $request) {
-			$this->int_url = 'index';//定义默认使用index模块，可以直接修改
+			$this->int_url = 'index';//定义默认使用index模块
 			$this->work = new workflow();
 			$this->uid = session('uid');
 			$this->role = session('role');
