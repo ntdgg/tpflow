@@ -1,4 +1,4 @@
-# Tpflow V4.0 开发版
+# Tpflow V5.0 正式版
 
 **欢迎使用 Tpflow 工作流引擎**
 
@@ -8,7 +8,6 @@
 
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow") 
 
-4.0开发计划：https://gitee.com/ntdgg/tpflow/board
 
 ### 主要特性
 
