@@ -11,17 +11,7 @@
 namespace tpflow\service;
 
 use tpflow\lib\unit;
-use tpflow\lib\lib;
 
-use tpflow\adaptive\Info;
-use tpflow\adaptive\Flow;
-use tpflow\adaptive\Process;
-use tpflow\adaptive\Bill;
-use tpflow\adaptive\Run;
-use tpflow\adaptive\Log;
-use tpflow\adaptive\Entrust;
-use tpflow\adaptive\User;
-use tpflow\adaptive\Work;
 
 Class Control{
 	
@@ -37,7 +27,8 @@ Class Control{
 	/**
 	  * 工作流程统一接口
 	  *
-	  * @param $act 调用接口方法 
+      * @access static
+      * @param $act 调用接口方法
 	  * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	  * Info    获取流程信息
 	  * start   发起审批流

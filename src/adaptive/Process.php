@@ -95,7 +95,7 @@ class Process{
 		}
 		if($info['auto_person']==6){ //事务接收者
 				$wf  =  Run::FindRunId($run_id);
-				$user_id = Bill::getbillvalue($wf['from_table'],$wf['from_id'],$wf_process['work_text']);
+				$user_id = Bill::getbillvalue($wf['from_table'],$wf['from_id'],$info['work_text']);
 				$info['todo']= User::GetUserName($user_id);
 			}
 		return $info;
@@ -121,7 +121,7 @@ class Process{
 			}
 			if($v['auto_person']==6){ //事务接收者
 				$wf  =   Run::FindRunId($run_id);
-				$user_id = Bill::getbillvalue($wf['from_table'],$wf['from_id'],$wf_process['work_text']);
+				$user_id = Bill::getbillvalue($wf['from_table'],$wf['from_id'],$info[$k]['work_text']);
 				$user_info = User::GetUserInfo($user_id);
 				$info['user_info']= $user_info;
 				$info[$k]['todo']= $user_info['username'];

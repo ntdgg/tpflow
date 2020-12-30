@@ -75,8 +75,8 @@ class TaskService{
 	/*
 	 * 工作流运行服务
 	 *
-	 * @param  $config 参数信息
-	 * @param  $uid 用户ID
+	 * @param array $config 参数信息
+	 * @param mixed  $uid 用户ID
 	 **/
 	function Runing($config,$uid)
 	{
@@ -115,8 +115,8 @@ class TaskService{
 	}
 	/**
 	 * 结束流程接口
-	 * @param $bill_table 表名称
-	 * @param $bill_id id
+	 * @param string $bill_table 表名称
+	 * @param mixed $bill_id id
 	 */
 	public function EndTask($user_id,$bill_table,$bill_id){
 		//终止权限校验
@@ -161,7 +161,7 @@ class TaskService{
 	 * 普通流程通过
 	 * 
 	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 * @param  mixed $uid  用户ID
 	 */
 	public function doTask($config,$uid){
 		$command = new TaskFlow();
@@ -170,8 +170,8 @@ class TaskService{
 	/**
 	 * 流程驳回
 	 * 
-	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 * @param  Array $config 参数信息
+	 * @param  mixed $uid  用户ID
 	 */
 	public function doBack($config,$uid){
 		$command = new BackFlow();
@@ -180,8 +180,8 @@ class TaskService{
 	/**
 	 * 会签操作
 	 * 
-	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 * @param Array $config 参数信息
+	 * @param mixed $uid  用户ID
 	 */
 	public function doSing($config,$uid){
 		$command = new SingFlow();
@@ -191,8 +191,8 @@ class TaskService{
 	/**
 	 * 普通流程通过
 	 * 
-	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 * @param array $config 参数信息
+	 * @param mixed $uid  用户ID
 	 */
 	public function doSingEnt($config,$uid,$wf_actionid){
 		$command = new SingFlow();
@@ -201,8 +201,8 @@ class TaskService{
 	/**
 	 * 实例超级接口
 	 * 
-	 * @param  $wfid 工作流ID run_id
-	 * @param  $uid  用户ID
+	 * @param  string  $wfid 工作流ID run_id
+	 * @param  mixed  $uid  用户ID
 	 */
 	public function doSupEnd($wfid,$uid){
 		$command = new SupFlow();
