@@ -12,6 +12,7 @@
 namespace tpflow\custom\think;
 
 use think\facade\Db;
+use tpflow\lib\unit;
 
 class AdapteeFlow
 {
@@ -41,9 +42,8 @@ class AdapteeFlow
 
    function get_db_column_comment($table_name = '', $field = true, $table_schema = '')
     {
-		$dbconfig = require ( BEASE_URL . '/config/common.php');
-        $table_schema = empty($table_schema) ? $dbconfig['database'] : $table_schema;
-        $table_name = $dbconfig['prefix'] . $table_name;
+        $table_schema = empty($table_schema) ? unit::gconfig('database') : $table_schema;
+        $table_name = unit::gconfig('prefix') . $table_name;
         $fieldName = $field === true ? 'allField' : $field;
         $cacheKeyName = 'db_' . $table_schema . '_' . $table_name . '_' . $fieldName;
         $param = [

@@ -68,7 +68,7 @@ class unit{
 	 * @param string $key 键值
 	 */
 	public static function gconfig($key) {
-		$ret = require ( BEASE_URL . '/config/common.php');
+		$ret =require ( dirname(dirname(__DIR__) . DIRECTORY_SEPARATOR, 4) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'tpflow.php');
 		return $ret[$key] ?? '';
 	}
 	/**

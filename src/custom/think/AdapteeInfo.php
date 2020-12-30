@@ -11,6 +11,7 @@
 namespace tpflow\custom\think;
 
 use think\facade\Db;
+use tpflow\lib\unit;
 
 
 class AdapteeInfo{
@@ -21,11 +22,10 @@ class AdapteeInfo{
 	 */
 	function get_wftype()
 	{
-		$config = require ( BEASE_URL . '/config/common.php');//
-		if($config['wf_type_mode']==0){
-			return Db::query("select replace(TABLE_NAME,'".$config['prefix']."','')as name,TABLE_COMMENT as title from information_schema.tables where table_schema='".$config['database']."' and TABLE_COMMENT like '".$config['work_table']."%';");
+		if(unit::gconfig('wf_type_mode')==0){
+			return Db::query("select replace(TABLE_NAME,'".unit::gconfig('prefix')."','')as name,TABLE_COMMENT as title from information_schema.tables where table_schema='".unit::gconfig('database')."' and TABLE_COMMENT like '".unit::gconfig('work_table')."%';");
 		}else{
-			return $config['wf_type_data'];
+			return unit::gconfig('wf_type_data');
 		}
 		
 	}

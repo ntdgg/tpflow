@@ -11,11 +11,11 @@
 namespace tpflow\custom\think;
 
 use think\facade\Db;
+use tpflow\lib\unit;
 
 class AdapteeUser{
 	public static function config($type='user'){
-		$config = require ( BEASE_URL . '/config/common.php');// 
-		return $config[$type];
+		return unit::gconfig($type);
 	} 
 	/**
 	 * 获取用户列表
