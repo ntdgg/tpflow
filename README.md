@@ -45,6 +45,12 @@
  *  环形审批流模式
     * 解决以往A发起人->B审核人->C核准人->A发起人完结 的环型审批流 
 
+### 安装使用简易教程
+ *  安装Composer
+ *  composer require guoguo/tpflow
+ *  复制assets/work到项目资源目录
+ *  修改src/tpflow/config/common.php的配置文件
+
 ### 在线文档
 
 [看云文档](https://www.kancloud.cn/guowenbin/tpflow "安装手册")   [官方博客](https://www.cojz8.com/ "官方博客")
