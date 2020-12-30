@@ -16,11 +16,10 @@ class AdapteeLog{
 	/**
 	 * 工作流审批日志记录
 	 *
-	 * @param  $run_log_data 插入数据
 	 **/
-	function AddrunLog($run_log_data)
+	function AddrunLog($data)
 	{
-		 $ret = Db::name('wf_run_log')->insertGetId($run_log_data);
+		 $ret = Db::name('wf_run_log')->insertGetId($$data);
 		 if(!$ret){
 				return  false;
 		 }

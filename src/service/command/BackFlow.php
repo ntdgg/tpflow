@@ -22,8 +22,8 @@ class BackFlow{
 	/**
 	 * 工作流回退
 	 * 
-	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 * @param array $config 参数信息
+	 * @param mixed $uid  用户ID
 	 */
 	public function doTask($config,$uid) {
 		$wf_fid = $config['wf_fid'];
@@ -48,7 +48,7 @@ class BackFlow{
 			$todo = '';
 		}
 		if($back){//第一步
-			$end = Flow::end_flow($run_id);//结束流程
+			   Flow::end_flow($run_id);//结束流程
 			$end = Flow::end_process($run_process,$check_con);
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
@@ -69,9 +69,9 @@ class BackFlow{
 			if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 			}
-			$run = $this->Run($config,$uid,$todo);//添加回退步骤流程
+			   $this->Run($config,$uid,$todo);//添加回退步骤流程
 			//消息通知发起人
-			$run_update = Flow::up($run_id,$wf_backflow);
+			  Flow::up($run_id,$wf_backflow);
 		}
 		return ['msg'=>'success!','code'=>'0'];
 	}
@@ -79,7 +79,6 @@ class BackFlow{
 	/**
 	 *运行
 	 *
-	 *@param $run_flow_process 工作流ID
 	 **/
 	public function Run($config,$uid,$todo)
 	{
@@ -89,11 +88,10 @@ class BackFlow{
 		if(!$wf_process_log){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
-		
 		//日志记录
-		$run_log = Log::AddrunLog($uid,$config['run_id'],$config,'Back');
+		   Log::AddrunLog($uid,$config['run_id'],$config,'Back');
 		if(!$wf_process_log){
 				return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
-			}
+		}
 	}
 }

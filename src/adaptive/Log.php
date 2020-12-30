@@ -46,7 +46,7 @@ Class Log{
 					}
 					$html .='</table>';
 				}else{
-					throw new \Exception ( "参数出错！" );
+					return "参数出错！";
 				}
 			return ['json'=>$info,'html'=>$html];
 		}
@@ -70,12 +70,12 @@ Class Log{
 	/**
 	 * 工作流审批日志记录
 	 *
-	 * @param  $uid 实例id
-	 * @param  $run_id 运行的工作流id
-	 * @param  $content 审批意见
-	 * @param  $from_id 单据id
-	 * @param  $from_table 单据表
-	 * @param  $btn 操作按钮 ok 提交 back 回退 sing 会签  Send 发起 
+	 * @param  mixed $uid 实例id
+	 * @param  mixed $run_id 运行的工作流id
+	 * @param  string $content 审批意见
+	 * @param  mixed $from_id 单据id
+	 * @param  string $from_table 单据表
+	 * @param  string $btn 操作按钮 ok 提交 back 回退 sing 会签  Send 发起
 	 **/
 	static function AddrunLog($uid,$run_id,$config,$btn)
 	{

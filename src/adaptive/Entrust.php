@@ -25,8 +25,8 @@ Class Entrust{
     }
 	/**
      * get_Entrust 获取代理信息
-     * @param $whereRaw raw查询条件
-	 * @param $map 查询条件
+     * @param array $whereRaw raw查询条件
+	 * @param array $map 查询条件
      */
     static function get_Entrust($map=[],$whereRaw='')
     {
@@ -34,7 +34,7 @@ Class Entrust{
     }
 	/**
      * lists 列表信息
-     * @param $data POST提交的数据
+     * @param array $data POST提交的数据
      */
     static function lists()
     {
@@ -42,7 +42,7 @@ Class Entrust{
     }
 	/**
      * find 信息查询
-     * @param $data POST提交的数据
+     * @param array $data POST提交的数据
      */
     static function find($id)
     {
@@ -50,7 +50,7 @@ Class Entrust{
     }
 	/**
      * Add 新增
-     * @param $data POST提交的数据
+     * @param array $data POST提交的数据
      */
     static function Add($data)
     {
@@ -58,8 +58,8 @@ Class Entrust{
     }
 	/**
      * save_rel 保存关系
-	 * @param $data 步骤信息
-	 * @param $run_process 运行中的步骤
+	 * @param array $data 步骤信息
+	 * @param int  $run_process 运行中的步骤
      */
     static function save_rel($data,$run_process)
     {
@@ -67,7 +67,7 @@ Class Entrust{
     }
 	/**
      * change 权限转换
-	 * @param $info 修改信息
+	 * @param array $info 修改信息
      */
 	static function change($info)
     {

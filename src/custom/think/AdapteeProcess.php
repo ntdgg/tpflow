@@ -12,21 +12,9 @@
 namespace tpflow\custom\think;;
 
 use think\facade\Db;
-use tpflow\adaptive\Flow;
-use tpflow\adaptive\User;
-use tpflow\adaptive\Entrust;
-use tpflow\adaptive\Bill;
-use tpflow\adaptive\Info;
-use tpflow\adaptive\Log;
 
 class AdapteeProcess{
-	
-	/**
-	 * flow_process find
-	 *
-	 * @param $id 步骤编号
-	 * @param $field 字段过滤
-	 */
+
 	function find($id,$field='*'){
 		return Db::name('wf_flow_process')->field($field)->find($id);
 	}

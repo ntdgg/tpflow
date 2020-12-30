@@ -20,12 +20,13 @@ use tpflow\adaptive\Log;
 use tpflow\adaptive\Entrust;
 use tpflow\adaptive\User;
 
+use tpflow\service\TaskService;
 
 Class Jwt{
 	/**
 	  * 工作流程统一接口
 	  *
-	  * @param $act 调用接口方法 
+	  * @param string $act 调用接口方法
 	  * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	  * Info    获取流程信息
 	  * start   发起审批流
@@ -70,7 +71,7 @@ Class Jwt{
 				'tpflow_upload'=>unit::gconfig('wf_upload_file')
 				];
 			if($wf_op=='check'){
-				return json_encode(['info'=>$info,'Flow'=>Control::WfCenter('Info',$wf_fid,$wf_type)]);
+				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)]);
 			}
 			if($wf_op=='ok'){
 				 if ($post !='') {
@@ -81,7 +82,7 @@ Class Jwt{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return json_encode(['info'=>$info,'Flow'=>Control::WfCenter('Info',$wf_fid,$wf_type)]);
+				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)]);
 			}
 			if($wf_op=='back'){
 				 if ($post !='') {
@@ -93,7 +94,7 @@ Class Jwt{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return json_encode(['info'=>$info,'Flow'=>Control::WfCenter('Info',$wf_fid,$wf_type)]);
+				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)]);
 			}
 			if($wf_op=='sign'){
 				 if ($post !='') {
@@ -104,19 +105,20 @@ Class Jwt{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return json_encode(['info'=>$info,'Flow'=>Control::WfCenter('Info',$wf_fid,$wf_type),'submit'=>$data['ssing']]);
+				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type),'submit'=>$data['ssing']]);
 			}
 			//调用当前审批流的审批流程图
 			if($wf_op=='flow'){
-				$flowinfo = Control::WfCenter('Info',$wf_fid,$wf_type);
+				$flowinfo = self::WfCenter('Info',$wf_fid,$wf_type);
 				$run_info = Run::FindRunId($flowinfo['run_id']);
 				$flow_id = intval($run_info['flow_id']);
 				if($flow_id<=0){
-					$this->error('参数有误，请返回重试!');
+
+					return '参数有误，请返回重试!';
 				}
 				$one = Flow::getWorkflow($flow_id);
 				if(!$one){
-					$this->error('未找到数据，请返回重试!');
+                    return '未找到数据，请返回重试!';
 				}
 				return json_encode(['Flow'=>Flow::ProcessAll($flow_id)]);
 			}
@@ -129,10 +131,11 @@ Class Jwt{
 			}
 			return unit::msg_return('Success!');
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0统一接口 流程管理中心
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
 	 * check   调用逻辑检查接口
@@ -145,14 +148,13 @@ Class Jwt{
 	 * saveatt 保存步骤属性接口
 	 */
 	function WfFlowCenter($act,$data=''){
-		$urls= unit::gconfig('wf_url');
 		if($act =='index'){
 			return json_encode(['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'List'=>Flow::GetFlow()]);
 		}
 		if($act =='wfjk'){
 			$data = Info::worklist();
 			foreach($data as $k=>$v){
-					$data[$k]['btn'] =lib::tpflow_btn($v['from_id'],$v['from_table'],100,Control::WfCenter('Info',$v['from_id'],$v['from_table']));
+					$data[$k]['btn'] =lib::tpflow_btn($v['from_id'],$v['from_table'],100,self::WfCenter('Info',$v['from_id'],$v['from_table']));
 			  }
 			return json_encode(['Url'=>unit::gconfig('wf_url'),'List'=>$data]);
 		}
@@ -160,7 +162,7 @@ Class Jwt{
 			return (new TaskService())->doSupEnd($data,unit::getuserinfo('uid'));
 		}
 		if($act =='add'){
-				if($data !=''){
+				if($data !='' && !is_numeric($data)){
 					if($data['id']==''){
 						$data['uid']=unit::getuserinfo('uid');
 						$data['add_time']=time();
@@ -175,24 +177,23 @@ Class Jwt{
 						return unit::msg_return($ret['data'],1);
 					}
 				}
-			   $id = input('id') ?? -1;
-			  return json_encode(['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'Info'=>Flow::getWorkflow($id)]);
+			  return json_encode(['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'Info'=>Flow::getWorkflow($data)]);
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0 工作流代理接口
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * index 列表调用
 	 * add   添加代理授权
 	 */
 	function WfEntrustCenter($act,$data=''){
-			$urls= unit::gconfig('wf_url');
 		if($act =='index'){
 			 return json_encode(['List'=>Entrust::lists()]);
 		}
 		if($act =='add'){
-				if($data !=''){
+				if($data !='' && !is_numeric($data)){
 					$ret = Entrust::Add($data);
 					if($ret['code']==0){
 						return unit::msg_return('发布成功！');
@@ -202,10 +203,11 @@ Class Jwt{
 				}
 			  return json_encode(['Info'=>Entrust::find($data),'Type'=>Process::get_userprocess(unit::getuserinfo('uid'),unit::getuserinfo('role')),'user'=>User::GetUser()]);
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0统一接口设计器
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
 	 * check   调用逻辑检查接口
@@ -227,12 +229,12 @@ Class Jwt{
 		if($act=='wfdesc'){
 			$one = Flow::getWorkflow($flow_id);
 			if(!$one){
-				$this->error('未找到数据，请返回重试!');
+				return '未找到数据，请返回重试!';
 			}
 			return json_encode(['id'=>$one['id'],'FlowInfo'=>Flow::ProcessAll($flow_id),'Url'=>$urls['designapi']]);
 		}
 		if($act=='save'){
-			return json(Flow::ProcessLink($flow_id,$data));
+			return json_encode(Flow::ProcessLink($flow_id,$data));
 		}
 		if($act=='check'){
 			return Flow::CheckFlow($flow_id);
@@ -240,18 +242,18 @@ Class Jwt{
 		if($act=='add'){
 			$one = Flow::getWorkflow($flow_id);
 			if(!$one){
-			  return json(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
+			  return json_encode(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
 			}
-			return json(Flow::ProcessAdd($flow_id));
+			return json_encode(Flow::ProcessAdd($flow_id));
 		}
 		if($act=='delAll'){
-			return json(Flow::ProcessDelAll($flow_id));
+			return json_encode(Flow::ProcessDelAll($flow_id));
 		}
 		if($act=='del'){
-			return json(Flow::ProcessDel($flow_id,$data));
+			return json_encode(Flow::ProcessDel($flow_id,$data));
 		}
 		if($act=='saveatt'){
-			return json(Flow::ProcessAttSave($data));
+			return json_encode(Flow::ProcessAttSave($data));
 		}
 		if($act=='att'){
 			$info = Flow::ProcessAttView($data);
@@ -272,10 +274,11 @@ Class Jwt{
 				 return ['data'=>User::AjaxGet(trim($data['type']),$data['key']),'code'=>1,'msg'=>'查询成功！'];
 			}
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0统一接口
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * log  历史日志消息
 	 * btn  权限判断
@@ -293,7 +296,7 @@ Class Jwt{
 		if($act=='status'){
 			return Lib::tpflow_status($data['status'],1);
 		}
-		
+        return $act.'参数出错';
 	}
 	
 }

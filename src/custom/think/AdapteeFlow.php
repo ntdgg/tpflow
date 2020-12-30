@@ -15,27 +15,16 @@ use think\facade\Db;
 
 class AdapteeFlow
 {
-	/**
-	 * flow find
-	 *
-	 * @param $id 步骤编号
-	 * @param $field 字段过滤
-	 */
+
 	function find($id,$field='*'){
 		return Db::name('wf_flow')->field($field)->find($id);
 	}
-	/**
-     * API 新增工作流
-     * @param $data POST提交的数据
-     */
+
    function AddFlow($data)
     {
         return Db::name('wf_flow')->insertGetId($data);
     }
-    /**
-     * API 编辑工作流
-     * @param $data POST提交的数据
-     */
+
    function EditFlow($data)
     {
        return Db::name('wf_flow')->update($data);
@@ -49,10 +38,7 @@ class AdapteeFlow
 		$count = Db::name('wf_flow')->where($map)->count();
 		return ['total'=>$count,'rows'=>$list];
 	}
-    /**
-     * 获取表字段信息
-     *
-     */
+
    function get_db_column_comment($table_name = '', $field = true, $table_schema = '')
     {
 		$dbconfig = require ( BEASE_URL . '/config/common.php');

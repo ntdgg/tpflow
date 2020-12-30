@@ -26,7 +26,7 @@ Class Run{
 	/**
 	 * 添加运行步骤
 	 *
-	 * @param $data run信息
+	 * @param array $data run信息
 	 */
 	static function AddRun($data)
     {
@@ -35,7 +35,7 @@ Class Run{
 	/**
 	 * 查询run流程信息
 	 *
-	 * @param $id 主键
+	 * @param int $id 主键
 	 */
 	static function FindRunId($id,$field='*')
     {
@@ -44,8 +44,8 @@ Class Run{
 	/**
 	 * 编辑run流程信息
 	 *
-	 * @param $id 主键
-	 * @param $data 流程信息
+	 * @param int $id 主键
+	 * @param array $data 流程信息
 	 */
 	static function  EditRun($id,$data)
     {
@@ -54,8 +54,8 @@ Class Run{
 	/**
 	 * 查询run流程信息
 	 *
-	 * @param $where 查询条件
-	 * @param $field 查询字段
+	 * @param array $where 查询条件
+	 * @param string $field 查询字段
 	 */
     static function FindRun($where=[],$field='*')
     {
@@ -64,8 +64,8 @@ Class Run{
 	/**
 	 * 查询run流程信息
 	 *
-	 * @param $where 查询条件
-	 * @param $field 查询字段
+	 * @param array $where 查询条件
+	 * @param string $field 查询字段
 	 */
 	 static function SearchRun($where=[],$field='*')
     {
@@ -74,7 +74,7 @@ Class Run{
 	/**
 	 * 查询run流程信息
 	 *
-	 * @param $id 查询条件
+	 * @param int $id
 	 */
 	static function FindRunProcessId($id,$field='*')
     {
@@ -83,8 +83,8 @@ Class Run{
 	/**
 	 * 查询run步骤流程信息
 	 *
-	 * @param $where 查询条件
-	 * @param $field 查询字段
+	 * @param array $where 查询条件
+	 * @param string $field 查询字段
 	 */
 	static function FindRunProcess($where=[],$field='*')
     {
@@ -93,7 +93,7 @@ Class Run{
 	/**
 	 * 添加run步骤流程信息
 	 *
-	 * @param $data 数据信息
+	 * @param array $data 数据信息
 	 */
 	static function AddRunProcess($data)
     {
@@ -102,8 +102,8 @@ Class Run{
 	/**
 	 * 查询run步骤流程信息
 	 *
-	 * @param $where 查询条件
-	 * @param $field 查询字段
+	 * @param array $where 查询条件
+	 * @param string $field 查询字段
 	 */
 	static function SearchRunProcess($where=[],$field='*')
     {
@@ -112,18 +112,18 @@ Class Run{
 	/**
 	 * 编辑run步骤流程信息
 	 *
-	 * @param $where 查询条件
-	 * @param $data  数据信息
+	 * @param array $where 查询条件
+	 * @param array $data  数据信息
 	 */
-	static function EditRunProcess($where=[],$data)
+	static function EditRunProcess($where,$data)
     {
        return (new Run())->mode->EditRunProcess($where,$data);
     }
 	/**
 	 * 查询运行中的会签信息
 	 *
-	 * @param $where 查询条件
-	 * @param $field  查询字段
+	 * @param array $where 查询条件
+	 * @param string $field  查询字段
 	 */
 	static function FindRunSign($where=[],$field='*')
     {
@@ -132,7 +132,7 @@ Class Run{
 	/**
 	 * 添加会签信息
 	 *
-	 * @param $config 会签数据
+	 * @param array $config 会签数据
 	 */
 	static function AddRunSing($config)
     {
@@ -152,8 +152,8 @@ Class Run{
 	/**
 	 * 结束会签信息
 	 *
-	 * @param $sing_sign 会签数据
-	 * @param $check_con 提交意见
+	 * @param array $sing_sign 会签数据
+	 * @param string $check_con 提交意见
 	 */
 	static function EndRunSing($sing_sign,$check_con)
     {
@@ -162,8 +162,8 @@ Class Run{
 	/**
 	 * 获取步骤消息
 	 *
-	 * @param $pid 运行步骤
-	 * @param $run_id 运行ID
+	 * @param int $pid 运行步骤
+	 * @param int $run_id 运行ID
 	 */
 	static function getprocessinfo($pid,$run_id){
 			

@@ -25,35 +25,35 @@ Class Bill{
     }
 	/**
 	 * 定义获取单据详细信息
-	 * @param $bill_table 表名称
-	 * @param $bill_id id
+	 * @param string $bill_table 表名称
+	 * @param int $bill_id id
 	 */
 	static function getbill($bill_table,$bill_id){
 		return (new Bill())->mode->getbill($bill_table,$bill_id);
 	}
 	/**
 	 * 定义获取单据单个字段值
-	 * @param $bill_table 表名称
-	 * @param $bill_id id
-	 * @param $bill_field 查询参数
+	 * @param string  $bill_table 表名称
+	 * @param int $bill_id id
+	 * @param string $bill_field 查询参数
 	 */
     static function getbillvalue($bill_table,$bill_id,$bill_field){
 		return (new Bill())->mode->getbillvalue($bill_table,$bill_id,$bill_field);
 	}
 	/**
 	 * 更新单据信息
-	 * @param $bill_table 表名称
-	 * @param $bill_id id
-	 * @param $updata 更新数据
+	 * @param string $bill_table 表名称
+	 * @param int $bill_id id
+	 * @param mixed $updata 更新数据
 	 */
     static function updatebill($bill_table,$bill_id,$updata){
 		return (new Bill())->mode->updatebill($bill_table,$bill_id,$updata);
 	}
 	/**
 	 * 判断单据信息
-	 * @param $bill_table 表名称
-	 * @param $bill_id id
-	 * @param $where 判断条件
+	 * @param string $bill_table 表名称
+	 * @param int $bill_id id
+	 * @param array $where 判断条件
 	 */
 	static function checkbill($bill_table,$bill_id,$where){
 		return (new Bill())->mode->checkbill($bill_table,$bill_id,$where);

@@ -93,7 +93,8 @@ use tpflow\lib\unit;
 				$data = input('post.');
 				return Control::WfFlowCenter($act,$data);
 			 }else{
-				 return Control::WfFlowCenter($act);
+                $data = input('id') ?? -1;
+				 return Control::WfFlowCenter($act,$data);
 			 }
 		}
 		if($act=='wfend'){

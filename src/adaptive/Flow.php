@@ -112,7 +112,7 @@ class Flow
 
     /**
      * API 新增工作流
-     * @param $data POST提交的数据
+     * @param array $data POST提交的数据
      */
    static function AddFlow($data)
     {
@@ -126,7 +126,7 @@ class Flow
 
     /**
      * API 编辑工作流
-     * @param $data POST提交的数据
+     * @param array $data POST提交的数据
      */
    static function EditFlow($data)
     {
@@ -200,7 +200,6 @@ class Flow
      */
    static function ProcessDel($flow_id, $process_id)
     {
-		$mode = (new Flow())->mode;
 		if ($process_id <= 0 or $flow_id <= 0) {
 			return ['status' => 0, 'msg' => '操作不正确'];
         }
@@ -252,9 +251,7 @@ class Flow
      */
    static function ProcessAdd($flow_id)
     {
-		$mode = (new Flow())->mode;
 		$process_count =  Process::SearchFlowProcess([['flow_id','=',$flow_id]]);
-        $process_type = 'is_step';
         if (count($process_count) <= 0){
             $process_type = 'is_one';
 			$process_setleft = '100';
@@ -299,7 +296,7 @@ class Flow
                 'process_to' => unit::ids_parse($value['process_to']),
                 'uptime' => time()
             ];
-			$ret = Process::EditFlowProcess([['id','=',$process_id],['flow_id','=',$flow_id]],$datas);
+			Process::EditFlowProcess([['id','=',$process_id],['flow_id','=',$flow_id]],$datas);
         }
         return ['status' => 1, 'msg' => '保存步骤成功~', 'info' => ''];
     }
@@ -399,8 +396,6 @@ class Flow
      */
 	public  static function CheckFlow($wfid)
 	{
-		$mode = (new Flow())->mode;
-		$flow = $mode->find($wfid);;
 		if (!$wfid) {
             return ['status' => 0, 'msg' => '参数出错!', 'info' => ''];
         }
@@ -421,7 +416,6 @@ class Flow
 	/**
 	 *结束工作流主状态
 	 *
-	 *@param $run_flow_process 工作流ID
 	 **/
 	public static function end_flow($run_id)
 	{
@@ -430,7 +424,6 @@ class Flow
 	/**
 	 *结束工作流步骤信息
 	 *
-	 *@param $run_flow_process 工作流ID
 	 **/
 	public static function end_process($run_process,$check_con)
 	{
@@ -439,7 +432,6 @@ class Flow
 	/**
 	 *更新流程主信息
 	 *
-	 *@param $run_flow_process 工作流ID  
 	 **/
 	public static function up($run_id,$flow_process)
 	{

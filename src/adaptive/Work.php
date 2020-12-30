@@ -26,7 +26,7 @@ Class Work{
 	/**
 	 * 节点事务接口
 	 *
-	 * @param  $config 参数
+	 * @param  array $config 参数
 	 **/
 	static function WorkApi($config)
 	{

@@ -27,10 +27,10 @@ class Info{
 	/**
 	 * 添加工作流
 	 *
-	 * @param $wf_id  流程主ID
-	 * @param $wf_process 流程信息
-	 * @param $wf_fid  业务id
-	 * @param $wf_type 业务表名
+	 * @param int $wf_id  流程主ID
+	 * @param int $wf_process 流程信息
+	 * @param int $wf_fid  业务id
+	 * @param string $wf_type 业务表名
 	 */
 	public static function addWorkflowRun($wf_id,$wf_process,$wf_fid,$wf_type,$uid)
 	{
@@ -52,10 +52,10 @@ class Info{
 	/**
 	 * 添加运行步骤信息
 	 *
-	 * @param $wf_id  流程主ID
-	 * @param $wf_process 流程信息
-	 * @param $run_id  运行的id
-	 * @param $wf_type 业务表名
+     * @param int $wf_id  流程主ID
+     * @param int $wf_process 流程信息
+     * @param int $wf_fid  业务id
+     * @param string $wf_type 业务表名
 	 */
 	public static function addWorkflowProcess($wf_id,$wf_process,$run_id,$uid,$todo = '')
 	{
@@ -128,8 +128,8 @@ class Info{
 	/**
 	 * 根据单据ID，单据表 获取流程信息
 	 *
-	 * @param $run_id  运行的id
-	 * @param $wf_type 业务表名
+	 * @param int $run_id  运行的id
+	 * @param string $wf_type 业务表名
 	 */
 	public static function workflowInfo($wf_fid,$wf_type,$userinfo) {
 		$workflow = [];
@@ -211,8 +211,8 @@ class Info{
 	/**
 	 * 根据单据ID，单据表 获取流程信息
 	 *
-	 * @param $run_id  运行的id
-	 * @param $wf_type 业务表名
+	 * @param int $run_id  运行的id
+	 * @param string $wf_type 业务表名
 	 */
 	public static function workrunInfo($run_id) {
 		return Run::FindRunId($run_id);

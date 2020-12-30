@@ -27,7 +27,7 @@ class Process{
 	/**
 	 * 根据ID获取流程信息
 	 *
-	 * @param $pid 步骤编号
+	 * @param int $pid 步骤编号
 	 */
 	static function find($pid)
 	{
@@ -36,7 +36,7 @@ class Process{
 	/**
 	 * 添加工作流步骤
 	 *
-	 * @param $data 步骤信息
+	 * @param array $data 步骤信息
 	 */
 	static function AddFlowProcess($data)
 	{
@@ -45,8 +45,8 @@ class Process{
 	/**
 	 * 编辑工作流步骤信息
 	 *
-	 * @param $where 查询条件
-	 * @param $data 步骤信息
+	 * @param array $where 查询条件
+	 * @param array $data 步骤信息
 	 */
 	static function EditFlowProcess($where,$data)
 	{
@@ -55,7 +55,7 @@ class Process{
 	/**
 	 * 删除步骤信息
 	 *
-	 * @param $where 查询条件
+	 * @param array $where 查询条件
 	 */
 	static function DelFlowProcess($where)
 	{
@@ -64,10 +64,10 @@ class Process{
 	/**
 	 * 查询工作流步骤信息
 	 *
-	 * @param $where 查询条件
-	 * @param $field 步骤信息
-	 * @param $order 排序信息
-	 * @param $limit 限制条数
+	 * @param array $where 查询条件
+	 * @param string $field 步骤信息
+	 * @param string $order 排序信息
+	 * @param int $limit 限制条数
 	 */
 	static function SearchFlowProcess($where=[],$field='*',$order='',$limit=0)
 	{
@@ -78,13 +78,12 @@ class Process{
 	/**
 	 * 根据ID获取流程信息
 	 *
-	 * @param $pid 步骤编号
+	 * @param int $pid 步骤编号
 	 */
 	static function GetProcessInfo($pid,$run_id='')
 	{
 		$info = (new Process())->mode->find($pid);
 		if($info['auto_person']==3){ //办理人员
-			$ids = explode(",",$info['range_user_text']);
 			$info['todo'] = ['ids'=>explode(",",$info['range_user_ids']),'text'=>explode(",",$info['range_user_text'])];
 		}
 		if($info['auto_person']==4){ //办理人员
@@ -103,14 +102,13 @@ class Process{
 	/**
 	 * 同步步骤信息
 	 *
-	 * @param $pid 步骤编号
+	 * @param int $pid 步骤编号
 	 */
 	static function GetProcessInfos($ids,$run_id)
 	{
 		$info = (new Process())->mode->finds($ids);
 		foreach($info as $k=>$v){
 			if($v['auto_person']==3){ //办理人员
-				$ids = explode(",",$info['range_user_text']);
 				$info[$k]['todo'] = ['ids'=>explode(",",$v['range_user_ids']),'text'=>explode(",",$v['range_user_text'])];
 			}
 			if($v['auto_person']==4){ //办理人员
@@ -132,12 +130,12 @@ class Process{
 	/**
 	 * 获取下个审批流信息
 	 *
-	 * @param $wf_type 单据表
-	 * @param $wf_fid  单据id
-	 * @param $pid   流程id
-	 * @param $premode   上一个步骤的模式
+	 * @param string $wf_type 单据表
+	 * @param int $wf_fid  单据id
+	 * @param int $pid   流程id
+	 * @param string $premode   上一个步骤的模式
 	 **/
-	static function GetNexProcessInfo($wf_type,$wf_fid,$pid,$run_id,$premode='')
+	static function GetNexProcessInfo($wf_type,$wf_fid,$pid,$run_id)
 	{
 		if($pid==''){
 			return [];
@@ -180,7 +178,7 @@ class Process{
 	/**
 	 * 获取前步骤的流程信息
 	 *
-	 * @param $runid
+	 * @param int $runid
 	 */
 	static function GetPreProcessInfo($runid)
 	{
@@ -214,8 +212,8 @@ class Process{
 	/**
 	 * 同步模式下获取未办结的流程信息
 	 *
-	 * @param $run_id 运行中的ID
-	 * @param $run_process 运行中的流程ID
+	 * @param int $run_id 运行中的ID
+	 * @param int $run_process 运行中的流程ID
 	 */
 	static function Getnorunprocess($run_id,$run_process)
 	{
@@ -258,7 +256,7 @@ class Process{
 	/**
 	 *获取sing_id
 	 *
-	 *@param $run_id 工作流ID
+	 *@param int $run_id 工作流ID
 	 **/
 	static function get_sing_id($run_id)
 	{
@@ -268,8 +266,8 @@ class Process{
 	/**
 	 *获取所有相关的流程步骤
 	 *
-	 *@param $uid 用户id
-	 *@param $role 用户角色id
+	 *@param int $uid 用户id
+	 *@param int $role 用户角色id
 	 **/
 	static function get_userprocess($uid,$role)
 	{

@@ -21,8 +21,8 @@ class TaskFlow{
 	/**
 	 * 任务执行
 	 * 
-	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 * @param  array $config 参数信息
+	 * @param  mixed $uid  用户ID
 	 */
 	public function doTask($config,$uid) {
 		//任务全局类
@@ -61,9 +61,9 @@ class TaskFlow{
 			 */
 			if($config['wf_mode']!=2){
 				//更新单据信息
-				$run_update = Flow::up($run_id,$npid);
+				     Flow::up($run_id,$npid);
 				//记录下一个流程->消息记录
-					$run = $this->Run($config,$uid,$todo);
+					$this->Run($config,$uid,$todo);
 				}else{
 			//日志记录
 					$run_log = Log::AddrunLog($uid,$config['run_id'],$config,'ok');
@@ -73,9 +73,9 @@ class TaskFlow{
 			}
 			}else{ 
 				//结束该流程
-				$end = Flow::end_flow($run_id);
+            Flow::end_flow($run_id);
 				$end = Flow::end_process($run_process,$check_con);
-				$run_log = Log::AddrunLog($uid,$run_id,$config,'ok');
+				       Log::AddrunLog($uid,$run_id,$config,'ok');
 				if(!$end){
 					return ['msg'=>'结束流程错误！！！','code'=>'-1'];
 				} 
@@ -88,14 +88,9 @@ class TaskFlow{
 		}
 		return ['msg'=>'success!','code'=>'0'];
 	}
-	/**
-	 *运行记录
-	 *
-	 *@param $run_flow_process 工作流ID
-	 **/
+
 	public function Run($config,$uid,$todo)
 	{
-		
 		$nex_pid = explode(",",$config['npid']);
 		foreach($nex_pid as $v){
 			$wf_process = Process::GetProcessInfo($v,$config['run_id']);

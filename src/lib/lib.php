@@ -119,8 +119,7 @@ class lib
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form">
 				<input type="hidden" name="id" value="{$info['id']}">
-				   <table class="table">
-							<tr><th style='width:75px'>流程名称</th><td style='width:330px;text-align: left;'>
+				   <table class="table"><tr><th style='width:75px'>流程名称</th><td style='width:330px;text-align: left;'>
 							<input type="text" class="input-text" value="{$info['flow_name']}" name="flow_name"  datatype="*" ></td></tr><tr>
 							<th>流程类型</th><td style='width:330px;text-align: left;'>
 							<span class="select-box"><select name="type"  class="select"  datatype="*" >{$type}</select></span>
@@ -134,9 +133,7 @@ class lib
 							<td colspan=2>
 							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button><button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 						</table>
-					</form>
-					{$tmp['js']}
-					{$tmp['form']}
+					</form>{$tmp['js']}{$tmp['form']}
 			<script type="text/javascript">
 			$(function(){
 				$("[name='type']").find("[value='{$info['type']}']").attr("selected",true);

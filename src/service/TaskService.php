@@ -69,10 +69,10 @@ class TaskService{
 			if(!$bill_update){
 				return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 			}
-			$run_log = Log::AddrunLog($uid,$wf_run,['wf_id'=>$wf_id,'wf_fid'=>$wf_fid,'wf_type'=>$wf_type,'check_con'=>$check_con],'Send');
+			 Log::AddrunLog($uid,$wf_run,['wf_id'=>$wf_id,'wf_fid'=>$wf_fid,'wf_type'=>$wf_type,'check_con'=>$check_con],'Send');
 			return ['run_id'=>$wf_run,'msg'=>'success','code'=>'1'];
 	}
-	/*
+	/**
 	 * 工作流运行服务
 	 *
 	 * @param array $config 参数信息
@@ -81,7 +81,7 @@ class TaskService{
 	function Runing($config,$uid)
 	{
 		if( @$config['run_id']=='' || @$config['run_process']==''){
-			throw new \Exception ( "config参数信息不全！" );
+            return ['msg'=>'config参数信息不全！','code'=>'-1'];
 		}
 		$run = Run::FindRunId($config['run_id']);//根据运行步骤找出相对应的运行信息
 		$config['flow_id'] = $run['flow_id'];//带出流程id
@@ -106,7 +106,7 @@ class TaskService{
 			} else if ($wf_actionid == "sing") {//会签
 				$ret = $this->doSing($config,$uid);
 			} else { //通过
-				throw new \Exception ( "参数出错！" );
+                return ['msg'=>'参数信息不全！','code'=>'-1'];
 			}
 		}else{
 			$ret = $this->doSingEnt($config,$uid,$wf_actionid);
@@ -151,7 +151,7 @@ class TaskService{
 		if(!$end_flow){
 			return ['msg'=>'结束流程失败~','code'=>'-1'];
 		}
-		$updatebill = Bill::updatebill($bill_table,$bill_id,0);
+		  Bill::updatebill($bill_table,$bill_id,0);
 		if(!$end_flow){
 			return ['msg'=>'更新单据信息出错~','code'=>'-1'];
 		}
@@ -160,7 +160,7 @@ class TaskService{
 	/**
 	 * 普通流程通过
 	 * 
-	 * @param  $config 参数信息
+	 * @param  array $config 参数信息
 	 * @param  mixed $uid  用户ID
 	 */
 	public function doTask($config,$uid){
@@ -170,7 +170,7 @@ class TaskService{
 	/**
 	 * 流程驳回
 	 * 
-	 * @param  Array $config 参数信息
+	 * @param  array $config 参数信息
 	 * @param  mixed $uid  用户ID
 	 */
 	public function doBack($config,$uid){
@@ -180,7 +180,7 @@ class TaskService{
 	/**
 	 * 会签操作
 	 * 
-	 * @param Array $config 参数信息
+	 * @param array $config 参数信息
 	 * @param mixed $uid  用户ID
 	 */
 	public function doSing($config,$uid){

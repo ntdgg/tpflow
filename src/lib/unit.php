@@ -24,10 +24,10 @@ class unit{
 	/**
 	 * 加载自定义事务驱动文件
 	 *
-	 * @param  $class 类
-	 * @param  $id 单据对应的ID编号
-	 * @param  $run_id 运行中的流程ID
-	 * @param  $data 步骤类
+	 * @param  string $class 类
+	 * @param  int $id 单据对应的ID编号
+	 * @param  int  $run_id 运行中的流程ID
+	 * @param  array $data 步骤类
 	 */
 	public static function LoadClass($class,$id,$run_id='',$data='') {
 		$className = unit::gconfig('wf_work_namespace').$class;
@@ -38,8 +38,8 @@ class unit{
 	} 
 	
 	/**
-	*
-	* @param  $key 键值
+	* 获取定义的信息
+	* @param string $key
 	**/
 	public static function getuserinfo($key='') {
 		if(unit::gconfig('gateway_mode')==1){
@@ -65,7 +65,7 @@ class unit{
 	/**
 	 * 根据键值加载全局配置文件
 	 *
-	 * @param  $key 键值
+	 * @param string $key 键值
 	 */
 	public static function gconfig($key) {
 		$ret = require ( BEASE_URL . '/config/common.php');
@@ -74,13 +74,13 @@ class unit{
 	/**
 	 * 消息返回统一处理
 	 *
-	 * @param  $msg  返回消息
-	 * @param  $code 返回代码 0 成功，1操作失败
-	 * @param  $data 返回数据
+	 * @param  string $msg  返回消息
+	 * @param  string $code 返回代码 0 成功，1操作失败
+	 * @param  string $data 返回数据
 	 */
 	public static function msg_return($msg = "操作成功！", $code = 0,$data = [])
 	{
-		return json(["code" => $code, "msg" => $msg, "data" => $data]);
+		return json_encode(["code" => $code, "msg" => $msg, "data" => $data]);
 	}
 	/**
 	 * 步骤转换
@@ -112,8 +112,8 @@ class unit{
 	/**
 	 * IDS数组转换
 	 *
-	 * @param  $str  字符串
-	 * @param  $dot_tmp 分割字符串
+	 * @param  string  $str  字符串
+	 * @param  string $dot_tmp 分割字符串
 	 */
    public static function ids_parse($str, $dot_tmp = ',')
     {
@@ -139,10 +139,9 @@ class unit{
 	/**
      * JSON 转换处理
 	 *
-     * @param $flow_id 
-	 * @param $process_info 
+     * @param string json_encode
      */
-    public static function parse_out_condition($json_data, $field_data)
+    public static function parse_out_condition($json_data)
     {
         $array = json_decode($json_data, true);
         if (!$array) {
@@ -154,14 +153,7 @@ class unit{
             foreach ($value['condition'] as $val) {
                 $preg = "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
                 preg_match_all($preg, $val, $temparr);
-                $val_text = '';
-                foreach ($temparr[0] as $k => $v) {
-                    $field_name = self::get_field_name($temparr[1][$k], $field_data);
-                    if ($field_name)
-                        $val_text = str_replace($v, "'" . $field_name . "'", $val);
-                    else
-                        $val_text = $val;
-                }
+
                 $condition .= '<option value="' . $val . '">' . $val . '</option>';
             }
             $value['condition'] = $condition;

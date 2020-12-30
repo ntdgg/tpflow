@@ -28,7 +28,7 @@ Class Control{
 	  * 工作流程统一接口
 	  *
       * @access static
-      * @param $act 调用接口方法
+      * @param string $act 调用接口方法
 	  * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	  * Info    获取流程信息
 	  * start   发起审批流
@@ -40,7 +40,7 @@ Class Control{
 	}
 	/**
 	 * Tpflow 4.0统一接口 流程管理中心
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
 	 * check   调用逻辑检查接口
@@ -57,7 +57,7 @@ Class Control{
 	}
 	/**
 	 * Tpflow 4.0 工作流代理接口
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * index 列表调用
 	 * add   添加代理授权
@@ -67,7 +67,7 @@ Class Control{
 	}
 	/**
 	 * Tpflow 4.0统一接口设计器
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
 	 * check   调用逻辑检查接口
@@ -81,12 +81,12 @@ Class Control{
 	 * super_user 用户选择控件
 	 */
 	static function WfDescCenter($act,$flow_id='',$data=''){
-		return (new Control())->mode->WfEntrustCenter($act,$flow_id,$data);
+		return (new Control())->mode->WfDescCenter($act,$flow_id,$data);
 		
 	}
 	/**
 	 * Tpflow 4.0统一接口
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * log  历史日志消息
 	 * btn  权限判断

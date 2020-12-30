@@ -21,11 +21,13 @@ use tpflow\adaptive\Log;
 use tpflow\adaptive\Entrust;
 use tpflow\adaptive\User;
 
+use tpflow\service\TaskService;
+
 Class Tpl{
 	/**
 	  * 工作流程统一接口
 	  *
-	  * @param $act 调用接口方法 
+	  * @param string $act 调用接口方法
 	  * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	  * Info    获取流程信息
 	  * start   发起审批流
@@ -75,7 +77,7 @@ Class Tpl{
 				'tpflow_upload'=>unit::gconfig('wf_upload_file')
 				];
 			if($wf_op=='check'){
-				return lib::tmp_check($info,Control::WfCenter('Info',$wf_fid,$wf_type));
+				return lib::tmp_check($info,self::WfCenter('Info',$wf_fid,$wf_type));
 			}
 			if($wf_op=='ok'){
 				 if ($post !='') {
@@ -86,7 +88,7 @@ Class Tpl{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return lib::tmp_wfok($info,Control::WfCenter('Info',$wf_fid,$wf_type));
+				return lib::tmp_wfok($info,self::WfCenter('Info',$wf_fid,$wf_type));
 			}
 			if($wf_op=='back'){
 				 if ($post !='') {
@@ -98,7 +100,7 @@ Class Tpl{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return lib::tmp_wfback($info,Control::WfCenter('Info',$wf_fid,$wf_type));
+				return lib::tmp_wfback($info,self::WfCenter('Info',$wf_fid,$wf_type));
 			}
 			if($wf_op=='sign'){
 				 if ($post !='') {
@@ -109,19 +111,19 @@ Class Tpl{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return lib::tmp_wfsign($info,Control::WfCenter('Info',$wf_fid,$wf_type),$data['ssing']);
+				return lib::tmp_wfsign($info,self::WfCenter('Info',$wf_fid,$wf_type),$data['ssing']);
 			}
 			//调用当前审批流的审批流程图
 			if($wf_op=='flow'){
-				$flowinfo = Control::WfCenter('Info',$wf_fid,$wf_type);
+				$flowinfo = self::WfCenter('Info',$wf_fid,$wf_type);
 				$run_info = Run::FindRunId($flowinfo['run_id']);
 				$flow_id = intval($run_info['flow_id']);
 				if($flow_id<=0){
-					$this->error('参数有误，请返回重试!');
+                    return unit::msg_return('参数有误，请返回重试!',1);
 				}
 				$one = Flow::getWorkflow($flow_id);
 				if(!$one){
-					$this->error('未找到数据，请返回重试!');
+                    return unit::msg_return('参数有误，请返回重试!',1);
 				}
 				return lib::tmp_wfflow(Flow::ProcessAll($flow_id));
 			}
@@ -134,10 +136,11 @@ Class Tpl{
 			}
 			return unit::msg_return('Success!');
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0统一接口 流程管理中心
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
 	 * check   调用逻辑检查接口
@@ -185,7 +188,7 @@ Class Tpl{
 			$html = '';
 			foreach($data as $k=>$v){
 				   $status = ['未审核','已审核'];
-					$html .='<tr class="text-c"><td>'.$v['id'].'</td><td>'.$v['from_table'].'</td><td>'.$v['flow_name'].'</td><td>'.$status[$v['status']].'</td><td>'.$v['flow_name'].'</td><td>'.date("Y-m-d H:i",$v['dateline']).'</td><td><a  onclick=Tpflow.wfconfirm("'.$urls['wfapi'].'?act=wfend",{"id":'.$v['id'].'},"您确定要终止该工作流吗？");>终止</a>  |  '.lib::tpflow_btn($v['from_id'],$v['from_table'],100,Control::WfCenter('Info',$v['from_id'],$v['from_table'])).'</td></tr>'; 
+					$html .='<tr class="text-c"><td>'.$v['id'].'</td><td>'.$v['from_table'].'</td><td>'.$v['flow_name'].'</td><td>'.$status[$v['status']].'</td><td>'.$v['flow_name'].'</td><td>'.date("Y-m-d H:i",$v['dateline']).'</td><td><a  onclick=Tpflow.wfconfirm("'.$urls['wfapi'].'?act=wfend",{"id":'.$v['id'].'},"您确定要终止该工作流吗？");>终止</a>  |  '.lib::tpflow_btn($v['from_id'],$v['from_table'],100,self::WfCenter('Info',$v['from_id'],$v['from_table'])).'</td></tr>';
 			  }
 			return lib::tmp_wfjk($html);
 		}
@@ -193,7 +196,7 @@ Class Tpl{
 			return (new TaskService())->doSupEnd($data,unit::getuserinfo('uid'));
 		}
 		if($act =='add'){
-				if($data !=''){
+				if($data !='' && !is_numeric($data)){
 					if($data['id']==''){
 						$data['uid']=unit::getuserinfo('uid');
 						$data['add_time']=time();
@@ -208,18 +211,18 @@ Class Tpl{
 						return unit::msg_return($ret['data'],1);
 					}
 				}
-			   $id = input('id') ?? -1;
-			   $info = Flow::getWorkflow($id); //获取工作流详情
+			   $info = Flow::getWorkflow($data); //获取工作流详情
 			   $type ='';
 			   foreach(Info::get_wftype() as $k=>$v){
 				   $type .='<option value="'.$v['name'].'">'.$v['title'].'</option>'; 
 			   }
 			  return lib::tmp_add($urls['wfapi'].'?act=add',$info,$type);
 		}
+		return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0 工作流代理接口
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * index 列表调用
 	 * add   添加代理授权
@@ -240,7 +243,7 @@ Class Tpl{
 			return lib::tmp_wfgl($html);
 		}
 		if($act =='add'){
-				if($data !=''){
+				if($data !='' && !is_numeric($data)){
 					$ret = Entrust::Add($data);
 					if($ret['code']==0){
 						return unit::msg_return('发布成功！');
@@ -258,13 +261,14 @@ Class Tpl{
 				  foreach($user as $k=>$v){
 					   $user .='<option value="'.$v['id'].'@'.$v['username'].'">'.$v['username'].'</option>'; 
 				  }
-				$info = Entrust::find(input('id'));
+				$info = Entrust::find($data);
 			   return lib::tmp_entrust($info,$type,$user);
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0统一接口设计器
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
 	 * check   调用逻辑检查接口
@@ -286,12 +290,12 @@ Class Tpl{
 		if($act=='wfdesc'){
 			$one = Flow::getWorkflow($flow_id);
 			if(!$one){
-				$this->error('未找到数据，请返回重试!');
+                return '未找到数据，请返回重试!';
 			}
 			return lib::tmp_wfdesc($one['id'],Flow::ProcessAll($flow_id),$urls['designapi']);
 		}
 		if($act=='save'){
-			return json(Flow::ProcessLink($flow_id,$data));
+			return json_encode(Flow::ProcessLink($flow_id,$data));
 		}
 		if($act=='check'){
 			return Flow::CheckFlow($flow_id);
@@ -299,18 +303,18 @@ Class Tpl{
 		if($act=='add'){
 			$one = Flow::getWorkflow($flow_id);
 			if(!$one){
-			  return json(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
+			  return json_encode(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
 			}
-			return json(Flow::ProcessAdd($flow_id));
+			return json_encode(Flow::ProcessAdd($flow_id));
 		}
 		if($act=='delAll'){
-			return json(Flow::ProcessDelAll($flow_id));
+			return json_encode(Flow::ProcessDelAll($flow_id));
 		}
 		if($act=='del'){
-			return json(Flow::ProcessDel($flow_id,$data));
+			return json_encode(Flow::ProcessDel($flow_id,$data));
 		}
 		if($act=='saveatt'){
-			return json(Flow::ProcessAttSave($data));
+			return json_encode(Flow::ProcessAttSave($data));
 		}
 		if($act=='att'){
 			$info = Flow::ProcessAttView($data);
@@ -335,10 +339,11 @@ Class Tpl{
 				 return ['data'=>User::AjaxGet(trim($data['type']),$data['key']),'code'=>1,'msg'=>'查询成功！'];
 			}
 		}
+        return $act.'参数出错';
 	}
 	/**
 	 * Tpflow 4.0统一接口
-	 * @param $act 调用接口方法 
+	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * log  历史日志消息
 	 * btn  权限判断
@@ -355,7 +360,7 @@ Class Tpl{
 		if($act=='status'){
 			return (new lib())::tpflow_status($data['status']);
 		}
-		
+        return $act.'参数出错';
 	}
 	
 }

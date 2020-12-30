@@ -19,9 +19,8 @@ use tpflow\adaptive\Bill;
 class SupFlow{
 	/**
 	 * 任务执行
-	 * 
-	 * @param  $config 参数信息
-	 * @param  $uid  用户ID
+	 *
+	 * @param mixed $uid  用户ID
 	 */
 	public function doSupEnd($wfid,$uid) {
 		//读取工作流信息
@@ -35,9 +34,9 @@ class SupFlow{
                 'check_con'=>'编号：'.$uid.'的超级管理员终止了本流程！',
             ];
 		//结束当前run 工作流
-		$end = Flow::end_flow($wfid);
+            Flow::end_flow($wfid);
 		$end = Flow::end_process($wfinfo['run_flow_process'],$config['check_con']);
-		$run_log = Log::AddrunLog($uid,$wfid,$config,'SupEnd');
+		    Log::AddrunLog($uid,$wfid,$config,'SupEnd');
 		
 		if(!$end){
 				return ['msg'=>'结束流程错误！！！','code'=>'-1'];
