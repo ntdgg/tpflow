@@ -1,7 +1,7 @@
 <?php
 /**
  *+------------------
- * Tpflow 系统默认模板接口调用类
+ * Tpflow 5.0 系统默认模板接口调用类
  *+------------------
  * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
  *+------------------
@@ -32,7 +32,7 @@ use tpflow\lib\unit;
 		if($act=='start'){
 			if (unit::is_post()) {
 				$data = input('post.');
-				return Control::WfCenter($act,input('wf_fid'),input('wf_type'),$data);
+				echo Control::WfCenter($act,input('wf_fid'),input('wf_type'),$data);
 			 }else{
 				 return Control::WfCenter($act,input('wf_fid'),input('wf_type'));
 			 }
@@ -46,9 +46,9 @@ use tpflow\lib\unit;
 			$submit = input('submit') ?? 'ok';
 			if (unit::is_post()) {
 				$post = input('post.');
-				return Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit],$post);
+				echo Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit],$post);
 			 }else{
-				 return Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]);
+				 echo Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]);
 			 }
 		}
 	}
@@ -60,16 +60,16 @@ use tpflow\lib\unit;
 	 */
 	public function designapi($act){
 		if($act=='welcome' ||$act=='check' || $act=='add' || $act=='delAll' || $act=='wfdesc'){
-			return Control::WfDescCenter($act,input('flow_id'));
+			echo Control::WfDescCenter($act,input('flow_id'));
 		}
 		if($act=='save'){
-			return Control::WfDescCenter($act,input('flow_id'),input('process_info'));
+			echo Control::WfDescCenter($act,input('flow_id'),input('process_info'));
 		}
 		if($act=='del' ||$act=='att'){
 			return Control::WfDescCenter($act,input('flow_id'),input('id'));
 		}
 		if($act=='saveatt'){
-			return Control::WfDescCenter($act,'',input('post.'));
+			echo Control::WfDescCenter($act,'',input('post.'));
 		}
 		if($act=='super_user'){
 			return Control::WfDescCenter($act,'',['kid'=>input('kid'),'type_mode'=>input('type_mode'),'key'=>input('key'),'type'=>input('type')]);
@@ -91,10 +91,10 @@ use tpflow\lib\unit;
 		if($act=='add'){
 			if (unit::is_post()) {
 				$data = input('post.');
-				return Control::WfFlowCenter($act,$data);
+				echo Control::WfFlowCenter($act,$data);
 			 }else{
                 $data = input('id') ?? -1;
-				 return Control::WfFlowCenter($act,$data);
+				 echo Control::WfFlowCenter($act,$data);
 			 }
 		}
 		if($act=='wfend'){
@@ -116,8 +116,8 @@ use tpflow\lib\unit;
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
      * @return array 返回类型
 	 */
-	public static function wfaccess($act='log',$data=''){
-		return Control::WfAccess($act,$data);
+	public static function wfAccess($act='log',$data=''){
+		return Control::wfAccess($act,$data);
 	}
 }
 	

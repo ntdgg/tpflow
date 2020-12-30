@@ -101,7 +101,10 @@ class lib
 				}
 			break;
 		case 100:
-			return ['Url'=>$url['url'].'&sup=1','User'=>'','status'=>1];
+			if($return==1){
+				return ['Url'=>$url['url'].'&sup=1','User'=>'','status'=>1];
+			}
+				return '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：'.$wf_fid.'\',"'.$url['url'].'&sup=1")>审核</span>';
 		  break;
 		default:
 		
@@ -659,7 +662,7 @@ public static function tmp_check($info,$flowinfo){
 	}else{
 		$html ='<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","'.$info['tpflow_ok'].'&submit=sok",500,300)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","'.$info['tpflow_ok'].'&submit=sback",500,300)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","'.$info['tpflow_sign'].'&ssing=ssing",500,300)>⇅ 再会签</a>';
 	}
-	$html .=' <a class="button" onclick=Tpflow.lopen("审批历史","",180,180)>✤ 审批历史</a> <a class="button" onclick=Tpflow.lopen("流程图","'.$info['tpflow_flow'].'")>≋ 流程图</a> ';
+	$html .=' <a class="button" onclick=Tpflow.lopen("审批历史","'.$info['tpflow_log'].'",500,300)>✤ 审批历史</a> <a class="button" onclick=Tpflow.lopen("流程图","'.$info['tpflow_flow'].'")>≋ 流程图</a> ';
 	$tmp = self::commontmp('Tpflow V4.0 管理列表');
 	
 	return <<<php
@@ -874,11 +877,11 @@ php;
   **/
 static function commontmp($title){
 	$patch = unit::gconfig('static_url');
-	$css = '<link rel="stylesheet" type="text/css" href="'.$patch.'workflow.4.0.css"/>';
+	$css = '<link rel="stylesheet" type="text/css" href="'.$patch.'workflow.5.0.css"/>';
 	$js = '<script type="text/javascript" src="'.$patch.'jquery-1.7.2.min.js" ></script>
 	<script type="text/javascript" src="'.$patch.'jsPlumb-1.3.16-all-min.js"></script>
 			<script type="text/javascript" src="'.$patch.'lib/layer/2.4/layer.js" ></script>
-			<script type="text/javascript" src="'.$patch.'workflow.4.0.js" ></script>
+			<script type="text/javascript" src="'.$patch.'workflow.5.0.js" ></script>
 			<script type="text/javascript" src="'.$patch.'lib/Validform/5.3.2/Validform.min.js" ></script>
 			<script type="text/javascript" src="'.$patch.'jquery-ui-1.9.2-min.js?" ></script>
 			<script type="text/javascript" src="'.$patch.'multiselect2side.js" ></script>

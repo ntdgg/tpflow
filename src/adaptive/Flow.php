@@ -201,7 +201,7 @@ class Flow
    static function ProcessDel($flow_id, $process_id)
     {
 		if ($process_id <= 0 or $flow_id <= 0) {
-			return ['status' => 0, 'msg' => '操作不正确'];
+			return ['code' => 1, 'msg' => '操作不正确'];
         }
 		$map2[] = ['flow_id','=',$flow_id];
 		$map2[] = ['is_del','=',0];
@@ -209,7 +209,7 @@ class Flow
 		$list =Process::SearchFlowProcess($map2,'id,process_to');
         $trans =  Process::DelFlowProcess([['id','=',$process_id],['flow_id','=', $flow_id],['is_del','=' ,0]]);
         if (!$trans) {
-            return ['status' => 0, 'msg' => '删除失败', 'info' => ''];
+            return ['code' => 1, 'msg' => '删除失败', 'info' => ''];
         }
         if (is_array($list)) {
             foreach ($list as $value) {
@@ -228,9 +228,9 @@ class Flow
             }
         }
         if (!$trans) {
-            return ['status' => 0, 'msg' => '删除失败，请重试', 'info' => ''];
+            return ['code' => 1, 'msg' => '删除失败，请重试', 'info' => ''];
         }
-        return ['status' => 1, 'msg' => '删除成功', 'info' => ''];
+        return ['code' => 0, 'msg' => '删除成功', 'info' => ''];
     }
 	/**
      * 删除步骤信息
@@ -240,9 +240,9 @@ class Flow
     {
 		$res = Process::DelFlowProcess([['flow_id','=',$flow_id]]);
         if ($res) {
-            return ['status' => 1, 'data' => $res, 'msg' => '操作成功！'];
+            return ['code' => 0, 'data' => $res, 'msg' => '操作成功！'];
         } else {
-            return ['status' => 0, 'msg' => '操作错误！'];
+            return ['code' => 1, 'msg' => '操作错误！'];
         }
     }
 	/**
@@ -269,9 +269,9 @@ class Flow
         ];
         $processid = Process::AddFlowProcess($data);
         if ($processid <= 0) {
-            return ['status' => 0, 'msg' => '添加失败！', 'info' => ''];
+            return ['code' => 1, 'msg' => '添加失败！', 'info' => ''];
         } else {
-            return ['status' => 1, 'msg' => '添加成功！', 'info' => ''];
+            return ['code' => 0, 'msg' => '添加成功！', 'info' => ''];
         }
     }
 	/**
@@ -283,11 +283,11 @@ class Flow
     {
 		$one = (new Flow())->mode->find($flow_id);
         if (!$one) {
-            return ['status' => 0, 'msg' => '未找到流程数据', 'info' => ''];
+            return ['code' => 1, 'msg' => '未找到流程数据', 'info' => ''];
         }
         $process_info = json_decode(htmlspecialchars_decode(trim($process_info)), true);
         if ($flow_id <= 0 or !$process_info) {
-            return ['status' => 0, 'msg' => '参数有误，请重试', 'info' => ''];
+            return ['code' => 1, 'msg' => '参数有误，请重试', 'info' => ''];
         }
         foreach ($process_info as $process_id => $value) {
             $datas = [
@@ -298,7 +298,7 @@ class Flow
             ];
 			Process::EditFlowProcess([['id','=',$process_id],['flow_id','=',$flow_id]],$datas);
         }
-        return ['status' => 1, 'msg' => '保存步骤成功~', 'info' => ''];
+        return ['code' => 0, 'msg' => '保存步骤成功~', 'info' => ''];
     }
 	/**
      * 属性保存
@@ -363,11 +363,11 @@ class Flow
 		$mode = (new Flow())->mode;
 		$one = Process::find($process_id);
         if (!$one) {
-            return ['status' => 0, 'msg' => '未找到步骤信息!', 'info' => ''];
+            return ['code' => 1, 'msg' => '未找到步骤信息!', 'info' => ''];
         }
         $flow_one = $mode->find($one['flow_id']);
         if (!$flow_one) {
-            return ['status' => 0, 'msg' => '未找到流程信息!', 'info' => ''];
+            return ['code' => 1, 'msg' => '未找到流程信息!', 'info' => ''];
         }
 		$one['process_tos'] = $one['process_to'];
         $one['process_to'] = $one['process_to'] == '' ? array() : explode(',', $one['process_to']);
@@ -396,21 +396,23 @@ class Flow
      */
 	public  static function CheckFlow($wfid)
 	{
+		
 		if (!$wfid) {
-            return ['status' => 0, 'msg' => '参数出错!', 'info' => ''];
+            return ['code' => 1, 'msg' => '参数出错!', 'info' => ''];
         }
 		$pinfo =  Process::SearchFlowProcess([['flow_id','=',$wfid]]);
+		
 		if (count($pinfo)<1) {
-            return ['status' => 0, 'msg' => '没有找到步骤信息!', 'info' => ''];
+            return ['code' => 1, 'msg' => '没有找到步骤信息!', 'info' => ''];
         }
 		$one_pinfo =Process::SearchFlowProcess([['flow_id','=',$wfid],['process_type','=','is_one']]);
 		if (count($one_pinfo)<1) {
-            return ['status' => 0, 'msg' => '没有设置第一步骤,请修改!', 'info' => ''];
+            return ['code' => 1, 'msg' => '没有设置第一步骤,请修改!', 'info' => ''];
         }
 		if (count($one_pinfo)>1) {
-            return ['status' => 0, 'msg' => '有两个起始步骤，请注意哦！', 'info' => ''];
+            return ['code' => 1, 'msg' => '有两个起始步骤，请注意哦！', 'info' => ''];
         }
-		return ['status' => 1, 'msg' => '简单逻辑检查通过，请自行检查转出条件！', 'info' => ''];
+		return ['code' => 0, 'msg' => '简单逻辑检查通过，请自行检查转出条件！', 'info' => ''];
 	}
 	
 	/**

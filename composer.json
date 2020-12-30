@@ -1,7 +1,8 @@
 {
     "name": "guoguo/tpflow",
     "description": "Tpflow PHP开源工作流引擎",
-	 "license": "MIT",
+    "license": "MIT",
+    "homepage": "http://cojz8.com",
     "authors": [
         {
             "name": "guoguo",

@@ -1,5 +1,5 @@
 /*!
- * Tpflow Design 流程设计器 V4.0
+ * Tpflow Design 流程设计器 V5.0
  * http://cojz8.com
  *
  * 
@@ -339,7 +339,7 @@ var Tpflow = {
 	},
 	sPost : function(Post_Url,PostData,reload=true) {
 		$.post(Post_Url,PostData,function(data){
-			if(data.status==1 || data.code==0){
+			if(data.code==0){
 				layer.msg(data.msg,{icon:1,time: 1500},function(){
 					if(reload){
 						location.reload();

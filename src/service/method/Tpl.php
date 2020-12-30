@@ -74,6 +74,7 @@ Class Tpl{
 				'tpflow_back'=>$urls['wfdo'].'?act=do&wf_op=back&wf_type='.$wf_type.'&wf_fid='.$wf_fid.'&sup='.$sup,
 				'tpflow_sign'=>$urls['wfdo'].'?act=do&wf_op=sign&wf_type='.$wf_type.'&wf_fid='.$wf_fid.'&sup='.$sup,
 				'tpflow_flow'=>$urls['wfdo'].'?act=do&wf_op=flow&wf_type='.$wf_type.'&wf_fid='.$wf_fid.'&sup='.$sup,
+				'tpflow_log'=>$urls['wfdo'].'?act=do&wf_op=log&wf_type='.$wf_type.'&wf_fid='.$wf_fid.'&sup='.$sup,
 				'tpflow_upload'=>unit::gconfig('wf_upload_file')
 				];
 			if($wf_op=='check'){
@@ -127,6 +128,11 @@ Class Tpl{
 				}
 				return lib::tmp_wfflow(Flow::ProcessAll($flow_id));
 			}
+			if($wf_op=='log'){
+				return Log::FlowLog($wf_fid,$wf_type);
+			}
+			
+			
 		}
 		//超级接口
 		if($act =='endflow'){
@@ -188,6 +194,7 @@ Class Tpl{
 			$html = '';
 			foreach($data as $k=>$v){
 				   $status = ['未审核','已审核'];
+				   
 					$html .='<tr class="text-c"><td>'.$v['id'].'</td><td>'.$v['from_table'].'</td><td>'.$v['flow_name'].'</td><td>'.$status[$v['status']].'</td><td>'.$v['flow_name'].'</td><td>'.date("Y-m-d H:i",$v['dateline']).'</td><td><a  onclick=Tpflow.wfconfirm("'.$urls['wfapi'].'?act=wfend",{"id":'.$v['id'].'},"您确定要终止该工作流吗？");>终止</a>  |  '.lib::tpflow_btn($v['from_id'],$v['from_table'],100,self::WfCenter('Info',$v['from_id'],$v['from_table'])).'</td></tr>';
 			  }
 			return lib::tmp_wfjk($html);
@@ -298,7 +305,7 @@ Class Tpl{
 			return json_encode(Flow::ProcessLink($flow_id,$data));
 		}
 		if($act=='check'){
-			return Flow::CheckFlow($flow_id);
+			return json_encode(Flow::CheckFlow($flow_id));
 		}
 		if($act=='add'){
 			$one = Flow::getWorkflow($flow_id);
@@ -349,10 +356,9 @@ Class Tpl{
 	 * btn  权限判断
 	 * status  状态判断
 	 */
-	function WfAccess($act,$data=''){
+	function wfAccess($act,$data=''){
 		if($act=='log'){
-			$logs = Log::FlowLog('logs',$data['id'],$data['type']);
-			echo $logs['html'];
+			echo Log::FlowLog($data['id'],$data['type']);exit;
 		}
 		if($act=='btn'){
 			return (new lib())::tpflow_btn($data['id'],$data['type'],$data['status'],self::WfCenter('Info',$data['id'],$data['type'],$data['status']));

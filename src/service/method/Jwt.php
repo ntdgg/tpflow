@@ -284,10 +284,9 @@ Class Jwt{
 	 * btn  权限判断
 	 * status  状态判断
 	 */
-	function WfAccess($act,$data=''){
+	function wfAccess($act,$data=''){
 		if($act=='log'){
-			$logs = Log::FlowLog('logs',$data['id'],$data['type']);
-			return json_encode(['logs'=>$logs['json']]);
+			return Log::FlowLog($data['id'],$data['type'],'Json');
 		}
 		if($act=='btn'){
 			$btn = Lib::tpflow_btn($data['id'],$data['type'],$data['status'],self::WfCenter('Info',$data['id'],$data['type'],$data['status']),1);

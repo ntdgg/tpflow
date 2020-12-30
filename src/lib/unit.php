@@ -32,7 +32,7 @@ class unit{
 	public static function LoadClass($class,$id,$run_id='',$data='') {
 		$className = unit::gconfig('wf_work_namespace').$class;
 		if(!class_exists($className)){
-			return '';
+			return -1;
 		}
 		return new $className($id,$run_id,$data);
 	} 
@@ -103,7 +103,7 @@ class unit{
 		}else{
 			$pr = '[同步]';
 			$op ='';
-			foreach($npi['nexprocess'] as $k=>$v){
+			foreach($npi as $k=>$v){
 				   $op .=$v['process_name'].'('.$v['todo'].')'; 
 			}
 			return $pr.$op;
@@ -154,7 +154,7 @@ class unit{
                 $preg = "/'(data_[0-9]*|checkboxs_[0-9]*)'/s";
                 preg_match_all($preg, $val, $temparr);
 
-                $condition .= '<option value="' . $val . '">' . $val . '</option>';
+                $condition .= $val;
             }
             $value['condition'] = $condition;
             $json_data[$key] = $value;

@@ -50,9 +50,11 @@ class TaskService{
 				return ['msg'=>'流程设计出错，未找到第一步流程，请联系管理员！','code'=>'-1'];
 			}
 			//加入流程步骤判断
-			$BillWork = (unit::LoadClass($wf_type,$wf_fid))->before('Start');
-			if(!$BillWork){
-				return $BillWork;
+			if(unit::LoadClass($wf_type,$wf_fid)!= -1){
+				$BillWork = (unit::LoadClass($wf_type,$wf_fid))->before('Start');
+				if(!$BillWork){
+					return $BillWork;
+				}
 			}
 			//满足要求，发起流程
 			$wf_run = Info::addWorkflowRun($wf_id,$wf_process['id'],$wf_fid,$wf_type,$uid);
@@ -90,9 +92,11 @@ class TaskService{
 		$config['sing_st'] = $run['is_sing'];//业务是否为会签模式
 		$wf_actionid = $config['submit_to_save'];
 		//用户提交审批前的校验
-		$BillWork = (unit::LoadClass($config['wf_type'],$config['wf_fid'],$config['run_id'],$config))->before($wf_actionid);
-		if(!$BillWork){
-			return $BillWork;
+		if(unit::LoadClass($config['wf_type'],$config['wf_fid'])!= -1){
+			$BillWork = (unit::LoadClass($config['wf_type'],$config['wf_fid'],$config['run_id'],$config))->before($wf_actionid);
+			if(!$BillWork){
+				return $BillWork;
+			}
 		}
 		if($config['sing_st'] == 0){
 			$run_check = Process::run_check($config['run_process']);//校验流程状态

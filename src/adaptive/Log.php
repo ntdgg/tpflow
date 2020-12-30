@@ -24,10 +24,10 @@ Class Log{
 		$this->mode = new $className();
     }
 	
-	static function FlowLog($logtype,$wf_fid,$wf_type)
+	static function FlowLog($wf_fid,$wf_type,$type = 'Html')
 		{
-			if ($logtype == "logs") {
-					$info = self::RunLog($wf_fid,$wf_type);//获取log
+			$info = self::RunLog($wf_fid,$wf_type);
+			if ($type == "Html") {
 					$html ='
 					 <style type="text/css">
 						.new_table{border-collapse: collapse;margin: 0 auto;text-align: center;}
@@ -45,10 +45,11 @@ Class Log{
 						$html .='<tr><td>'.$v['user'].'</td><td>'.$v['content'].$down.'</td><td>'.$v['btn'].'</td><td>'.date('m-d H:i',$v['dateline']).'</td></tr>';
 					}
 					$html .='</table>';
-				}else{
-					return "参数出错！";
-				}
-			return ['json'=>$info,'html'=>$html];
+				return $html;
+			}
+			if ($type == "Json") {
+				return json_encode($info);
+			}
 		}
 	/**
 	 * 流程日志
@@ -87,9 +88,11 @@ Class Log{
                $config['art'] = '';
          }
 		//用户审批完成后的校验
-		$BillWork = (unit::LoadClass($config['wf_type'],$config['wf_fid'],$run_id))->after($btn);
-		if(!$BillWork){
-			return $BillWork;
+		if(unit::LoadClass($config['wf_type'],$config['wf_fid'])!= -1){
+			$BillWork = (unit::LoadClass($config['wf_type'],$config['wf_fid'],$run_id))->after($btn);
+			if(!$BillWork){
+				return $BillWork;
+			}
 		}
 		$run_log_data = array(
                 'uid'=>$uid,

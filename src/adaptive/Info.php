@@ -139,7 +139,7 @@ class Info{
 		if(count($count) > 0){
 			//查询运行中的步骤信息
 			$result = $count[0];
-			$info_list = Run::SearchRunProcess([['run_id','=',$result['id']],['run_flow_process','=',$result['run_flow_process']],['status','=',0]]);
+			$info_list = Run::SearchRunProcess([['run_id','=',$result['id']],['run_flow_process','in',$result['run_flow_process']],['status','=',0]]);
 			if(count($info_list)==0){
 				$info_list[0]= Run::FindRunProcess([['run_id','=',$result['id']],['run_flow_process','=',$result['run_flow_process']],['status','=',0]]);
 			}
@@ -172,7 +172,6 @@ class Info{
 					return -1;
 				}
 			}
-
 			//4.0版本新增查找是否有代理审核人员，并给与权限，权限转换
 			$info = Entrust::change($info);
 			//拼接返回数据
@@ -205,6 +204,7 @@ class Info{
 					$workflow['npi'] = unit::nexnexprocessinfo($workflow['status']['wf_mode'],$workflow['nexprocess']);//显示下一步骤的信息
 			}
 		}
+		
 		return $workflow;
 	}
 	

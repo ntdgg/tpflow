@@ -19,7 +19,7 @@ class AdapteeLog{
 	 **/
 	function AddrunLog($data)
 	{
-		 $ret = Db::name('wf_run_log')->insertGetId($$data);
+		 $ret = Db::name('wf_run_log')->insertGetId($data);
 		 if(!$ret){
 				return  false;
 		 }

@@ -19,7 +19,7 @@ class AdapteeProcess{
 		return Db::name('wf_flow_process')->field($field)->find($id);
 	}
 	function finds($ids,$field='*'){
-		return Db::name('wf_flow_process')->field($field)->where('id','in',$ids)->select();
+		return Db::name('wf_flow_process')->field($field)->where('id','in',$ids)->select()->all();
 	}
 	function SearchFlowProcess($where=[],$field='*',$order='',$limit=0){
 		if($limit>0){

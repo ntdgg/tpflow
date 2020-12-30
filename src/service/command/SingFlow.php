@@ -71,8 +71,8 @@ class SingFlow{
 				if(!$bill_update){
 					return ['msg'=>'流程步骤操作记录失败，数据库错误！！！','code'=>'-1'];
 				}
+				Run::EditRun($config['run_id'],['is_sing'=>0,'status'=>1]);
 			}
-			Run::EditRun($config['run_id'],['is_sing'=>0]);
 			$run_log = Log::AddrunLog($uid,$config['run_id'],$config,'sok');
 			if(!$run_log){
 					return ['msg'=>'消息记录失败，数据库错误！！！','code'=>'-1'];
