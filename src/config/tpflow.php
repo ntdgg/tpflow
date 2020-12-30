@@ -9,8 +9,8 @@
 *+------------------ 
 */
 return [
-	'version'=>'4.0',//当前版本
-	'database'=>'tpflow4.0',//数据库名称
+	'version'=>'5.0',//当前版本
+	'database'=>'tpflow5.0',//数据库名称
 	'prefix'=>'t_',//数据库前缀
 	'int_url'=>'/index',//使用工作流的模块名称
 	'gateway_mode' =>1,//1,默认使用Tp的助手函数
