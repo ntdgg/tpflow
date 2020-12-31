@@ -69,7 +69,7 @@
 
 > 官方博客：https://www.cojz8.com/
 
-> 演示站点：https://tpflow.cojz8.com/   
+> 演示站点：http://tpflow.cojz8.com/   
 
 > 工作流手册：https://www.kancloud.cn/guowenbin/tpflow  赞助用户【VIP群】1062040103
 

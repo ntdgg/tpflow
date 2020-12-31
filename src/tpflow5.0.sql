@@ -1,6 +1,6 @@
 /*
  *+------------------
- * Tpflow 4.0 数据库文件
+ * Tpflow 5.0 数据库文件
  *+------------------
  * Copyright (c) 2006~2025 http://cojz8.cn All rights reserved.
  *+------------------
@@ -94,73 +94,6 @@ CREATE TABLE `t_wf_flow_process` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- 测试新闻表
--- ----------------------------
-DROP TABLE IF EXISTS `t_news`;
-CREATE TABLE `t_news` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `uid` int(11) NOT NULL COMMENT '用户id',
-  `add_time` int(11) DEFAULT NULL COMMENT '新增时间',
-  `new_title` varchar(255) DEFAULT NULL COMMENT '新闻标题',
-  `new_type` int(11) DEFAULT NULL COMMENT '新闻类别',
-  `new_top` int(11) NOT NULL DEFAULT '0' COMMENT '是否置顶',
-  `new_con` longtext COMMENT '新闻内容',
-  `new_user` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT '-1回退修改0 保存中1流程中 2通过',
-  `uptime` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='[work]新闻表';
-
-
--- ----------------------------
--- 测试角色表
--- ----------------------------
-DROP TABLE IF EXISTS `t_role`;
-CREATE TABLE `t_role` (
-  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL COMMENT '后台组名',
-  `pid` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
-  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '是否激活 1：是 0：否',
-  `sort` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '排序权重',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注说明',
-  PRIMARY KEY (`id`),
-  KEY `pid` (`pid`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='模拟用户角色表';
-
--- ----------------------------
--- 测试角色数据
--- ----------------------------
-INSERT INTO `t_role` VALUES ('1', '员工部', '0', '1', '0', '');
-INSERT INTO `t_role` VALUES ('2', '经理部', '0', '1', '0', '');
-INSERT INTO `t_role` VALUES ('3', '主管部', '0', '1', '0', '');
-INSERT INTO `t_role` VALUES ('4', '主任部', '0', '1', '0', '');
-INSERT INTO `t_role` VALUES ('5', '副总', '0', '1', '0', '');
-INSERT INTO `t_role` VALUES ('6', '总经理', '0', '1', '0', '');
-INSERT INTO `t_role` VALUES ('7', '董事长', '0', '1', '0', '');
-
--- ----------------------------
--- 角色用户关系表
--- ----------------------------
-DROP TABLE IF EXISTS `t_role_user`;
-CREATE TABLE `t_role_user` (
-  `user_id` int(10) unsigned NOT NULL,
-  `role_id` smallint(6) unsigned NOT NULL,
-  KEY `group_id` (`role_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- 角色关系记录
--- ----------------------------
-INSERT INTO `t_role_user` VALUES ('1', '1');
-INSERT INTO `t_role_user` VALUES ('2', '2');
-INSERT INTO `t_role_user` VALUES ('3', '3');
-INSERT INTO `t_role_user` VALUES ('4', '4');
-INSERT INTO `t_role_user` VALUES ('5', '5');
-INSERT INTO `t_role_user` VALUES ('6', '6');
-INSERT INTO `t_role_user` VALUES ('7', '7');
 
 -- ----------------------------
 -- 节点运行主表
@@ -256,39 +189,6 @@ CREATE TABLE `t_wf_run_sign` (
   KEY `uid` (`uid`),
   KEY `run_id` (`run_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- 用户信息表
--- ----------------------------
-DROP TABLE IF EXISTS `t_user`;
-CREATE TABLE `t_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` char(32) NOT NULL,
-  `tel` varchar(255) DEFAULT NULL,
-  `mail` varchar(255) DEFAULT NULL,
-  `role` smallint(6) unsigned NOT NULL COMMENT '组ID',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 1:启用 0:禁止',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注说明',
-  `last_login_time` int(11) unsigned NOT NULL COMMENT '最后登录时间',
-  `last_login_ip` varchar(15) DEFAULT NULL COMMENT '最后登录IP',
-  `login_count` int(11) DEFAULT '0',
-  `last_location` varchar(100) DEFAULT NULL COMMENT '最后登录位置',
-  `add_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='用户表';
-
--- ----------------------------
--- Records of wf_user
--- ----------------------------
-INSERT INTO `t_user` VALUES ('1', '员工', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '1', '0', '1', '1522372036', '127.0.0.1', '0', '新建用户', '1522372036');
-INSERT INTO `t_user` VALUES ('2', '经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '2', '0', '1', '1522372556', '127.0.0.1', '0', '新建用户', '1522372556');
-INSERT INTO `t_user` VALUES ('3', '主管', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '3', '0', '1', '1522376353', '127.0.0.1', '0', '新建用户', '1522376353');
-INSERT INTO `t_user` VALUES ('4', '主任', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '4', '0', '1', '1522376372', '127.0.0.1', '0', '新建用户', '1522376372');
-INSERT INTO `t_user` VALUES ('5', '副总', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '5', '0', '1', '1522376385', '127.0.0.1', '0', '新建用户', '1522376385');
-INSERT INTO `t_user` VALUES ('6', '总经理', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '6', '0', '1', '1522376401', '127.0.0.1', '0', '新建用户', '1522376401');
-INSERT INTO `t_user` VALUES ('7', '董事长', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '7', '0', '1', '1522376413', '127.0.0.1', '0', '新建用户', '1522376413');
 
 -- ----------------------------
 -- 工作流事务信息表

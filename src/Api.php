@@ -24,7 +24,7 @@ use tpflow\lib\unit;
 		}
     }
 	 /**
-	  * Tpflow 4.0统一接口流程审批接口
+	  * Tpflow 5.0统一接口流程审批接口
 	  * @param string $act 调用接口方法
 	  * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	  */
@@ -53,7 +53,7 @@ use tpflow\lib\unit;
 		}
 	}
 	/**
-	 * Tpflow 4.0统一接口设计器
+	 * Tpflow 5.0统一接口设计器
 	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
      * @return array 返回类型
@@ -76,7 +76,7 @@ use tpflow\lib\unit;
 		}
 	}
 	/**
-	 * Tpflow 4.0统一接口 流程管理
+	 * Tpflow 5.0统一接口 流程管理
 	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
      * @return array 返回类型
@@ -110,7 +110,7 @@ use tpflow\lib\unit;
 		}
 	}
 	/**
-	 * Tpflow 4.0统一接口 前端权限控制中心
+	 * Tpflow 5.0统一接口 前端权限控制中心
 	 * @param string $act 调用接口方法
      * @param string $data 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
