@@ -85,7 +85,7 @@ CREATE TABLE `t_wf_flow_process` (
   `settop` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '上 坐标',
   `style` text COMMENT '样式 序列化',
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `uptime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   `wf_mode` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0 单一线性，1，转出条件 2，同步模式',
   `wf_action` varchar(255) NOT NULL DEFAULT 'view' COMMENT '对应方法',
