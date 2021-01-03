@@ -51,6 +51,8 @@ Class Jwt{
 				$flow = (new TaskService())->StartTask($data['wf_id'],$data['wf_fid'],$data['check_con'],unit::getuserinfo('uid'));
 				if($flow['code']==1){
 					return unit::msg_return('Success!');
+				}else{
+					return unit::msg_return($flow['msg'],1);
 				}
 			}
 			return json_encode(['wf_type'=>$wf_type,'wf_fid'=>$wf_fid,'Flow'=>Flow::getWorkflowByType($wf_type)]);
