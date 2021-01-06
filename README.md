@@ -8,6 +8,12 @@
 
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow") 
 
+### 交流群
+
+交流群①：532797225  （已满）
+交流群②：778657302
+Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/article/148 "加群条件") 
+
 
 ### 主要特性
 
@@ -50,6 +56,7 @@
  *  composer require guoguo/tpflow
  *  复制assets/work到项目资源目录
  *  修改src/tpflow/config/common.php的配置文件
+
 
 ### 在线文档
 
