@@ -20,6 +20,7 @@ use tpflow\adaptive\Run;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Entrust;
 use tpflow\adaptive\User;
+use tpflow\adaptive\Bill;
 
 use tpflow\service\TaskService;
 
@@ -140,6 +141,19 @@ Class Tpl{
 		if($act =='endflow'){
 			$data = (new TaskService())->EndTask(unit::getuserinfo('uid'),$data['bill_table'],$data['bill_id']);
 			if($data['code']=='-1'){
+				return unit::msg_return($data['msg'],1);
+			}
+			return unit::msg_return('Success!');
+		}
+		if($act =='cancelflow'){
+			if(unit::LoadClass($wf_type,$wf_fid)!= -1){
+				$BillWork = (unit::LoadClass($wf_type,$wf_fid))->cancel();
+				if(!$BillWork){
+					return $BillWork;
+				}
+			}
+			$bill_update = Bill::updatebill($data['bill_table'],$data['bill_id'],0);
+			if(!$bill_update){
 				return unit::msg_return($data['msg'],1);
 			}
 			return unit::msg_return('Success!');

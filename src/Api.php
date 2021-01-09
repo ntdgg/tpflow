@@ -37,8 +37,8 @@ use tpflow\lib\unit;
 				 return Control::WfCenter($act,input('wf_fid'),input('wf_type'));
 			 }
 		}
-		if($act=='endflow'){
-			return Control::WfCenter($act,'','',['bill_table'=>input('bill_table'),'bill_id'=>input('bill_id')]);
+		if($act=='endflow'||$act=='cancelflow'){
+			echo Control::WfCenter($act,'','',['bill_table'=>input('bill_table'),'bill_id'=>input('bill_id')]);
 		}
 		if($act=='do'){
 			$wf_op = input('wf_op') ?? 'check';
