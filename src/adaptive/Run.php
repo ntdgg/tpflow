@@ -168,7 +168,8 @@ Class Run{
 	static function getprocessinfo($pid,$run_id){
 			
 		$wf_process = (new Run())->mode->FindRunProcess([['run_id','=',$run_id],['run_flow_process','=',$pid],['status','=',0]]);
-		if($wf_process['auto_person']==3){
+	
+		if($wf_process  != NULL && $wf_process['auto_person']==3){
 			$todo = $wf_process['sponsor_ids'].'*%*'.$wf_process['sponsor_text'];
 			}else{
 			$todo = '';

@@ -172,19 +172,24 @@ class Info{
 					return -1;
 				}
 			}
+			
 			//4.0版本新增查找是否有代理审核人员，并给与权限，权限转换
 			$info = Entrust::change($info);
+			
 			//拼接返回数据
 			if ($result) {
+					if($result['is_sing'] != 1){
 					$workflow ['sing_st'] = 0;//会签模式 
 					$workflow ['run_id'] = $result['id'];
 					$workflow ['status'] = $info;
-					$workflow ['flow_process'] = $info['run_flow_process'];//运行的flow_processid
+					$workflow ['flow_process'] = $info['run_flow_process'] ?? '';//运行的flow_processid
 					$workflow ['process'] = Process::GetProcessInfo($info['run_flow_process'],$result['id']);//读取当前原设计步骤的详细信息
 					$workflow ['nexprocess'] = Process::GetNexProcessInfo($wf_type,$wf_fid,$info['run_flow_process'],$result['id'],$workflow ['wf_mode']);//获取当前原设计下一个步骤
-					if($result['is_sing']==1){
+					}else{
 					   $info = Run::FindRunProcess([['run_id','=',$result['id']],['run_flow','=',$result['flow_id']],['run_flow_process','=',$result['run_flow_process']]]);
 					   $workflow ['sing_st'] = 1;
+					   $workflow ['run_id'] = $result['id'];
+					   $workflow ['status'] = $info;
 					   $workflow ['flow_process'] = $result['run_flow_process'];
 					   $process = Process::GetProcessInfo($result['run_flow_process'],$result['id']);
 					   $workflow ['status']['wf_mode'] = $process['wf_mode'];

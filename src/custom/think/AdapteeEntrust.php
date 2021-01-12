@@ -89,8 +89,11 @@ class AdapteeEntrust{
     }
 	 function change($info)
     {
+		if($info  == NULL ){
+			return $info;
+		}
 		$has_rel = Db::name('wf_entrust_rel')->where('process_id',$info['id'])->find();
-		if(!$has_rel){
+		if( !$has_rel){
 			return $info;
 		}
 		$entrust = self::find($has_rel['entrust_id']);

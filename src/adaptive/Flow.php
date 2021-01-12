@@ -105,7 +105,8 @@ class Flow
 		$data = (new Flow())->mode->ListFlow($map,$page,$rows,$order);
 		foreach($data['rows'] as $k=>$v){
 			$run = Run::FindRun([['flow_id','=',$v['id']],['status','=',0]]);
-			$data['rows'][$k]['edit'] =$run['id'];
+			
+			$data['rows'][$k]['edit'] =$run['id'] ?? '';
 		}
         return $data['rows'];
     }

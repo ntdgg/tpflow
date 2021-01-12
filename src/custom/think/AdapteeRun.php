@@ -45,7 +45,7 @@ class AdapteeRun{
 	function SearchRunProcess($where=[],$field='*'){
 		return Db::name('wf_run_process')->where($where)->field($field)->select();
 	}
-	function EditRunProcess($where=[],$data){
+	function EditRunProcess($where=[],$data=[]){
 		return Db::name('wf_run_process')->where($where)->update($data);
 	}
 	/*FindRunSign表操作接口代码*/
