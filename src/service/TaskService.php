@@ -50,9 +50,9 @@ class TaskService{
 				return ['msg'=>'流程设计出错，未找到第一步流程，请联系管理员！','code'=>'-1'];
 			}
 			//加入流程步骤判断
-			if(unit::LoadClass($wf_type,$wf_fid)!= -1){
+			if(is_object(unit::LoadClass($wf_type,$wf_fid))){
 				$BillWork = (unit::LoadClass($wf_type,$wf_fid))->before('Start');
-				if(!$BillWork){
+				if($BillWork['code']==-1){
 					return $BillWork;
 				}
 			}
@@ -92,9 +92,9 @@ class TaskService{
 		$config['sing_st'] = $run['is_sing'];//业务是否为会签模式
 		$wf_actionid = $config['submit_to_save'];
 		//用户提交审批前的校验
-		if(unit::LoadClass($config['wf_type'],$config['wf_fid'])!= -1){
+		if(is_object(unit::LoadClass($config['wf_type'],$config['wf_fid']))){
 			$BillWork = (unit::LoadClass($config['wf_type'],$config['wf_fid'],$config['run_id'],$config))->before($wf_actionid);
-			if(!$BillWork){
+			if($BillWork['code']==-1){
 				return $BillWork;
 			}
 		}

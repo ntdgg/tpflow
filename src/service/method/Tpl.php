@@ -146,9 +146,9 @@ Class Tpl{
 			return unit::msg_return('Success!');
 		}
 		if($act =='cancelflow'){
-			if(unit::LoadClass($wf_type,$wf_fid)!= -1){
+			if(is_object(unit::LoadClass($wf_type,$wf_fid))){
 				$BillWork = (unit::LoadClass($wf_type,$wf_fid))->cancel();
-				if(!$BillWork){
+				if($BillWork['code']==-1){
 					return $BillWork;
 				}
 			}

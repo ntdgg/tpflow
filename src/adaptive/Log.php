@@ -88,9 +88,9 @@ Class Log{
                $config['art'] = '';
          }
 		//用户审批完成后的校验
-		if(unit::LoadClass($config['wf_type'],$config['wf_fid'])!= -1){
+		if(is_object(unit::LoadClass($config['wf_type'],$config['wf_fid']))){
 			$BillWork = (unit::LoadClass($config['wf_type'],$config['wf_fid'],$run_id))->after($btn);
-			if(!$BillWork){
+			if($BillWork['code']==-1){
 				return $BillWork;
 			}
 		}
