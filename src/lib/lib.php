@@ -650,7 +650,12 @@ php;
 	 *
 	 **/
 public static function tmp_check($info,$flowinfo){
-	$url = url(unit::gconfig('int_url').'/'.$info['wf_type'].'/'.$flowinfo['status']['wf_action'],['id'=>$info['wf_fid']]);
+	if(strpos($flowinfo['status']['wf_action'],'@') !== false){ 
+		$urldata= explode("@",$flowinfo['status']['wf_action']);
+		 $url = url(unit::gconfig('int_url').'/'.$urldata[0].'/'.$urldata[1],['id'=>$info['wf_fid'],$urldata[2]=>$urldata[3]]);
+		}else{
+		 $url = url(unit::gconfig('int_url').'/'.$info['wf_type'].'/'.$flowinfo['status']['wf_action'],['id'=>$info['wf_fid']]);
+	}
 	if($flowinfo['sing_st']==0){
 		$html ='<a class="button" onclick=Tpflow.lopen("提交工作流","'.$info['tpflow_ok'].'",500,300) style="background-color: #19be6b">√ 同意</a> ';
 		if($flowinfo['status']['is_back']!=2){
@@ -745,7 +750,9 @@ public static function tmp_wfatt($one,$from,$process_to_list){
               <option value="is_step" >正常步骤</option>
               <option value="is_one" >第一步</option>
             </select></td></tr>
-		<tr><td>调用方法</td><td><input type="text" class="smalls" name="wf_action"  value="{$wf_action}"></td></tr>	
+		<tr><td>调用方法</td><td><input type="text" class="smalls" name="wf_action"  value="{$wf_action}"><br/>*自定义方法可以=控制器@方法@参数名@参数值
+		<br/>*如：SFDP调用方法：sfdp@view@sid@24 生成URL：sfdp/view?sid=24&id=2
+		</td></tr>	
 <tr><td>会签方式</td><td><select name="is_sing" >
               <option value="1" >允许会签</option>
               <option value="2" >禁止会签</option>
