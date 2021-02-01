@@ -17,6 +17,7 @@ use tpflow\adaptive\Flow;
 use tpflow\adaptive\Process;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Bill;
+use tpflow\adaptive\Run;
 
 class BackFlow{
 	/**
@@ -46,6 +47,19 @@ class BackFlow{
 			$todo = $config['btodo'];
 		}else{
 			$todo = '';
+		}
+		/*修复驳回时的同步模式没有结束其他同步造成多审核的问题*/
+		$run_info = Run::FindRunId($config['run_id']);
+		if(strpos($run_info['run_flow_process'],',') !== true){
+			$run_process_ids = '';
+			$process_array=explode(",",$run_info['run_flow_process']);
+			foreach($process_array as $v){
+				$p =  Run::FindRunProcess(['run_id'=>$run_id,'run_flow_process'=>$v,'status'=>0],'id');
+				if($p){
+					$run_process_ids .= $p['id'].',';
+				}
+			}
+			$run_process = substr($run_process_ids,0,strlen($run_process_ids)-1);
 		}
 		if($back){//第一步
 			   Flow::end_flow($run_id);//结束流程
