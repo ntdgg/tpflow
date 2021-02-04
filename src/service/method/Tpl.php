@@ -201,7 +201,7 @@ Class Tpl{
 				   }else{
 					    $btn .="<a class='button' onclick=Tpflow.wfconfirm('".$urls['wfapi'].'?act=add'."',{'id':".$v['id'].",'status':0},'您确定要启用该工作流吗？')> 启用</a>";
 				   }
-				   $tr .='<tr><td>'.$v['id'].'</td><td>'.$v['flow_name'].'</td><td>'.$v['type'].$type[$v['type']].'</td><td>'.date('Y/m/d H:i',$v['add_time']).'</td><td>'.$status[$v['status']].'</td><td>'.$btn.'</td></tr>';	
+				   $tr .='<tr><td>'.$v['id'].'</td><td>'.$v['flow_name'].'</td><td>'.$v['type'].($type[$v['type']] ?? 'Err').'</td><td>'.date('Y/m/d H:i',$v['add_time']).'</td><td>'.$status[$v['status']].'</td><td>'.$btn.'</td></tr>';	
 			  }
 			return lib::tmp_index($urls['wfapi'].'?act=add',$tr,$html);
 		}
