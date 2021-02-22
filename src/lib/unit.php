@@ -68,7 +68,11 @@ class unit{
 	 * @param string $key 键值
 	 */
 	public static function gconfig($key) {
-		$ret =require ( dirname(dirname(__DIR__) . DIRECTORY_SEPARATOR, 4) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'tpflow.php');
+		$file = dirname(dirname(__DIR__) . DIRECTORY_SEPARATOR, 4) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'tpflow.php';
+		if(!file_exists($file)){
+			echo 'sorry,config no find!';exit;
+		}
+		$ret =require($file);
 		return $ret[$key] ?? '';
 	}
 	/**

@@ -24,6 +24,7 @@ use tpflow\adaptive\Bill;
 
 use tpflow\service\TaskService;
 
+
 Class Tpl{
 	/**
 	  * 工作流程统一接口
@@ -161,7 +162,7 @@ Class Tpl{
         return $act.'参数出错';
 	}
 	/**
-	 * Tpflow 4.0统一接口 流程管理中心
+	 * Tpflow 5.0统一接口 流程管理中心
 	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
@@ -244,7 +245,7 @@ Class Tpl{
 		return $act.'参数出错';
 	}
 	/**
-	 * Tpflow 4.0 工作流代理接口
+	 * Tpflow 5.0 工作流代理接口
 	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * index 列表调用
@@ -290,7 +291,7 @@ Class Tpl{
         return $act.'参数出错';
 	}
 	/**
-	 * Tpflow 4.0统一接口设计器
+	 * Tpflow 5.0统一接口设计器
 	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * welcome 调用版权声明接口
@@ -365,7 +366,7 @@ Class Tpl{
         return $act.'参数出错';
 	}
 	/**
-	 * Tpflow 4.0统一接口
+	 * Tpflow 5.0统一接口
 	 * @param string $act 调用接口方法
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
 	 * log  历史日志消息
@@ -383,6 +384,23 @@ Class Tpl{
 			return (new lib())::tpflow_status($data['status']);
 		}
         return $act.'参数出错';
+	}
+	/**
+	 * Tpflow 5.0统一接口
+	 * @param string $act 调用接口方法
+	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
+	 * userFlow  用户流程数据
+	 * userData  用户数据分组查询
+	 */
+	function wfUserData($act,$map,$field,$order,$group){
+		if($act=='userData'){
+			$data = Run::dataRunProcess($map,$field,$order,$group);
+		}
+		if($act=='userFlow'){
+			$map[] = ['f.sponsor_ids','find in set',unit::getuserinfo('uid')];
+			$data = Run::dataRunProcess($map,$field,$order,$group);
+		}
+		return json_encode(['code'=>1,'msg'=>'查询成功','data'=>$data]);
 	}
 	
 }

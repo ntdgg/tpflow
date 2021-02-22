@@ -120,6 +120,20 @@ Class Run{
        return (new Run())->mode->EditRunProcess($where,$data);
     }
 	/**
+	 * 数据处理
+	 *
+	 * @param array $where 查询条件
+	 * @param array $data  数据信息
+	 */
+	static function dataRunProcess($map,$field,$order,$group)
+    {
+		if($group !=''){
+			return (new Run())->mode->dataRunProcessGroup($map,$field,$order,$group);
+		}else{
+			return (new Run())->mode->dataRunProcess($map,$field,$order);
+		}
+    }
+	/**
 	 * 查询运行中的会签信息
 	 *
 	 * @param array $where 查询条件
@@ -159,6 +173,7 @@ Class Run{
     {
        return (new Run())->mode->EndRunSing($sing_sign,$check_con);
     }
+	
 	/**
 	 * 获取步骤消息
 	 *

@@ -110,6 +110,19 @@ use tpflow\lib\unit;
 		}
 	}
 	/**
+	 * Tpflow 5.0统一接口 数据接口
+	 * @param string $act 调用接口方法
+	 * @param int    $uid 用户id
+	 * @param array  $map 查询方法
+	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
+     * @return array 返回类型
+	 */
+	 public static function wfUserData($act='userFlow',$map=[],$field='',$order='',$group=''){
+		return Control::wfUserData($act,$map,$field,$order,$group);
+	}
+	 
+	 
+	/**
 	 * Tpflow 5.0统一接口 前端权限控制中心
 	 * @param string $act 调用接口方法
      * @param string $data 调用接口方法

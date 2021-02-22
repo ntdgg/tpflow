@@ -95,5 +95,16 @@ Class Control{
 	static function WfAccess($act,$data=''){
 		return (new Control())->mode->WfAccess($act,$data);
 	}
+	/**
+	 * Tpflow 5.0统一接口
+	 * @param string $act 调用接口方法
+	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
+	 * log  历史日志消息
+	 * btn  权限判断
+	 * status  状态判断
+	 */
+	static function wfUserData($act,$map,$field,$order,$group){
+		return (new Control())->mode->wfUserData($act,$map,$field,$order,$group);
+	}
 	
 }

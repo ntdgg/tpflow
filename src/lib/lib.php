@@ -150,7 +150,7 @@ php;
 	 *
 	 **/
 	public static function tmp_entrust($info,$type,$user){
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 管理列表');
 			$urls= unit::gconfig('wf_url');
 		return  <<<php
 				{$tmp['head']}
