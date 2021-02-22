@@ -13,6 +13,8 @@ Demo案例请参考：  [Demo](https://gitee.com/ntdgg/tpflow-demo "Demo")
 
 Gadmin企业级开发平台：  [传送门](http://gadmin8.com:88 "Demo") 
 
+* Gadmin V3.0.0 企业级极速开发平台，最初项目开发于2018年初，给予Tpflow1.0 Tpfd1.0进行初步整合开发，Gadmin 的初衷是低代码极速开发平台。凭借着多年深耕OA、ERP的开发经验，我们在集成TPFLOW、SFDP的优点上，深度整合，并加入了企业级授权机制，企业级的日子管理平台，企业级的BI自定义开发系统，让企业可以快速构建属于自己的信息管理系统。
+
 ### 交流群
 
 交流群①：532797225  （已满）
