@@ -69,11 +69,6 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 
 [看云文档](https://www.kancloud.cn/guowenbin/tpflow "安装手册")   [官方博客](https://www.cojz8.com/ "官方博客")
 
-### 界面截图
-
-![markdown](https://img.kancloud.cn/42/7a/427adc1dcc2ff3ffb52087b1cfde346b_1366x622.png)
-
-
 
 ~~~
 设计器、源代码标注有版权的位置，未经许可，严禁删除及修改，违者将承担法律侵权责任！
@@ -94,6 +89,8 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 ## 版权信息
 
 Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
+
+使用本项目必须保留所有版权信息。
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
