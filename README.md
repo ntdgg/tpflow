@@ -9,11 +9,16 @@
 ![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow") 
 
 
-Demo案例请参考：  [Demo](https://gitee.com/ntdgg/tpflow-demo "Demo") 
 
-Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 
 
-* Gadmin V3.0.0 企业级极速开发平台，最初项目开发于2018年初，给予Tpflow1.0 Tpfd1.0进行初步整合开发，Gadmin 的初衷是低代码极速开发平台。凭借着多年深耕OA、ERP的开发经验，我们在集成TPFLOW、SFDP的优点上，深度整合，并加入了企业级授权机制，企业级的日子管理平台，企业级的BI自定义开发系统，让企业可以快速构建属于自己的信息管理系统。
+
+Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含在线演示模块 测试账号：test 123456
+
+* Gadmin V3.0.0 企业级极速开发平台，
+* 深耕OA、ERP的开发经验，整合TPFLOW、SFDP，
+* 企业级授权机制，
+* 企业级的日志管理平台，
+* 企业级的BI自定义开发系统
 
 ### 交流群
 
@@ -87,6 +92,8 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 > 视频教程：https://www.kancloud.cn/guowenbin/tpflow_video 【付费】视频教程
 
 ---
+
+Demo案例请参考：  [Demo](https://gitee.com/ntdgg/tpflow-demo "Demo") 
 
 ## 版权信息
 
