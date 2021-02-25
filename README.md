@@ -28,6 +28,8 @@ Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含�
 
 Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/article/148 "加群条件") 
 
+手册：https://gadmin8.com/index/product.html  【付费】
+
 
 ### 主要特性
 
@@ -87,9 +89,9 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 
 > 演示站点：http://tpflow.cojz8.com/   
 
-> 工作流手册：https://www.kancloud.cn/guowenbin/tpflow  赞助用户【VIP群】1062040103
+> 工作流手册：https://gadmin8.com/index/product.html  【付费】
 
-> 视频教程：https://www.kancloud.cn/guowenbin/tpflow_video 【付费】视频教程
+> 视频教程：https://gadmin8.com/index/product.html  【付费】
 
 ---
 
