@@ -65,7 +65,7 @@ class SingFlow{
 					$wf_process = Process::GetProcessInfo($v,$config['run_id']);
 					  Info::addWorkflowProcess($config['flow_id'],$wf_process,$config['run_id'],$uid);
 				}
-				Run::EditRun($config['run_id'],['run_flow_process'=>$config['npid']]);
+				Run::EditRun($config['run_id'],['is_sing'=>0,'run_flow_process'=>$config['npid']]);
 			}else{
 				$bill_update = Bill::updatebill($config['wf_type'],$config['wf_fid'],2);
 				if(!$bill_update){
