@@ -15,6 +15,7 @@ use tpflow\adaptive\Info;
 use tpflow\adaptive\Flow;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Bill;
+use tpflow\adaptive\Run;
 
 class SupFlow{
 	/**
@@ -35,7 +36,9 @@ class SupFlow{
             ];
 		//结束当前run 工作流
             Flow::end_flow($wfid);
-		$end = Flow::end_process($wfinfo['run_flow_process'],$config['check_con']);
+			
+			$run_flow_process_id = Run::FindRunProcess([['run_id','=',$wfid],['run_flow_process','=',$wfinfo['run_flow_process']]]);
+		    $end = Flow::end_process([$run_flow_process_id['id']],$config['check_con']);
 		    Log::AddrunLog($uid,$wfid,$config,'SupEnd');
 		
 		if(!$end){
