@@ -26,7 +26,7 @@ class AdapteeLog{
 		return $ret;
 	}
 	function SearchRunLog($wf_fid,$wf_type){
-		return Db::name('wf_run_log')->where('from_id',$wf_fid)->where('from_table',$wf_type)->select()->all();
+		return Db::name('wf_run_log')->where('from_id',$wf_fid)->where('from_table',$wf_type)->order('id desc')->select()->all();
 	}
 	
 	
