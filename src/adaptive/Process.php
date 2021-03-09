@@ -96,6 +96,7 @@ class Process{
 				$wf  =  Run::FindRunId($run_id);
 				$user_id = Bill::getbillvalue($wf['from_table'],$wf['from_id'],$info['work_text']);
 				$info['todo']= User::GetUserName($user_id);
+				$info['user_info']=  User::GetUserInfo($user_id);
 			}
 		return $info;
 	}
