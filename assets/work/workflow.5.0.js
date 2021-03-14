@@ -411,6 +411,18 @@ var Tpflow = {
 	onchange : function(obj,type) {
 		var apid = $(obj).val();
 		if(type=='auto_person'){
+			$("#range_user_ids").removeAttr("datatype");
+			$("#auto_sponsor_ids").removeAttr("datatype");
+			$("#auto_role_ids").removeAttr("datatype");
+			if(apid==3){
+				 $("#range_user_ids").attr({datatype:"*",nullmsg:"请选择办理人员1"});
+			}
+			if(apid==4){
+				$("#auto_sponsor_ids").attr({datatype:"*",nullmsg:"请选择办理人员2"});
+			}
+			if(apid==5){
+				$("#auto_role_ids").attr({datatype:"*",nullmsg:"请选择办理角色3"});
+			}
 			$(".auto_person").hide();
 			$("#auto_person_"+apid).show();
 		}else{

@@ -775,7 +775,7 @@ public static function tmp_wfatt($one,$from,$process_to_list){
 			<tr class='auto_person hide' id="auto_person_3" ><td>
 			<input type="button" value="自由选择" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=range_user&type_mode=user','400','500')">
 			</td><td> 
-				<input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one['range_user_ids']}">
+				<input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one['range_user_ids']}" datatype="*" nullmsg="请选择办理人员！">
                     <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one['range_user_text']}"> 
 					<span id='range_user_html'>{$one['range_user_text']}</span>	
 					</td>	
