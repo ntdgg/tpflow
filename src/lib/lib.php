@@ -720,7 +720,7 @@ public static function tmp_wfatt($one,$from,$process_to_list){
 	}else{
 		$condition ='<option value="0">单线模式（流程为直线型单一办理模式）</option>';
 	}
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 管理列表');
 		 return <<<php
 		 {$tmp['head']}
 <form  class="form-horizontal" action="{$urls['designapi']}?act=saveatt" method="post" name="form" id="form">
@@ -865,7 +865,21 @@ public static function tmp_wfatt($one,$from,$process_to_list){
 {$tmp['js']}	
 {$tmp['form']}
 <script type="text/javascript">
+var apid= {$one['auto_person']};
 $("#auto_person_{$one['auto_person']}").show();
+$("#range_user_ids").removeAttr("datatype");
+$("#auto_sponsor_ids").removeAttr("datatype");
+$("#auto_role_ids").removeAttr("datatype");
+if(apid==3){
+	$("#range_user_ids").attr({datatype:"*",nullmsg:"请选择办理人员1"});
+}
+if(apid==4){
+	$("#auto_sponsor_ids").attr({datatype:"*",nullmsg:"请选择办理人员2"});
+}
+if(apid==5){
+	$("#auto_role_ids").attr({datatype:"*",nullmsg:"请选择办理角色3"});
+}
+
 $("[name='auto_person']").find("[value='{$one['auto_person']}']").attr("selected",true);
 $("[name='is_sing']").find("[value='{$one['is_sing']}']").attr("selected",true);
 $("[name='is_back']").find("[value='{$one['is_back']}']").attr("selected",true);
