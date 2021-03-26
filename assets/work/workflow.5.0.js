@@ -125,7 +125,19 @@ var Tpflow = {
         timeout = setTimeout(Tpflow.Click(),300);
     }).live('dblclick',function(){
         clearTimeout(timeout);
-		Tpflow.DelJProcessData();
+		if(confirm("你确定删除步骤吗？")){
+			var activeId = _this.find("#wf_active_id").val();//右键当前的ID
+			$.post(Server_Url+'?act=del',{"flow_id":the_flow_id,"id":activeId},function(data){
+				if(data.code==0){
+					 if(activeId>0){
+						$("#window"+activeId).remove();
+					 }
+					Tpflow.Api('save');
+				}
+				layer.msg(data.msg);
+				
+			},'json');
+		 }
     });
 	 jsPlumb.draggable(jsPlumb.getSelector(".process-step"),{containment: 'parent'});//允许拖动
 	 initEndPoints();

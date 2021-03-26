@@ -66,7 +66,7 @@ use tpflow\lib\unit;
 			echo Control::WfDescCenter($act,input('flow_id'),input('process_info'));
 		}
 		if($act=='del' ||$act=='att'){
-			return Control::WfDescCenter($act,input('flow_id'),input('id'));
+			echo Control::WfDescCenter($act,input('flow_id'),input('id'));
 		}
 		if($act=='saveatt'){
 			echo Control::WfDescCenter($act,'',input('post.'));
