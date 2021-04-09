@@ -202,6 +202,9 @@ class Process{
 				if($v['auto_person']==5){ //办理角色
 					$todo = $v['auto_role_text'];
 				}
+				if($v['auto_person']==6){ //办理角色
+					$todo = '';
+				}
 				$prearray[$v['id']] = $v['process_name'].'('.$todo.')';
 			}
 			}else{
