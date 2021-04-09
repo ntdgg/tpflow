@@ -112,7 +112,7 @@ class Info{
 			$sponsor_ids = '';
 		}
 		//取出当前所有授权信息
-		$map[] = ['old_user','in',$sponsor_ids];
+		$map[] = ['old_user','in',[$sponsor_ids]];
 		$Raw = 'flow_process = 0 or flow_process='.$wf_process['id'];
 		$all_Entrust = Entrust::get_Entrust($map,$Raw);
 		if(count($all_Entrust)>0){
