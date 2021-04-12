@@ -149,7 +149,7 @@ class unit{
      */
     public static function parse_out_condition($json_data)
     {
-        $array = json_decode($json_data, true);
+        $array = json_decode((string)$json_data, true);
         if (!$array) {
             return [];
         }
