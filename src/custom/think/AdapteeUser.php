@@ -8,6 +8,8 @@
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
+declare (strict_types = 1);
+
 namespace tpflow\custom\think;
 
 use think\facade\Db;

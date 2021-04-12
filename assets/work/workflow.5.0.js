@@ -77,9 +77,9 @@ var Tpflow = {
 				  parent:p,
 				  anchor:"Continuous",
 				  endpoint:[ "Dot", { radius:1 } ],
-				  connector:[ "Flowchart", { stub:[5, 5] } ],
-				  connectorStyle:{lineWidth:3,strokeStyle:"#49afcd",joinstyle:"round"},
-				  hoverPaintStyle:{lineWidth:3,strokeStyle:"#da4f49"},
+				  connector:[ "StateMachine", { stub:[5, 5] } ],
+				  connectorStyle:{lineWidth:2,strokeStyle:"#2d6dcc",joinstyle:"round"},
+				  hoverPaintStyle:{lineWidth:2,strokeStyle:"#0300FF"},
 				  dragOptions:{},
 				  maxConnections:-1
 			  });
@@ -95,7 +95,7 @@ var Tpflow = {
             ],
             Anchor : 'Continuous',
             ConnectorZIndex:5,
-            HoverPaintStyle:{lineWidth:3,strokeStyle:"#da4f49"}
+            HoverPaintStyle:{lineWidth:2,strokeStyle:"#0300FF"}
         });
         if( $.browser.msie && $.browser.version < '9.0' ){ //ie9以下，用VML画图
             jsPlumb.setRenderMode(jsPlumb.VML);

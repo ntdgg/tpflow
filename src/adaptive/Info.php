@@ -8,6 +8,8 @@
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
+declare (strict_types = 1);
+
 namespace tpflow\adaptive;
 
 use tpflow\lib\unit;
@@ -119,10 +121,14 @@ class Info{
 			//写入授权表
 			Entrust::save_rel($all_Entrust,$process_id);
 		}
-		if(!$process_id)
-        {
+		if(!$process_id){
             return  false;
         }
+		//加入消息接口Api
+	   $msg_api = unit::gconfig('msg_api') ?? '';
+		if(class_exists($msg_api)){
+			$user_info = (new $msg_api())->send($process_id);;
+		}
         return $process_id;
 	}
 	/**

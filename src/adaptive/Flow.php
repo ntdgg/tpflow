@@ -8,6 +8,7 @@
  * Author: guoguo(1838188896@qq.com)
  *+------------------
  */
+declare (strict_types = 1);
 
 namespace tpflow\adaptive;
 
@@ -189,7 +190,7 @@ class Flow
                 'flow_id' => $value['flow_id'],
                 'process_name' => $name_att.$value['process_name'],
                 'process_to' => $value['process_to'],
-                'style' => 'width:' . $style['width'] . 'px;height:' . $style['height'] . 'px;line-height:30px;color:#0e76a8;left:' . $value['setleft'] . 'px;top:' . $value['settop'] . 'px;',
+                'style' => 'width:' . $style['width'] . 'px;height:' . $style['height'] . 'px;line-height:30px;border-radius: 4px;color:#2d6dcc;left:' . $value['setleft'] . 'px;top:' . $value['settop'] . 'px;',
             ];
         }
         return json_encode(['total' => $process_total, 'list' => $process_data]);
@@ -255,8 +256,8 @@ class Flow
 		$process_count =  Process::SearchFlowProcess([['flow_id','=',$flow_id]]);
         if (count($process_count) <= 0){
             $process_type = 'is_one';
-			$process_setleft = '100';
-			$process_settop = '100';			
+			$process_setleft = '180';
+			$process_settop = '180';			
 		}else{
 			//新建步骤显示在上一个步骤下方 2019年1月28日14:32:45
 			$style = Process::SearchFlowProcess([['flow_id','=',$flow_id]],'*','id desc',1);
@@ -266,7 +267,7 @@ class Flow
 		}
         $data = [
             'flow_id' => $flow_id,'setleft' => $process_setleft,'settop' => $process_settop,
-            'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => 'auto', 'color' => '#0e76a8'])
+            'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => 'auto', 'color' => '#2d6dcc'])
         ];
         $processid = Process::AddFlowProcess($data);
         if ($processid <= 0) {
@@ -343,7 +344,7 @@ class Flow
             'is_sing' => $datas['is_sing'],
             'is_back' => $datas['is_back'],
             'out_condition' => json_encode($out_condition),
-            'style' => json_encode(['width' => $datas['style_width'], 'height' => 'auto', 'color' => '#0e76a8'])
+            'style' => json_encode(['width' => $datas['style_width'], 'height' => 'auto', 'color' => '#2d6dcc'])
         ];
         if (isset($datas["process_to"])) {
             $data['process_to'] = unit::ids_parse($datas['process_to']);

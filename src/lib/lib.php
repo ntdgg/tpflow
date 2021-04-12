@@ -8,6 +8,8 @@
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
+declare (strict_types = 1);
+
 namespace tpflow\lib;
 
 use tpflow\adaptive\Process;
@@ -117,7 +119,7 @@ class lib
 	 **/
 	public static function tmp_add($url,$info,$type)
 	{
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 ');
 		$view=<<<php
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form">
@@ -200,7 +202,7 @@ php;
 	 **/
 	public static function tmp_suser($url,$kid,$user,$type='user'){
 		
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}
 <article class="page-container">
@@ -274,16 +276,16 @@ php;
 	 *
 	 **/
 	public static function tmp_wfjk($data){
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
-		 {$tmp['head']}<div class="page-container"><table class="table"><tr class="text-c"><th>工作流编号</th><th >工作流类型</th><th >工作流名称</th><th >当前状态</th><th >业务办理人</th><th >接收时间</th><th >操作</th></tr>{$data}</table></div>{$tmp['js']}</body></html>
+		 {$tmp['head']}<div class="page-container"><table class="table"><thead><tr class="text-c"><th>工作流编号</th><th >工作流类型</th><th >工作流名称</th><th >当前状态</th><th >业务办理人</th><th >接收时间</th><th >操作</th></thead></tr>{$data}</table></div>{$tmp['js']}</body></html>
 php;
 	}
 	public static function tmp_wfstart($info,$flow)
 	{
 		$urls= unit::gconfig('wf_url');
 		$url =$urls['wfdo'].'?act=start&wf_type='.$info['wf_type'].'&wf_fid='.$info['wf_fid'];
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}
 		<form action="{$url}" method="post" name="form" id="form">
@@ -307,7 +309,7 @@ php;
 	public static function tmp_wfok($info,$flowinfo)
 	{
 		$sup = $_GET['sup'] ?? '';
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_ok']}" method="post" name="form" id="wfform">
@@ -390,7 +392,7 @@ php;
 			   $op .='<option value="'.$k.'">'.$v.'</option>'; 
 		}
 		$sup = $_GET['sup'] ?? '';
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_back']}" method="post" name="form" id="wfform">
@@ -462,40 +464,42 @@ php;
 	 **/
 	public static function tmp_wfdesc($id,$process_data,$urlApi)
 	{
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}
- <body  style="height: 100%; overflow: hidden;margin: 0px; padding: 0px;"> 
-  <div class="panel layout-panel panel-west split-west" style="left: 0px; width:145px; cursor: default;">
-   <div class="panel-body"> <div class="panel" style="width: 140px;"><div class="panel-header">功能栏</div>
-	  <div class="panel-body" style='text-align:center'>
-		 欢迎使用流程设计器~<br/><br/>
-		  <button class="btn btn-info" type="button" onclick='Tpflow.Api("save")'>保存设计</button><br/><br/>
-		  <button class="btn btn-info" type="button" onclick='Tpflow.Api("add")'>新增步骤</button><br/><br/>
-		  <button class="btn btn-info" type="button" onclick='Tpflow.Api("check")'>逻辑检查</button><br/><br/>
-		  <button class="btn btn-info" type="button" onclick='Tpflow.Api("delAll")'>清空步骤</button><br/><br/>
-		  <button class="btn btn-info" type="button" onclick='Tpflow.Api("Help")'>设计帮助</button><br/><br/>
-		  <button class="btn btn-info" type="button" onclick='Tpflow.Api("Refresh")'>刷新设计</button><br/><br/>
-      </div></div> 
-   </div>
-  </div> 
-  <div class="panel layout-panel split-center" style="left:150px;  width:calc(100% - 645px); cursor: default;" > 
-	<div  class="panel-body">
-     <div class="panel"><div class="panel-header">流程设计栏</div>
-	  <div class="panel-body" style="width:100%; height: 800px;" id="flowdesign_canvas"></div> 
-     </div></div>
-  </div> 
-  <div class="panel layout-panel panel-west split-east split-west" style="left: calc(100% - 500px);  width:500px; cursor: default;">
-    <div  class="panel-body"> 
-     <div class="panel" >
-      <div class="panel-header">属性控制栏</div>
-	  <div class="panel-body" style='height: 800px;'>
-		<iframe src="{$urlApi}?act=welcome" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="Tpflow.SetHeight()"></iframe>
-	  </div></div> 
-   </div>
-  </div> 
- </body>
-</html>
+<div class="sfdp-top">Tpflow工作流引擎 v5.0</div>
+<div class="sfdp-main">
+    <div id="ctlMenus">
+       
+
+        <div class="sfdp-cl"></div>
+        <div class="sfdp-tool-title sfdp-mt10">设计控制 SysCtrl</div>
+        <div class="sfdp-tool-con" onclick='Tpflow.Api("save")'><a data="upload">&#8194;<b class='ico'>❂</b>&#8194;保存设计</a>
+        </div>
+        <div class="sfdp-tool-con" onclick='Tpflow.Api("add")'><a data="upload">&#8194;<b class='ico'>★</b>&#8194;新增步骤</a></div>
+
+        <div class="sfdp-cl"></div>
+        <div class="sfdp-tool-title sfdp-mt10">检查设置 control</div>
+        <div class="sfdp-tool-con" onclick='Tpflow.Api("check")'><a data="upload">&#8194;<b class='ico'>✻</b>&#8194;逻辑检查</a>
+        </div>
+        <div class="sfdp-tool-con" onclick='Tpflow.Api("delAll")'><a data="upload">&#8194;<b class='ico'>☢</b>&#8194;清空设计</a>
+        </div>
+		 <div class="sfdp-tool-title">设计帮助 Design</div>
+        <div class="sfdp-tool-con" onclick='Tpflow.Api("Help")'><a data="upload">&#8194;<b class='ico'>✉</b>&#8194;查阅手册</a>
+        </div>
+        <div class="sfdp-tool-con" onclick='Tpflow.Api("Refresh")'><a data="upload">&#8194;<b class='ico'>➲</b>&#8194;刷新设计</a>
+        </div>
+
+        <div class="sfdp-cl"></div>
+    </div>
+    <div id="flowdesign_canvas">
+       
+    </div>
+    <div class="sfdp-con sfdp-att">
+        <iframe src="{$urlApi}?act=welcome" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="Tpflow.SetHeight()"></iframe>
+    </div>
+    <div class="sfdp-cl"></div>
+</div>
 {$tmp['js']}
 <script type="text/javascript">
 var the_flow_id ='{$id}';
@@ -519,7 +523,7 @@ php;
 			   $op .='<option value="'.$v['id'].'">'.$v['username'].'</option>'; 
 		}
 		$sup = $_GET['sup'] ?? '';
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_sign']}" method="post" name="form" id="wfform">
@@ -591,7 +595,7 @@ php;
 	 **/
 public static function tmp_wfflow($process_data)
 {
-		$tmp = self::commontmp('Tpflow V4.0 管理列表');
+		$tmp = self::commontmp('Tpflow V5.0 ');
 		 return <<<php
 		 {$tmp['head']}<body  style="height: 100%; overflow: hidden;margin: 0px; padding: 0px;"><div class="panel layout-panel split-center" style="width:100%; cursor: default;" > <div  class="panel-body"><div class="panel-body" style="width:100%; height: 800px;" id="flowdesign_canvas"></div> </div></div></div></body>
 </html>
@@ -609,19 +613,19 @@ php;
 	 *
 	 **/
 public static function tmp_index($url,$data,$html){
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 ');
 	return <<<php
 {$tmp['head']}
 <div class="page-container">
-<div style='float: left;width:10%'>
+<div style='float: left;width:115px'>
 	<a onclick="Tpflow.lopen('添加工作流','{$url}','550','400')" class="button ">添加</a> <a onclick="location.reload();" class="button ">刷新</a><hr/>
 	<b style='font-size: 16px;'>工作流类别</b>
 	<ul id="art">
 	{$html}
 	</ul>
 </div>
-<div style='float: left;width:90%'>
-<table class="table" ><tr><th>ID</th><th>流程名称</th><th>流程类型</th><th>添加时间</th><th>状态</th><th>操作</th></tr>
+<div style='float: left;width:calc(100% - 115px);'>
+<table class="table" ><thead><tr><th>ID</th><th>流程名称</th><th>流程类型</th><th>添加时间</th><th>状态</th><th>操作</th></thead></tr>
 	{$data}
 </table>
 </div>
@@ -636,12 +640,12 @@ php;
 	 *
 	 **/
 public static function tmp_wfgl($data){
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 ');
 	$urls= unit::gconfig('wf_url');
 	return <<<php
 	{$tmp['head']}
-<div class="page-container"><div style='float: left;width:6%'><a onclick="Tpflow.lopen('添加委托授权','{$urls['wfapi']}?act=dladd','750','400')" class="button ">委托代理</a> <hr/><a onclick="location.reload();" class="button ">刷新页面</a></div>
-<div style='float: left;width:90%'><table class="table" ><tr><th>ID</th><th>授权名称</th> <th>委托类型</th><th>授权关系</th><th>起止时间</th><th>委托备注</th><th>操作</th></tr>{$data}</table></div></div>
+<div class="page-container"><div style='float: left;width:80px'><a onclick="Tpflow.lopen('添加委托授权','{$urls['wfapi']}?act=dladd','750','400')" class="button ">委托代理</a> <hr/><a onclick="location.reload();" class="button ">刷新页面</a></div>
+<div style='float: left;width:calc(100% - 80px);'><table class="table" ><thead><tr><th>ID</th><th>授权名称</th> <th>委托类型</th><th>授权关系</th><th>起止时间</th><th>委托备注</th><th>操作</th></tr></thead>{$data}</table></div></div>
 {$tmp['js']}</body></html>
 php;
 }
@@ -668,7 +672,7 @@ public static function tmp_check($info,$flowinfo){
 		$html ='<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","'.$info['tpflow_ok'].'&submit=sok",500,300)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","'.$info['tpflow_ok'].'&submit=sback",500,300)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","'.$info['tpflow_sign'].'&ssing=ssing",500,300)>⇅ 再会签</a>';
 	}
 	$html .=' <a class="button" onclick=Tpflow.lopen("审批历史","'.$info['tpflow_log'].'",500,300)>✤ 审批历史</a> <a class="button" onclick=Tpflow.lopen("流程图","'.$info['tpflow_flow'].'")>≋ 流程图</a> ';
-	$tmp = self::commontmp('Tpflow V4.0 管理列表');
+	$tmp = self::commontmp('Tpflow V5.0 ');
 	
 	return <<<php
 {$tmp['head']}
@@ -725,11 +729,11 @@ public static function tmp_wfatt($one,$from,$process_to_list){
 		 {$tmp['head']}
 <form  class="form-horizontal" action="{$urls['designapi']}?act=saveatt" method="post" name="form" id="form">
    <ul id='wfatt' style='height: 30px;width: 600px;padding: 0;margin: 0;'>
-       <li onclick="Tpflow.tabchange(this,0);" tabid="1" class="choice">节点信息</li>
-       <li onclick="Tpflow.tabchange(this,1);" tabid="2">节点属性</li>
-       <li onclick="Tpflow.tabchange(this,2);" tabid="3">节点人员</li>
-	   <li onclick="Tpflow.tabchange(this,3);" tabid="4">节点转出</li>
-	   <li onclick="Tpflow.tabchange(this,4);" tabid="5">节点事务</li>
+       <li onclick="Tpflow.tabchange(this,0);" tabid="1" class="choice">信息</li>
+       <li onclick="Tpflow.tabchange(this,1);" tabid="2">属性</li>
+       <li onclick="Tpflow.tabchange(this,2);" tabid="3">人员</li>
+	   <li onclick="Tpflow.tabchange(this,3);" tabid="4">转出</li>
+	   <li onclick="Tpflow.tabchange(this,4);" tabid="5">事务</li>
    </ul>
    <div id="box" style='height: auto;width: auto;border: 1px solid #ccc;'>
        <div class="tab-item show">
@@ -898,11 +902,11 @@ php;
   **/
 static function commontmp($title){
 	$patch = unit::gconfig('static_url');
-	$css = '<link rel="stylesheet" type="text/css" href="'.$patch.'workflow.5.0.css"/>';
+	$css = '<link rel="stylesheet" type="text/css" href="'.$patch.'workflow.5.0.css?v5.4"/>';
 	$js = '<script type="text/javascript" src="'.$patch.'jquery-1.7.2.min.js" ></script>
 	<script type="text/javascript" src="'.$patch.'jsPlumb-1.3.16-all-min.js"></script>
 			<script type="text/javascript" src="'.$patch.'lib/layer/2.4/layer.js" ></script>
-			<script type="text/javascript" src="'.$patch.'workflow.5.0.js" ></script>
+			<script type="text/javascript" src="'.$patch.'workflow.5.0.js?v=11" ></script>
 			<script type="text/javascript" src="'.$patch.'lib/Validform/5.3.2/Validform.min.js" ></script>
 			<script type="text/javascript" src="'.$patch.'jquery-ui-1.9.2-min.js?" ></script>
 			<script type="text/javascript" src="'.$patch.'multiselect2side.js" ></script>
