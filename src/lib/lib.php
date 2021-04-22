@@ -8,7 +8,6 @@
 * Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
-declare (strict_types = 1);
 
 namespace tpflow\lib;
 
@@ -119,6 +118,13 @@ class lib
 	 **/
 	public static function tmp_add($url,$info,$type)
 	{
+		if (!$info) {
+		   $info['id'] = '';
+		   $info['flow_name'] = '';
+		   $info['sort_order'] = '';
+		   $info['flow_desc'] = '';
+		   $info['type'] = '';
+		}
 		$tmp = self::commontmp('Tpflow V5.0 ');
 		$view=<<<php
 				{$tmp['head']}
@@ -902,7 +908,7 @@ php;
   **/
 static function commontmp($title){
 	$patch = unit::gconfig('static_url');
-	$css = '<link rel="stylesheet" type="text/css" href="'.$patch.'workflow.5.0.css?v5.4"/>';
+	$css = '<link rel="stylesheet" type="text/css" href="'.$patch.'workflow.5.0.css?v5.0"/>';
 	$js = '<script type="text/javascript" src="'.$patch.'jquery-1.7.2.min.js" ></script>
 	<script type="text/javascript" src="'.$patch.'jsPlumb-1.3.16-all-min.js"></script>
 			<script type="text/javascript" src="'.$patch.'lib/layer/2.4/layer.js" ></script>
@@ -911,7 +917,7 @@ static function commontmp($title){
 			<script type="text/javascript" src="'.$patch.'jquery-ui-1.9.2-min.js?" ></script>
 			<script type="text/javascript" src="'.$patch.'multiselect2side.js" ></script>
 			<script type="text/javascript" src="'.$patch.'lib/H5upload.js" ></script>';
-	$head ='<title>'.$title.'</title><head>'.$css.'</head><body>';
+	$head ='<html><title>'.$title.'</title><head>'.$css.'</head><body style="background-color: white;">';
 	$form ='<script type="text/javascript">
 			$(function(){
 				$("#form").Validform({
