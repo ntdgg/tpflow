@@ -57,7 +57,7 @@ Class Jwt{
 					return unit::msg_return($flow['msg'],1);
 				}
 			}
-			return json_encode(['wf_type'=>$wf_type,'wf_fid'=>$wf_fid,'Flow'=>Flow::getWorkflowByType($wf_type)]);
+			return ['wf_type'=>$wf_type,'wf_fid'=>$wf_fid,'Flow'=>Flow::getWorkflowByType($wf_type)];
 		}
 		//流程审批
 		if($act =='do'){
@@ -75,7 +75,7 @@ Class Jwt{
 				'tpflow_upload'=>unit::gconfig('wf_upload_file')
 				];
 			if($wf_op=='check'){
-				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)]);
+				return ['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)];
 			}
 			if($wf_op=='ok'){
 				 if ($post !='') {
@@ -86,7 +86,7 @@ Class Jwt{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)]);
+				return ['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)];
 			}
 			if($wf_op=='back'){
 				 if ($post !='') {
@@ -98,7 +98,7 @@ Class Jwt{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)]);
+				return ['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type)];
 			}
 			if($wf_op=='sign'){
 				 if ($post !='') {
@@ -109,7 +109,7 @@ Class Jwt{
 						return unit::msg_return($flowinfo['msg'],1);
 					}
 				 }
-				return json_encode(['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type),'submit'=>$data['ssing']]);
+				return ['info'=>$info,'Flow'=>self::WfCenter('Info',$wf_fid,$wf_type),'submit'=>$data['ssing']];
 			}
 			//调用当前审批流的审批流程图
 			if($wf_op=='flow'){
@@ -124,7 +124,7 @@ Class Jwt{
 				if(!$one){
                     return '未找到数据，请返回重试!';
 				}
-				return json_encode(['Flow'=>Flow::ProcessAll($flow_id)]);
+				return ['Flow'=>Flow::ProcessAll($flow_id)];
 			}
 		}
 		//超级接口
@@ -166,14 +166,14 @@ Class Jwt{
 	 */
 	function WfFlowCenter($act,$data=''){
 		if($act =='index'){
-			return json_encode(['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'List'=>Flow::GetFlow()]);
+			return ['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'List'=>Flow::GetFlow()];
 		}
 		if($act =='wfjk'){
 			$data = Info::worklist();
 			foreach($data as $k=>$v){
 					$data[$k]['btn'] =lib::tpflow_btn($v['from_id'],$v['from_table'],100,self::WfCenter('Info',$v['from_id'],$v['from_table']));
 			  }
-			return json_encode(['Url'=>unit::gconfig('wf_url'),'List'=>$data]);
+			return ['Url'=>unit::gconfig('wf_url'),'List'=>$data];
 		}
 		if($act =='wfend'){
 			return (new TaskService())->doSupEnd($data,unit::getuserinfo('uid'));
@@ -194,7 +194,7 @@ Class Jwt{
 						return unit::msg_return($ret['data'],1);
 					}
 				}
-			  return json_encode(['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'Info'=>Flow::getWorkflow($data)]);
+			  return ['Url'=>unit::gconfig('wf_url'),'Type'=>Info::get_wftype(),'Info'=>Flow::getWorkflow($data)];
 		}
         return $act.'参数出错';
 	}
@@ -207,7 +207,7 @@ Class Jwt{
 	 */
 	function WfEntrustCenter($act,$data=''){
 		if($act =='index'){
-			 return json_encode(['List'=>Entrust::lists()]);
+			 return ['List'=>Entrust::lists()];
 		}
 		if($act =='add'){
 				if($data !='' && !is_numeric($data)){
@@ -218,7 +218,7 @@ Class Jwt{
 						return unit::msg_return($ret['data'],1);
 					}
 				}
-			  return json_encode(['Info'=>Entrust::find($data),'Type'=>Process::get_userprocess(unit::getuserinfo('uid'),unit::getuserinfo('role')),'user'=>User::GetUser()]);
+			  return ['Info'=>Entrust::find($data),'Type'=>Process::get_userprocess(unit::getuserinfo('uid'),unit::getuserinfo('role')),'user'=>User::GetUser()];
 		}
         return $act.'参数出错';
 	}
@@ -248,10 +248,10 @@ Class Jwt{
 			if(!$one){
 				return '未找到数据，请返回重试!';
 			}
-			return json_encode(['id'=>$one['id'],'FlowInfo'=>Flow::ProcessAll($flow_id),'Url'=>$urls['designapi']]);
+			return ['id'=>$one['id'],'FlowInfo'=>Flow::ProcessAll($flow_id),'Url'=>$urls['designapi']];
 		}
 		if($act=='save'){
-			return json_encode(Flow::ProcessLink($flow_id,$data));
+			return Flow::ProcessLink($flow_id,$data);
 		}
 		if($act=='check'){
 			return Flow::CheckFlow($flow_id);
@@ -259,26 +259,26 @@ Class Jwt{
 		if($act=='add'){
 			$one = Flow::getWorkflow($flow_id);
 			if(!$one){
-			  return json_encode(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
+			  return ['status'=>0,'msg'=>'添加失败,未找到流程','info'=>''];
 			}
-			return json_encode(Flow::ProcessAdd($flow_id));
+			return Flow::ProcessAdd($flow_id);
 		}
 		if($act=='delAll'){
-			return json_encode(Flow::ProcessDelAll($flow_id));
+			return Flow::ProcessDelAll($flow_id);
 		}
 		if($act=='del'){
-			return json_encode(Flow::ProcessDel($flow_id,$data));
+			return Flow::ProcessDel($flow_id,$data);
 		}
 		if($act=='saveatt'){
-			return json_encode(Flow::ProcessAttSave($data));
+			return Flow::ProcessAttSave($data);
 		}
 		if($act=='att'){
 			$info = Flow::ProcessAttView($data);
-			return json_encode(['info'=>$info]);
+			return ['info'=>$info];
 		}
 		if($act=='super_user'){
 			if($data['type_mode']=='user'){
-				return json_encode(['Url'=>$urls['designapi'],'kid'=>$data['kid'],'User'=>User::GetUser()]);
+				return ['Url'=>$urls['designapi'],'kid'=>$data['kid'],'User'=>User::GetUser()];
 				
 			}elseif($data['type_mode']=='role'){
 			   $info=User::GetRole();
@@ -286,7 +286,7 @@ Class Jwt{
 			   foreach($info as $k=>$v){
 					$user .='<option value="'.$v['id'].'">'.$v['username'].'</option>'; 
 			   }
-			   return json_encode(['Url'=>$urls['designapi'],'kid'=>'auto_role','User'=>User::GetRole()]);
+			   return ['Url'=>$urls['designapi'],'kid'=>'auto_role','User'=>User::GetRole()];
 			}else{
 				 return ['data'=>User::AjaxGet(trim($data['type']),$data['key']),'code'=>1,'msg'=>'查询成功！'];
 			}
@@ -307,7 +307,7 @@ Class Jwt{
 		}
 		if($act=='btn'){
 			$btn = Lib::tpflow_btn($data['id'],$data['type'],$data['status'],self::WfCenter('Info',$data['id'],$data['type'],$data['status']),1);
-			return json_encode($btn);
+			return $btn;
 		}
 		if($act=='status'){
 			return Lib::tpflow_status($data['status'],1);

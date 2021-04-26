@@ -14,16 +14,17 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '5.0.4' );
+define('Tpflow_Ver', '5.0.6' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
 use tpflow\lib\unit;
+use think\facade\Request;
 
 	class Api{
 	public function  __construct(){
 		if(unit::getuserinfo()==-1){
-			echo 'Access Error!';exit;
+            die('Access Error!');
 		}
     }
 	 /**
@@ -35,13 +36,13 @@ use tpflow\lib\unit;
 		if($act=='start'){
 			if (unit::is_post()) {
 				$data = input('post.');
-				echo Control::WfCenter($act,input('wf_fid'),input('wf_type'),$data);
+                return unit::return_msg(Control::WfCenter($act,input('wf_fid'),input('wf_type'),$data));
 			 }else{
 				 return Control::WfCenter($act,input('wf_fid'),input('wf_type'));
 			 }
 		}
 		if($act=='endflow'||$act=='cancelflow'){
-			echo Control::WfCenter($act,'','',['bill_table'=>input('bill_table'),'bill_id'=>input('bill_id')]);
+            return unit::return_msg(Control::WfCenter($act,'','',['bill_table'=>input('bill_table'),'bill_id'=>input('bill_id')]));
 		}
 		if($act=='do'){
 			$wf_op = input('wf_op') ?? 'check';
@@ -49,9 +50,9 @@ use tpflow\lib\unit;
 			$submit = input('submit') ?? 'ok';
 			if (unit::is_post()) {
 				$post = input('post.');
-				echo Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit],$post);
+                return unit::return_msg(Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit],$post));
 			 }else{
-				 echo Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]);
+                return unit::return_msg(Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]));
 			 }
 		}
 	}
@@ -63,19 +64,19 @@ use tpflow\lib\unit;
 	 */
 	public function designapi($act){
 		if($act=='welcome' ||$act=='check' || $act=='add' || $act=='delAll' || $act=='wfdesc'){
-			echo Control::WfDescCenter($act,input('flow_id'));
+            return unit::return_msg(Control::WfDescCenter($act,input('flow_id')));
 		}
 		if($act=='save'){
-			echo Control::WfDescCenter($act,input('flow_id'),input('process_info'));
+            return unit::return_msg(Control::WfDescCenter($act,input('flow_id'),input('process_info')));
 		}
 		if($act=='del' ||$act=='att'){
-			echo Control::WfDescCenter($act,input('flow_id'),input('id'));
+            return unit::return_msg(Control::WfDescCenter($act,input('flow_id'),input('id')));
 		}
 		if($act=='saveatt'){
-			echo Control::WfDescCenter($act,'',input('post.'));
+            return unit::return_msg(Control::WfDescCenter($act,'',input('post.')));
 		}
 		if($act=='super_user'){
-			return Control::WfDescCenter($act,'',['kid'=>input('kid'),'type_mode'=>input('type_mode'),'key'=>input('key'),'type'=>input('type')]);
+			return unit::return_msg(Control::WfDescCenter($act,'',['kid'=>input('kid'),'type_mode'=>input('type_mode'),'key'=>input('key'),'type'=>input('type')]));
 		}
 	}
 	/**
@@ -94,10 +95,10 @@ use tpflow\lib\unit;
 		if($act=='add'){
 			if (unit::is_post()) {
 				$data = input('post.');
-				echo Control::WfFlowCenter($act,$data);
+                return unit::return_msg(Control::WfFlowCenter($act,$data));
 			 }else{
                 $data = input('id') ?? -1;
-				 echo Control::WfFlowCenter($act,$data);
+                return unit::return_msg(Control::WfFlowCenter($act,$data));
 			 }
 		}
 		if($act=='wfend'){

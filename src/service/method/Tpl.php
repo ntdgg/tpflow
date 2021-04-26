@@ -311,7 +311,7 @@ Class Tpl{
 		 $urls= unit::gconfig('wf_url');
 		//流程添加，编辑，查看，删除
 		if($act=='welcome'){
-			return '<br/><br/><style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; }h1{ font-size: 40px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 26px }</style><div style="padding: 24px 48px;"> <h1>\﻿ (•◡•) / </h1><p> TpFlow v5.0正式版<br/><span style="font-size:16px;">PHP优秀的开源工作流引擎</span></p><span style="font-size:13px;">[ ©2018-2020 Guoguo <a href="https://www.cojz8.com/">TpFlow</a>  ]</span></div>';
+			return '<br/><br/><style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; }h1{ font-size: 40px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 26px }</style><div style="padding: 24px 48px;"> <h1>\﻿ (•◡•) / </h1><p> TpFlow v5.0正式版<br/><span style="font-size:16px;">PHP优秀的开源工作流引擎</span></p><span style="font-size:13px;">[ ©2018-2022 Guoguo <a href="https://www.cojz8.com/">TpFlow</a>  ]</span></div>';
 		}
 		if($act=='wfdesc'){
 			$one = Flow::getWorkflow($flow_id);
@@ -321,26 +321,26 @@ Class Tpl{
 			return lib::tmp_wfdesc($one['id'],Flow::ProcessAll($flow_id),$urls['designapi']);
 		}
 		if($act=='save'){
-			return json_encode(Flow::ProcessLink($flow_id,$data));
+			return Flow::ProcessLink($flow_id,$data);
 		}
 		if($act=='check'){
-			return json_encode(Flow::CheckFlow($flow_id));
+			return Flow::CheckFlow($flow_id);
 		}
 		if($act=='add'){
 			$one = Flow::getWorkflow($flow_id);
 			if(!$one){
-			  return json_encode(['status'=>0,'msg'=>'添加失败,未找到流程','info'=>'']);
+			  return ['status'=>0,'msg'=>'添加失败,未找到流程','info'=>''];
 			}
-			return json_encode(Flow::ProcessAdd($flow_id));
+			return Flow::ProcessAdd($flow_id);
 		}
 		if($act=='delAll'){
-			return json_encode(Flow::ProcessDelAll($flow_id));
+			return Flow::ProcessDelAll($flow_id);
 		}
 		if($act=='del'){
-			return json_encode(Flow::ProcessDel($flow_id,$data));
+			return Flow::ProcessDel($flow_id,$data);
 		}
 		if($act=='saveatt'){
-			return json_encode(Flow::ProcessAttSave($data));
+			return Flow::ProcessAttSave($data);
 		}
 		if($act=='att'){
 			$info = Flow::ProcessAttView($data);
@@ -402,7 +402,7 @@ Class Tpl{
 			$map[] = ['f.sponsor_ids','find in set',unit::getuserinfo('uid')];
 			$data = Run::dataRunProcess($map,$field,$order,$group);
 		}
-		return json_encode(['code'=>1,'msg'=>'查询成功','data'=>$data]);
+		return ['code'=>1,'msg'=>'查询成功','data'=>$data];
 	}
 	
 }

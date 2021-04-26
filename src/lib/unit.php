@@ -23,6 +23,30 @@ class unit{
 	{
 	   return isset($_SERVER['REQUEST_METHOD']) && strtoupper($_SERVER['REQUEST_METHOD'])=='POST';	
 	}
+
+    /**
+     * return_msg 通用数据返回处理
+     * @param $data
+     * @return int|mixed|\think\response\Json
+     */
+	public static function return_msg($data){
+
+        $className = unit::gconfig('return_msg');
+        if($className==''){
+            if($_SERVER['REQUEST_METHOD']=='JSON'||$_SERVER['REQUEST_METHOD']=='POST'){
+                return json($data);
+            }else{
+                return $data;
+            }
+
+        }else{
+            if(!class_exists($className)){
+                return '404,对不起，您的自定义返回类不存在！';
+            }
+            return (new $className())->Msg($data);
+        }
+    }
+
 	/**
 	 * 加载自定义事务驱动文件
 	 *
@@ -86,7 +110,7 @@ class unit{
 	 */
 	public static function msg_return($msg = "操作成功！", $code = 0,$data = [])
 	{
-		return json_encode(["code" => $code, "msg" => $msg, "data" => $data]);
+		return ["code" => $code, "msg" => $msg, "data" => $data];
 	}
 	/**
 	 * 步骤转换

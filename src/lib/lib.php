@@ -136,8 +136,7 @@ class lib
 							<span class="select-box"><select name="type"  class="select"  datatype="*" >{$type}</select></span>
 							</td></tr>
 							<tr><th style='width:75px'>排序值</th>
-							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr>
-							<tr>
+							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr><tr>
 							<th>流程描述</th><td style='width:330px;text-align: left;'>
 								<textarea name='flow_desc'  datatype="*" style="width:100%;height:55px;">{$info['flow_desc']}</textarea></td>
 							</tr><tr class='text-c' >
