@@ -108,7 +108,7 @@ var Tpflow = {
 			 var nodeId = "window" + row.id;
             $(nodeDiv).attr("id",nodeId)
             .attr("style",row.style +'text-align: left;')
-            .attr("process_to",row.process_to).attr("onclick",'Tpflow.lopen("属性设计","'+Server_Url+'?id='+row.id+'&act=att",50,60)')
+            .attr("process_to",row.process_to)
             .attr("process_id",row.id)
             .addClass("process-step wf_btn")
             .html('<span class="process-flag" style="text-align: left;"><img src="'+Tpflow.Ico()+'" width=18px alt=""></span>&nbsp;' +row.process_name + '<br/><img alt="" src="'+Tpflow.Ico(1)+'" width=18px>&nbsp;' +row.mode + '<br/><img alt="" src="'+Tpflow.Ico(2)+'" width=18px>&nbsp;' +row.name + '' );
@@ -121,7 +121,8 @@ var Tpflow = {
         _this.find('#wf_active_id').val($(this).attr("process_id"));
         clearTimeout(timeout);
 		Tpflow.DClick($(this).attr("process_id"));
-        timeout = setTimeout('',300);
+        
+		 timeout = setTimeout(Tpflow.Click(),300);
     }).live('dblclick',function(){
         clearTimeout(timeout);
 		if(confirm("你确定删除步骤吗？")){
@@ -211,6 +212,9 @@ var Tpflow = {
 			
         });
 	},
+	Click : function(){
+		return 123;
+	},
 	show : function(processData) {
 		_this.append('<input type="hidden" id="wf_active_id" value="0"/>');
 		_this.append('<div id="wf_process_info"></div>');
@@ -293,7 +297,7 @@ var Tpflow = {
 	},
 	DClick : function(id) {
 		var url = Server_Url+"?id="+id+"&act=att";
-		$('#iframepage').attr('src',url);
+		Tpflow.lopen("属性设计",url,50,60);
 	},
 	Api : function(Action) {
 		var reload = false;
