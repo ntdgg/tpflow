@@ -10,18 +10,18 @@
  */
 var Tpflow = {
 	lopen : function(title,url,w,h) {
-		if (title == null || title == '') {
+		if (title == null || title === '') {
 				title=false;
-			};
-			if (w == null || w == '') {
+			}
+			if (w === null || w === '') {
 				w=($(window).width());
-			};
-			if (h == null || h == '') {
+			}
+			if (h === null || h === '') {
 				h=($(window).height());
-			};
+			}
 			layer.open({
 				type: 2,
-				area: [w+'px', h+'px'],
+				area: [w+'%', h+'%'],
 				fix: false, //不固定
 				maxmin: true,
 				shade:0.4,
@@ -29,12 +29,12 @@ var Tpflow = {
 				content: url
 			});
 	},
-	lclose : function(title,url,w,h) {
+	lclose : function() {
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.close(index);
 	},
 	common_return : function(data) {
-		if (data.code == 0) {
+		if (data.code === 0) {
 			layer.msg(data.msg,{icon:1,time: 1500},function(){
 					parent.location.reload(); // 父页面刷新
 			});          
@@ -51,11 +51,11 @@ var Tpflow = {
 			  else {
 				  var idx = -1;
 				  for (var i = 0; i < aConnections.length; i++) {
-					  if (aConnections[i] == conn) {
+					  if (aConnections[i] === conn) {
 						  idx = i; break;
 					  }
 				  }
-				  if (idx != -1) aConnections.splice(idx, 1);
+				  if (idx !== -1) aConnections.splice(idx, 1);
 			  }
 			  if (aConnections.length > 0) {
 				  var s = "";
@@ -77,7 +77,7 @@ var Tpflow = {
 				  parent:p,
 				  anchor:"Continuous",
 				  endpoint:[ "Dot", { radius:1 } ],
-				  connector:[ "StateMachine", { stub:[5, 5] } ],
+				  connector:[ "Flowchart", { stub:[5, 5] } ],
 				  connectorStyle:{lineWidth:2,strokeStyle:"#2d6dcc",joinstyle:"round"},
 				  hoverPaintStyle:{lineWidth:2,strokeStyle:"#0300FF"},
 				  dragOptions:{},
@@ -108,27 +108,26 @@ var Tpflow = {
 			 var nodeId = "window" + row.id;
             $(nodeDiv).attr("id",nodeId)
             .attr("style",row.style +'text-align: left;')
-            .attr("process_to",row.process_to)
+            .attr("process_to",row.process_to).attr("onclick",'Tpflow.lopen("属性设计","'+Server_Url+'?id='+row.id+'&act=att",50,60)')
             .attr("process_id",row.id)
             .addClass("process-step wf_btn")
-            .html('<span class="process-flag" style="text-align: left;"><img src="'+Tpflow.Ico()+'" width=18px></span>&nbsp;' +row.process_name + '<br/><img src="'+Tpflow.Ico(1)+'" width=18px>&nbsp;' +row.mode + '<br/><img src="'+Tpflow.Ico(2)+'" width=18px>&nbsp;' +row.name + '' );
+            .html('<span class="process-flag" style="text-align: left;"><img src="'+Tpflow.Ico()+'" width=18px alt=""></span>&nbsp;' +row.process_name + '<br/><img alt="" src="'+Tpflow.Ico(1)+'" width=18px>&nbsp;' +row.mode + '<br/><img alt="" src="'+Tpflow.Ico(2)+'" width=18px>&nbsp;' +row.name + '' );
             _this.append(nodeDiv);
             lastProcessId = row.id;
         });
 	 var timeout = null;
     //点击或双击事件,这里进行了一个单击事件延迟，因为同时绑定了双击事件
 	$(".process-step").live('click',function(){
-        _this.find('#wf_active_id').val($(this).attr("process_id")),
+        _this.find('#wf_active_id').val($(this).attr("process_id"));
         clearTimeout(timeout);
-        var obj = this;
 		Tpflow.DClick($(this).attr("process_id"));
-        timeout = setTimeout(Tpflow.Click(),300);
+        timeout = setTimeout('',300);
     }).live('dblclick',function(){
         clearTimeout(timeout);
 		if(confirm("你确定删除步骤吗？")){
 			var activeId = _this.find("#wf_active_id").val();//右键当前的ID
 			$.post(Server_Url+'?act=del',{"flow_id":the_flow_id,"id":activeId},function(data){
-				if(data.code==0){
+				if(data.code===0){
 					 if(activeId>0){
 						$("#window"+activeId).remove();
 					 }
@@ -165,7 +164,7 @@ var Tpflow = {
         paintStyle:{ fillStyle:"#ec912a",radius:1 },
         hoverPaintStyle:{lineWidth:3,strokeStyle:"#da4f49"},
         beforeDrop:function(params){
-            if(params.sourceId == params.targetId) return false;/*不能链接自己*/
+            if(params.sourceId === params.targetId) return false;/*不能链接自己*/
             var j = 0;
             $('#wf_process_info').find('input').each(function(i){
                 var str = $('#' + params.sourceId).attr('process_id') + ',' + $('#' + params.targetId).attr('process_id');
@@ -223,7 +222,7 @@ var Tpflow = {
 				  parent:p,
 				  anchor:"Continuous",
 				  endpoint:[ "Dot", { radius:1 } ],
-				  connector:[ "Flowchart", { stub:[5, 5] } ],
+				  connector:[ "Straight", { stub:[5, 5] } ],
 				  connectorStyle:{lineWidth:3,strokeStyle:"#49afcd",joinstyle:"round"},
 				  hoverPaintStyle:{lineWidth:3,strokeStyle:"#da4f49"},
 				  dragOptions:{},
@@ -292,7 +291,6 @@ var Tpflow = {
 			
         });
 	},
-	
 	DClick : function(id) {
 		var url = Server_Url+"?id="+id+"&act=att";
 		$('#iframepage').attr('src',url);
@@ -308,7 +306,7 @@ var Tpflow = {
 				reload = true;
 				break;
 			case 'att':
-				
+
 				return ;
 				break;
 			case 'add':
@@ -322,18 +320,14 @@ var Tpflow = {
 				location.reload();return;
 				break;
 			case 'Help':
-				layer.open({
-					  type: 2,
-					  title: '工作流官网',
-					  shadeClose: true,
-					  shade: false,
-					  maxmin: true, //开启最大化最小化按钮
-					  area: ['893px', '600px'],
-					  content: '//cojz8.com/'
-				});
+				window.open("//www.cojz8.com/");
+				break;
+			case 'Doc':
+				window.open("//gadmin8.com/index/product.html");
 				break;
 			 default:
-				
+				 window.open("//gitee.com/ntdgg/tpflow");
+
 		} 
 		var Url = Server_Url+'?act='+Action;
 		Tpflow.sPost(Url,PostData,reload);
@@ -378,9 +372,6 @@ var Tpflow = {
 				layer.msg(data.msg);
 			},'json');
 		 }
-	},
-	Click : function(){
-		return 123;
 	},
 	GetJProcessData : function(){
 		try{
@@ -427,13 +418,13 @@ var Tpflow = {
 			$("#auto_sponsor_ids").removeAttr("datatype");
 			$("#auto_role_ids").removeAttr("datatype");
 			if(apid==3){
-				 $("#range_user_ids").attr({datatype:"*",nullmsg:"请选择办理人员1"});
+				 $("#range_user_ids").attr({datatype:"*",nullmsg:"请选择办理人员"});
 			}
 			if(apid==4){
-				$("#auto_sponsor_ids").attr({datatype:"*",nullmsg:"请选择办理人员2"});
+				$("#auto_sponsor_ids").attr({datatype:"*",nullmsg:"请选择办理人员"});
 			}
 			if(apid==5){
-				$("#auto_role_ids").attr({datatype:"*",nullmsg:"请选择办理角色3"});
+				$("#auto_role_ids").attr({datatype:"*",nullmsg:"请选择办理角色"});
 			}
 			$(".auto_person").hide();
 			$("#auto_person_"+apid).show();

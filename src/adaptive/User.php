@@ -8,59 +8,68 @@
  * Author: guoguo(1838188896@qq.com)
  *+------------------
  */
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace tpflow\adaptive;
 
 use tpflow\lib\unit;
 
-Class User{
-    
-	protected $mode ; 
-    public function  __construct(){
-		if(unit::gconfig('wf_db_mode')==1){
+class User
+{
+	
+	protected $mode;
+	
+	public function __construct()
+	{
+		if (unit::gconfig('wf_db_mode') == 1) {
 			$className = '\\tpflow\\custom\\think\\AdapteeUser';
-		}else{
-			$className = unit::gconfig('wf_db_namespace').'AdapteeUser';
+		} else {
+			$className = unit::gconfig('wf_db_namespace') . 'AdapteeUser';
 		}
 		$this->mode = new $className();
-    }
+	}
+	
 	/**
 	 * 获取用户列表
 	 *
 	 */
-	public static function GetUser() 
+	public static function GetUser()
 	{
 		return (new User())->mode->GetUser();
 	}
+	
 	/**
 	 * 获取角色列表
 	 *
 	 */
-	public static function GetRole() 
+	public static function GetRole()
 	{
 		return (new User())->mode->GetRole();
 	}
+	
 	/**
 	 * 获取AJAX信息
 	 *
 	 */
-	public static function AjaxGet($type,$keyword){
-		return (new User())->mode->AjaxGet($type,$keyword);
+	public static function AjaxGet($type, $keyword)
+	{
+		return (new User())->mode->AjaxGet($type, $keyword);
 	}
+	
 	/**
 	 * 查询用户消息
 	 *
 	 */
-	public static function GetUserInfo($id) 
+	public static function GetUserInfo($id)
 	{
 		return (new User())->mode->GetUserInfo($id);
 	}
+	
 	/**
 	 * 查询用户名称
 	 *
 	 */
-	public static function GetUserName($uid) 
+	public static function GetUserName($uid)
 	{
 		return (new User())->mode->GetUserName($uid);
 	}
