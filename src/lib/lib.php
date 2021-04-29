@@ -792,7 +792,7 @@ php;
               </select></td></tr>
 			 
 			<tr class='auto_person hide' id="auto_person_3" ><td>
-			<input type="button" value="自由选择" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=range_user&type_mode=user','40','50')">
+			<input type="button" value="自由选择" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=range_user&type_mode=user','60','95')">
 			</td><td>
 				<input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one['range_user_ids']}" datatype="*" nullmsg="请选择办理人员！">
                     <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one['range_user_text']}"> 
@@ -800,7 +800,7 @@ php;
 					</td>	
 			</tr>
 			<tr class='auto_person hide' id="auto_person_4" ><td>
-			<input type="button" value="指定人员" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_sponsor&type_mode=user','40','50')">
+			<input type="button" value="指定人员" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_sponsor&type_mode=user','60','95')">
 			</td><td> 
 			
 			<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one['auto_sponsor_ids']}">
@@ -809,7 +809,7 @@ php;
 					</td>	
 			</tr>
 			<tr class='auto_person hide' id="auto_person_5" ><td>
-			<input type="button" value="指定角色" onclick="Tpflow.lopen('指定角色','{$urls['designapi']}?act=super_user&kid=&type_mode=role','40','50')">
+			<input type="button" value="指定角色" onclick="Tpflow.lopen('指定角色','{$urls['designapi']}?act=super_user&kid=&type_mode=role','60','95')">
 			</td><td> 
 			<input type="hidden" name="auto_role_ids" id="auto_role_ids" value="{$one['auto_role_ids']}" >
 			<span id='auto_role_html'>{$one['auto_role_text']}</span>

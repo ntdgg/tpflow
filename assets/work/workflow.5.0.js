@@ -8,6 +8,7 @@
  *
  * Date: 2020年11月28日21:12:20
  */
+
 var Tpflow = {
 	lopen : function(title,url,w,h) {
 		if (title == null || title === '') {
@@ -115,30 +116,31 @@ var Tpflow = {
             _this.append(nodeDiv);
             lastProcessId = row.id;
         });
-	 var timeout = null;
-    //点击或双击事件,这里进行了一个单击事件延迟，因为同时绑定了双击事件
+		//双击事件
+		$('.process-step').mousedown(function(e){
+			if(e.which===3){
+				if(confirm("你确定删除步骤吗？")){
+					var activeId = _this.find("#wf_active_id").val();//右键当前的ID
+					$.post(Server_Url+'?act=del',{"flow_id":the_flow_id,"id":activeId},function(data){
+						if(data.code===0){
+							if(activeId>0){
+								$("#window"+activeId).remove();
+							}
+							Tpflow.Api('save');
+						}
+						layer.msg(data.msg);
+
+					},'json');
+				}
+			}
+			//alert(e.which) // 1 = 鼠标左键 left; 2 = 鼠标中键; 3 = 鼠标右键
+			return false;//阻止链接跳转
+		})
+    //单击事件
 	$(".process-step").live('click',function(){
         _this.find('#wf_active_id').val($(this).attr("process_id"));
-        clearTimeout(timeout);
-		Tpflow.DClick($(this).attr("process_id"));
-        
-		 timeout = setTimeout(Tpflow.Click(),300);
-    }).live('dblclick',function(){
-        clearTimeout(timeout);
-		if(confirm("你确定删除步骤吗？")){
-			var activeId = _this.find("#wf_active_id").val();//右键当前的ID
-			$.post(Server_Url+'?act=del',{"flow_id":the_flow_id,"id":activeId},function(data){
-				if(data.code===0){
-					 if(activeId>0){
-						$("#window"+activeId).remove();
-					 }
-					Tpflow.Api('save');
-				}
-				layer.msg(data.msg);
-				
-			},'json');
-		 }
-    });
+		 Tpflow.DClick($(this).attr("process_id"))
+    })
 	 jsPlumb.draggable(jsPlumb.getSelector(".process-step"),{containment: 'parent'});//允许拖动
 	 initEndPoints();
 	 jsPlumb.bind("jsPlumbConnection", function(info) {
@@ -298,6 +300,7 @@ var Tpflow = {
 	DClick : function(id) {
 		var url = Server_Url+"?id="+id+"&act=att";
 		Tpflow.lopen("属性设计",url,50,60);
+		event.stopPropagation();
 	},
 	Api : function(Action) {
 		var reload = false;
