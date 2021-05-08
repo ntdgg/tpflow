@@ -120,7 +120,7 @@ var Tpflow = {
 		$('.process-step').mousedown(function(e){
 			if(e.which===3){
 				if(confirm("你确定删除步骤吗？")){
-					var activeId = _this.find("#wf_active_id").val();//右键当前的ID
+					var activeId = $(this).attr("process_id");//右键当前的ID
 					$.post(Server_Url+'?act=del',{"flow_id":the_flow_id,"id":activeId},function(data){
 						if(data.code===0){
 							if(activeId>0){
