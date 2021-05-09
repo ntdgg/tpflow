@@ -58,6 +58,22 @@ CREATE TABLE `t_wf_flow` (
   `add_time` int(11) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='*工作流表';
+DROP TABLE IF EXISTS `t_wf_flow`;
+CREATE TABLE `t_wf_flow` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '流程类别',
+  `flow_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '流程名称',
+  `flow_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '描述',
+  `sort_order` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0不可用1正常',
+  `is_del` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `uid` int(11) DEFAULT NULL COMMENT '添加用户',
+  `add_time` int(11) DEFAULT NULL COMMENT '添加时间',
+  `field_name` varchar(255) DEFAULT NULL COMMENT '过滤字段名',
+  `field_value` varchar(255) DEFAULT NULL COMMENT '过滤字段值',
+  `is_field` int(11) DEFAULT '0' COMMENT '是否过滤',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='*工作流表';
 
 -- ----------------------------
 -- 流程步骤表

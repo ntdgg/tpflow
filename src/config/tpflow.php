@@ -16,6 +16,7 @@ return [
 	'gateway_mode' => 1,//1,默认使用Tp的助手函数
 	'gateway_action' => '\\bill\\Gateway',//自定义方法返回数据 命名空间 中的GetUserInfo
 	'msg_api' => '\\sys\\Msg',//消息接口
+	'start_flow'=>['gongdan'],//流程发起控制，填写 table 则只有填写人可以发起工作流
 	'user_id' => 'uid',//用户的session名称
 	'role_id' => 'role',//用户角色的session名称
 	'work_table' => '[work]',//特定的表前缀，用于接入工作流的实体表

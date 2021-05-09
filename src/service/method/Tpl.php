@@ -62,7 +62,16 @@ class Tpl
 					return unit::msg_return($flow['msg'], 1);
 				}
 			}
-			$flow = Flow::getWorkflowByType($wf_type);;
+			$flow = Flow::getWorkflowByType($wf_type);
+			//20210508 新增权限过滤
+			foreach($flow as $k=>$v){
+			    if($v['is_field']==1){
+                    $field_value = Bill::getbillvalue($wf_type,$wf_fid,$v['field_name']);
+                    if($field_value != $v['field_value']){
+                        unset($flow[$k]);
+                    }
+                }
+            }
 			$op = '';
 			foreach ($flow as $k => $v) {
 				$op .= '<option value="' . $v['id'] . '">' . $v['flow_name'] . '</option>';
@@ -199,7 +208,7 @@ class Tpl
 				if ($v['edit'] == '') {
 					$url_edit = $urls['wfapi'] . '?act=add&id=' . $v['id'];
 					$url_desc = $urls['designapi'] . '?act=wfdesc&flow_id=' . $v['id'];
-					$btn = "<a class='button' onclick=Tpflow.lopen('修改','" . $url_edit . "','55','40')> 修改</a> <a class='button' onclick=Tpflow.lopen('设计','" . $url_desc . "',100,100)> 设计</a> ";
+					$btn = "<a class='button' onclick=Tpflow.lopen('修改','" . $url_edit . "','55','60')> 修改</a> <a class='button' onclick=Tpflow.lopen('设计','" . $url_desc . "',100,100)> 设计</a> ";
 				} else {
 					$btn = "<a class='btn  radius size-S'> 运行中....</a>";
 				}
@@ -208,7 +217,7 @@ class Tpl
 				} else {
 					$btn .= "<a class='button' onclick=Tpflow.wfconfirm('" . $urls['wfapi'] . '?act=add' . "',{'id':" . $v['id'] . ",'status':0},'您确定要启用该工作流吗？')> 启用</a>";
 				}
-				$tr .= '<tr><td>' . $v['id'] . '</td><td>' . $v['flow_name'] . '</td><td>' . $v['type'] . ($type[$v['type']] ?? 'Err') . '</td><td>' . date('Y/m/d H:i', $v['add_time']) . '</td><td>' . $status[$v['status']] . '</td><td>' . $btn . '</td></tr>';
+				$tr .= '<tr><td>' . $v['id'] . '</td><td>' . $v['flow_name'] . '</td><td>' .($type[$v['type']] ?? 'Err') . '</td><td>' . date('Y/m/d H:i', $v['add_time']) . '</td><td>' . $status[$v['status']] . '</td><td>' . $btn . '</td></tr>';
 			}
 			return lib::tmp_index($urls['wfapi'] . '?act=add', $tr, $html);
 		}

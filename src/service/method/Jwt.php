@@ -12,6 +12,7 @@ declare (strict_types=1);
 
 namespace tpflow\service\method;
 
+use tpflow\adaptive\Bill;
 use tpflow\lib\unit;
 use tpflow\lib\lib;
 use tpflow\adaptive\Info;
@@ -59,7 +60,17 @@ class Jwt
 					return unit::msg_return($flow['msg'], 1);
 				}
 			}
-			return ['wf_type' => $wf_type, 'wf_fid' => $wf_fid, 'Flow' => Flow::getWorkflowByType($wf_type)];
+            $flow = Flow::getWorkflowByType($wf_type);
+            foreach($flow as $k=>$v){
+                if($v['is_field']==1){
+                    $field_value = Bill::getbillvalue($wf_type,$wf_fid,$v['field_name']);
+                    if($field_value != $v['field_value']){
+                        unset($flow[$k]);
+                    }
+                }
+            }
+
+			return ['wf_type' => $wf_type, 'wf_fid' => $wf_fid, 'Flow' => $flow];
 		}
 		//流程审批
 		if ($act == 'do') {

@@ -13,6 +13,7 @@ namespace tpflow\lib;
 
 use tpflow\adaptive\Process;
 use tpflow\adaptive\User;
+use tpflow\adaptive\Bill;
 
 class lib
 {
@@ -49,10 +50,24 @@ class lib
 		$url = ['url' => $urls['wfdo'] . '?act=do&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid];
 		switch ($status) {
 			case 0:
+                $start_flow = unit::gconfig('start_flow');
+                $btn_access = true ;
+                if (in_array($wf_type, $start_flow)) {
+                    $uid = Bill::getbillvalue($wf_type,$wf_fid,'uid');
+                    if($uid != unit::getuserinfo('uid')){
+                        $btn_access=false;
+                    }
+
+                }
+
 				if ($return == 1) {
 					return ['Url' => $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid, 'User' => '', 'status' => 1];
 				}
-				return '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,25)>发起工作流</span>';
+				if(!$btn_access){
+                    return '';
+                }
+                return '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>发起工作流</span>';
+
 				break;
 			case 1:
 				$st = 0;
@@ -126,6 +141,9 @@ class lib
 			$info['sort_order'] = '';
 			$info['flow_desc'] = '';
 			$info['type'] = '';
+            $info['field_name'] = '';
+            $info['field_value'] = '';
+            $info['is_field'] = 0;
 		}
 		$tmp = self::commontmp('Tpflow V5.0 ');
 		$view = <<<php
@@ -137,18 +155,23 @@ class lib
 							<th>流程类型</th><td style='width:330px;text-align: left;'>
 							<span class="select-box"><select name="type"  class="select"  datatype="*" >{$type}</select></span>
 							</td></tr>
+							<tr><th style='width:75px'>单据过滤</th>
+							<td style='width:330px;text-align: left;'>
+							过滤:<select name="is_field"  class="select"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select><br/>
+							字段:<input type="text" class="input-text" value="{$info['field_name']}" name="field_name"><br/>数值:<input type="text" class="input-text" value="{$info['field_value']}" name="field_value"   ></td></tr><tr>
 							<tr><th style='width:75px'>排序值</th>
 							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr><tr>
 							<th>流程描述</th><td style='width:330px;text-align: left;'>
 								<textarea name='flow_desc'  datatype="*" style="width:100%;height:55px;">{$info['flow_desc']}</textarea></td>
 							</tr><tr class='text-c' >
 							<td colspan=2>
-							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button><button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
+							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 						</table>
 					</form>{$tmp['js']}{$tmp['form']}
 			<script type="text/javascript">
 			$(function(){
 				$("[name='type']").find("[value='{$info['type']}']").attr("selected",true);
+				$("[name='is_field']").find("[value='{$info['is_field']}']").attr("selected",true);
 			});
 			</script>
 php;
@@ -309,7 +332,7 @@ php;
 			</td></tr><tr>
 			<td>审核意见：</td><td style="text-align:left"><input type="text" class="input-text" name="check_con"  datatype="*" >
 			</td></tr>
-			<tr><td colspan='2' class='text-c'><button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
+			<tr><td colspan='2' style='text-align:center'><button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" style="background-color:#666 !important" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 		</table>
 	</form>{$tmp['js']}{$tmp['form']}
 </body>
@@ -638,7 +661,7 @@ php;
 {$tmp['head']}
 <div class="page-container">
 <div style='float: left;width:115px'>
-	<a onclick="Tpflow.lopen('添加工作流','{$url}',55,40)" class="button ">添加</a> <a onclick="location.reload();" class="button ">刷新</a><hr/>
+	<a onclick="Tpflow.lopen('添加工作流','{$url}',55,60)" class="button ">添加</a> <a onclick="location.reload();" class="button ">刷新</a><hr/>
 	<b style='font-size: 16px;'>工作流类别</b>
 	<ul id="art">
 	{$html}

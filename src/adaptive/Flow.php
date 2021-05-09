@@ -45,10 +45,12 @@ class Flow
 	 */
 	static function getWorkflowByType($wf_type)
 	{
-		$workflow = [];
 		if ($wf_type == '') {
-			return $workflow;
+			return [];
 		}
+
+
+
 		$map[] = ['is_del', '=', 0];
 		$map[] = ['status', '=', 0];
 		$map[] = ['type', '=', $wf_type];
