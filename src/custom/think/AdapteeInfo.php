@@ -26,7 +26,7 @@ class AdapteeInfo
 	function get_wftype()
 	{
 		if (unit::gconfig('wf_type_mode') == 0) {
-			return Db::query("select replace(TABLE_NAME,'" . unit::gconfig('prefix') . "','')as name,TABLE_COMMENT as title from information_schema.tables where table_schema='" . unit::gconfig('database') . "' and TABLE_COMMENT like '" . unit::gconfig('work_table') . "%';");
+			return Db::query("select replace(TABLE_NAME,'" . unit::gconfig('prefix') . "','')as name,TABLE_COMMENT as title from information_schema.tables where table_schema='" . unit::gconfig('database') . "' and TABLE_COMMENT like '" . unit::gconfig('work_table') . "%' and TABLE_NAME not like '%_bak';");
 		} else {
 			return unit::gconfig('wf_type_data');
 		}
