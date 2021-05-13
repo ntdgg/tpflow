@@ -317,6 +317,7 @@ var Tpflow = {
 				return ;
 				break;
 			case 'add':
+				Tpflow.sPost(Server_Url+'?act=save',{"flow_id":the_flow_id,"process_info":Tpflow.GetJProcessData()},false);//新增步骤时，先保存布局信息
 				var PostData = {"flow_id":the_flow_id};
 				reload = true;
 				break;
