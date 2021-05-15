@@ -160,8 +160,8 @@ class Tpl
 			return unit::msg_return('Success!');
 		}
 		if ($act == 'cancelflow') {
-			if (is_object(unit::LoadClass($wf_type, $wf_fid))) {
-				$BillWork = (unit::LoadClass($wf_type, $wf_fid))->cancel();
+			if (is_object(unit::LoadClass($data['bill_table'], $data['bill_id']))) {
+				$BillWork = (unit::LoadClass($data['bill_table'], $data['bill_id']))->cancel();
 				if ($BillWork['code'] == -1) {
 					return $BillWork;
 				}
