@@ -59,7 +59,7 @@ class unit
 	 */
 	public static function LoadClass($class, $id, $run_id = '', $data = '')
 	{
-		$className = unit::gconfig('wf_work_namespace') . $class;
+		$className = unit::gconfig('wf_work_namespace') . str_replace('_','',$class);
 		if (!class_exists($className)) {
 			return -1;
 		}
