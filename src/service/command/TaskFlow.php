@@ -79,15 +79,17 @@ class TaskFlow
 			//结束该流程
 			Flow::end_flow($run_id);
 			$end = Flow::end_process($run_process, $check_con);
+            //更新单据状态
+            $bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
+            if (!$bill_update) {
+                return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
+            }
 			Log::AddrunLog($uid, $run_id, $config, 'ok');
 			if (!$end) {
 				return ['msg' => '结束流程错误！！！', 'code' => '-1'];
 			}
-			//更新单据状态
-			$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
-			if (!$bill_update) {
-				return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
-			}
+
+
 			//消息通知发起人
 		}
 		return ['msg' => 'success!', 'code' => '0'];

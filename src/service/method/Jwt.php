@@ -149,12 +149,12 @@ class Jwt
 			return unit::msg_return('Success!');
 		}
 		if ($act == 'cancelflow') {
-			if (is_object(unit::LoadClass($data['bill_table'], $data['bill_id']))) {
-				$BillWork = (unit::LoadClass($data['bill_table'], $data['bill_id']))->cancel();
-				if ($BillWork['code'] == -1) {
-					return $BillWork;
-				}
-			}
+            if (is_object(unit::LoadClass($data['bill_table'], $data['bill_id']))) {
+                $BillWork = (unit::LoadClass($data['bill_table'], $data['bill_id']))->cancel();
+                if ($BillWork['code'] == -1) {
+                    return $BillWork;
+                }
+            }
 			$bill_update = Bill::updatebill($data['bill_table'], $data['bill_id'], 0);
 			if (!$bill_update) {
 				return unit::msg_return($data['msg'], 1);

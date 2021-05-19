@@ -162,6 +162,7 @@ class Tpl
 		if ($act == 'cancelflow') {
 			if (is_object(unit::LoadClass($data['bill_table'], $data['bill_id']))) {
 				$BillWork = (unit::LoadClass($data['bill_table'], $data['bill_id']))->cancel();
+
 				if ($BillWork['code'] == -1) {
 					return $BillWork;
 				}
