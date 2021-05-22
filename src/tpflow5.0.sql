@@ -2,7 +2,7 @@
  *+------------------
  * Tpflow 5.0 数据库文件
  *+------------------
- * Copyright (c) 2006~2025 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2006~2025 http://cojz8.com All rights reserved.
  *+------------------
  * Author: guoguo(1838188896@qq.com)
 */
@@ -56,6 +56,9 @@ CREATE TABLE `t_wf_flow` (
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `uid` int(11) DEFAULT NULL COMMENT '添加用户',
   `add_time` int(11) DEFAULT NULL COMMENT '添加时间',
+  `field_name` varchar(255) NOT NULL DEFAULT '' COMMENT '字段名称',
+  `field_value` varchar(255) NOT NULL DEFAULT '' COMMENT '字段值',
+  `is_field` int(11) NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='*工作流表';
 
