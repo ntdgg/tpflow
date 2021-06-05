@@ -82,7 +82,7 @@ class lib
 					if ($flowinfo['sing_st'] == 0) {
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						$user_name = $flowinfo['status']['sponsor_text'];
-						if ($flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
+						if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
 							if (in_array($thisuser['thisuid'], $user)) {
 								$st = 1;
 							}
@@ -514,7 +514,8 @@ php;
     <div id="canvas">
         <div  style="width: 100%; height: 100%; position: relative;">
             <div  style="position: relative; overflow: hidden; width: 100%; height: 100%;">
-                <div id="flowdesign_canvas" width="100%" height="100%" >
+                <div id="flowdesign_canvas" width="100%" height="100%" style='background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+background-size: 20px 20px;'>
                 </div>
                 <div class="tool" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                         <div >
@@ -544,7 +545,6 @@ var the_flow_id ='{$id}';
 var Server_Url ="{$urlApi}";
 var _this = $('#flowdesign_canvas');
 $(function(){
-    
 	Tpflow.Init({$process_data});
 });
 </script>	
@@ -809,11 +809,20 @@ php;
 	   <tr><th>办理人员</th><td colspan='3'><select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！" onchange="Tpflow.onchange(this,'auto_person');">
                 <option value="">请选择</option>
 				{$process_type}
+				<option value="2" >协同人员</option>
 				 <option value="4" >指定人员</option>
                 <option value="5" >指定角色</option>
 				<option value="6" >事务接受</option>
               </select></td></tr>
-			 
+			 <tr class='auto_person hide' id="auto_person_2" ><td>
+			<input type="button" value="指定人员" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_xt&type_mode=user','60','95')">
+			</td><td>
+			
+			<input type="hidden" name="auto_xt_ids" id="auto_xt_ids" value="{$one['auto_xt_ids']}">
+             <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定办理人" name="auto_xt_text" id="auto_xt_text" value="{$one['auto_xt_text']}">
+				<span id='auto_xt_html'>{$one['auto_xt_text']}</span>
+					</td>
+			</tr>
 			<tr class='auto_person hide' id="auto_person_3" ><td>
 			<input type="button" value="自由选择" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=range_user&type_mode=user','60','95')">
 			</td><td>

@@ -92,6 +92,9 @@ class Process
 	static function GetProcessInfo($pid, $run_id = '')
 	{
 		$info = (new Process())->mode->find($pid);
+		if ($info['auto_person'] == 2) { //办理人员
+			$info['todo'] = $info['auto_xt_text'];
+		}
 		if ($info['auto_person'] == 3) { //办理人员
 			$info['todo'] = ['ids' => explode(",", $info['range_user_ids']), 'text' => explode(",", $info['range_user_text'])];
 		}
@@ -119,6 +122,9 @@ class Process
 	{
 		$info = (new Process())->mode->finds($ids);
 		foreach ($info as $k => $v) {
+			if ($v['auto_person'] == 2) { //办理人员
+				$info[$k]['todo'] = $v['auto_xt_text'];
+			}
 			if ($v['auto_person'] == 3) { //办理人员
 				$info[$k]['todo'] = ['ids' => explode(",", $v['range_user_ids']), 'text' => explode(",", $v['range_user_text'])];
 			}
@@ -208,6 +214,9 @@ class Process
 		if (count($pre) >= 1) {
 			$prearray[0] = '退回制单人修改';
 			foreach ($pre as $k => $v) {
+				if ($v['auto_person'] == 2) { //办理人员
+					$todo = $v['auto_xt_text'];
+				}
 				if ($v['auto_person'] == 4) { //办理人员
 					$todo = $v['auto_sponsor_text'];
 				}

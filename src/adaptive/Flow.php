@@ -161,6 +161,10 @@ class Flow
 			$style = json_decode($value['style'], true);
 			$mode = '<font color=red>未设置</font>';
 			$name = '<font color=red>未设置</font>';
+			if ($value['auto_person'] == 2) {
+				$mode = '协同人员';
+				$name = $value['auto_xt_text'];
+			}
 			if ($value['auto_person'] == 3) {
 				$mode = '办理人员';
 				$name = $value['range_user_text'];
@@ -353,6 +357,8 @@ class Flow
 			'work_ids' => $datas['work_ids'],  //新增事务功能
 			'work_msg' => $datas['work_msg'],  //新增事务MSG
 			'work_sql' => $datas['work_sql'],  //新增事务SQL
+			'auto_xt_text' => $datas['auto_xt_text'],  //20210526 新增协同模式
+			'auto_xt_ids' => $datas['auto_xt_ids'],  //20210526 新增协同模式
 			'is_sing' => $datas['is_sing'],
 			'is_back' => $datas['is_back'],
 			'out_condition' => json_encode($out_condition),
@@ -389,7 +395,6 @@ class Flow
 		$one['style'] = json_decode($one['style'], true);
 		$one['out_condition'] = unit::parse_out_condition($one['out_condition'], '');//json
 		$process_to_list = Process::SearchFlowProcess([['id', 'in', $one['process_tos']], ['is_del', '=', 0]], 'id,process_name,process_type');
-		
 		foreach ($process_to_list as $k => $v) {
 			if ((count($one['out_condition']) > 1)) {
 				//修复设计完成后，新增转出条件报错问题

@@ -2,7 +2,7 @@
  *+------------------
  * Tpflow 5.0 数据库文件
  *+------------------
- * Copyright (c) 2006~2025 http://cojz8.com All rights reserved.
+ * Copyright (c) 2006~2025 http://cojz8.cn All rights reserved.
  *+------------------
  * Author: guoguo(1838188896@qq.com)
 */
@@ -56,9 +56,6 @@ CREATE TABLE `t_wf_flow` (
   `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `uid` int(11) DEFAULT NULL COMMENT '添加用户',
   `add_time` int(11) DEFAULT NULL COMMENT '添加时间',
-  `field_name` varchar(255) NOT NULL DEFAULT '' COMMENT '字段名称',
-  `field_value` varchar(255) NOT NULL DEFAULT '' COMMENT '字段值',
-  `is_field` int(11) NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='*工作流表';
 
@@ -77,6 +74,8 @@ CREATE TABLE `t_wf_flow_process` (
   `auto_sponsor_text` varchar(255) NOT NULL DEFAULT '' COMMENT '4指定步骤主办人text',
   `work_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '6事务接受',
   `work_text` varchar(255) NOT NULL DEFAULT '' COMMENT '6事务接受',
+  `auto_xt_text` varchar(255) NOT NULL DEFAULT '' COMMENT '2协同字段',
+  `auto_xt_ids` varchar(255)  NOT NULL DEFAULT '' COMMENT '2协同字段',
   `auto_role_ids` varchar(255) NOT NULL DEFAULT '' COMMENT '5角色ids',
   `auto_role_text` varchar(255) NOT NULL DEFAULT '' COMMENT '5角色 text',
   `range_user_ids` text COMMENT '3自由选择IDS',

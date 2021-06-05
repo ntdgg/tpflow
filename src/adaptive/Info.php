@@ -74,6 +74,10 @@ class Info
 		}
 		//非自由
 		if ($todo == '') {
+			if ($wf_process['auto_person'] == 2) {
+				$sponsor_ids = $wf_process['auto_xt_ids'];
+				$sponsor_text = $wf_process['auto_xt_text'];
+			}
 			if ($wf_process['auto_person'] == 3) { //办理人员
 				$sponsor_ids = $wf_process['range_user_ids'];
 				$sponsor_text = $wf_process['range_user_text'];

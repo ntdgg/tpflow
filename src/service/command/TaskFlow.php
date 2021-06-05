@@ -18,6 +18,7 @@ use tpflow\adaptive\Flow;
 use tpflow\adaptive\Process;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Bill;
+use tpflow\adaptive\Run;
 
 class TaskFlow
 {
@@ -43,6 +44,54 @@ class TaskFlow
 			$todo = $config['todo'];
 		} else {
 			$todo = '';
+		}
+		$data = Flow::getflowprocess($config['flow_process']);//获取设计器中的步骤信息
+		/*
+		 * 2021.05.26
+		 * 协同模式
+		 */
+		$xt_runprocess = Run::FindRunProcess(['id'=>$run_process]);//查找协同步骤的信息
+		if($xt_runprocess['auto_person']==2 && $xt_runprocess['sponsor_ids'] != ''){
+			$xt_ids = explode(",",$xt_runprocess['sponsor_ids']);
+			$xt_text = explode(",",$xt_runprocess['sponsor_text']);
+			foreach($xt_ids as $k=>$v){
+				if($v==$uid){
+					unset($xt_ids[$k]);
+					unset($xt_text[$k]);
+				}
+			}
+			$xt_text_val = implode(",", $xt_text);
+			$xt_ids_val = implode(",", $xt_ids);
+			//更新流程，将办理人删除
+			$up_process = Run::EditRunProcess(['id'=>$run_process],['sponsor_ids'=>$xt_ids_val,'sponsor_text'=>$xt_text_val,'updatetime'=>time()]);
+			if (!$up_process) {
+				return ['msg' => '更新运行步骤失败！', 'code' => '-1'];
+			}
+			//等于空说明协同步骤已经办理完成，需要把原办理流程人还回去
+			if($xt_ids_val == '') {
+				$up_process = Run::EditRunProcess(['id'=>$run_process],['sponsor_ids'=>$data['auto_xt_ids'],'sponsor_text'=>$data['auto_xt_text'],'updatetime'=>time()]);
+				if (!$up_process) {
+					return ['msg' => '更新运行步骤失败！', 'code' => '-1'];
+				}
+			}
+			//如果协同字段等于空，说明已经办理完成，并且下一步骤的人员也是空直接结束该业务
+			if($xt_ids_val =='' && $npid == ''){
+				Flow::end_flow($run_id);
+				$end = Flow::end_process($run_process, $check_con);
+				$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
+				if (!$bill_update) {
+					return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
+				}
+			}
+			/*如果不等于空，则返回继续办理*/
+			if($xt_ids_val != '') {
+				//日志记录
+				$run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'ok');
+				if (!$run_log) {
+					return ['msg' => '消息记录失败，数据库错误！！！', 'code' => '-1'];
+				}
+				return ['msg' => 'success!', 'code' => '0'];
+			}
 		}
 		if ($config['wf_mode'] == 2) {
 			$info_list = Process::Getnorunprocess($config['run_id'], $config['run_process']);
