@@ -6,11 +6,15 @@
 *   彻底释放整个信息管理系统的的活力，让系统更具可用性，智能应用型，便捷设计性。 
 *   Tpflow团队致力于打造中国最优秀的PHP工作流引擎。
 
-![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") ![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow") 
+
+![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") 
+![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow")
+![license](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo= "tpflow")
+![ver](https://img.shields.io/badge/Tpflow-5.0-brightgreen?style=flat-square&logo= "tpflow")
+![php](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo= "tpflow")
 
 
-
-
+ 阿里云618活动还可以 [传送门](https://www.aliyun.com/minisite/goods?userCode=6y4qge6i "Demo") 新老用户都有
 
 Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含在线演示模块 测试账号：test 123456
 
