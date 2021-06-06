@@ -1,23 +1,22 @@
 <p align="center">
 <img src="https://www.gadmin8.com/tpflow.png" width="500" />
 </p>
-<p align="center">
-![star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp "tpflow") 
-![fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp "tpflow")
-![license](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo= "tpflow")
-![ver](https://img.shields.io/badge/Tpflow-5.0-brightgreen?style=flat-square&logo= "tpflow")
-![php](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo= "tpflow")
-</p>
+
+<div align="center">
+
+[![Gitee star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp)](https://gitee.com/ntdgg/tpflow)
+[![Gitee fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp)](https://gitee.com/ntdgg/tpflow)
+[![GitHub stars](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
+[![GitHub forks](https://img.shields.io/badge/Tpflow-5.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
+[![GitHub license](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo=)](https://gitee.com/ntdgg/tpflow) 
+
+</div>
 
 # ❤️Tpflow V5.0 正式版
-
-**欢迎使用 Tpflow 工作流引擎**
 
 *   TpFlow工作流引擎是一套规范化的流程管理系统，基于业务而驱动系统生命力的一套引擎。 
 *   彻底释放整个信息管理系统的的活力，让系统更具可用性，智能应用型，便捷设计性。 
 *   Tpflow团队致力于打造中国最优秀的PHP工作流引擎。
-
-
 
 
 
