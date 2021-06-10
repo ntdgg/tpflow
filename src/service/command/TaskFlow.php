@@ -82,6 +82,7 @@ class TaskFlow
 				if (!$bill_update) {
 					return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
 				}
+				return ['msg' => 'success!', 'code' => '0'];
 			}
 			/*如果不等于空，则返回继续办理*/
 			if($xt_ids_val != '') {
