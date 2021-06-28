@@ -204,7 +204,7 @@ class Tpl
 			}
 			$data = Flow::GetFlow();
 			$tr = '';
-			foreach ($data as $k => $v) {
+			foreach ($data['rows'] as $k => $v) {
 				$status = ['正常', '禁用'];
 				if ($v['edit'] == '') {
 					$url_edit = $urls['wfapi'] . '?act=add&id=' . $v['id'];

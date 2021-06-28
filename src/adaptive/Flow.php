@@ -115,7 +115,7 @@ class Flow
 			
 			$data['rows'][$k]['edit'] = $run['id'] ?? '';
 		}
-		return $data['rows'];
+		return $data;
 	}
 	
 	/**
