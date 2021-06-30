@@ -248,12 +248,22 @@ class Info
 	{
 		$result = Run::SearchRun([['status', '=', 0]]);
 		foreach ($result as $k => $v) {
-			$result[$k]['flow_name'] = Flow::GetFlowInfo($v['flow_id']);
+		    $Flow =  Flow::GetFlowInfo($v['flow_id']);
+            $bill_info = Bill::getbill($v['from_table'],$v['from_id']);
+			$result[$k]['flow_name'] = $Flow['flow_name'];
 			$process = Run::SearchRunProcess([['run_id', '=', $v['id']], ['run_flow_process', '=', $v['run_flow_process']]]);
 			$sponsor_text = '';
 			foreach ($process as $p => $s) {
 				$sponsor_text .= $s['sponsor_text'] . ',';
 			}
+            $strSubject = $Flow['tmp'];
+            $strPattern = "/(?<=【)[^】]+/";
+            $arrMatches = [];
+            preg_match_all($strPattern, $strSubject, $arrMatches);
+            foreach($arrMatches[0] as $k=>$v){
+                $strSubject = str_ireplace(['【'.$v.'】'], [($bill_info[$v] ?? ' sys field err ')], $strSubject);
+            }
+            $result[$k]['tmp'] =$strSubject;
 			$result[$k]['user'] = rtrim($sponsor_text, ",");
 		}
 		return $result;

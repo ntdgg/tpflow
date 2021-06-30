@@ -144,11 +144,12 @@ class lib
             $info['field_name'] = '';
             $info['field_value'] = '';
             $info['is_field'] = 0;
+            $info['tmp'] = '';
 		}
 		$tmp = self::commontmp('Tpflow V5.0 ');
 		$view = <<<php
 				{$tmp['head']}
-				<form action="{$url}" method="post" name="form" id="form">
+				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
 				<input type="hidden" name="id" value="{$info['id']}">
 				   <table class="table"><tr><th style='width:75px'>流程名称</th><td style='width:330px;text-align: left;'>
 							<input type="text" class="input-text" value="{$info['flow_name']}" name="flow_name"  datatype="*" ></td></tr><tr>
@@ -159,6 +160,8 @@ class lib
 							<td style='width:330px;text-align: left;'>
 							过滤:<select name="is_field"  class="select"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select><br/>
 							字段:<input type="text" class="input-text" value="{$info['field_name']}" name="field_name"><br/>数值:<input type="text" class="input-text" value="{$info['field_value']}" name="field_value"   ></td></tr><tr>
+							<tr><th style='width:75px'>业务名称</th>
+							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['tmp']}" name="tmp" >*【title】</td></tr><tr>
 							<tr><th style='width:75px'>排序值</th>
 							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr><tr>
 							<th>流程描述</th><td style='width:330px;text-align: left;'>
@@ -657,26 +660,19 @@ php;
 	public static function tmp_index($url, $data, $html)
 	{
 		$tmp = self::commontmp('Tpflow V5.0 ');
-		return <<<php
-{$tmp['head']}
-<div class="page-container">
-<div style='float: left;width:115px'>
-	<a onclick="Tpflow.lopen('添加工作流','{$url}',55,60)" class="button ">添加</a> <a onclick="location.reload();" class="button ">刷新</a><hr/>
-	<b style='font-size: 16px;'>工作流类别</b>
-	<ul id="art">
-	{$html}
-	</ul>
-</div>
-<div style='float: left;width:calc(100% - 115px);'>
-<table class="table" ><thead><tr><th>ID</th><th>流程名称</th><th>流程类型</th><th>添加时间</th><th>状态</th><th>操作</th></thead></tr>
-	{$data}
-</table>
-</div>
-</div>
-{$tmp['js']}
-</body>
-</html>
-php;
+		$html = <<<str
+		{head}
+		<div style='padding: 15px;'>
+		<a onclick="Tpflow.lopen('添加工作流','{url}',55,60)" class="button ">添加</a> <a onclick="location.reload();" class="button" style="background-color: #FFB800;">刷新</a>
+		<table class="table" style="text-align: center">
+		<thead><tr><th style="width: 30px">ID</th><th>流程名称</th><th>流程类型</th><th>添加时间</th><th>状态</th><th>操作</th></thead></tr>{data}
+		</table>
+		</div>
+		{js}
+		</body>
+		</html>
+str;
+		return str_ireplace(['{head}','{url}','{data}','{js}'], [$tmp['head'],$url,$data,$tmp['js']], $html);
 	}
 	
 	/**
