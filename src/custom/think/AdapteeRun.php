@@ -87,12 +87,12 @@ class AdapteeRun
 	
 	function dataRunProcess($map, $field, $order)
 	{
-		return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->where($map)->field($field)->order($order)->select();
+		return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->field($field)->order($order)->select();
 	}
 	
 	function dataRunProcessGroup($map, $field, $order, $group)
 	{
-		return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->where($map)->field($field)->order($order)->group($group)->select();
+		return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->field($field)->order($order)->group($group)->select();
 	}
 	
 	
