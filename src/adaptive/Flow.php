@@ -137,6 +137,7 @@ class Flow
 	 */
 	static function EditFlow($data)
 	{
+		$data['add_time'] = time();
 		$id = (new Flow())->mode->EditFlow($data);
 		if ($id) {
 			return ['code' => 0, 'data' => $id];
