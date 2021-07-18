@@ -303,6 +303,9 @@ class Flow
 			return ['code' => 1, 'msg' => '未找到流程数据', 'info' => ''];
 		}
 		$process_info = json_decode(htmlspecialchars_decode(trim($process_info)), true);
+		if (!$process_info) {
+            return ['code' => 0, 'msg' => '保存步骤成功~', 'info' => ''];
+        }
 		if ($flow_id <= 0 or !$process_info) {
 			return ['code' => 1, 'msg' => '参数有误，请重试', 'info' => ''];
 		}
