@@ -22,6 +22,11 @@ class AdapteeFlow
 	{
 		return Db::name('wf_flow')->field($field)->find($id);
 	}
+
+    function del($id)
+    {
+        return Db::name('wf_flow')->delete($id);
+    }
 	
 	function AddFlow($data)
 	{
@@ -30,6 +35,7 @@ class AdapteeFlow
 	
 	function EditFlow($data)
 	{
+        $data['add_time'] = time();
 		return Db::name('wf_flow')->update($data);
 	}
 	

@@ -37,6 +37,15 @@ class Flow
 	{
 		return (new Flow())->mode->find($id);
 	}
+    /**
+     * 删除流程
+     *
+     * @param $fid
+     */
+    static function del($id)
+    {
+        return (new Flow())->mode->del($id);
+    }
 	
 	/**
 	 * 获取类别工作流
@@ -137,7 +146,6 @@ class Flow
 	 */
 	static function EditFlow($data)
 	{
-		$data['add_time'] = time();
 		$id = (new Flow())->mode->EditFlow($data);
 		if ($id) {
 			return ['code' => 0, 'data' => $id];
@@ -303,7 +311,7 @@ class Flow
 			return ['code' => 1, 'msg' => '未找到流程数据', 'info' => ''];
 		}
 		$process_info = json_decode(htmlspecialchars_decode(trim($process_info)), true);
-		if (!$process_info) {
+        if (!$process_info) {
             return ['code' => 0, 'msg' => '保存步骤成功~', 'info' => ''];
         }
 		if ($flow_id <= 0 or !$process_info) {

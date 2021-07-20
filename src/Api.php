@@ -14,7 +14,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '5.0.6' );
+define('Tpflow_Ver', '5.1.0' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -101,6 +101,15 @@ use think\facade\Request;
                 return unit::return_msg(Control::WfFlowCenter($act,$data));
 			 }
 		}
+        if($act=='del'){
+            if (unit::is_post()) {
+                $data = input('post.');
+                return unit::return_msg(Control::WfFlowCenter($act,$data));
+            }
+        }
+
+
+
 		if($act=='wfend'){
 			 return Control::WfFlowCenter($act,input('id'));
 		}

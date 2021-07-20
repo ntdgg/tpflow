@@ -59,6 +59,7 @@ CREATE TABLE `t_wf_flow` (
   `field_name` varchar(255) NOT NULL DEFAULT '' COMMENT '字段名称',
   `field_value` varchar(255) NOT NULL DEFAULT '' COMMENT '字段值',
   `is_field` int(11) NULL DEFAULT 0,
+  `tmp` varchar(255) NOT NULL DEFAULT '' COMMENT '模板字段',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='*工作流表';
 

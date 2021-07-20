@@ -258,6 +258,29 @@ class Tpl
 			}
 			return lib::tmp_add($urls['wfapi'] . '?act=add', $info, $type);
 		}
+        if ($act == 'del') {
+            if ($data != '' && !is_numeric($data)) {
+                //判断当前是否有运行流程
+                $ret = Run::FindRun(['flow_id'=>$data['id'],'status'=>0],'status');
+                if($ret && $ret['status']==0){
+                    return unit::msg_return('流程运行中，无法删除!', 1);
+                }
+                $del_flow = Flow::del($data['id']);
+                if (!$del_flow) {
+                    return unit::msg_return('删除流程信息失败！!', 1);
+                }
+                $find_pro = Process::SearchFlowProcess(['flow_id'=>$data['id']]);
+                if(count($find_pro)>0){
+                    //删除步骤
+                    $del_pro = Process::DelFlowProcess(['flow_id'=>$data['id']]);
+                    if (!$del_pro) {
+                        return unit::msg_return('删除步骤信息失败，请手动删除！!', 1);
+                    }
+                }
+                return unit::msg_return('操作成功！');
+
+            }
+        }
 		return $act . '参数出错';
 	}
 	
