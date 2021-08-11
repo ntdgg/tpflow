@@ -384,7 +384,7 @@ php;
 						<input id='submit_to_save' name='submit_to_save' value='{$info['wf_submit']}' type='hidden'>
 						<button  class="button" type="submit"> 提交同意</button>
 						<a class="button" id='backbton' onclick='Tpflow.lclose()'>取消</a> 
-						<a class="button" onclick=Tpflow.lopen("Upload","{$info['tpflow_upload']}?id=upload",13,13) style="background-color: #19be6b">附件</a> 
+						<a class="button" onclick=Tpflow.lopen("Upload","{$info['tpflow_upload']}?id=upload",20,50) style="background-color: #19be6b">附件</a>
 				</td>
 				</tr>
 				</table>
