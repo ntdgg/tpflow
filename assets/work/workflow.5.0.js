@@ -69,7 +69,7 @@ var Tpflow = {
 			  } else {
 				  $('#wf_process_info').html('');
 			  }
-			  jsPlumb.repaintEverything();//重画
+			  //jsPlumb.repaintEverything();//重画 此处的重画貌似无必要
 		  };
 		var initEndPoints = function(){
 		  $(".process-flag").each(function(i,e) {
@@ -124,7 +124,14 @@ var Tpflow = {
 					$.post(Server_Url+'?act=del',{"flow_id":the_flow_id,"id":activeId},function(data){
 						if(data.code===0){
 							if(activeId>0){
+								jsPlumb.detachAllConnections($("#window"+activeId));//删除相关连线
 								$("#window"+activeId).remove();
+								//这里要添加一个步骤：删除<div id='wf_process_info'>中对应的的input标签，否则保存的时候依然会将已删除的节点id保存进数据库
+								$('#wf_process_info').find('input').each(function (i,e) {
+									if($(e).attr('value').includes(activeId)){
+										$(e).remove();
+									};
+								});
 							}
 							Tpflow.Api('save');
 						}
@@ -157,7 +164,7 @@ var Tpflow = {
     });
     //连接成功回调函数
     function mtAfterDrop(params){
-        defaults.mtAfterDrop({sourceId:$("#"+params.sourceId).attr('process_id'),targetId:$("#"+params.targetId).attr('process_id')});
+        //defaults.mtAfterDrop({sourceId:$("#"+params.sourceId).attr('process_id'),targetId:$("#"+params.targetId).attr('process_id')});//无效函数
     }
     jsPlumb.makeTarget(jsPlumb.getSelector(".process-step"), {
         dropOptions:{ hoverClass:"hover", activeClass:"active" },
@@ -177,7 +184,7 @@ var Tpflow = {
                 }
             })
             if( j > 0 ){
-                defaults.fnRepeat();
+                //defaults.fnRepeat();//无效函数，注释掉才能正常实现禁用重复链接功能
                 return false;
             } else {
                 return true;
@@ -309,6 +316,9 @@ var Tpflow = {
 				var PostData = {"flow_id":the_flow_id,"process_info":Tpflow.GetJProcessData()};//获取到步骤信息
 				break;
 			case 'delAll':
+				if(!confirm("你确定清空全部吗？")){//delAll会自动保存，添加确认步骤更安全
+					return;
+				}
 				var PostData = {"flow_id":the_flow_id};
 				reload = true;
 				break;
