@@ -192,8 +192,9 @@ class Flow
 			}
 			if ($value['process_type'] == 'is_one') { //
 				$name_att = '<font color=blue>[开始]</font>';
-				
-			} else {
+			}elseif ($value['process_type'] == 'is_end') {
+				$name_att = '<font color=red>[结束]</font>';
+			}else {
 				if ($value['wf_mode'] == 0) { //
 					$name_att = '[直线]';
 				} elseif ($value['wf_mode'] == 1) {

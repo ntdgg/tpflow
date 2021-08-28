@@ -126,6 +126,9 @@ class unit
 	 */
 	public static function nexnexprocessinfo($wf_mode, $npi)
 	{
+		if($npi['process_type']=='is_end'){
+			return '<font color="red">流程终止</font>';
+		}
 		if ($wf_mode != 2) {
 			if ($npi['auto_person'] == 2) {
 				return '[协同]'.$npi['process_name'] . '(' . $npi['auto_xt_text'] . ')';

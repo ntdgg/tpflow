@@ -63,7 +63,6 @@ body {
 }
 
 .smalls {
-    width: 90px;
     padding: 4px 6px;
     display: inline-block;
     margin-bottom: 0;
@@ -104,7 +103,8 @@ body {
     border-width: 1px;
     border-style: solid;
     border-color: #e6e6e6;
-    width: 150px;
+    width: 120px;
+    background: #F5F5F5;
 }
 
 .table td {

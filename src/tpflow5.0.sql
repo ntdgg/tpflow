@@ -194,7 +194,7 @@ CREATE TABLE `t_wf_run_sign` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `run_id` (`run_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- 工作流事务信息表
@@ -209,4 +209,18 @@ CREATE TABLE `t_wf_workinfo` (
   `type` varchar(255) DEFAULT NULL COMMENT '类型',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for g_wf_event
+-- ----------------------------
+DROP TABLE IF EXISTS `t_wf_event`;
+CREATE TABLE `t_wf_event`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` varchar(50) DEFAULT NULL,
+  `act` varchar(60) DEFAULT NULL,
+  `code` longtext DEFAULT NULL  COMMENT '代码',
+  `uid` int(11)  DEFAULT NULL COMMENT ' 用户id',
+  `uptime` int(11) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

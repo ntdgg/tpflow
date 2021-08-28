@@ -128,7 +128,65 @@ class lib
 				return '';
 		}
 	}
-	
+	/**
+	 * 添加流程模板
+	 *
+	 **/
+	public static function tmp_event($url, $info, $type)
+	{
+		if (!$info) {
+			$info['type'] = '';
+		}
+		$tmp = self::commontmp('Tpflow V5.0 ');
+		$patch = unit::gconfig('static_url');
+		$view = <<<php
+				{$tmp['head']}
+				<link rel="stylesheet" type="text/css" href="{$patch}lib/codemirror/codemirror.css" />
+				<link rel="stylesheet" type="text/css" href="{$patch}lib/codemirror/dracula.css" />
+				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
+				   <table class="table"><tr>
+							<tr class='text-c' ><th>单据信息</th><td style='width:330px;text-align: left;'>
+							<span class="select-box"><select name="type" id="type" class="select"  datatype="*" >{$type}</select></span>
+							</td></tr>
+							<tr class='text-c' ><th>执行类型</th><td style='width:330px;text-align: left;'>
+							<span class="select-box"><select name="fun" id="act" class="select"  datatype="*" ><option value="">请选择</option><option value="before">before 步骤执行前动作</option>
+                                    <option value="after">after 步骤执行后动作</option>
+                                    <option value="cancel">cancel 执行取消动作</option>
+							</td></tr>
+							<th>执行代码</th><td style='width:330px;text-align: left;'>
+								<textarea placeholder="" name='code' type="text/plain" style="width:100%;height:450px;display:inline-block;" id='codedata' ></textarea></td>
+							</tr><tr class='text-c' >
+							<td colspan=2>
+							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
+						</table>
+					</form>{$tmp['js']}{$tmp['form']}
+					<script  src="{$patch}lib/codemirror/codemirror.js" ></script>
+					<script src="{$patch}lib/codemirror/javascript.js"></script>
+			<script type="text/javascript">
+			var editor = CodeMirror.fromTextArea(document.getElementById("codedata"), {
+        lineNumbers: true,
+        lineWrapping: true,
+        mode: "text/typescript",
+        theme: "dracula",	//设置主题
+        matchBrackets: true,
+    });
+    editor.setSize('auto',document.body.clientHeight - 140 +"px");
+      $('#act').on('change',function(){
+        var act = $('#act').val();
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            data:{type:$('#type').val(),fun:act,info:'1'},
+            url:'{$url}',
+            success:function(res){
+                editor.setValue(res.data);
+            }
+        });
+    });
+			</script>
+php;
+		return $view;
+	}
 	/**
 	 * 添加流程模板
 	 *
@@ -794,7 +852,7 @@ php;
 	   </div> 
        <div class="tab-item">
 	   <table class="table">
-	   <tr><th>步骤类型</th><td><select name="process_type" ><option value="is_step" >正常步骤</option><option value="is_one" >第一步</option></select></td></tr>
+	   <tr><th>步骤类型</th><td><select name="process_type" ><option value="is_step" >正常步骤</option><option value="is_one" >第一步</option><option value="is_end" >结束步骤</option></select></td></tr>
         <tr><th>调用方法</th><td><input type="text" class="smalls" name="wf_action"  value="{$wf_action}"><br/>*自定义方法可以=控制器@方法@参数名@参数值
          <br/>*如：SFDP调用方法：sfdp@view@sid@24 生成URL：sfdp/view?sid=24&id=2 </td></tr>
         <tr><th>会签方式</th><td><select name="is_sing" ><option value="1" >允许会签</option><option value="2" >禁止会签</option></select></td></tr>

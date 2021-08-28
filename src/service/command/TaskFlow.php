@@ -114,6 +114,14 @@ class TaskFlow
 			 * 同步模式下，只写入记录
 			 */
 			if ($config['wf_mode'] != 2) {
+				/*加入判断是否是终止步骤*/
+				$EndFlow = EndFlow::doTask($npid,$run_id);
+				if($EndFlow==1){
+					Flow::end_flow($run_id);//终止步骤
+					Log::AddrunLog($uid, $config['run_id'], $config, 'ok');//写入日志
+					Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
+					return ['msg' => '审批完成，流程结束!', 'code' => '0'];
+				}
 				//更新单据信息
 				Flow::up($run_id, $npid);
 				//记录下一个流程->消息记录

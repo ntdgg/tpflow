@@ -12,6 +12,7 @@ declare (strict_types=1);
 
 namespace tpflow\service\method;
 
+use tpflow\adaptive\Event;
 use tpflow\lib\unit;
 use tpflow\lib\lib;
 
@@ -257,6 +258,27 @@ class Tpl
 				$type .= '<option value="' . $v['name'] . '">' . $v['title'] . '</option>';
 			}
 			return lib::tmp_add($urls['wfapi'] . '?act=add', $info, $type);
+		}
+		if ($act == 'event') {
+			if ($data != '' && !is_numeric($data)) {
+				if(isset($data['info'])){
+					return Event::getFun($data['fun'],$data['type']);
+				}
+				if(isset($data['code'])){
+					$ret =  Event::save($data);
+					if ($ret['code'] == 0) {
+						return unit::msg_return('操作成功！');
+					} else {
+						return unit::msg_return($ret['data'], 1);
+					}
+				}
+			}
+			$info = Flow::getWorkflow($data); //获取工作流详情
+			$type = '';
+			foreach (Info::get_wftype() as $k => $v) {
+				$type .= '<option value="' . $v['name'] . '">' . $v['title'] . '</option>';
+			}
+			return lib::tmp_event($urls['wfapi'] . '?act=event', $info, $type);
 		}
         if ($act == 'del') {
             if ($data != '' && !is_numeric($data)) {
