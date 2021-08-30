@@ -46,9 +46,8 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 # ✈️ 技术架构图
 
 <p align="center">
-<img src="https://www.gadmin8.com/img/tpflow_er.jpg" width="500" />
+<img src="https://www.gadmin8.com/img/tpflow_er.jpg"  />
 </p>
-<div align="center">
 
 # ✈️主要特性
 
