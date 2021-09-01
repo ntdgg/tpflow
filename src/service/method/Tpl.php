@@ -467,8 +467,8 @@ class Tpl
 			$data = Run::dataRunProcess($map, $field, $order, $group);
 		}
 		if ($act == 'userFlow') {
-			$map[] = ['f.sponsor_ids', 'find in set', unit::getuserinfo('uid')];
-			$data = Run::dataRunProcess($map, $field, $order, $group);
+			$mapRaw = '(f.auto_person != 5 and FIND_IN_SET('.unit::getuserinfo('uid').',f.sponsor_ids)) or (f.auto_person=5 and FIND_IN_SET('.unit::getuserinfo('role').',f.sponsor_ids))';
+			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group);
 		}
 		return ['code' => 1, 'msg' => '查询成功', 'data' => $data];
 	}
