@@ -11,7 +11,7 @@
 
 </div>
 
-# 🔥Tpflow V6.0 版本将会有哪些规划：[过来聊聊6.0版本将会有哪些变化](https://gitee.com/ntdgg/tpflow/issues/I48S0C "Demo") 
+# 🔥Tpflow V6.0 版本会有哪些规划：[过来聊聊](https://gitee.com/ntdgg/tpflow/issues/I48S0C "Demo") 
 
 # ❤️Tpflow V5.0 正式版
 
