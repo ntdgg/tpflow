@@ -99,12 +99,12 @@ class SingFlow
 					return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
 				}
 				Log::AddrunLog($uid, $config['run_id'], $config, 'SingBack');
-				Run::EditRun($config['run_id'], ['is_sing' => 0, 'status' => 0]);
+				Run::EditRun($config['run_id'], ['is_sing' => 0, 'status' => 1]);
 				//日志记录
 			} else { //结束流程
 				$wf_process = Process::GetProcessInfo($wf_backflow);
 				Info::addWorkflowProcess($config['flow_id'], $wf_process, $config['run_id'], $uid);
-				Run::EditRun($config['run_id'], ['is_sing' => 0]);
+				Run::EditRun($config['run_id'], ['is_sing' => 0,'run_flow_process'=>$config['wf_backflow']]);
 				//消息通知发起人
 				$run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'SingBack');
 				if (!$run_log) {
