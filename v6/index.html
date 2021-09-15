@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title>Tpflow</title>
+    <link rel="stylesheet" type="text/css" href="workflow.5.0.css?v5.0"/>
+</head>
+<body>
+<div class="content">
+    <div id="canvas">
+        <div  style="width: 100%; height: 100%; position: relative;">
+            <div  style="position: relative; overflow: hidden; width: 100%; height: 100%;">
+                <div id="flowdesign_canvas" width="100%" height="100%"></div>
+                <div class="tool" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                    <div >
+                        <div class="entry" onclick='Tpflow.Api("save")' title='保存'>♡</div>
+                        <div class="entry" onclick='Tpflow.Api("add")' title='新增'>✚</div>
+                        <div class="entry" onclick='Tpflow.Api("check")' title='检查'>➽</div>
+                        <div class="entry" onclick='Tpflow.Api("delAll")' title='清空'>✘</div>
+                        <hr  style="margin: 0 5px;padding-top: 5px;border: none;border-bottom: solid 1px #DDD;clear: both;"/>
+                        <div class="entry" onclick='Tpflow.Api("Refresh")' title='刷新'>➲</div>
+                        <div class="entry" onclick='Tpflow.Api("Help")' title='帮助'>☺</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="r-ctl">
+    <ul class="t-ctl t-ctl-list" style='border: none;'>
+        <li><button onclick='Tpflow.Api("Doc")'>Doc&nbsp;</button><button onclick='Tpflow.Api()'>&nbsp;|&nbsp;Star&nbsp;|&nbsp;</button><button onclick='Tpflow.Api("Help")'>Tpflow 5.0 版权所有</button></li>
+    </ul>
+</div>
+</body>
+</html>
+</body>
+<script src="x6.js"></script>
+<script>
+    const data = {
+        // 节点
+        nodes: [
+            {
+                id: 'node1', // String，可选，节点的唯一标识
+                x: 40,       // Number，必选，节点位置的 x 值
+                y: 40,       // Number，必选，节点位置的 y 值
+                width: 80,   // Number，可选，节点大小的 width 值
+                height: 40,  // Number，可选，节点大小的 height 值
+                label: 'hello', // String，节点标签
+            },
+            {
+                id: 'node2', // String，节点的唯一标识
+                x: 160,      // Number，必选，节点位置的 x 值
+                y: 180,      // Number，必选，节点位置的 y 值
+                width: 80,   // Number，可选，节点大小的 width 值
+                height: 40,  // Number，可选，节点大小的 height 值
+                label: 'world', // String，节点标签
+            },
+        ],
+        // 边
+        edges: [
+            {
+                source: 'node1', // String，必须，起始节点 id
+                target: 'node2', // String，必须，目标节点 id
+            },
+        ],
+    };
+    const graph = new X6.Graph({
+        container: document.getElementById('flowdesign_canvas'),
+        height:document.body.clientHeight,
+        grid: {
+            type: 'doubleMesh', // 'dot' | 'fixedDot' | 'mesh'
+            size: 10,      // 网格大小 10px
+            visible: true, // 渲染网格背景
+            args: [
+                {
+                    color: '#eee', // 主网格线颜色
+                    thickness: 1,     // 主网格线宽度
+                },
+                {
+                    color: '#ddd', // 次网格线颜色
+                    thickness: 1,     // 次网格线宽度
+                    factor: 4,        // 主次网格线间隔
+                },
+            ],
+        }
+    });
+    graph.fromJSON(data)
+</script>
+</html>
