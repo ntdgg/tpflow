@@ -759,7 +759,11 @@ php;
 			$urldata = explode("@", $flowinfo['status']['wf_action']);
 			$url = url(unit::gconfig('int_url') . '/' . $urldata[0] . '/' . $urldata[1], ['id' => $info['wf_fid'], $urldata[2] => $urldata[3]]).($urldata[4] ?? '');
 		} else {
-			$url = url(unit::gconfig('int_url') . '/' . $info['wf_type'] . '/' . $flowinfo['status']['wf_action'], ['id' => $info['wf_fid']]);
+			if (strpos($flowinfo['status']['wf_action'], '/') !== false) {
+				$url = url(unit::gconfig('int_url') . '/' . $flowinfo['status']['wf_action'], ['id' => $info['wf_fid']]);
+			}else{
+				$url = url(unit::gconfig('int_url') . '/' . $info['wf_type'] . '/' . $flowinfo['status']['wf_action'], ['id' => $info['wf_fid']]);
+			}
 		}
 		if ($flowinfo['sing_st'] == 0) {
 			$html = '<a class="button" onclick=Tpflow.lopen("提交工作流","' . $info['tpflow_ok'] . '",45,42) style="background-color: #19be6b">√ 同意</a> ';
