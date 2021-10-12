@@ -3,10 +3,6 @@
  *+------------------
  * Tpflow 5.0 系统默认模板接口调用类
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
- *+------------------
- * Author: guoguo(1838188896@qq.com)
- *+------------------
  */
 declare (strict_types = 1);
 
@@ -14,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '5.1.1' );
+define('Tpflow_Ver', '5.1.2' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
