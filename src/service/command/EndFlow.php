@@ -32,7 +32,7 @@ class EndFlow
 		if($pid==''){
 			return 0;
 		}
-		$process = Process::GetProcessInfo($pid);
+		$process = Process::GetProcessInfo($pid,$run_id);
 		if($process['process_type']=='is_end'){
 			return 1;
 		}else{
