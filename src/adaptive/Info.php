@@ -178,7 +178,7 @@ class Info
 						}
 					} else {
 						$uids = explode(",", $v['sponsor_ids']);
-						if (in_array($userinfo['role'], $uids)) {
+						if(!empty(array_intersect($userinfo['role'], $uids))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
 							$info = $v;
 							break;
 						}

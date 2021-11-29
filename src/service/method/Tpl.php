@@ -467,7 +467,14 @@ class Tpl
 			$data = Run::dataRunProcess($map, $field, $order, $group);
 		}
 		if ($act == 'userFlow') {
-			$mapRaw = '(f.auto_person != 5 and FIND_IN_SET('.unit::getuserinfo('uid').',f.sponsor_ids)) or (f.auto_person=5 and FIND_IN_SET('.unit::getuserinfo('role').',f.sponsor_ids))';
+			// Guoke 2021/11/26 15:40 扩展多用户组的支持
+			$roles=unit::getuserinfo('role');
+			$tmpRaw=$p='';
+			foreach($roles as $v){
+				$tmpRaw .= "$p FIND_IN_SET('$v',f.sponsor_ids)";
+				$p=' or';
+			}
+            $mapRaw = '(f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ",f.sponsor_ids)) or (f.auto_person=5 and ($tmpRaw))";
 			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group);
 		}
 		return ['code' => 1, 'msg' => '查询成功', 'data' => $data];

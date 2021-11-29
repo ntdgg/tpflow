@@ -88,7 +88,7 @@ class lib
 							}
 						}
 						if ($flowinfo['status']['auto_person'] == 5) {
-							if (in_array($thisuser['thisrole'], $user)) {
+							if(!empty(array_intersect($thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
 								$st = 1;
 							}
 						}

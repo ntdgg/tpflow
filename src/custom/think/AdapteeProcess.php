@@ -54,12 +54,15 @@ class AdapteeProcess
 	
 	function get_userprocess($uid, $role)
 	{
-		return Db::name('wf_flow_process')->alias('f')
+		$dt = Db::name('wf_flow_process')
+			->alias('f')
 			->join('wf_flow w', 'f.flow_id = w.id')
-			->where('find_in_set(:asi,f.auto_sponsor_ids)', ['asi' => $uid])
-			->whereOr('find_in_set(:rui,f.range_user_ids)', ['rui' => $uid])
-			->whereOr('find_in_set(:ari,f.auto_role_ids)', ['ari' => $role])
 			->field('f.id,f.process_name,f.flow_id,w.flow_name')
-			->select();;
+			->where('find_in_set(:asi,f.auto_sponsor_ids)', ['asi' => $uid])
+			->whereOr('find_in_set(:rui,f.range_user_ids)', ['rui' => $uid]);
+		foreach($role as $k=>$v){// Guoke 2021/11/26 13:38 扩展多多用户组的支持
+			$dt->whereOr("find_in_set(:ari$k,f.auto_role_ids)", ["ari$k" => $v]);
+		}
+		return $dt->select();
 	}
 }
