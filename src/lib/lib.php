@@ -50,7 +50,7 @@ class lib
 		$url = ['url' => $urls['wfdo'] . '?act=do&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid];
 		switch ($status) {
 			case 0:
-                $start_flow = unit::gconfig('start_flow');
+                $start_flow = (array)unit::gconfig('start_flow');// Guoke 2021/11/26 16:55 修复空数据下报错
                 $btn_access = true ;
                 if (in_array($wf_type, $start_flow)) {
                     $uid = Bill::getbillvalue($wf_type,$wf_fid,'uid');
