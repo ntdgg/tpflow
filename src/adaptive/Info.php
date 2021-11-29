@@ -260,8 +260,8 @@ class Info
             $strPattern = "/(?<=【)[^】]+/";
             $arrMatches = [];
             preg_match_all($strPattern, $strSubject, $arrMatches);
-            foreach($arrMatches[0] as $k=>$v){
-                $strSubject = str_ireplace(['【'.$v.'】'], [($bill_info[$v] ?? ' sys field err ')], $strSubject);
+            foreach($arrMatches[0] as $k1 => $v1){// Guoke 2021/11/25 17:08 官方BUG
+                $strSubject = str_ireplace(['【' . $v1 . '】'], [($bill_info[$v1] ?? ' sys field err ')], $strSubject);
             }
             $result[$k]['tmp'] =$strSubject;
 			$result[$k]['user'] = rtrim($sponsor_text, ",");
