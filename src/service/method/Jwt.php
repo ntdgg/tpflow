@@ -211,6 +211,10 @@ class Jwt
 			}
 			return ['Url' => unit::gconfig('wf_url'), 'Type' => Info::get_wftype(), 'Info' => Flow::getWorkflow($data)];
 		}
+        if ($act == 'verUpdate') {
+            Flow::verUpdate();
+            return unit::msg_return('版本更新成功！');
+        }
 		return $act . '参数出错';
 	}
 	
@@ -280,7 +284,7 @@ class Jwt
 			if (!$one) {
 				return ['status' => 0, 'msg' => '添加失败,未找到流程', 'info' => ''];
 			}
-			return Flow::ProcessAdd($flow_id);
+			return Flow::ProcessAdd($flow_id, $data);
 		}
 		if ($act == 'delAll') {
 			return Flow::ProcessDelAll($flow_id);

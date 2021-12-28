@@ -38,6 +38,8 @@ class Process
 	{
 		return (new Process())->mode->find($pid);
 	}
+
+
 	
 	/**
 	 * 添加工作流步骤
@@ -144,7 +146,27 @@ class Process
 		}
 		return $info;
 	}
-	
+
+    /**
+     * 根据ID获取流程步骤下一级是否有消息节点
+     *
+     * @param int $pid 步骤编号
+     */
+    static function findMsg($info,$run_id)
+    {
+        if($info['process_to']==''){
+            return $info['process_to'];
+        }
+        $nex_pid = explode(",", $info['process_to']);
+        foreach ($nex_pid as $k=>$v){
+            $has_msg = (new Process())->mode->find($v);
+            if($has_msg['process_type']=='node-msg'){
+                Msg::add(['uid'=>unit::getuserinfo('uid'),'run_id'=>$run_id,'process_id'=>$info['id'],'process_msgid'=>$v,'add_time'=>time(),'uptime'=>time()]);
+                unset($nex_pid[$k]);
+            }
+        }
+        return implode(',',$nex_pid);
+    }
 	/**
 	 * 获取下个审批流信息
 	 *
@@ -159,9 +181,11 @@ class Process
 			return [];
 		}
 		$nex = (new Process())->mode->find($pid);
+        /*读取下个步骤的节点信息*/
+        $process_to = self::findMsg($nex,$run_id);
 		//先判断下上一个流程是什么模式
-		if ($nex['process_to'] != '') {
-			$nex_pid = explode(",", $nex['process_to']);
+		if ($process_to != '') {
+			$nex_pid = explode(",", $process_to);
 			$out_condition = json_decode((string)$nex['out_condition'], true);
 			/* 加入同步模式 2为同步模式
 			 * 2019年1月28日14:30:52
@@ -256,7 +280,7 @@ class Process
 		//找到 流程第一步
 		$flow_process_first = array();
 		foreach ($flow_process as $value) {
-			if ($value['process_type'] == 'is_one') {
+			if ($value['process_type'] == 'node-start') {
 				$flow_process_first = $value;
 				break;
 			}

@@ -13,6 +13,7 @@ declare (strict_types=1);
 namespace tpflow\adaptive;
 
 use tpflow\lib\unit;
+use tpflow\service\command\AutoFlow;
 
 class Info
 {
@@ -65,7 +66,7 @@ class Info
 	 */
 	public static function addWorkflowProcess($wf_id, $wf_process, $run_id, $uid, $todo = '')
 	{
-		if ($wf_process['auto_person'] == 6 && $wf_process['process_type'] == 'is_one') { //事务人员
+		if ($wf_process['auto_person'] == 6 && $wf_process['process_type'] == 'node-start') { //事务人员
 			$wf = Run::FindRunId($run_id);
 			$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $wf_process['work_text']);
 			$user_info = User::GetUserInfo($user_id);
@@ -121,6 +122,8 @@ class Info
 		if ($wf_process['auto_person'] == 5) {
 			$sponsor_ids = '';
 		}
+
+
 		//取出当前所有授权信息
 		$map[] = ['old_user', 'in', [$sponsor_ids]];
 		$Raw = 'flow_process = 0 or flow_process=' . $wf_process['id'];
@@ -135,8 +138,13 @@ class Info
 		//加入消息接口Api
 		$msg_api = unit::gconfig('msg_api') ?? '';
 		if (class_exists($msg_api)) {
-			$user_info = (new $msg_api())->send($process_id);;
+            (new $msg_api())->send($process_id);;
 		}
+        /*2021-12-26 加入自动执行判断*/
+        $doAuto = (new AutoFlow())->doAuto($wf_process['id'],$run_id,$process_id);
+        if($doAuto['code']!=0){
+            return false;
+        }
 		return $process_id;
 	}
 	
@@ -159,6 +167,9 @@ class Info
 			if (count($info_list) == 0) {
 				$info_list[0] = Run::FindRunProcess([['run_id', '=', $result['id']], ['run_flow_process', '=', $result['run_flow_process']], ['status', '=', 0]]);
 			}
+            if(empty($info_list[0]) && $result['is_sing']==0){
+                return [];
+            }
 			/*
 			 * 2019年1月27日
 			 *1、先计算当前流程下有几个步骤 2、如果有多个步骤，判定为同步模式，（特别注意，同步模式下最后一个步骤，也会认定会是单一步骤） 3、根据多个步骤进行循环，找出当前登入用户对应的步骤 4、将对应的步骤设置为当前审批步骤 5、修改下一步骤处理模式 6、修改提醒模式
@@ -220,7 +231,6 @@ class Info
 				} else {
 					$workflow['nexid'] = $workflow ['process']['process_to'];//下一步骤
 				}
-				
 				$workflow['run_process'] = $info['id'];//运行的run_process步骤ID
 				$workflow['npi'] = unit::nexnexprocessinfo($workflow['status']['wf_mode'], $workflow['nexprocess']);//显示下一步骤的信息
 			}

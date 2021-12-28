@@ -141,14 +141,14 @@ class Run
 	 * @param array $where 查询条件
 	 * @param array $data 数据信息
 	 */
-	static function dataRunProcess($map, $field, $order, $group)
-	{
-		if ($group != '') {
-			return (new Run())->mode->dataRunProcessGroup($map, $field, $order, $group);
-		} else {
-			return (new Run())->mode->dataRunProcess($map, $field, $order);
-		}
-	}
+    static function dataRunProcess($map,$mapRaw, $field, $order, $group)
+    {
+        if ($group != '') {
+            return (new Run())->mode->dataRunProcessGroup($map, $field, $order, $group);
+        } else {
+            return (new Run())->mode->dataRunProcess($map,$mapRaw, $field, $order);
+        }
+    }
 	
 	/**
 	 * 查询运行中的会签信息

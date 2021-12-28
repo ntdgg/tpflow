@@ -162,58 +162,40 @@ class Flow
 	{
 		$map[] = ['flow_id', '=', $flow_id];
 		$list = Process::SearchFlowProcess($map);
-		$process_data = [];
-		$process_total = 0;
+        $x6 = [];
+        $x62 = [];
 		foreach ($list as $value) {
-			$process_total += 1;
 			$style = json_decode($value['style'], true);
-			$mode = '<font color=red>未设置</font>';
-			$name = '<font color=red>未设置</font>';
-			if ($value['auto_person'] == 2) {
-				$mode = '协同人员';
-				$name = $value['auto_xt_text'];
-			}
-			if ($value['auto_person'] == 3) {
-				$mode = '办理人员';
-				$name = $value['range_user_text'];
-			}
-			if ($value['auto_person'] == 4) { //
-				$mode = '办理人员';
-				$name = $value['auto_sponsor_text'];
-			}
-			if ($value['auto_person'] == 5) { //
-				$mode = '办理角色';
-				$name = $value['auto_role_text'];
-			}
-			if ($value['auto_person'] == 6) { //
-				$work = ['1' => '制单人员', '2' => '制单人员领导'];
-				$mode = '<font color=blue>事务处理</font>';
-				$name = $work[$value['work_ids']];
-			}
-			if ($value['process_type'] == 'is_one') { //
-				$name_att = '<font color=blue>[开始]</font>';
-			}elseif ($value['process_type'] == 'is_end') {
-				$name_att = '<font color=red>[结束]</font>';
-			}else {
-				if ($value['wf_mode'] == 0) { //
-					$name_att = '[直线]';
-				} elseif ($value['wf_mode'] == 1) {
-					$name_att = '<font color=green>[转出]</font>';
-				} else {
-					$name_att = '<font color=red>[同步]</font>';
-				}
-			}
-			$process_data[] = [
-				'id' => $value['id'],
-				'mode' => $mode,
-				'name' => $name,
-				'flow_id' => $value['flow_id'],
-				'process_name' => $name_att . $value['process_name'],
-				'process_to' => $value['process_to'],
-				'style' => 'width:' . $style['width'] . 'px;height:' . $style['height'] . 'px;line-height:30px;border-radius: 4px;color:#2d6dcc;left:' . $value['setleft'] . 'px;top:' . $value['settop'] . 'px;',
-			];
+            /*模式转换*/
+            $process_type = $value['process_type'] ?? 'node-flow';
+            /*网关模式*/
+            if(count(explode(",",$value['process_to']))>1  && $process_type !='node-start'){
+                $process_type ='node-gateway';
+            }
+            $x6[] = [
+                'position'=>['x'=>(int)$value['settop'],'y'=>(int)$value['setleft']],
+                'size'=>['width'=>(int)$style['width'],'height'=>(int)$style['height']],
+                'attrs'=>['text'=>['text'=>$value['process_name']]],
+                'shape'=>$process_type,
+                'id'=>'Tpflow-'.$value['id'],
+                'data'=>$value['id'],
+            ];
+            if($value['process_to']!=''){
+                $process_to = explode(",",$value['process_to']);
+                foreach ($process_to as $kk=>$vv){
+                    $x62[] = [
+                        'shape'=>'link_node',
+                        'router'=>['name'=>'manhattan'],
+                        'source'=>['cell'=>'Tpflow-'.$value['id'],'port'=>'b1'],
+                        'target'=>['cell'=>'Tpflow-'.$vv,'port'=>'t1'],
+                        'labels'=>[['attrs'=>['label'=>['text'=>$value['id'].'-'.$vv]]]],
+                        'data'=>$value['id']
+                    ];
+                }
+            }
 		}
-		return json_encode(['total' => $process_total, 'list' => $process_data]);
+       $x6_data =  array_merge($x6,$x62);
+		return json_encode(['x6'=>['cells'=>$x6_data]]);
 	}
 	
 	/**
@@ -274,23 +256,16 @@ class Flow
 	 * 新增步骤信息
 	 * @param $flow_id
 	 */
-	static function ProcessAdd($flow_id)
+	static function ProcessAdd($flow_id,$data)
 	{
-		$process_count = Process::SearchFlowProcess([['flow_id', '=', $flow_id]]);
-		if (count($process_count) <= 0) {
-			$process_type = 'is_one';
-			$process_setleft = '180';
-			$process_settop = '180';
-		} else {
-			//新建步骤显示在上一个步骤下方 2019年1月28日14:32:45
-			$style = Process::SearchFlowProcess([['flow_id', '=', $flow_id]], '*', 'id desc', 1);
-			$process_type = 'is_step';
-			$process_setleft = $style[0]['setleft'] + 30;
-			$process_settop = $style[0]['settop'] + 30;
+		$process_count = Process::SearchFlowProcess([['flow_id', '=', $flow_id],['process_type', '=','node-start']]);
+		if (count($process_count) > 1) {
+            return ['code' => 0, 'msg' => '对不起，只能有一个开始节点！', 'info' => ''];
 		}
 		$data = [
-			'flow_id' => $flow_id, 'setleft' => $process_setleft, 'settop' => $process_settop,
-			'process_type' => $process_type, 'style' => json_encode(['width' => '120', 'height' => 'auto', 'color' => '#2d6dcc'])
+            'process_name'=>$data['process_name'],
+			'flow_id' => $flow_id, 'setleft' => $data['setleft'], 'settop' => $data['settop'],
+			'process_type' => $data['process_type'], 'style' => $data['style']
 		];
 		$processid = Process::AddFlowProcess($data);
 		if ($processid <= 0) {
@@ -318,25 +293,43 @@ class Flow
 		if ($flow_id <= 0 or !$process_info) {
 			return ['code' => 1, 'msg' => '参数有误，请重试', 'info' => ''];
 		}
+        $new = [];
 		foreach ($process_info as $process_id => $value) {
-			$datas = [
-				'setleft' => (int)$value['left'],
-				'settop' => (int)$value['top'],
-				'process_to' => unit::ids_parse($value['process_to']),
-				'uptime' => time()
-			];
-			Process::EditFlowProcess([['id', '=', $process_id], ['flow_id', '=', $flow_id]], $datas);
+            if($value['shape']!='link_node' && $value['shape']!='edge'){
+                $p_id = $value['data'];
+                $process_to = self::search($value['data'],$process_info);
+                $datas = [
+                    'settop' => (int)$value['position']['x'],
+                    'setleft' => (int)$value['position']['y'],
+                    'process_to' => $process_to,
+                    'uptime' => time()
+                ];
+                Process::EditFlowProcess([['id', '=', $p_id], ['flow_id', '=', $flow_id]], $datas);
+            }
 		}
 		return ['code' => 0, 'msg' => '保存步骤成功~', 'info' => ''];
 	}
-	
+	static function search($id,$data){
+        $ids ='';
+        $iis = [];
+        foreach($data as $k=>$v){
+            if(isset($v['target']['cell'])){
+                if($v['shape']=='link_node' || $v['shape']=='edge'){
+                    if($id==str_replace("Tpflow-","",$v['source']['cell'] ?? '')){
+                        $iis[] = str_replace("Tpflow-","",$v['target']['cell']);
+                    }
+                }
+            }
+        }
+        $ids = implode(',',$iis);
+        return $ids;
+    }
 	/**
 	 * 属性保存
 	 * @param $datas
 	 */
 	static function ProcessAttSave($datas)
 	{
-		
 		$process_condition = trim($datas['process_condition'], ',');//process_to
 		$process_condition = explode(',', $process_condition);
 		$out_condition = array();
@@ -355,7 +348,7 @@ class Flow
 		}
 		$data = [
 			'process_name' => $datas['process_name'],
-			'process_type' => $datas['process_type'],
+			//'process_type' => $datas['process_type'],
 			'auto_person' => $datas['auto_person'],
 			'wf_mode' => $datas['wf_mode'],
 			'wf_action' => $datas['wf_action'],
@@ -367,14 +360,16 @@ class Flow
 			'range_user_text' => $datas['range_user_text'],
 			'work_text' => $datas['work_text'],//新增事务功能  style_height
 			'work_ids' => $datas['work_ids'],  //新增事务功能
-			'work_msg' => $datas['work_msg'],  //新增事务MSG
-			'work_sql' => $datas['work_sql'],  //新增事务SQL
+            'work_val' => $datas['work_val'],  //新增事务功能
+            'work_auto' => $datas['work_auto'],  //新增事务功能
+            'work_condition' => $datas['work_condition'],  //新增事务功能
+			//'work_msg' => $datas['work_msg'] ?? '',  //新增事务MSG
+			//'work_sql' => $datas['work_sql'] ?? '',  //新增事务SQL
 			'auto_xt_text' => $datas['auto_xt_text'],  //20210526 新增协同模式
 			'auto_xt_ids' => $datas['auto_xt_ids'],  //20210526 新增协同模式
 			'is_sing' => $datas['is_sing'],
 			'is_back' => $datas['is_back'],
-			'out_condition' => json_encode($out_condition),
-			'style' => json_encode(['width' => $datas['style_width'], 'height' => 'auto', 'color' => '#2d6dcc'])
+			'out_condition' => json_encode($out_condition)
 		];
 		if (isset($datas["process_to"])) {
 			$data['process_to'] = unit::ids_parse($datas['process_to']);
@@ -415,7 +410,7 @@ class Flow
 				} else {
 					$process_to_list[$k]['condition'] = '';
 				}
-			} else {
+			}else{
 				$process_to_list[$k]['condition'] = '';
 			}
 		}
@@ -429,7 +424,6 @@ class Flow
 	 */
 	public static function CheckFlow($wfid)
 	{
-		
 		if (!$wfid) {
 			return ['code' => 1, 'msg' => '参数出错!', 'info' => ''];
 		}
@@ -438,7 +432,7 @@ class Flow
 		if (count($pinfo) < 1) {
 			return ['code' => 1, 'msg' => '没有找到步骤信息!', 'info' => ''];
 		}
-		$one_pinfo = Process::SearchFlowProcess([['flow_id', '=', $wfid], ['process_type', '=', 'is_one']]);
+		$one_pinfo = Process::SearchFlowProcess([['flow_id', '=', $wfid], ['process_type', '=', 'node-start']]);
 		if (count($one_pinfo) < 1) {
 			return ['code' => 1, 'msg' => '没有设置第一步骤,请修改!', 'info' => ''];
 		}
@@ -474,4 +468,17 @@ class Flow
 	{
 		return Run::EditRun($run_id, ['run_flow_process' => $flow_process]);
 	}
+    public static function verUpdate(){
+        $data = Process::SearchFlowProcess();
+        foreach ($data as $k=>$v){
+            $node = ['is_one'=>'node-start','is_step'=>'node-flow','is_end'=>'node-end'];
+            $checked =  $node[$v['process_type']] ?? 1;
+            if($checked !=1){
+                $str = str_replace("auto",'42',$v['style']);
+                Process::EditFlowProcess([['id', '=', $v['id']]],['style'=>$str,'process_type'=>$checked]);
+            }
+        }
+        return true;
+    }
+
 }

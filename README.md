@@ -1,31 +1,43 @@
-<p align="center">
-<img src="https://www.gadmin8.com/tpflow.png" width="500" />
-</p>
+<div align="center">
+<br/>
+<br/>
+  <h1 align="center">
+    Tpflow 工作流引擎
+  </h1>
+  <h4 align="center">
+    致 力 于 企 业 信 息 化 解 决 方 案
+  </h4> 
+
+[预 览](http://tpflow.gadmin8.com)   |   [官 网](http://www.gadmin8.com/)   |   [群聊](https://jq.qq.com/?_wv=1027&k=uIJZE54F) |   [文档](https://gadmin8.com/index/product.html) |   [Gadmin产品](http://gadmin8.com)
+</div>
 <div align="center">
 
-[![Gitee star](https://gitee.com/ntdgg/tpflow/badge/star.svg?theme=gvp)](https://gitee.com/ntdgg/tpflow)
 [![Gitee fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp)](https://gitee.com/ntdgg/tpflow)
 [![GitHub stars](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
 [![GitHub forks](https://img.shields.io/badge/Tpflow-5.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
-[![GitHub license](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo=)](https://gitee.com/ntdgg/tpflow) 
+[![GitHub license](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo=)](https://gitee.com/ntdgg/tpflow)
 
 </div>
 
-# 🔥Tpflow V6.0 版本会有哪些规划：[过来聊聊](https://gitee.com/ntdgg/tpflow/issues/I48S0C "Demo") 
 
-# ❤️Tpflow V5.0 正式版
+<p align="center">
+<img src="https://www.gadmin8.com/tpflow.png" width="500" />
+</p>
 
-*   TpFlow工作流引擎是一套规范化的流程管理系统，基于业务而驱动系统生命力的一套引擎。 
-*   彻底释放整个信息管理系统的的活力，让系统更具可用性，智能应用型，便捷设计性。 
+
+# ❤️Tpflow V6.0 正式版
+
+*   TpFlow工作流引擎是一套规范化的流程管理系统，基于业务而驱动系统生命力的一套引擎。
+*   彻底释放整个信息管理系统的的活力，让系统更具可用性，智能应用型，便捷设计性。
 *   Tpflow团队致力于打造中国最优秀的PHP工作流引擎。
 
 
- 推荐阿里云服务器 [传送门](https://www.aliyun.com/minisite/goods?userCode=6y4qge6i "Demo") 
+推荐阿里云服务器 [传送门](https://www.aliyun.com/minisite/goods?userCode=6y4qge6i "Demo")
 
 
 Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含在线演示模块 测试账号：test 123456
 
-* Gadmin V3.0.0 企业级极速开发平台，
+* Gadmin V5.0.0 企业级极速开发平台，
 * 深耕OA、ERP的开发经验，整合TPFLOW、SFDP，
 * 企业级授权机制，
 * 企业级的日志管理平台，
@@ -41,28 +53,43 @@ Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含�
 
 交流群②：778657302
 
-Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/article/148 "加群条件") 
+Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/article/148 "加群条件")
 
 手册：https://gadmin8.com/index/product.html  【付费】
 
-# ✈️ 技术架构图
+# ✈️ 技术架构图&产品截图
 
 <p align="center">
 <img src="https://www.gadmin8.com/img/tpflow_er.jpg"  />
 </p>
 
+<p align="center">
+<img src="https://www.gadmin8.com/img/tpflow_1.png"  />
+</p>
+<p align="center">
+<img src="https://www.gadmin8.com/img/tpflow_2.png"  />
+</p>
 # ✈️主要特性
 
-+ 基于  `<jsPlumb>` 可视化设计流程图
-    + 支持可视化界面设计
-    + 支持拖拽式流程绘制
-    + 三布局便捷调整
-    + 基于`workflow.5.0.js` `workflow.5.0.css ` 引擎
-+ 超级强大的API 对接功能
-    + `WfDo` 工作流直API接口
-    + `designapi` 工作流设计器API接口
-    + `wfapi ` 工作流管理API接口
-    + `wfAccess ` 静态调用API接口
+
+# ♨️6.0 新增得特性功能
+
+*   基于`<AntV X6>` 新版图形引擎，让流程设计更加专业
+    * 步骤可视化拖动设计
+    * 消息步骤 处理消息逻辑实务，知晓业务等
+    * 逻辑步骤 支持多线处理步骤
+
+
+*  `<Auto>` 自动化执行
+    * 根据业务逻辑可自动化执行步骤信息
+
+
+*  全新属性设计界面  `步骤更清晰` `设计更简单`
+    * 取消无意义得设置项
+
+*  废弃事务模型
+    * 事务SQL在6.0版本后正式取消，可采用事件处理
+
 + 完善的流引擎机制
     + 规范的命名空间，可拓展的集成化开发
     + 支持 直线式、会签式、转出式、同步审批式等多格式的工作流格式
@@ -85,17 +112,17 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
     * 独立化步骤显示
     * TAB式步骤属性配置
     * 步骤审批、步骤模式更加清晰
- *  环形审批流模式
-    * 解决以往A发起人->B审核人->C核准人->A发起人完结 的环型审批流 
+*  环形审批流模式
+    * 解决以往A发起人->B审核人->C核准人->A发起人完结 的环型审批流
 
 # ⏰安装使用教程
- *  安装Composer
- *  composer require guoguo/tpflow
- *  复制assets/work到项目资源目录
- *  修改src/tpflow/config/common.php的配置文件
- *  博客教程 [官方博客](https://www.cojz8.com/ "官方博客")
- *  视频免费教程 [B站查看](https://www.bilibili.com/video/BV1VZ4y1A71Q)
- *   开源不易，知识付费  详细教程请购买文档 [购买](https://gadmin8.com/index/product.html)
+*  安装Composer
+*  composer require guoguo/tpflow
+*  复制assets/work到项目资源目录
+*  修改src/tpflow/config/common.php的配置文件
+*  博客教程 [官方博客](https://www.cojz8.com/ "官方博客")
+*  视频免费教程 [B站查看](https://www.bilibili.com/video/BV1VZ4y1A71Q)
+*   开源不易，知识付费  详细教程请购买文档 [购买](https://gadmin8.com/index/product.html)
 
 # ⌛版权及严正声明
 
@@ -126,7 +153,7 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 
 > 官方博客：https://www.cojz8.com/
 
-> 演示站点：http://tpflow.cojz8.com/   
+> 演示站点：http://tpflow.cojz8.com/
 
 > 工作流手册：https://gadmin8.com/index/product.html  【付费】
 
@@ -152,3 +179,4 @@ All rights reserved。
 特别声明：坚决打击网络诈骗行为，严禁将本插件集成在任何违法违规的程序上。
 ~~~
 
+如果对您有帮助，您可以点右上角 💘Star💘支持

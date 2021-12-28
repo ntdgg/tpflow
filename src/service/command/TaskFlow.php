@@ -15,6 +15,7 @@ namespace tpflow\service\command;
 //数据库操作
 use tpflow\adaptive\Info;
 use tpflow\adaptive\Flow;
+use tpflow\adaptive\Msg;
 use tpflow\adaptive\Process;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Bill;
@@ -146,10 +147,9 @@ class TaskFlow
 			if (!$end) {
 				return ['msg' => '结束流程错误！！！', 'code' => '-1'];
 			}
-
-
 			//消息通知发起人
 		}
+        Msg::find([['run_id','=',$run_id],['process_id','=',$config['flow_process']]]);//执行消息节点步骤信息
 		return ['msg' => 'success!', 'code' => '0'];
 	}
 	

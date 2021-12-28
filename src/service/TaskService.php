@@ -116,7 +116,7 @@ class TaskService
 			} else { //通过
 				return ['msg' => '参数信息不全！', 'code' => '-1'];
 			}
-		} else {
+		}else{
 			$ret = $this->doSingEnt($config, $uid, $wf_actionid);
 		}
 		return $ret;

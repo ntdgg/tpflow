@@ -303,6 +303,10 @@ class Tpl
 
             }
         }
+        if ($act == 'verUpdate') {
+            Flow::verUpdate();
+            return json(unit::msg_return('版本更新成功！'));
+        }
 		return $act . '参数出错';
 	}
 	
@@ -394,7 +398,7 @@ class Tpl
 			if (!$one) {
 				return ['status' => 0, 'msg' => '添加失败,未找到流程', 'info' => ''];
 			}
-			return Flow::ProcessAdd($flow_id);
+			return Flow::ProcessAdd($flow_id,$data);
 		}
 		if ($act == 'delAll') {
 			return Flow::ProcessDelAll($flow_id);
@@ -446,7 +450,11 @@ class Tpl
 			exit;
 		}
 		if ($act == 'btn') {
-			return (new lib())::tpflow_btn($data['id'], $data['type'], $data['status'], self::WfCenter('Info', $data['id'], $data['type'], $data['status']));
+            $info = [];
+            if($data['status']==1){
+                $info = self::WfCenter('Info', $data['id'], $data['type'], $data['status']);
+            }
+			return (new lib())::tpflow_btn($data['id'], $data['type'], $data['status'], $info);
 		}
 		if ($act == 'status') {
 			return (new lib())::tpflow_status($data['status']);

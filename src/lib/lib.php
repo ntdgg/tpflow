@@ -59,14 +59,13 @@ class lib
                     }
 
                 }
-
 				if ($return == 1) {
 					return ['Url' => $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid, 'User' => '', 'status' => 1];
 				}
 				if(!$btn_access){
                     return '';
                 }
-                return '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>发起工作流</span>';
+                return '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>发起</span>';
 
 				break;
 			case 1:
@@ -103,7 +102,7 @@ class lib
 					if ($return == 1) {
 						return ['Url' => '', 'User' => '', 'status' => 0];
 					}
-					return '<span class="btn">无权限</span>';
+					return '<span class="btn">无权</span>';
 				}
 				if ($st == 1) {
 					if ($return == 1) {
@@ -114,14 +113,14 @@ class lib
 					if ($return == 1) {
 						return ['Url' => '', 'User' => $user_name, 'status' => 0];
 					}
-					return '<span class="btn">无权限(' . $user_name . ')</span>';
+					return '<span class="btn">无权(' . $user_name . ')</span>';
 				}
 				break;
 			case 100:
 				if ($return == 1) {
 					return ['Url' => $url['url'] . '&sup=1', 'User' => '', 'status' => 1];
 				}
-				return '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '&sup=1",100,100)>审核</span>';
+				return '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '&sup=1",100,100)>超审</span>';
 				break;
 			default:
 				
@@ -212,11 +211,11 @@ php;
 				   <table class="table"><tr><th style='width:75px'>流程名称</th><td style='width:330px;text-align: left;'>
 							<input type="text" class="input-text" value="{$info['flow_name']}" name="flow_name"  datatype="*" ></td></tr><tr>
 							<th>流程类型</th><td style='width:330px;text-align: left;'>
-							<span class="select-box"><select name="type"  class="select"  datatype="*" >{$type}</select></span>
+							<span class="select-box"><select name="type"  class="smalls"  datatype="*" >{$type}</select></span>
 							</td></tr>
 							<tr><th style='width:75px'>单据过滤</th>
 							<td style='width:330px;text-align: left;'>
-							过滤:<select name="is_field"  class="select"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select><br/>
+							过滤:<select name="is_field"  class="smalls"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select><br/>
 							字段:<input type="text" class="input-text" value="{$info['field_name']}" name="field_name"><br/>数值:<input type="text" class="input-text" value="{$info['field_value']}" name="field_value"   ></td></tr><tr>
 							<tr><th style='width:75px'>业务名称</th>
 							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['tmp']}" name="tmp" >*【title】</td></tr><tr>
@@ -389,7 +388,7 @@ php;
 		<form action="{$url}" method="post" name="form" id="form">
 		<input type='hidden' value="{$info['wf_fid']}" name='wf_fid'>
 		<table class="table">
-			<tr><td>选择工作流：</td><td style="text-align:left"><select name="wf_id"  class="select"  datatype="*" ><option value="">请选择工作流</option>{$flow}</select>
+			<tr><td>选择工作流：</td><td style="text-align:left"><select name="wf_id"  class="smalls "  datatype="*" ><option value="">请选择工作流</option>{$flow}</select>
 			</td></tr><tr>
 			<td>审核意见：</td><td style="text-align:left"><input type="text" class="input-text" name="check_con"  datatype="*" >
 			</td></tr>
@@ -513,7 +512,7 @@ php;
 				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </td>
 				</tr>
 				<tr><td>回退步骤</td>
-				<td style="text-align:left"><select name="wf_backflow" id='backflow'  class="select"  datatype="*" onchange='find()'>
+				<td style="text-align:left"><select name="wf_backflow" id='backflow'  class="smalls"  datatype="*" onchange='find()'>
 					<option value="">请选择回退步骤</option>{$op}</select>
 				</td>
 				</tr>
@@ -566,50 +565,8 @@ php;
 	public static function tmp_wfdesc($id, $process_data, $urlApi)
 	{
 		$tmp = self::commontmp('Tpflow V5.0 ');
-		return <<<php
-		 {$tmp['head']}
-		 {$tmp['css']}
-<body>
-<!-- 主面板 -->
-<div class="content">
-    <div id="canvas">
-        <div  style="width: 100%; height: 100%; position: relative;">
-            <div  style="position: relative; overflow: hidden; width: 100%; height: 100%;">
-                <div id="flowdesign_canvas" width="100%" height="100%" style='background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
-background-size: 20px 20px;'>
-                </div>
-                <div class="tool" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                        <div >
-                            <div class="entry" onclick='Tpflow.Api("save")' title='保存'>♡</div>
-                            <div class="entry" onclick='Tpflow.Api("add")' title='新增'>✚</div>
-                            <div class="entry" onclick='Tpflow.Api("check")' title='检查'>➽</div>
-                            <div class="entry" onclick='Tpflow.Api("delAll")' title='清空'>✘</div>
-                            <hr  style="margin: 0 5px;padding-top: 5px;border: none;border-bottom: solid 1px #DDD;clear: both;"/>
-                            <div class="entry" onclick='Tpflow.Api("Refresh")' title='刷新'>➲</div>
-                            <div class="entry" onclick='Tpflow.Api("Help")' title='帮助'>☺</div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="r-ctl">
-    <ul class="t-ctl t-ctl-list" style='border: none;'>
-        <li><button onclick='Tpflow.Api("Doc")'>Doc&nbsp;</button><button onclick='Tpflow.Api()'>&nbsp;|&nbsp;Star&nbsp;|&nbsp;</button><button onclick='Tpflow.Api("Help")'>Tpflow 5.0 版权所有</button></li>
-    </ul>
-</div>
-</body>
-</html>
-{$tmp['js']}
-<script type="text/javascript">
-var the_flow_id ='{$id}';
-var Server_Url ="{$urlApi}";
-var _this = $('#flowdesign_canvas');
-$(function(){
-	Tpflow.Init({$process_data});
-});
-</script>	
-php;
+        $data = json_decode($process_data,'true');
+        return view(BEASE_URL.'/template/index.html',['surl'=>$urlApi,'id'=>$id,'x6'=>json_encode($data['x6'])]);
 	}
 	
 	/**
@@ -646,7 +603,7 @@ php;
 				</tr>
 				<tr><td>会签接收人</td>
 				<td style="text-align:left">
-				<select name="wf_singflow" id='singflow'  class="select"  datatype="*" >
+				<select name="wf_singflow" id='singflow'  class="smalls"  datatype="*" >
 					<option value="">请选择会签人</option>{$op}</select>
 				</td>
 				</tr>
@@ -774,9 +731,9 @@ php;
 				$html .= '<a class="button"  onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=sing",45,42) style="background-color: #f37b1d;">⇅ 会签</a>';
 			}
 		} else {
-            $html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_back'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
+			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
 		}
-		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,30)>✤ 审批历史</a> <a class="button" onclick=Tpflow.lopen("流程图","' . $info['tpflow_flow'] . '",100,100)>≋ 流程图</a> ';
+		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,30)>✤ 审批历史</a> ';
 		$tmp = self::commontmp('Tpflow V5.0 ');
 		
 		return <<<php
@@ -805,7 +762,7 @@ php;
 	{
 		$urls = unit::gconfig('wf_url');
 		$wf_action = $one['wf_action'] ?? 'view';
-		if ($one['process_type'] != 'is_one') {
+		if ($one['process_type'] != 'node-start') {
 			$process_type = '<option value="3">自由选择</option>';
 		} else {
 			$process_type = '';
@@ -826,12 +783,12 @@ php;
 		foreach ($from as $k => $v) {
 			$from_html .= '<option value="' . $k . '">' . $v . '</option>';
 		}
-		if (count($one['process_to']) > 1) {
-			$condition = '<option value="1">转出模式（符合执行）</option><option value="2">同步模式（均需办理）</option>';
-		} else {
-			$condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option>';
-		}
-		$tmp = self::commontmp('Tpflow V5.0 管理列表');
+
+        $condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option><option value="1">转出模式（符合执行）</option><option value="2">同步模式（均需办理）</option>';
+
+        $tmp = self::commontmp('Tpflow V5.0 管理列表');
+        return view(BEASE_URL.'/template/att.html',['urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp]);
+
 		return <<<php
 		 {$tmp['head']}
 <form  class="form-horizontal" action="{$urls['designapi']}?act=saveatt" method="post" name="form" id="form">
@@ -856,7 +813,7 @@ php;
 	   </div> 
        <div class="tab-item">
 	   <table class="table">
-	   <tr><th>步骤类型</th><td><select name="process_type" ><option value="is_step" >正常步骤</option><option value="is_one" >第一步</option><option value="is_end" >结束步骤</option></select></td></tr>
+	   <tr><th>步骤类型</th><td><select name="process_type" ><option value="node-flow" >正常步骤</option><option value="node-start" >第一步</option><option value="node-end" >结束步骤</option></select></td></tr>
         <tr><th>调用方法</th><td><input type="text" class="smalls" name="wf_action"  value="{$wf_action}"><br/>*自定义方法可以=控制器@方法@参数名@参数值
          <br/>*如：SFDP调用方法：sfdp@view@sid@24 生成URL：sfdp/view?sid=24&id=2 </td></tr>
         <tr><th>会签方式</th><td><select name="is_sing" ><option value="1" >允许会签</option><option value="2" >禁止会签</option></select></td></tr>

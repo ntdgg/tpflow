@@ -35,7 +35,7 @@ class Log
 		if ($type == "Html") {
 			$html = '
 					 <style type="text/css">
-						.new_table{border-collapse: collapse;margin: 0 auto;text-align: center;}
+						.new_table{border-collapse: collapse;margin: 0 auto;text-align: center;width: 100%;}
 						.new_table td, table th{border: 1px solid #cad9ea;color: #666;height: 30px;}
 						.new_table thead th{background-color: #CCE8EB;width: 100px;}
 						.new_table tr:nth-child(odd){background: #fff;}

@@ -1,7 +1,7 @@
 <?php
 /**
  *+------------------
- * TPFLOW 工作流回退
+ * Tpflow 普通提交工作流
  *+------------------
  * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
  *+------------------
@@ -15,28 +15,22 @@ namespace tpflow\service\command;
 //数据库操作
 use tpflow\adaptive\Info;
 use tpflow\adaptive\Flow;
-use tpflow\adaptive\Process;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Bill;
+use tpflow\adaptive\Process;
 use tpflow\adaptive\Run;
+use tpflow\lib\unit;
 
-class EndFlow
+class MsgFlow
 {
-	/**
-	 * @param $pid
-	 * @param $run_id
-	 * @return bool|void
-	 */
-	public static function doTask($pid,$run_id)
-	{
-		if($pid==''){
-			return 0;
-		}
-		$process = Process::GetProcessInfo($pid,$run_id);
-		if($process['process_type']=='node-end'){
-			return 1;
-		}else{
-			return 0;
-		}
-	}
+    /**
+     * 任务自动执行
+     *
+     * @param mixed $npid 运行步骤id
+     * @param mixed $run_wfid 设计器id
+     */
+    public function do()
+    {
+
+    }
 }

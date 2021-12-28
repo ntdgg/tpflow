@@ -59,9 +59,12 @@ use think\facade\Request;
      * @return array 返回类型
 	 */
 	public function designapi($act){
-		if($act=='welcome' ||$act=='check' || $act=='add' || $act=='delAll' || $act=='wfdesc'){
+		if($act=='welcome' ||$act=='check' || $act=='delAll' || $act=='wfdesc'){
             return unit::return_msg(Control::WfDescCenter($act,input('flow_id')));
 		}
+        if($act=='add'){
+            return unit::return_msg(Control::WfDescCenter($act,input('flow_id'),input('data')));
+        }
 		if($act=='save'){
             return unit::return_msg(Control::WfDescCenter($act,input('flow_id'),input('process_info')));
 		}
@@ -82,7 +85,7 @@ use think\facade\Request;
      * @return array 返回类型
 	 */
 	public function wfapi($act='index'){
-		if($act=='index'||$act=='wfjk'){
+		if($act=='index'||$act=='wfjk' ||$act=='verUpdate'){
 			return Control::WfFlowCenter($act);
 		}
 		if($act=='wfdl'){
