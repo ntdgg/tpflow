@@ -12,9 +12,8 @@
 </div>
 <div align="center">
 
-[![Gitee fork](https://gitee.com/ntdgg/tpflow/badge/fork.svg?theme=gvp)](https://gitee.com/ntdgg/tpflow)
 [![GitHub stars](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
-[![GitHub forks](https://img.shields.io/badge/Tpflow-5.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
+[![GitHub forks](https://img.shields.io/badge/Tpflow-6.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
 [![GitHub license](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo=)](https://gitee.com/ntdgg/tpflow)
 
 </div>
