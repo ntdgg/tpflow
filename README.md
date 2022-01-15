@@ -42,7 +42,7 @@ Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含�
 * 企业级的日志管理平台，
 * 企业级的BI自定义开发系统
 # ☀️青年计划
-团队一直致力于中国PHP工作流引擎、业务表单引擎的研发和设计，至今已经有4个年头，2018年初正式立项研发工作流引擎，2019年获得开源中国GVP项目。TPFLOW、SFDP全部使用最宽松的开源MIT协议（可以应用与商业系统、个人系统均可，只需保留版权信息）;[使用声明](https://www.cojz8.com/topic/2)
+团队一直致力于中国PHP工作流引擎、业务表单引擎的研发和设计，至今已经有4个年头，2018年初正式立项研发工作流引擎，2019年获得开源中国GVP项目。TPFLOW、SFDP全部使用最宽松的开源MIT协议（可以应用与商业系统、个人系统均可，只需保留版权信息）;[使用声明](https://www.gadmin8.com/index/doc/show.html?id=9)
 
 青年计划，为了PHP开源工作流引擎、业务表单引擎的进步，我们全面开启青年计划，服务更多青年学者，为开源做奉献，为工作流引擎做奉献！[前去申请](https://gadmin8.com/index/young.html)
 
@@ -55,6 +55,15 @@ Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含�
 Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/article/148 "加群条件")
 
 手册：https://gadmin8.com/index/product.html  【付费】
+
+# ❤  [流之云科技](https://liuzhiyun.com) —— 旗下作品
+
+| 名称                                         | 说明             |
+  | -------------------------------------------- | ---------------- |
+| [Tpflow](https://gitee.com/ntdgg/tpflow)     | PHP 工作流引擎   |
+| [SFDP](https://gitee.com/ntdgg/sfdp)         | PHP 超级表单     |
+| [Fkreport](https://gitee.com/ntdgg/Fkreport) | PHP 报表开发平台 |
+| [Gadmin](https://gadmin8.com)                | 企业级开发平台   |
 
 # ✈️ 技术架构图&产品截图
 
