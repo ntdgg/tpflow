@@ -18,12 +18,6 @@
 
 </div>
 
-
-<p align="center">
-<img src="https://www.gadmin8.com/tpflow.png" width="500" />
-</p>
-
-
 # ❤️Tpflow V6.0 正式版
 
 *   TpFlow工作流引擎是一套规范化的流程管理系统，基于业务而驱动系统生命力的一套引擎。
