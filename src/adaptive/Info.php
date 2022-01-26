@@ -227,7 +227,7 @@ class Info
 				}
 				
 				if ($workflow['status']['wf_mode'] != 2) {
-                    if($workflow ['nexprocess']['process_type']=='node-end'){
+                    if(($workflow ['nexprocess']['process_type'] ?? '')=='node-end'){
                         $workflow['nexid'] = '';//终点节点，直接结束步骤
                     }else{
                         $workflow['nexid'] = $workflow ['nexprocess']['id'];//下一步骤
