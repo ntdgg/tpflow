@@ -13,6 +13,7 @@ namespace tpflow\custom\think;
  */
 
 use think\facade\Db;
+use tpflow\lib\unit;
 
 class AdapteeBill
 {
@@ -52,6 +53,19 @@ class AdapteeBill
 	{
 		return Db::name($bill_table)->where($where)->where('id', $bill_id)->find();
 	}
+
+    function tablename($table){
+        if (unit::gconfig('wf_type_mode') == 0) {
+            $data =  Db::query("select replace(TABLE_NAME,'" . unit::gconfig('prefix') . "','')as name,TABLE_COMMENT as title from information_schema.tables where table_schema='" . unit::gconfig('database') . "' and TABLE_COMMENT like '" . unit::gconfig('work_table') . "%' and TABLE_NAME not like '%_bak';");
+        } else {
+            $data =  unit::gconfig('wf_type_data');
+        }
+        $dataArray = [];
+        foreach ($data as $k => $v) {
+            $dataArray[$v['name']] = str_replace('[work]', '', $v['title']);
+        }
+        return $dataArray[$table] ?? '';
+    }
 	
 	
 }

@@ -478,7 +478,7 @@ class Tpl
 			// Guoke 2021/11/26 15:40 扩展多用户组的支持
 			$roles=unit::getuserinfo('role');
 			$tmpRaw=$p='';
-			foreach($roles as $v){
+			foreach((array)$roles as $v){
 				$tmpRaw .= "$p FIND_IN_SET('$v',f.sponsor_ids)";
 				$p=' or';
 			}

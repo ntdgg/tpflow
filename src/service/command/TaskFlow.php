@@ -121,6 +121,7 @@ class TaskFlow
 					Flow::end_flow($run_id);//终止步骤
 					Log::AddrunLog($uid, $config['run_id'], $config, 'ok');//写入日志
 					Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
+                    Msg::find([['run_id','=',$run_id],['process_id','=',$config['flow_process']]]);//执行消息节点步骤信息
 					return ['msg' => '审批完成，流程结束!', 'code' => '0'];
 				}
 				//更新单据信息

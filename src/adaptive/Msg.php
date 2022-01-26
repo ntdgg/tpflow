@@ -36,7 +36,11 @@ class Msg
     {
         $info = self::findWhere($map);
         if($info){
-
+            $msg_api = unit::gconfig('msg_api') ?? '';
+            if (class_exists($msg_api)) {
+                (new $msg_api())->node_msg($info['run_id'],$info['process_msgid']);
+            }
+            /*更
             /*更新执行消息节点*/
             return (new Msg())->mode->update($map);
         }

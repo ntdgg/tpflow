@@ -71,5 +71,14 @@ class Bill
 	{
 		return (new Bill())->mode->checkbill($bill_table, $bill_id, $where);
 	}
+
+    /**
+     * 获取单据table名称
+     * @param $table
+     * @return void
+     */
+    static function billtablename($table){
+        return (new Bill())->mode->tablename($table);
+    }
 	
 }

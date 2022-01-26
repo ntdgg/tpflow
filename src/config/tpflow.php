@@ -10,32 +10,32 @@
 */
 return [
 	'version'=>'5.0',//当前版本
-	'database'=>'tpflow5.0',//数据库名称
-	'prefix'=>'t_',//数据库前缀
-	'int_url'=>'/index',//使用工作流的模块名称
-	'gateway_mode' =>1,//1,默认使用Tp的助手函数
+	'database'=>config('database.connections.mysql.database'),//数据库名称
+	'prefix'=>config('database.connections.mysql.prefix'),//数据库前缀
+	'int_url'=>'/gadmin',//使用工作流的模块名称
+	'gateway_mode' =>2,//1,默认使用Tp的助手函数
     'start_flow'=>['gongdan','lunwen','zhuanli'],//流程发起控制，填写 table 则只有填写人可以发起工作流
 	'gateway_action' =>'\\sys\\Gateway',//自定义方法返回数据 命名空间 中的GetUserInfo
-	'user_id' =>'uid',//用户的session名称
-	'role_id' =>'role',//用户角色的session名称
+	'user_id' =>'softId',//用户的session名称 
+	'role_id' =>'sfotRoleId',//用户角色的session名称 
 	'work_table'=>'[work]',//特定的表前缀，用于接入工作流的实体表
 	/*用户信息配置*/
 	'user' => [
-		'db'=>'user', //表名
+		'db'=>'soft_user', //表名
 		'key'=>'id', //主键
 		'getfield'=>'username',//获取用户名称
 		'field'=>'id,username',//查询筛选字段 用于设计器的选人
 		'searchwhere'=>'username'//查询筛选字段 用于设计器where匹配
 	],
 	'wf_url' => [
-		'wfdo'=>"/index/wf/wfdo.html",
-		'start'=>"/index/wf/wfstart.html", //表名
-		'wfapi'=>"/index/wf/wfapi.html", //表名
-		'designapi'=>"/index/wf/designapi.html", //表名
+		'wfdo'=>"/gadmin/wf/wfdo.html",
+		'start'=>"/gadmin/wf/wfstart.html", //表名
+		'wfapi'=>"/gadmin/wf/wfapi.html", //表名
+		'designapi'=>"/gadmin/wf/designapi.html", //表名
 	],
 	/*角色信息配置*/
 	'role' => [
-		'db'=>'role', //表名
+		'db'=>'soft_role', //表名
 		'key'=>'id', //主键
 		'getfield'=>'name',//获取用户名称
 		'field'=>'id,name as username',//查询筛选字段 用于设计器的选人
@@ -55,7 +55,10 @@ return [
 	'wf_work_namespace'=>'\\bill\\',//事务驱动命名空间
 	'wf_access_control'=>3,//工作流权限控制（终止和去审），1、所有人均可终止；2、单据发起人可以终止；3、指定uid可以终止；
 	'wf_access_control_uid' => [1,2,3],//可以控制
-	'wf_upload_file' => '',//附件上传接口
-	'msg_api' => '',//消息推送接口
+	'wf_upload_file' => '/gadmin/common/upload',//附件上传接口
+	'msg_api' => '\\sys\\Msg',//消息推送接口
+    'kpi_open'=>1,//是否开启绩效
+    'kpi_out'=>300,//办理超时不得分，单位为分钟
+    'kpi_base'=>1 //基础得分
 ];
 

@@ -24,6 +24,7 @@ use tpflow\lib\unit;
 use tpflow\adaptive\Bill;
 use tpflow\adaptive\Run;
 use tpflow\adaptive\Log;
+use tpflow\adaptive\Kpi;
 
 class TaskService
 {
@@ -75,6 +76,7 @@ class TaskService
 			return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
 		}
 		Log::AddrunLog($uid, $wf_run, ['wf_id' => $wf_id, 'wf_fid' => $wf_fid, 'wf_type' => $wf_type, 'check_con' => $check_con], 'Send');
+        Kpi::Add($wf_type,$wf_fid);//添加入绩效
 		return ['run_id' => $wf_run, 'msg' => 'success', 'code' => '1'];
 	}
 	

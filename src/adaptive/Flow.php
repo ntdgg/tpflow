@@ -57,9 +57,6 @@ class Flow
 		if ($wf_type == '') {
 			return [];
 		}
-
-
-
 		$map[] = ['is_del', '=', 0];
 		$map[] = ['status', '=', 0];
 		$map[] = ['type', '=', $wf_type];
@@ -457,6 +454,8 @@ class Flow
 	 **/
 	public static function end_process($run_process, $check_con)
 	{
+        //Kpi绩效数据 结束步骤写入Kpi
+        Kpi::Run($run_process);
 		return Run::EditRunProcess([['id', 'in', $run_process]], ['status' => 2, 'remark' => $check_con, 'bl_time' => time()]);
 	}
 	

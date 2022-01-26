@@ -189,7 +189,7 @@ class Info
 						}
 					} else {
 						$uids = explode(",", $v['sponsor_ids']);
-						if(!empty(array_intersect($userinfo['role'], $uids))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
+						if(!empty(array_intersect((array)$userinfo['role'], $uids))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
 							$info = $v;
 							break;
 						}
@@ -227,7 +227,11 @@ class Info
 				}
 				
 				if ($workflow['status']['wf_mode'] != 2) {
-					$workflow['nexid'] = $workflow ['nexprocess']['id'];//下一步骤
+                    if($workflow ['nexprocess']['process_type']=='node-end'){
+                        $workflow['nexid'] = '';//终点节点，直接结束步骤
+                    }else{
+                        $workflow['nexid'] = $workflow ['nexprocess']['id'];//下一步骤
+                    }
 				} else {
 					$workflow['nexid'] = $workflow ['process']['process_to'];//下一步骤
 				}

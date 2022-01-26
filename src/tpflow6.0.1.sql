@@ -230,3 +230,63 @@ CREATE TABLE `t_wf_workinfo`  (
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '工作流实务信息表' ROW_FORMAT = DYNAMIC;
+
+
+-- ----------------------------
+-- Table structure for g_wf_kpi_data
+-- ----------------------------
+DROP TABLE IF EXISTS `t_wf_kpi_data`;
+CREATE TABLE `t_wf_kpi_data` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `k_node` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `k_uid` int NOT NULL COMMENT '用户id',
+  `k_role` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '角色id',
+  `k_type` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '单据类别',
+  `k_type_id` int NOT NULL COMMENT '单据id',
+  `k_describe` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '描述',
+  `k_mark` tinyint NOT NULL DEFAULT '1' COMMENT '绩效总分',
+  `k_base` tinyint NOT NULL DEFAULT '1' COMMENT '基础分',
+  `k_isout` tinyint NOT NULL DEFAULT '0' COMMENT '是否超时 0=未超时 1=超时',
+  `k_year` varchar(10) CHARACTER SET utf8 DEFAULT NULL COMMENT '添加年',
+  `k_month` varchar(10) CHARACTER SET utf8 DEFAULT NULL COMMENT '添加月',
+  `k_date` date DEFAULT NULL COMMENT '添加日期',
+  `k_create_time` int DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='工作流用户绩效明细表';
+
+
+-- ----------------------------
+-- Table structure for g_wf_kpi_month
+-- ----------------------------
+DROP TABLE IF EXISTS `t_wf_kpi_month`;
+CREATE TABLE `t_wf_kpi_month` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `k_uid` int NOT NULL COMMENT '用户id',
+  `k_role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色id',
+  `k_mark` bigint NOT NULL DEFAULT '1' COMMENT '绩效总分',
+  `k_time` int NOT NULL DEFAULT '1' COMMENT '基础分',
+  `k_year` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '添加年',
+  `k_month` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '添加月',
+  `k_create_time` int DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='用户绩效月度绩效';
+
+-- ----------------------------
+-- Records of g_wf_kpi_month
+-- ----------------------------
+INSERT INTO `g_wf_kpi_month` VALUES ('1', '1', '1', '1', '5', '2022', '01', '1642918986');
+
+-- ----------------------------
+-- Table structure for g_wf_kpi_year
+-- ----------------------------
+DROP TABLE IF EXISTS `t_wf_kpi_year`;
+CREATE TABLE `t_wf_kpi_year` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `k_uid` int NOT NULL COMMENT '用户id',
+  `k_role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色id',
+  `k_mark` bigint NOT NULL DEFAULT '1' COMMENT '绩效总分',
+  `k_time` int NOT NULL DEFAULT '1' COMMENT '总次数',
+  `k_year` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '添加年',
+  `k_create_time` int DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='工作流绩效年度总表';
