@@ -39,7 +39,7 @@ class AutoFlow
          *
          * */
         $wfrun = Run::FindRunId($run_id);//运行步骤信息
-        $wf_process = Process::GetProcessInfo($pid);
+        $wf_process = Process::GetProcessInfo($pid,$run_id);//fix one process err
         //判断是否设置了步骤自动模式
         if($wf_process['work_val'] !='' && $wf_process['work_auto'] !='' ){
             $where = $wf_process['work_auto'].$wf_process['work_condition'].$wf_process['work_val'];
