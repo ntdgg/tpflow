@@ -272,11 +272,6 @@ CREATE TABLE `t_wf_kpi_month` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='用户绩效月度绩效';
 
 -- ----------------------------
--- Records of g_wf_kpi_month
--- ----------------------------
-INSERT INTO `g_wf_kpi_month` VALUES ('1', '1', '1', '1', '5', '2022', '01', '1642918986');
-
--- ----------------------------
 -- Table structure for g_wf_kpi_year
 -- ----------------------------
 DROP TABLE IF EXISTS `t_wf_kpi_year`;
