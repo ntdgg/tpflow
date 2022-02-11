@@ -25,7 +25,7 @@ class AdapteeRun
 	
 	function FindRun($where = [], $field = '*')
 	{
-		return Db::name('wf_run')->where($where)->field($field)->find();
+		return Db::name('wf_run')->where($where)->field($field)->order('id desc')->find();
 	}
 	
 	function FindRunId($id, $field = '*')
