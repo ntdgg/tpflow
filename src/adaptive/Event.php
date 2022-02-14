@@ -59,7 +59,7 @@ class Event
 		$before = $function['before'] ?? self::tpl('before');
 		$after = $function['after'] ?? self::tpl('after');
 		$cancel = $function['cancel'] ?? self::tpl('cancel');
-		$template = file_get_contents(BEASE_URL . "/adaptive/event.tpl");
+		$template = file_get_contents(BEASE_URL . "/adaptive/Event.tpl");
 		$namespace = stripslashes(unit::gconfig('wf_work_namespace'));
 		
 		$str = str_replace(
