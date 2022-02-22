@@ -47,8 +47,9 @@ class Jwt
 			if ($data == 2) {
 				return '';
 			}
+			$sup = $_GET['sup'] ?? '';
 			$userinfo = ['uid' => unit::getuserinfo('uid'), 'role' => unit::getuserinfo('role')];
-			return Info::workflowInfo($wf_fid, $wf_type, $userinfo);
+			return Info::workflowInfo($wf_fid, $wf_type, $userinfo,$sup);
 		}
 		//流程发起
 		if ($act == 'start') {
