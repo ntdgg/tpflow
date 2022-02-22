@@ -154,7 +154,7 @@ class Info
 	 * @param int $run_id 运行的id
 	 * @param string $wf_type 业务表名
 	 */
-	public static function workflowInfo($wf_fid, $wf_type, $userinfo)
+	public static function workflowInfo($wf_fid, $wf_type, $userinfo,$sup=0)
 	{
 		$workflow = [];
 		//根据表信息，判断当前流程是否还在运行  
@@ -195,9 +195,13 @@ class Info
 						}
 					}
 				}
-				if (!isset($info)) {
-					return -1;
-				}
+				if($sup==1){
+                    $info = $info_list[0];
+                }else{
+                    if (!isset($info)) {
+                        return -1;
+                    }
+                }
 			}
 			
 			//4.0版本新增查找是否有代理审核人员，并给与权限，权限转换
