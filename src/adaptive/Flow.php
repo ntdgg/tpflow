@@ -343,12 +343,18 @@ class Flow
 				}
 			}
 		}
+        if(!isset($datas['wf_action_select']) || $datas['wf_action_select']==1){
+            $wf_action = $datas['wf_action'];
+        }else{
+            $wf_action = $datas['wf_action_select'];
+        }
+
 		$data = [
 			'process_name' => $datas['process_name'],
 			//'process_type' => $datas['process_type'],
 			'auto_person' => $datas['auto_person'],
 			'wf_mode' => $datas['wf_mode'],
-			'wf_action' => $datas['wf_action'],
+			'wf_action' => $wf_action,
 			'auto_sponsor_ids' => $datas['auto_sponsor_ids'],
 			'auto_sponsor_text' => $datas['auto_sponsor_text'],
 			'auto_role_ids' => $datas['auto_role_ids'],

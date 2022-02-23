@@ -412,7 +412,8 @@ class Tpl
 		}
 		if ($act == 'att') {
 			$info = Flow::ProcessAttView($data);
-			return lib::tmp_wfatt($info['info'], $info['from'], $info['process_to_list']);
+            $one = Flow::getWorkflow($info['info']['flow_id']);
+			return lib::tmp_wfatt($info['info'], $info['from'], $info['process_to_list'],$one['type']);
 		}
 		if ($act == 'super_user') {
 			if ($data['type_mode'] == 'user') {

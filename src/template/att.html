@@ -36,7 +36,11 @@
                             </td>
                             <th>调用方法</th>
                             <td>
-                                <input type="text" class="smalls" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com">手册</a>
+                                <select class="smalls" name="wf_action_select" style="width: 40%;">
+                                    <option value="1">自定义</option>
+                                    {$wf_action_select|raw}
+                                </select>
+                                <input type="text" class="smalls" style="width: 50%;" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
                             </td>
                         </tr>
                         <tr id="node-process">
@@ -170,6 +174,7 @@
     $("[name='work_ids']").find("[value='{$one['work_ids']}']").attr("selected", true);
     $("[name='wf_mode']").find("[value='{$one['wf_mode']}']").attr("selected", true);
     $("[name='work_auto']").find("[value='{$one['work_auto']}']").attr("selected", true);
+    $("[name='wf_action_select']").find("[value='{$one['wf_action']}']").attr("selected", true);
     $("[name='work_condition']").find("[value='{$one['work_condition']}']").attr("selected", true);
         $(function(){
         $("#form").Validform({

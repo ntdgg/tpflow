@@ -2,14 +2,10 @@
 /**
 *+------------------
 * Tpflow 配置文件夹
-*+------------------
-* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
-*+------------------
-* Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
 return [
-	'version'=>'5.0',//当前版本
+	'version'=>'6.0.2',//当前版本
 	'database'=>config('database.connections.mysql.database'),//数据库名称
 	'prefix'=>config('database.connections.mysql.prefix'),//数据库前缀
 	'int_url'=>'/gadmin',//使用工作流的模块名称
@@ -59,6 +55,7 @@ return [
 	'msg_api' => '\\sys\\Msg',//消息推送接口
     'kpi_open'=>1,//是否开启绩效
     'kpi_out'=>300,//办理超时不得分，单位为分钟
-    'kpi_base'=>1 //基础得分
+    'kpi_base'=>1, //基础得分
+    'wf_action'=>'\\sys\\Wfaction' //流程方法
 ];
 

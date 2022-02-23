@@ -758,7 +758,7 @@ php;
 	 * 步骤属性模板
 	 *
 	 **/
-	public static function tmp_wfatt($one, $from, $process_to_list)
+	public static function tmp_wfatt($one, $from, $process_to_list,$table='')
 	{
 		$urls = unit::gconfig('wf_url');
 		$wf_action = $one['wf_action'] ?? 'view';
@@ -783,180 +783,19 @@ php;
 		foreach ($from as $k => $v) {
 			$from_html .= '<option value="' . $k . '">' . $v . '</option>';
 		}
-
         $condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option><option value="1">转出模式（符合执行）</option><option value="2">同步模式（均需办理）</option>';
+        if(count($process_to_list) <= 1){
+            $condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option>';
+        }
 
+        /*6.0.2增加方法接口*/
+        $wf_action_select = '';
+        $wf_class = unit::gconfig('wf_action') ?? '';
+        if (class_exists($wf_class)) {
+            $wf_action_select = (new $wf_class())->info($table);
+        }
         $tmp = self::commontmp('Tpflow V5.0 管理列表');
-        return view(BEASE_URL.'/template/att.html',['urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp]);
-
-		return <<<php
-		 {$tmp['head']}
-<form  class="form-horizontal" action="{$urls['designapi']}?act=saveatt" method="post" name="form" id="form">
-   <ul id='wfatt' style='padding: 0;margin: 0;'>
-       <li onclick="Tpflow.tabchange(this,0);" tabid="1" class="choice">信息</li>
-       <li onclick="Tpflow.tabchange(this,1);" tabid="2">属性</li>
-       <li onclick="Tpflow.tabchange(this,2);" tabid="3">人员</li>
-	   <li onclick="Tpflow.tabchange(this,3);" tabid="4">转出</li>
-	   <li onclick="Tpflow.tabchange(this,4);" tabid="5">事务</li>
-   </ul>
-   <div id="box" style='height: auto;width: auto;'>
-       <div class="tab-item show">
-	   <input type="hidden" name="flow_id" value="{$one['flow_id']}"/>
-	<input type="hidden" name="process_id" value="{$one['id']}"/>
-	<input type="hidden" name="process_condition" id="process_condition" value='{$one['process_tos']}'>
-		<table class="table">
-			<tr><th>节点ID</th><td>{$one['id']}</td></tr>
-			<tr><th>步骤名称</th><td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}"></td></tr>
-			<tr><th>步骤尺寸</th><td><input type="text" class="smalls" name="style_width" value="{$one['style']['width']}" style='width:60px'> X {$one['style']['height']}</td></tr>
-		</table>
-	   
-	   </div> 
-       <div class="tab-item">
-	   <table class="table">
-	   <tr><th>步骤类型</th><td><select name="process_type" ><option value="node-flow" >正常步骤</option><option value="node-start" >第一步</option><option value="node-end" >结束步骤</option></select></td></tr>
-        <tr><th>调用方法</th><td><input type="text" class="smalls" name="wf_action"  value="{$wf_action}"><br/>*自定义方法可以=控制器@方法@参数名@参数值
-         <br/>*如：SFDP调用方法：sfdp@view@sid@24 生成URL：sfdp/view?sid=24&id=2 </td></tr>
-        <tr><th>会签方式</th><td><select name="is_sing" ><option value="1" >允许会签</option><option value="2" >禁止会签</option></select></td></tr>
-        <tr><th>回退方式</th><td><select name="is_back" ><option value="1" >允许回退</option><option value="2" >不允许</option></select></td></tr>
-	   </table>
-	   </div>
-       <div class="tab-item"> <table class="table">
-	   <tr><th>办理人员</th><td colspan='3'><select name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！" onchange="Tpflow.onchange(this,'auto_person');">
-                <option value="">请选择</option>
-				{$process_type}
-				<option value="2" >协同人员</option>
-				 <option value="4" >指定人员</option>
-                <option value="5" >指定角色</option>
-				<option value="6" >事务接受</option>
-              </select></td></tr>
-			 <tr class='auto_person hide' id="auto_person_2" ><td>
-			<input type="button" value="指定人员" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_xt&type_mode=user','60','95')">
-			</td><td>
-			
-			<input type="hidden" name="auto_xt_ids" id="auto_xt_ids" value="{$one['auto_xt_ids']}">
-             <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定办理人" name="auto_xt_text" id="auto_xt_text" value="{$one['auto_xt_text']}">
-				<span id='auto_xt_html'>{$one['auto_xt_text']}</span>
-					</td>
-			</tr>
-			<tr class='auto_person hide' id="auto_person_3" ><td>
-			<input type="button" value="自由选择" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=range_user&type_mode=user','60','95')">
-			</td><td>
-				<input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one['range_user_ids']}" datatype="*" nullmsg="请选择办理人员！">
-                    <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="选择办理人范围" name="range_user_text" id="range_user_text" value="{$one['range_user_text']}"> 
-					<span id='range_user_html'>{$one['range_user_text']}</span>	
-					</td>	
-			</tr>
-			<tr class='auto_person hide' id="auto_person_4" ><td>
-			<input type="button" value="指定人员" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_sponsor&type_mode=user','60','95')">
-			</td><td> 
-			
-			<input type="hidden" name="auto_sponsor_ids" id="auto_sponsor_ids" value="{$one['auto_sponsor_ids']}">
-             <input class="input-xlarge" readonly="readonly" type="hidden" placeholder="指定办理人" name="auto_sponsor_text" id="auto_sponsor_text" value="{$one['auto_sponsor_text']}"> 
-				<span id='auto_sponsor_html'>{$one['auto_sponsor_text']}</span>	
-					</td>	
-			</tr>
-			<tr class='auto_person hide' id="auto_person_5" ><td>
-			<input type="button" value="指定角色" onclick="Tpflow.lopen('指定角色','{$urls['designapi']}?act=super_user&kid=&type_mode=role','60','95')">
-			</td><td> 
-			<input type="hidden" name="auto_role_ids" id="auto_role_ids" value="{$one['auto_role_ids']}" >
-			<span id='auto_role_html'>{$one['auto_role_text']}</span>
-            <input class="input-xlarge" readonly="readonly" type="hidden" name="auto_role_text" id="auto_role_text" value="{$one['auto_role_text']}">
-			</td>
-			</tr>
-			<tr class='auto_person hide' id="auto_person_6" ><td>事务接受</td><td>
-				取业务表<select   class="smalls" name='work_text'>
-              <option value="">选择字段</option>
-			  {$from_html}
-            </select>的
-			<select name="work_ids"  nullmsg="人员">
-				<option value="1">制单人员</option>
-			</select>
-			</td>	
-			</tr>
-			</table>
-	   </div>
-	   <div class="tab-item">
-	    <table class="table">
-				<!--<tr><td>单据操作</td><td  colspan='3'>
-					<select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择单据操作" onchange="Tpflow.onchange(this,'wf_mode');">
-						<option value="0">不执行操作</option>
-						<option value="before">审批前</option>
-						<option value="after">审批后</option> 
-					</select>
-				</td>
-				</tr>-->	
-				<tr><th>步骤模式</th><td  colspan='3'>
-					<select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择步骤模式" onchange="Tpflow.onchange(this,'wf_mode');">
-					<option value="">请选择步骤模式</option>
-					{$condition}
-				  </select>
-				  
-				</td></tr>	
-<!--重新设计，带转出模式-->
-<tr id='wf_mode_2' {$wf_mode}>
-<td colspan=4>
-<table class="table" ><thead><tr><th style="width:30px;">步骤</th><th>转出条件设置</th></tr></thead><tbody>
-<!--模板-->
-{$process_to_html}
-</table></td></tr>
-</table>
-</div>
-  <div class="tab-item">
-  <table class="table">
-		<tr><th width='160px'style="display:table-cell; vertical-align:middle">事务SQL
-		<hr>
-		单据ID：@from_id<br/>
-		节点ID：@run_id<br/>
-		提交意见：@check_con
-		</th><td><textarea name='work_sql'  type="text/plain" style="width:100%;height:100px;">{$one['work_sql']}</textarea>
-		Tip:UPDATE Table SET field1=value1 WHERE id=@run_id;
-		</td></tr>
-		<tr><th style="display:table-cell; vertical-align:middle">事务MSG
-		<hr>
-		单据ID：@from_id<br/>
-		节点ID：@run_id<br/>
-		提交意见：@check_con
-		</th><td><textarea name='work_msg'  type="text/plain" style="width:100%;height:100px;">{$one['work_msg']}</textarea>
-		Tip:您好,您有需要审批的业务,业务编号为：@run_id;
-		</td></tr>	
-   </table>
-   </div> 
-   
-   </div> 
-    <table class="table">
-    <tr><td><button  class="button" type="submit">保存</button>
-    </td></tr>	
-    </table>
-  
-<div>
-</div>
-</form>
-{$tmp['js']}	
-{$tmp['form']}
-<script type="text/javascript">
-var apid= {$one['auto_person']};
-$("#auto_person_{$one['auto_person']}").show();
-$("#range_user_ids").removeAttr("datatype");
-$("#auto_sponsor_ids").removeAttr("datatype");
-$("#auto_role_ids").removeAttr("datatype");
-if(apid==3){
-	$("#range_user_ids").attr({datatype:"*",nullmsg:"请选择办理人员1"});
-}
-if(apid==4){
-	$("#auto_sponsor_ids").attr({datatype:"*",nullmsg:"请选择办理人员2"});
-}
-if(apid==5){
-	$("#auto_role_ids").attr({datatype:"*",nullmsg:"请选择办理角色3"});
-}
-$("[name='auto_person']").find("[value='{$one['auto_person']}']").attr("selected",true);
-$("[name='is_sing']").find("[value='{$one['is_sing']}']").attr("selected",true);
-$("[name='is_back']").find("[value='{$one['is_back']}']").attr("selected",true);
-$("[name='work_text']").find("[value='{$one['work_text']}']").attr("selected",true);
-$("[name='work_ids']").find("[value='{$one['work_ids']}']").attr("selected",true);
-$("[name='wf_mode']").find("[value='{$one['wf_mode']}']").attr("selected",true);
-$("[name='process_type']").find("[value='{$one['process_type']}']").attr("selected",true);
-</script>
-php;
+        return view(BEASE_URL.'/template/att.html',['urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
 	}
 	
 	/**
