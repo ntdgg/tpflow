@@ -33,6 +33,11 @@ Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含�
 
 青年计划，为了PHP开源工作流引擎、业务表单引擎的进步，我们全面开启青年计划，服务更多青年学者，为开源做奉献，为工作流引擎做奉献！[前去申请](https://gadmin8.com/index/young.html)
 
+
+# ⭐快速体验指南
+
+宝塔一键安装指南：[传送门](https://www.gadmin8.com/index/doc/show.html?id=9&pid=185 "传送门")
+
 # ⭐交流群
 
 交流群①：532797225  （已满）
