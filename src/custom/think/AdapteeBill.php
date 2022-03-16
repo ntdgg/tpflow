@@ -51,7 +51,7 @@ class AdapteeBill
 	
 	function checkbill($bill_table, $bill_id, $where)
 	{
-		return Db::name($bill_table)->where($where)->where('id', $bill_id)->find();
+		return Db::name($bill_table)->whereRaw($where)->where('id', $bill_id)->find();
 	}
 
     function tablename($table){
