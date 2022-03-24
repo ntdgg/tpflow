@@ -1,9 +1,9 @@
 <?php
 /**
  *+------------------
- * Tpflow 统一标准接口------代理模式数据库操作统一接口
+ * Tpflow 消息节点数据
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -28,9 +28,11 @@ class Msg
         }
         $this->mode = new $className();
     }
+
     /**
-     * 获取用户列表
-     *
+     * 查找消息节点信息
+     * @param $map
+     * @return int|void
      */
     public static function find($map)
     {
@@ -45,17 +47,21 @@ class Msg
             return (new Msg())->mode->update($map);
         }
     }
+
     /**
-     * 获取用户列表
-     *
+     * 查询是否有节点消息
+     * @param $map
+     * @return array|\think\facade\Db|\think\Model|null
      */
     public static function findWhere($map)
     {
         return (new Msg())->mode->findWhere($map);
     }
+
     /**
-     * 获取用户列表
-     *
+     * 更新节点数据
+     * @param $map
+     * @return int
      */
     public static function update($map)
     {
@@ -63,8 +69,9 @@ class Msg
     }
 
     /**
-     * 获取角色列表
-     *
+     * 添加节点消息
+     * @param $data
+     * @return false|int|string|void
      */
     public static function add($data)
     {

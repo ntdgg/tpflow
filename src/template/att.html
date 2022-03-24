@@ -22,7 +22,7 @@
                             <td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
                             <th>权限管理</th>
                             <td>
                                 <select name="is_sing" class="smalls">
@@ -43,7 +43,8 @@
                                 <input type="text" class="smalls" style="width: 50%;" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
                             </td>
                         </tr>
-                        <tr id="node-process">
+
+                        <tr id="node-process" {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
                             <th>步骤模式</th>
                             <td colspan='3'>
                                 <select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择步骤模式" onchange="Tpflow.onchange(this,'wf_mode');" class="smalls">
@@ -51,7 +52,7 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr id='wf_mode_2' {$wf_mode|raw}>
+                        <tr id='wf_mode_2' {$wf_mode|raw} {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}>
                             <td colspan=4>
                                 <table class="table">
                                     <thead>
@@ -66,6 +67,7 @@
                                 </table>
                             </td>
                         </tr>
+
                         <tr id="node-user">
                             <th>办理人员</th>
                             <td colspan='3'>
@@ -134,7 +136,9 @@
                     </td>
                 </tr>
             </table>
+            </div>
         </form>
+
 
 
     </div>

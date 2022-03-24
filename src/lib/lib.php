@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 公共类，模板文件
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -11,6 +11,7 @@
 
 namespace tpflow\lib;
 
+use tpflow\adaptive\Cc;
 use tpflow\adaptive\Process;
 use tpflow\adaptive\User;
 use tpflow\adaptive\Bill;
@@ -48,6 +49,7 @@ class lib
 		$urls = unit::gconfig('wf_url');
 		$thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
 		$url = ['url' => $urls['wfdo'] . '?act=do&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid];
+        $ccHtml = Cc::ccStatus($wf_type,$wf_fid);
 		switch ($status) {
 			case 0:
                 $start_flow = (array)unit::gconfig('start_flow');// Guoke 2021/11/26 16:55 修复空数据下报错
@@ -65,7 +67,7 @@ class lib
 				if(!$btn_access){
                     return '';
                 }
-                return '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>发起</span>';
+                $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>发起</span>';
 
 				break;
 			case 1:
@@ -76,7 +78,7 @@ class lib
 						if ($return == 1) {
 							return ['Url' => '', 'User' => '', 'status' => -1];
 						}
-						return '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
+                        $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
 					}
 					if ($flowinfo['sing_st'] == 0) {
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
@@ -102,30 +104,30 @@ class lib
 					if ($return == 1) {
 						return ['Url' => '', 'User' => '', 'status' => 0];
 					}
-					return '<span class="btn">无权</span>';
+                    $btnHtml =   '<span class="btn">无权</span>';
 				}
 				if ($st == 1) {
 					if ($return == 1) {
 						return ['Url' => $url['url'], 'User' => $user_name];
 					}
-					return '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>审核(' . $user_name . ')</span>';
+                    $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>审核(' . $user_name . ')</span>';
 				} else {
 					if ($return == 1) {
 						return ['Url' => '', 'User' => $user_name, 'status' => 0];
 					}
-					return '<span class="btn">无权(' . $user_name . ')</span>';
+                    $btnHtml =   '<span class="btn">无权(' . $user_name . ')</span>';
 				}
 				break;
 			case 100:
 				if ($return == 1) {
 					return ['Url' => $url['url'] . '&sup=1', 'User' => '', 'status' => 1];
 				}
-				return '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '&sup=1",100,100)>超审</span>';
+                $btnHtml =  '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '&sup=1",100,100)>超审</span>';
 				break;
 			default:
-				
-				return '';
+                $btnHtml = '';
 		}
+        return $btnHtml.$ccHtml;
 	}
 	/**
 	 * 添加流程模板
@@ -794,7 +796,7 @@ php;
         if (class_exists($wf_class)) {
             $wf_action_select = (new $wf_class())->info($table);
         }
-        $tmp = self::commontmp('Tpflow V5.0 管理列表');
+        $tmp = self::commontmp('Tpflow V6.0 管理列表');
         return view(BEASE_URL.'/template/att.html',['urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
 	}
 	

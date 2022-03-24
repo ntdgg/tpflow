@@ -98,6 +98,23 @@ const msg_node = {
 const msgNode = new Rect(msg_node)
 X6.Graph.registerNode('node-msg',msg_node);
 
+const cc_node = {
+    inherit: 'rect', width: 45, height: 45, attrs: {
+        body: {
+            stroke: 'rgb(57,99,188)',
+            fill: 'rgba(255,255,255)',
+            rx: 0,
+            ry: 0,
+        },
+        text: {text: '抄送', fill: 'black', fontSize: 13},
+    }, data: 'node-cc', ports: {...ports, items: [{
+            group: 'top', id: 't1'
+        }]}
+}
+const ccNode = new Rect(cc_node)
+X6.Graph.registerNode('node-cc',cc_node);
+
+
 const end_node = {
     inherit: 'circle', width: 60, height: 60, label: '结束', attrs: {
         body: {

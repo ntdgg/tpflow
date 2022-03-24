@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 工作流任务服务驱动
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -14,7 +14,7 @@ namespace tpflow\service;
 
 use tpflow\service\command\TaskFlow;
 use tpflow\service\command\BackFlow;
-use tpflow\service\command\SingFlow;
+use tpflow\service\command\SignFlow;
 use tpflow\service\command\SupFlow;
 
 use tpflow\adaptive\Info;
@@ -119,7 +119,7 @@ class TaskService
 				return ['msg' => '参数信息不全！', 'code' => '-1'];
 			}
 		}else{
-			$ret = $this->doSingEnt($config, $uid, $wf_actionid);
+			$ret = $this->doSignEnt($config, $uid, $wf_actionid);
 		}
 		return $ret;
 	}
@@ -202,7 +202,7 @@ class TaskService
 	 */
 	public function doSing($config, $uid)
 	{
-		$command = new SingFlow();
+		$command = new SignFlow();
 		return $command->doTask($config, $uid);
 	}
 	
@@ -212,10 +212,10 @@ class TaskService
 	 * @param array $config 参数信息
 	 * @param mixed $uid 用户ID
 	 */
-	public function doSingEnt($config, $uid, $wf_actionid)
+	public function doSignEnt($config, $uid, $wf_actionid)
 	{
-		$command = new SingFlow();
-		return $command->doSingEnt($config, $uid, $wf_actionid);
+		$command = new SignFlow();
+		return $command->doSignEnt($config, $uid, $wf_actionid);
 	}
 	
 	/**

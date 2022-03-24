@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 核心控制器
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -12,6 +12,7 @@ declare (strict_types=1);
 
 namespace tpflow\service\method;
 
+use tpflow\adaptive\Cc;
 use tpflow\adaptive\Event;
 use tpflow\lib\unit;
 use tpflow\lib\lib;
@@ -80,6 +81,9 @@ class Tpl
 			}
 			return lib::tmp_wfstart(['wf_type' => $wf_type, 'wf_fid' => $wf_fid], $op);
 		}
+        if ($act == 'entCc') {
+            return Cc::ccCheck($wf_fid);
+        }
 		//流程审批
 		if ($act == 'do') {
 			$urls = unit::gconfig('wf_url');

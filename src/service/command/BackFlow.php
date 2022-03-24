@@ -3,7 +3,7 @@
  *+------------------
  * TPFLOW 工作流回退
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------

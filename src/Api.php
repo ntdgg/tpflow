@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '6.0.2' );
+define('Tpflow_Ver', '6.0.3' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -51,6 +51,10 @@ use think\facade\Request;
                 return unit::return_msg(Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]));
 			 }
 		}
+        /*用户确认抄送*/
+        if($act=='entCc'){
+            return Control::WfCenter($act,input('id'));
+        }
 	}
 	/**
 	 * Tpflow 5.0统一接口设计器

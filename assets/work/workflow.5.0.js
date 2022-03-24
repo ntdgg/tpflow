@@ -309,6 +309,13 @@ var Tpflow = {
 		Tpflow.lopen("属性设计",url,50,60);
 		event.stopPropagation();
 	},
+	cc :function(id){
+		if(!confirm("你确定签阅吗？")){//
+			return;
+		}
+		var Url = Server_Url+'?act=entCc';
+		Tpflow.sPost(Url,{"id":id},true);
+	},
 	Api : function(Action) {
 		var reload = false;
 		switch(Action) {
@@ -323,7 +330,6 @@ var Tpflow = {
 				reload = true;
 				break;
 			case 'att':
-
 				return ;
 				break;
 			case 'add':

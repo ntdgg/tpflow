@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 统一标准接口------代理模式数据库操作统一接口
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -65,10 +65,10 @@ class Log
 	 */
 	static function RunLog($wf_fid, $wf_type)
 	{
-		$type = ['Send' => '流程发起', 'ok' => '同意提交', 'Back' => '退回修改', 'SupEnd' => '终止流程', 'Sing' => '会签提交', 'sok' => '会签同意', 'SingBack' => '会签退回', 'SingSing' => '会签再会签'];
+		$type = ['Send' => '流程发起', 'ok' => '同意提交', 'Back' => '退回修改', 'SupEnd' => '终止流程', 'Sing' => '会签提交', 'sok' => '会签同意', 'SingBack' => '会签退回', 'SingSing' => '会签再会签','CC' => '签阅'];
 		$run_log = (new Log())->mode->SearchRunLog($wf_fid, $wf_type);
 		foreach ($run_log as $k => $v) {
-			$run_log[$k]['btn'] = $type[$v['btn']];
+			$run_log[$k]['btn'] = $type[$v['btn']] ?? '按钮错误';
 			$run_log[$k]['user'] = User::GetUserName($v['uid']);
 		}
 		return $run_log;
@@ -113,4 +113,28 @@ class Log
 		);
 		return (new Log())->mode->AddrunLog($run_log_data);
 	}
+    /**
+     * 工作流审批日志记录
+     *
+     * @param Array $from 核心数组[wf_fid,wf_type,run_id]
+     * @param string $con 审批意见
+     * @param mixed $file 单据id
+     **/
+    static function AddLog($from,$con,$file='')
+    {
+        $run_log_data = array(
+            'uid' => unit::getuserinfo('uid'),
+            'from_id' => $from['wf_fid'],
+            'from_table' => $from['wf_type'],
+            'run_id' => $from['run_id'],
+            'content' => $con,
+            'work_info' => '',
+            'art' => $file,
+            'btn' => 'CC',
+            'dateline' => time()
+        );
+        return (new Log())->mode->AddrunLog($run_log_data);
+    }
+
+
 }

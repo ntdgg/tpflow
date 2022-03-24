@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 流信息处理
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -404,7 +404,7 @@ class Flow
 		$one['process_to'] = $one['process_to'] == '' ? array() : explode(',', $one['process_to']);
 		$one['style'] = json_decode($one['style'], true);
 		$one['out_condition'] = unit::parse_out_condition($one['out_condition'], '');//json
-		$process_to_list = Process::SearchFlowProcess([['id', 'in', $one['process_tos']], ['is_del', '=', 0]], 'id,process_name,process_type');
+		$process_to_list = Process::SearchFlowProcess([['id', 'in', $one['process_tos']], ['is_del', '=', 0], ['process_type', 'not in', ['node-msg','node-cc']]], 'id,process_name,process_type');
 		foreach ($process_to_list as $k => $v) {
 			if ((count($one['out_condition']) > 1)) {
 				//修复设计完成后，新增转出条件报错问题

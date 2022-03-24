@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 用户信息
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -31,6 +31,16 @@ class AdapteeUser
 		$config = self::config();
 		return Db::name($config['db'])->field($config['field'])->select();
 	}
+
+    /**
+     * 获取用户列表
+     *
+     */
+    function searchRoleIds($role)
+    {
+        $config = self::config();
+        return Db::name($config['db'])->where('role','in',$role)->column('id');
+    }
 	
 	/**
 	 * 获取角色列表

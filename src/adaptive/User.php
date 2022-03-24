@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 统一标准接口------代理模式数据库操作统一接口
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -37,6 +37,15 @@ class User
 	{
 		return (new User())->mode->GetUser();
 	}
+
+    /**
+     * 获取用户列表
+     *
+     */
+    public static function searchRoleIds($role='')
+    {
+        return (new User())->mode->searchRoleIds($role);
+    }
 	
 	/**
 	 * 获取角色列表

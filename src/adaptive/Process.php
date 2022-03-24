@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 工作流步骤
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -152,7 +152,7 @@ class Process
      *
      * @param int $pid 步骤编号
      */
-    static function findMsg($info,$run_id)
+    static function findMsg($info,$run_id,$wf_type='', $wf_fid='')
     {
         if($info['process_to']==''){
             return $info['process_to'];
@@ -162,6 +162,28 @@ class Process
             $has_msg = (new Process())->mode->find($v);
             if($has_msg['process_type']=='node-msg'){
                 Msg::add(['uid'=>unit::getuserinfo('uid'),'run_id'=>$run_id,'process_id'=>$info['id'],'process_msgid'=>$v,'add_time'=>time(),'uptime'=>time()]);
+                unset($nex_pid[$k]);
+            }
+            /*如果有抄送节点，将信息传递给抄送节点*/
+            if($has_msg['process_type']=='node-cc'){
+                if ($has_msg['auto_person'] == 2) { //自由选择
+                    $user_id = $has_msg['auto_sponsor_ids'];
+                }
+                if ($has_msg['auto_person'] == 3) { //自由选择
+                    $user_id = $has_msg['auto_sponsor_ids'];
+                }
+                if ($has_msg['auto_person'] == 4) { //指定人员
+                    $user_id = $has_msg['auto_sponsor_ids'];
+                }
+                if ($has_msg['auto_person'] == 5) { //办理角色
+                    $user =User::searchRoleIds($has_msg['auto_role_ids']);
+                    $user_id =implode(',',$user);
+                }
+                if ($has_msg['auto_person'] == 6) { //事务接收者
+                    $run = Run::FindRunId($run_id);
+                    $user_id = Bill::getbillvalue($run['from_table'], $run['from_id'], $has_msg['work_text']);
+                }
+                Cc::add(['from_id'=>$wf_fid,'from_table'=>$wf_type,'uid'=>unit::getuserinfo('uid'),'run_id'=>$run_id,'user_ids'=>$user_id,'auto_ids'=>$user_id,'auto_person'=>$has_msg['auto_person'],'process_id'=>$info['id'],'process_ccid'=>$v,'add_time'=>time(),'uptime'=>time()]);
                 unset($nex_pid[$k]);
             }
         }
@@ -181,8 +203,10 @@ class Process
 			return [];
 		}
 		$nex = (new Process())->mode->find($pid);
+
         /*读取下个步骤的节点信息*/
-        $process_to = self::findMsg($nex,$run_id);
+        $process_to = self::findMsg($nex,$run_id,$wf_type, $wf_fid);
+
 		//先判断下上一个流程是什么模式
 		if ($process_to != '') {
 			$nex_pid = explode(",", $process_to);

@@ -1,4 +1,4 @@
-
+/*Tpflow6.0 版权所有 删除此版权将追究侵权责任*/
 var TFAPI = {
     sApi : function(act) {
         var reload = false;

@@ -3,7 +3,7 @@
  *+------------------
  * Tpflow 会签模块
  *+------------------
- * Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+ * Copyright (c) 2018~2025 liuzhiyun.com All rights reserved.  本版权不可删除，侵权必究
  *+------------------
  * Author: guoguo(1838188896@qq.com)
  *+------------------
@@ -20,7 +20,7 @@ use tpflow\adaptive\Log;
 use tpflow\adaptive\Bill;
 use tpflow\adaptive\Run;
 
-class SingFlow
+class SignFlow
 {
 	/**
 	 * 回退工作流
@@ -56,7 +56,7 @@ class SingFlow
 	 * @param mixed $uid 用户ID
 	 * @param mixed $wf_actionid 操作按钮值
 	 **/
-	public function doSingEnt($config, $uid, $wf_actionid)
+	public function doSignEnt($config, $uid, $wf_actionid)
 	{
 		$sing_id = Process::get_sing_id($config['run_id']);
 		Run::EndRunSing($sing_id, $config['check_con']);//结束当前会签
