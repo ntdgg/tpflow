@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '6.0.3' );
+define('Tpflow_Ver', '6.0.4' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类

@@ -5,11 +5,11 @@
  *+------------------
  */
 return [
-    'version'=>'6.0.2',//当前版本
+    'version'=>'6.0.4',//当前版本
     'database'=>config('database.connections.mysql.database'),//数据库名称
     'prefix'=>config('database.connections.mysql.prefix'),//数据库前缀
-    'int_url'=>'/gadmin',//使用工作流的模块名称
-    'gateway_mode' =>2,//1,默认使用Tp的助手函数
+    'int_url'=>'/index',//使用工作流的模块名称
+    'gateway_mode' =>1,//1,默认使用Tp的助手函数
     'start_flow'=>['gongdan','lunwen','zhuanli'],//流程发起控制，填写 table 则只有填写人可以发起工作流
     'gateway_action' =>'\\sys\\Gateway',//自定义方法返回数据 命名空间 中的GetUserInfo
     'user_id' =>'uid',//用户的session名称
@@ -56,5 +56,6 @@ return [
     'kpi_open'=>1,//是否开启绩效
     'kpi_out'=>300,//办理超时不得分，单位为分钟
     'kpi_base'=>1, //基础得分
-    'wf_action'=>'\\sys\\Wfaction' //流程方法
+    'wf_action'=>'\\sys\\Wfaction', //流程方法
+    'wf_btn'=>['start'=>'发起','noaccess'=>'无权','approve'=>'审核','sapprove'=>'超审']
 ];
