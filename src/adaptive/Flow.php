@@ -91,7 +91,6 @@ class Flow
 		if(empty($wf_id) || $wf_id<=0){
 			return false;
 		}
-		
 		$info = (new Flow())->mode->find($wf_id);
 		if ($info) {
 			return $info;

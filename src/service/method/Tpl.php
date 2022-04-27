@@ -490,6 +490,9 @@ class Tpl
 			}
             $mapRaw = '(f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ",f.sponsor_ids)) or (f.auto_person=5 and ($tmpRaw))";
 			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group);
+
+
+
 		}
 		return ['code' => 1, 'msg' => '查询成功', 'data' => $data];
 	}

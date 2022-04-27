@@ -46,6 +46,7 @@ class lib
 	 **/
 	public static function tpflow_btn($wf_fid, $wf_type, $status, $flowinfo, $return = 0)
 	{
+        $btn_lang = unit::gconfig('wf_btn');
 		$urls = unit::gconfig('wf_url');
 		$thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
 		$url = ['url' => $urls['wfdo'] . '?act=do&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid];
@@ -59,7 +60,6 @@ class lib
                     if($uid != unit::getuserinfo('uid')){
                         $btn_access=false;
                     }
-
                 }
 				if ($return == 1) {
 					return ['Url' => $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid, 'User' => '', 'status' => 1];
@@ -67,7 +67,8 @@ class lib
 				if(!$btn_access){
                     return '';
                 }
-                $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'发起工作流\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>发起</span>';
+
+                $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'发起\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>'.$btn_lang['start'].'</span>';
 
 				break;
 			case 1:
@@ -104,25 +105,25 @@ class lib
 					if ($return == 1) {
 						return ['Url' => '', 'User' => '', 'status' => 0];
 					}
-                    $btnHtml =   '<span class="btn">无权</span>';
+                    $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'</span>';
 				}
 				if ($st == 1) {
 					if ($return == 1) {
 						return ['Url' => $url['url'], 'User' => $user_name];
 					}
-                    $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>审核(' . $user_name . ')</span>';
+                    $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>'.$btn_lang['approve'].'[' . $user_name . ']</span>';
 				} else {
 					if ($return == 1) {
 						return ['Url' => '', 'User' => $user_name, 'status' => 0];
 					}
-                    $btnHtml =   '<span class="btn">无权(' . $user_name . ')</span>';
+                    $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'[' . $user_name . ']</span>';
 				}
 				break;
 			case 100:
 				if ($return == 1) {
 					return ['Url' => $url['url'] . '&sup=1', 'User' => '', 'status' => 1];
 				}
-                $btnHtml =  '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '&sup=1",100,100)>超审</span>';
+                $btnHtml =  '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '&sup=1",100,100)>'.$btn_lang['sapprove'].'</span>';
 				break;
 			default:
                 $btnHtml = '';

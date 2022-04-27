@@ -60,7 +60,7 @@ class Cc
         if(!self::update($update)){
             return unit::msg_return('对不起，签阅失败，您可以联系管理员确认原因！！', 1);
         }
-        if(!Log::AddLog(['wf_fid'=>$info['from_id'],'wf_type'=>$info['from_table'],'run_id'=>$info['run_id']],'签约成功')) {
+        if(!Log::AddLog(['wf_fid'=>$info['from_id'],'wf_type'=>$info['from_table'],'run_id'=>$info['run_id']],'签阅成功')) {
             return unit::msg_return('对不起，日志记录失败，您可以联系管理员确认原因！！', 1);
         }
         return unit::msg_return('操作成功');
