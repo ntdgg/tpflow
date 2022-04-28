@@ -60,7 +60,7 @@ CREATE TABLE `t_wf_flow`  (
   `uid` int NULL DEFAULT NULL COMMENT '添加用户',
   `add_time` int NULL DEFAULT NULL COMMENT '添加时间',
   `is_field` int NULL DEFAULT 0 COMMENT '是否开启过滤',
-  `field_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '字段名',
+  `field_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段名',
   `field_value` int NULL DEFAULT 0 COMMENT '字段值',
   `tmp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '模板字段',
   PRIMARY KEY (`id`) USING BTREE
@@ -74,7 +74,7 @@ CREATE TABLE `t_wf_flow_process`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `flow_id` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '流程ID',
   `process_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '步骤' COMMENT '步骤名称',
-  `process_type` char(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '步骤类型',
+  `process_type` char(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '步骤类型',
   `process_to` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '转交下一步骤号',
   `auto_person` tinyint UNSIGNED NOT NULL DEFAULT 4 COMMENT '3自由选择|4指定人员|5指定角色|6事务接受',
   `auto_sponsor_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '4指定步骤主办人ids',
@@ -238,7 +238,7 @@ CREATE TABLE `t_wf_workinfo`  (
 DROP TABLE IF EXISTS `t_wf_kpi_data`;
 CREATE TABLE `t_wf_kpi_data` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `k_node` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `k_node` varchar(50) COLLATE utf8_general_ci DEFAULT NULL,
   `k_uid` int NOT NULL COMMENT '用户id',
   `k_role` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '角色id',
   `k_type` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '单据类别',
@@ -252,7 +252,7 @@ CREATE TABLE `t_wf_kpi_data` (
   `k_date` date DEFAULT NULL COMMENT '添加日期',
   `k_create_time` int DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='工作流用户绩效明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='工作流用户绩效明细表';
 
 
 -- ----------------------------
@@ -269,7 +269,7 @@ CREATE TABLE `t_wf_kpi_month` (
   `k_month` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '添加月',
   `k_create_time` int DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='用户绩效月度绩效';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户绩效月度绩效';
 
 -- ----------------------------
 -- Table structure for g_wf_kpi_year
@@ -284,7 +284,7 @@ CREATE TABLE `t_wf_kpi_year` (
   `k_year` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '添加年',
   `k_create_time` int DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='工作流绩效年度总表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='工作流绩效年度总表';
 
 DROP TABLE IF EXISTS `t_wf_run_process_cc`;
 CREATE TABLE `t_wf_run_process_cc` (
@@ -302,4 +302,4 @@ CREATE TABLE `t_wf_run_process_cc` (
   `auto_ids` varchar(255) DEFAULT NULL COMMENT '办理ids',
   `user_ids` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='流程抄送表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='流程抄送表';
