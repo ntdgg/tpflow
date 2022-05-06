@@ -301,7 +301,9 @@ class Flow
                     'process_to' => $process_to,
                     'uptime' => time()
                 ];
-                Process::EditFlowProcess([['id', '=', $p_id], ['flow_id', '=', $flow_id]], $datas);
+				if(is_numeric($p_id)){
+					Process::EditFlowProcess([['id', '=', $p_id], ['flow_id', '=', $flow_id]], $datas);
+				}
             }
 		}
 		return ['code' => 0, 'msg' => '保存步骤成功~', 'info' => ''];
