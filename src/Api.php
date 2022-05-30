@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '6.0.4' );
+define('Tpflow_Ver', '6.0.5' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -139,8 +139,8 @@ use think\facade\Request;
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
      * @return array 返回类型
 	 */
-	 public static function wfUserData($act='userFlow',$map=[],$field='',$order='',$group=''){
-		return Control::wfUserData($act,$map,$field,$order,$group);
+	 public static function wfUserData($act='userFlow',$map=[],$field='',$order='',$group='',$page=1,$limit=20){
+		return Control::wfUserData($act,$map,$field,$order,$group,$page,$limit);
 	}
 	 
 	 
@@ -154,5 +154,10 @@ use think\facade\Request;
 	public static function wfAccess($act='log',$data=''){
 		return Control::wfAccess($act,$data);
 	}
+
+    public static  function wfMysend($page=1,$limit=20){
+        return Control::wfMysend($page,$limit);
+    }
+
 }
 	

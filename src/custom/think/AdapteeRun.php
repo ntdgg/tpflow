@@ -85,9 +85,18 @@ class AdapteeRun
 		return Db::name('wf_run_sign')->where('id', $sing_sign)->update(['is_agree' => 1, 'content' => $check_con, 'dateline' => time()]);
 	}
 
-    function dataRunProcess($map, $mapRaw,$field, $order)
+    function dataRunProcess($map, $mapRaw,$field, $order,$page,$limit)
     {
-        return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->whereRaw($mapRaw)->field($field)->order($order)->select();
+        $offset = ($page-1)*$limit;
+        return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->whereRaw($mapRaw)->field($field)->limit($offset,(int)$limit)->order($order)->select();
+    }
+
+    function dataRunMy($uid,$page,$limit)
+    {
+        $offset = ($page-1)*$limit;
+        $data = Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where('r.uid',$uid)->limit($offset,(int)$limit)->group('r.id')->order('r.id desc')->select()->toArray();
+        $count = Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where('r.uid',$uid)->group('r.id')->count();
+        return ['data'=>$data,'count'=>$count];
     }
 	
 	function dataRunProcessGroup($map, $field, $order, $group)
