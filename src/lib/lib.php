@@ -139,7 +139,7 @@ class lib
 		if (!$info) {
 			$info['type'] = '';
 		}
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		$patch = unit::gconfig('static_url');
 		$view = <<<php
 				{$tmp['head']}
@@ -206,7 +206,7 @@ php;
             $info['is_field'] = 0;
             $info['tmp'] = '';
 		}
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		$view = <<<php
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
@@ -247,7 +247,7 @@ php;
 	 **/
 	public static function tmp_entrust($info, $type, $user)
 	{
-		$tmp = self::commontmp('Tpflow V5.0 管理列表');
+		$tmp = self::commontmp('Tpflow V6.0 管理列表');
 		$urls = unit::gconfig('wf_url');
 		return <<<php
 				{$tmp['head']}
@@ -299,15 +299,15 @@ php;
 	public static function tmp_suser($url, $kid, $user, $type = 'user')
 	{
 		
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		return <<<php
 		 {$tmp['head']}
 <article class="page-container">
-<table class="table table-bordered table-bg">
-			<tr><td><form method="post"><div class="text-l"><input type="text" id="key" style="width:150px" class="input-text"><a id="search" class="button">查询</a></div></form></td></tr>
-			<tr><td><select name="dialog_searchable" id="dialog_searchable" multiple="multiple" style="display:none;">{$user}</select></td></tr><tr><td>
-			<button class="btn btn-info" type="button" onclick='call_back()' id="dialog_confirm">确定</button>
-			<button class="btn" type="button" id="dialog_close">取消</button></td></tr>
+<table class="table table-bordered table-bg" style="height:98%">
+			<tr style="height: 30px;"><td><div class="text-l"><input type="text" id="key" style="width:80%" class="smalls"> <a id="search" class="button">查询</a></div>    </td></tr>
+			<tr  style="height: 90%"><td style="padding: 16px;"><select name="dialog_searchable" id="dialog_searchable" multiple="multiple" style="display:none;">{$user}</select></td></tr><tr><td>
+			<a class="button" type="button" onclick='call_back()'>确定</a>
+			<a class="button" type="button" id="dialog_close">取消</a></td></tr>
 			</table>
 </article>
 {$tmp['js']}
@@ -342,7 +342,6 @@ php;
             labelsx: '备选',
             labeldx: '已选',
             autoSort: true
-            //,autoSortAvailable: true
         });
         $("#search").on("click",function(){
 			var url = "{$url}";
@@ -375,7 +374,7 @@ php;
 	 **/
 	public static function tmp_wfjk($data)
 	{
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		return <<<php
 		 {$tmp['head']}<div class="page-container"><table class="table"><thead><tr class="text-c"><th>工作流编号</th><th >工作流类型</th><th >工作流名称</th><th >当前状态</th><th >业务办理人</th><th >接收时间</th><th >操作</th></thead></tr>{$data}</table></div>{$tmp['js']}</body></html>
 php;
@@ -385,15 +384,24 @@ php;
 	{
 		$urls = unit::gconfig('wf_url');
 		$url = $urls['wfdo'] . '?act=start&wf_type=' . $info['wf_type'] . '&wf_fid=' . $info['wf_fid'];
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
+        $op = '';
+        if(count($flow)==1){
+            $op_html = '<input type="hidden" value="'.$flow[0]['id'].'" name="wf_id">';
+
+        }else{
+            foreach ($flow as $k => $v) {
+                $op .= '<option value="' . $v['id'] . '">' . $v['flow_name'] . '</option>';
+            }
+            $op_html = '<tr><th>选择工作流</th><td style="text-align:left"><select name="wf_id"  class="smalls "  datatype="*" ><option value="">请选择工作流</option>'.$op.'</select></td></tr><tr>';
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$url}" method="post" name="form" id="form">
 		<input type='hidden' value="{$info['wf_fid']}" name='wf_fid'>
 		<table class="table">
-			<tr><td>选择工作流：</td><td style="text-align:left"><select name="wf_id"  class="smalls "  datatype="*" ><option value="">请选择工作流</option>{$flow}</select>
-			</td></tr><tr>
-			<td>审核意见：</td><td style="text-align:left"><input type="text" class="input-text" name="check_con"  datatype="*" >
+		    {$op_html}
+			<th>审核意见</th><td style="text-align:left"><textarea name='check_con' style="resize:none;width:98%;height:60px" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '上报业务'; }" onfocus="if(this.value == '上报业务'){this.value =''; this.style.color = '#000000'; }">上报业务</textarea>
 			</td></tr>
 			<tr><td colspan='2' style='text-align:center'><button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" style="background-color:#666 !important" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 		</table>
@@ -410,7 +418,7 @@ php;
 	public static function tmp_wfok($info, $flowinfo)
 	{
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_ok']}" method="post" name="form" id="wfform">
@@ -431,20 +439,20 @@ php;
 			<td style='height:80px'>
 				<table class="table table-border table-bordered table-bg">
 				<tr>
-				<td style='width:70px'>审批意见</td>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </td>
+				<th style='width:70px'>审批意见</th>
+				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td>
 				</tr>
-				<tr><td>下一步骤</td>
+				<tr><th>下一步骤</th>
 				<td style="text-align:left">
 					{$flowinfo['npi']}
 				</td>
 				</tr>
 				<tr>
-				<td colspan=2 class='text-c'>
+				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='{$info['wf_submit']}' type='hidden'>
 						<button  class="button" type="submit"> 提交同意</button>
-						<a class="button" id='backbton' onclick='Tpflow.lclose()'>取消</a> 
-						<a class="button" onclick=Tpflow.lopen("Upload","{$info['tpflow_upload']}?id=upload",20,50) style="background-color: #19be6b">附件</a>
+						<a class="button" id='backbton' onclick='Tpflow.lclose()' style="background-color:#666 !important">取消</a> 
+						<a class="button" onclick=Tpflow.lopen("上传","{$info['tpflow_upload']}?id=upload",20,50) style="background-color: #19be6b">附件</a>
 				</td>
 				</tr>
 				</table>
@@ -494,7 +502,7 @@ php;
 			$op .= '<option value="' . $k . '">' . $v . '</option>';
 		}
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_back']}" method="post" name="form" id="wfform">
@@ -512,7 +520,7 @@ php;
 				<table class="table table-border table-bordered table-bg">
 				<tr>
 				<td style='width:70px'>回退意见</td>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </td>
+				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td>
 				</tr>
 				<tr><td>回退步骤</td>
 				<td style="text-align:left"><select name="wf_backflow" id='backflow'  class="smalls"  datatype="*" onchange='find()'>
@@ -520,10 +528,10 @@ php;
 				</td>
 				</tr>
 				<tr>
-				<td colspan=2 class='text-c'>
+				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='back' type='hidden'>
 						<button  class="button" type="submit"> 提交回退</button>
-						<a class="button" id='backbton' onclick='Tpflow.lclose()'>取消</a> 
+						<a class="button" id='backbton' onclick='Tpflow.lclose()' style="background-color:#666 !important">取消</a> 
 				</td>
 				</tr>
 				</table>
@@ -567,7 +575,7 @@ php;
 	 **/
 	public static function tmp_wfdesc($id, $process_data, $urlApi)
 	{
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
         $data = json_decode($process_data,'true');
         return view(BEASE_URL.'/template/index.html',['surl'=>$urlApi,'id'=>$id,'x6'=>json_encode($data['x6'])]);
 	}
@@ -584,7 +592,7 @@ php;
 			$op .= '<option value="' . $v['id'] . '">' . $v['username'] . '</option>';
 		}
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_sign']}" method="post" name="form" id="wfform">
@@ -592,29 +600,21 @@ php;
 		<input type="hidden" value="{$sup}" name="sup">
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
-			<thead>
-			<tr>
-			<th style='width:98%' class='text-c'>单据审批</th>
-			</tr>
-			<tr>
-			</thead>
+			<thead><tr><th style='width:98%' class='text-c'>单据审批</th></tr><tr></thead>
 			<td style='height:80px'>
 				<table class="table table-border table-bordered table-bg">
-				<tr>
-				<td style='width:70px'>会签意见</td>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"></textarea> </td>
-				</tr>
-				<tr><td>会签接收人</td>
+				<tr><th style='width:70px'>会签意见</th><td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td></tr>
+				<tr><th>会签接收人</th>
 				<td style="text-align:left">
 				<select name="wf_singflow" id='singflow'  class="smalls"  datatype="*" >
 					<option value="">请选择会签人</option>{$op}</select>
 				</td>
 				</tr>
 				<tr>
-				<td colspan=2 class='text-c'>
+				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='{$sing}' type='hidden'>
 						<button  class="button" type="submit">会签</button>
-						<a class="button" id='backbton' onclick='Tpflow.lclose()'>取消</a> 
+						<a class="button" id='backbton' onclick='Tpflow.lclose()' style="background-color:#666 !important">取消</a> 
 				</td>
 				</tr>
 				</table>
@@ -657,7 +657,7 @@ php;
 	 **/
 	public static function tmp_wfflow($process_data)
 	{
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		return <<<php
 		 {$tmp['head']}<body  style="height: 100%; overflow: hidden;margin: 0px; padding: 0px;"><div class="panel layout-panel split-center" style="width:100%; cursor: default;" > <div  style="width:100%; height: 800px;" id="flowdesign_canvas"></div></div></div></body>
 </html>
@@ -677,7 +677,7 @@ php;
 	 **/
 	public static function tmp_index($url, $data, $html)
 	{
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		$html = <<<str
 		{head}
 		<div style='padding: 15px;'>
@@ -699,7 +699,7 @@ str;
 	 **/
 	public static function tmp_wfgl($data)
 	{
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		$urls = unit::gconfig('wf_url');
 		return <<<php
 	{$tmp['head']}
@@ -737,7 +737,7 @@ php;
 			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
 		}
 		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,30)>✤ 审批历史</a> ';
-		$tmp = self::commontmp('Tpflow V5.0 ');
+		$tmp = self::commontmp('Tpflow V6.0 ');
 		
 		return <<<php
 {$tmp['head']}
@@ -817,7 +817,7 @@ php;
 			<script type="text/javascript" src="' . $patch . 'jquery-ui-1.9.2-min.js?" ></script>
 			<script type="text/javascript" src="' . $patch . 'multiselect2side.js" ></script>
 			<script type="text/javascript" src="' . $patch . 'lib/H5upload.js" ></script>';
-		$head = '<html><title>' . $title . '</title><head>' . $css . '</head><body style="background-color: white;">';
+		$head = '<html><title>' . $title . '</title><head>' . $css . '</head><body style="background-color: white;height: 92%;">';
 		$form = '<script type="text/javascript">
 			$(function(){
 				$("#form").Validform({

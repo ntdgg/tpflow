@@ -33,6 +33,7 @@ var TFAPI = {
                 var PostData = {"flow_id":Tpflow_Id};
                 break;
             case 'Refresh':
+
                 location.reload();return;
                 break;
             case 'Help':
@@ -45,6 +46,7 @@ var TFAPI = {
                 window.open("//gitee.com/ntdgg/tpflow");
 
         }
+
         var Url = Tpflow_Server_Url+'?act='+act;
         TFAPI.sPost(Url,PostData,reload);
     },
@@ -68,19 +70,22 @@ var TFAPI = {
             content: url
         });
     },
+    sReload:function(){
+        var Url = Tpflow_Server_Url+'?act=nodejson&flow_id='+Tpflow_Id;
+        $.post(Url,{},function(ret){
+            graph.fromJSON(ret.x6);
+        },'json');
+    },
     sPost : function(Post_Url,PostData,reload=true) {
         $.post(Post_Url,PostData,function(data){
             if(data.code==0){
-                layer.msg(data.msg,{icon:1,time: 1500},function(){
-                    if(reload){
-                        location.reload();
-                    }
+                layer.msg(data.msg,{time: 1000},function(){
+                    TFAPI.sReload();return;
                 });
             }else{
-                layer.msg(data.msg, {
+                layer.msg(data.msg, {icon:2,
                     time: 2000, //20s后自动关闭
                 });
-
             }
         },'json');
     },

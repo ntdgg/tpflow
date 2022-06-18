@@ -1,5 +1,6 @@
 const {Stencil} = X6.Addon
 const {Rect, Circle, Polygon, Image, Cylinder} = X6.Shape
+const {DataUri} = X6.Addon
 
 const graph = new X6.Graph({
     container: document.getElementById("main"),
@@ -62,15 +63,13 @@ const graph = new X6.Graph({
         anchor: 'center',
         connectionPoint: 'anchor',
         allowBlank: false,
-        snap: {
-            radius: 20,
-        },
+        snap: true,
         createEdge() {
             return new X6.Shape.Edge({
                 attrs: {
                     line: {
                         stroke: '#000',
-                        strokeWidth: 1,
+                        strokeWidth: 2,
                         targetMarker: {
                             name: 'block',
                             width: 12,
@@ -81,9 +80,9 @@ const graph = new X6.Graph({
                 zIndex: 0,
             })
         },
-        validateConnection({targetMagnet}) {
+        validateConnection({ targetMagnet }) {
             return !!targetMagnet
-        },
+        }
     },
     highlighting: {
         magnetAdsorbed: {
@@ -153,16 +152,14 @@ const initEvents = (domName) => {
         });
         if(s_num >=2){
             layer.msg('对不起，禁止添加两个起始节点，系统正在刷新！', function(){
-                TFAPI.sApi('save');
-                location.reload();
+                TFAPI.sReload();
             });
             return;
         }
         const xy = node.position()
         const wh = node.size()
         TFAPI.sApi('save');
-        var Url = Tpflow_Server_Url+'?act=add';
-        TFAPI.sPost(Url,{"flow_id":Tpflow_Id,'data':{'process_name':node.attrs.text.text,'style':'{"width":'+wh.width+',"height":'+wh.height+',"color":"#2d6dcc"}','process_type':node.data,'setleft':xy.y,'settop':xy.x}},true);
+        TFAPI.sPost(Tpflow_Server_Url+'?act=add',{"flow_id":Tpflow_Id,'data':{'process_name':node.attrs.text.text,'style':'{"width":'+wh.width+',"height":'+wh.height+',"color":"#2d6dcc"}','process_type':node.data,'setleft':xy.y,'settop':xy.x}});
     })
 
     /*节点鼠标移入事件*/
@@ -209,6 +206,12 @@ const initEvents = (domName) => {
             },
         })
     })
+    graph.on('edge:connected', ({ isNew, edge }) => {
+        TFAPI.sApi('save');
+    })
+    graph.on('edge:removed', ({ isNew, edge }) => {
+        TFAPI.sApi('save');
+    })
     graph.on('edge:mouseleave', ({edge}) => {
         edge.removeTools()
     })
@@ -220,6 +223,7 @@ const initEvents = (domName) => {
         var url = Tpflow_Server_Url + "?id=" + node.data + "&act=att";
         TFAPI.lopen("属性设计", url, 50, 60);
     })
+
 }
 const initKeyboard = () => {
     graph.bindKey(['ctrl+1', 'meta+1'], () => {

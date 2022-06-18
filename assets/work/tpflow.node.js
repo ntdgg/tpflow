@@ -61,7 +61,7 @@ const startNode = new Rect(start_data)
 X6.Graph.registerNode('node-start', start_data);
 // 流程节点
 const flow_data = {
-    inherit: 'rect', width: 60, height: 40, attrs: {
+    inherit: 'rect', width: 60, height: 35, attrs: {
         rect: {fill: 'rgba(255,255,255)', stroke: 'rgb(159,184,236)', strokeWidth: 2},
         text: {text: '步骤', fill: 'black', fontSize: 13},
     }, data: 'node-flow', ports: {...ports}

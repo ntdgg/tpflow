@@ -75,11 +75,7 @@ class Tpl
                     }
                 }
             }
-			$op = '';
-			foreach ($flow as $k => $v) {
-				$op .= '<option value="' . $v['id'] . '">' . $v['flow_name'] . '</option>';
-			}
-			return lib::tmp_wfstart(['wf_type' => $wf_type, 'wf_fid' => $wf_fid], $op);
+			return lib::tmp_wfstart(['wf_type' => $wf_type, 'wf_fid' => $wf_fid], $flow);
 		}
         if ($act == 'entCc') {
             return Cc::ccCheck($wf_fid);
@@ -428,6 +424,16 @@ class Tpl
 			}
 			return lib::tmp_wfdesc($one['id'], Flow::ProcessAll($flow_id), $urls['designapi']);
 		}
+        if ($act == 'nodejson') {
+            $one = Flow::getWorkflow($flow_id);
+            if (!$one) {
+                return '未找到数据，请返回重试!';
+            }
+            $process_data = Flow::ProcessAll($flow_id);
+            $data = json_decode($process_data,true);
+            return ['status' => 0, 'x6' => $data['x6']];
+        }
+
 		if ($act == 'save') {
 			return Flow::ProcessLink($flow_id, $data);
 		}

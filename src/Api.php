@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '6.0.5' );
+define('Tpflow_Ver', '6.0.6' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -63,7 +63,7 @@ use think\facade\Request;
      * @return array 返回类型
 	 */
 	public function designapi($act){
-		if($act=='welcome' ||$act=='check' || $act=='delAll' || $act=='wfdesc'){
+		if($act=='welcome' ||$act=='check' || $act=='delAll' || $act=='wfdesc' || $act=='nodejson'){
             return unit::return_msg(Control::WfDescCenter($act,input('flow_id')));
 		}
         if($act=='add'){
