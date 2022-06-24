@@ -37,6 +37,7 @@ Gadmin企业级开发平台：  [传送门](https://gadmin8.com "Demo") 包含�
 
 
 ## ⭐快速体验指南
+code-galaxy一键快速部署：[传送门](https://console.code-galaxy.net/#/register?invite=hzwVOM "传送门")
 
 宝塔一键安装指南：[传送门](https://www.gadmin8.com/index/doc/show.html?id=9&pid=185 "传送门")
 
