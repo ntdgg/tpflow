@@ -20,8 +20,8 @@
         <a onclick='TFAPI.sApi("Help")'>§ 帮助</a>
         <a onclick='TFAPI.sApi()'>↓ 下载</a>
         <a onclick='TFAPI.sApi("Doc")'>© 版权</a>
-        <a onclick='TFAPI.sApi("zoomIn")' style="position: fixed;left: 98%;font-weight: 1000;">+</a>
-        <a onclick='TFAPI.sApi("zoomOut")' style="position: fixed;left: 97%;font-weight: 1000;">-</a>
+        <a title="缩小" onclick='TFAPI.sApi("zoomIn")' style="z-index:9999;position: fixed;left: 97%;font-weight: 1000;">-</a>
+        <a title="放大" onclick='TFAPI.sApi("zoomOut")' style="z-index:9999;position: fixed;left: 98%;font-weight: 1000;">+</a>
     </div>
     <div class="content">
         <div class="app-stencil" id="sidebar"></div>
