@@ -211,6 +211,29 @@ class unit
 		}
 		return $json_data;
 	}
+
+    /**
+     * 获取字段名称
+     */
+    public static function is_time($type,$s_time,$e_time)
+    {
+        if($type==0){
+            return '不限时';
+        }
+        $times = [0,30,60,120,300,600,1440,2880,4320];//分钟数
+        $process_time = $times[$type] ?? '0';
+        if($e_time==''){
+           $time_ver =floor((time()-$s_time)%86400/60);//用当前时间去计算剩余分钟数
+        }else{
+            $time_ver =floor(($e_time-$s_time)%86400/60);
+        }
+        $time_diff = $time_ver - $process_time;
+        if($time_ver > $process_time){
+            return '超时['.$time_diff.']';
+            }else{
+            return '未超时';
+        }
+    }
 	
 	/**
 	 * 获取字段名称

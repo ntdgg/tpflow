@@ -50,6 +50,17 @@
                                 <select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择步骤模式" onchange="Tpflow.onchange(this,'wf_mode');" class="smalls">
                                     {$condition|raw}
                                 </select>
+                                <select name="is_time" class="smalls">
+                                    <option value="0">不限办理时限</option>
+                                    <option value="1">30分钟</option>
+                                    <option value="2">60分钟</option>
+                                    <option value="3">2小时</option>
+                                    <option value="4">5小时</option>
+                                    <option value="5">10小时</option>
+                                    <option value="6">24小时</option>
+                                    <option value="7">48小时</option>
+                                    <option value="8">72小时</option>
+                                </select>
                             </td>
                         </tr>
                         <tr id='wf_mode_2' {$wf_mode|raw} {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}>
@@ -180,6 +191,8 @@
     $("[name='work_auto']").find("[value='{$one['work_auto']}']").attr("selected", true);
     $("[name='wf_action_select']").find("[value='{$one['wf_action']}']").attr("selected", true);
     $("[name='work_condition']").find("[value='{$one['work_condition']}']").attr("selected", true);
+    $("[name='is_time']").find("[value='{$one['is_time']}']").attr("selected", true);
+
         $(function(){
         $("#form").Validform({
             tiptype:function(msg,o,cssctl){
