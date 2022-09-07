@@ -119,7 +119,10 @@ class TaskFlow
 				$EndFlow = EndFlow::doTask($npid,$run_id);
 				if($EndFlow==1){
 					Flow::end_flow($run_id);//终止步骤
-					Log::AddrunLog($uid, $config['run_id'], $config, 'ok');//写入日志
+					$run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'ok');//写入日志
+					if (is_array($run_log) && $run_log['code']==-1) {
+						return $run_log;
+					}
 					Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
                     Msg::find([['run_id','=',$run_id],['process_id','=',$config['flow_process']]]);//执行消息节点步骤信息
 					return ['msg' => '审批完成，流程结束!', 'code' => '0'];
@@ -144,7 +147,10 @@ class TaskFlow
             if (!$bill_update) {
                 return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
             }
-			Log::AddrunLog($uid, $run_id, $config, 'ok');
+			$run_log = Log::AddrunLog($uid, $run_id, $config, 'ok');
+            if (is_array($run_log) && $run_log['code']==-1) {
+                return $run_log;
+            }
 			if (!$end) {
 				return ['msg' => '结束流程错误！！！', 'code' => '-1'];
 			}
