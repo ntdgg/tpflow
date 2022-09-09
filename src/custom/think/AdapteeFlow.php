@@ -41,7 +41,7 @@ class AdapteeFlow
 	
 	function SearchFlow($where = [], $field = '*')
 	{
-		return Db::name('wf_flow')->where($where)->field($field)->select();
+		return Db::name('wf_flow')->where($where)->field($field)->select()->toArray();
 	}
 	
 	function ListFlow($map, $page, $rows, $order)

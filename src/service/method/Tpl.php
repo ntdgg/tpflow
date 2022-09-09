@@ -75,7 +75,7 @@ class Tpl
                     }
                 }
             }
-			return lib::tmp_wfstart(['wf_type' => $wf_type, 'wf_fid' => $wf_fid], $flow);
+			return lib::tmp_wfstart(['wf_type' => $wf_type, 'wf_fid' => $wf_fid], array_values($flow));
 		}
         if ($act == 'entCc') {
             return Cc::ccCheck($wf_fid);

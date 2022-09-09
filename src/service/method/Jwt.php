@@ -71,7 +71,7 @@ class Jwt
                 }
             }
 
-			return ['wf_type' => $wf_type, 'wf_fid' => $wf_fid, 'Flow' => $flow];
+			return lib::tmp_wfstart(['wf_type' => $wf_type, 'wf_fid' => $wf_fid], array_values($flow));
 		}
 		//流程审批
 		if ($act == 'do') {
