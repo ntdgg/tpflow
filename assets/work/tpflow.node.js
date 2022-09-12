@@ -48,8 +48,8 @@ const ports = {
 }
 // 起始节点
 const start_data = {
-    inherit: 'rect', width: 55, height: 35, attrs: {
-        rect: {fill: 'rgb(255,255,255)', stroke: 'rgb(63,161,76)', strokeWidth: 2, rx: 15, ry: 15},
+    inherit: 'rect', width: 60, height: 45, attrs: {
+        rect: {fill: '#fff', stroke: '#5F95FF', strokeWidth: 2, rx: 15, ry: 15},
         text: {text: '开始', fill: 'black', fontSize: 13},
     }, data: 'node-start', ports: {
         ...ports, items: [{
@@ -61,20 +61,21 @@ const startNode = new Rect(start_data)
 X6.Graph.registerNode('node-start', start_data);
 // 流程节点
 const flow_data = {
-    inherit: 'rect', width: 60, height: 35, attrs: {
-        rect: {fill: 'rgba(255,255,255)', stroke: 'rgb(159,184,236)', strokeWidth: 2},
-        text: {text: '步骤', fill: 'black', fontSize: 13},
+    inherit: 'rect', width: 65, height: 45,
+    attrs: {
+        body: {rx: 6, ry: 6, stroke: '#5F95FF', fill: '#fff', strokeWidth: 2},
+        label: {fontSize: 12, fill: '#262626',},text: {text: '步骤', fill: 'black', fontSize: 13},
     }, data: 'node-flow', ports: {...ports}
 }
+
 const flowNode = new Rect(flow_data)
 X6.Graph.registerNode('node-flow', flow_data);
 // 判断节点
 const gateway_node = {
-    inherit: 'polygon', width: 60, height: 60, label: '网关', attrs: {
+    inherit: 'polygon', width: 65, height: 65, label: '网关', attrs: {
         body: {
-            fill: 'rgba(255,255,255)', stroke: 'rgba(159,184,236,0.89)', refPoints: '0,10 10,0 20,10 10,20',
+            fill: '#FFF', stroke: '#5F95FF', refPoints: '0,10 10,0 20,10 10,20',
         },
-
     }, data: 'node-gateway', ports: {...ports}
 }
 const judgeNode = new Polygon(gateway_node)
@@ -83,10 +84,10 @@ X6.Graph.registerNode('node-gateway', gateway_node);
 
 
 const msg_node = {
-    inherit: 'rect', width: 45, height: 45, attrs: {
+    inherit: 'rect', width: 50, height: 50, attrs: {
         body: {
-            stroke: 'rgb(158,71,222)',
-            fill: 'rgba(255,255,255)',
+            stroke: '#5F95FF',
+            fill: '#fff',
             rx: 15,
             ry: 15,
         },
@@ -99,10 +100,10 @@ const msgNode = new Rect(msg_node)
 X6.Graph.registerNode('node-msg',msg_node);
 
 const cc_node = {
-    inherit: 'rect', width: 45, height: 45, attrs: {
+    inherit: 'rect', width: 50, height: 50, attrs: {
         body: {
-            stroke: 'rgb(57,99,188)',
-            fill: 'rgba(255,255,255)',
+            stroke: '#5F95FF',
+            fill: '#fff',
             rx: 0,
             ry: 0,
         },
@@ -134,8 +135,8 @@ const link_node = {
         name: 'manhattan'
     }, attrs: {
         line: {
-            stroke: '#5F95FF', strokeWidth: 1, targetMarker: {
-                name: 'classic', size: 10
+            stroke: '#A2B1C3', strokeWidth: 2, targetMarker: {
+                name: 'classic', size: 10,
             }
         }
     }, labels: [{

@@ -68,7 +68,7 @@ const graph = new X6.Graph({
             return new X6.Shape.Edge({
                 attrs: {
                     line: {
-                        stroke: '#000',
+                        stroke: '#A2B1C3',
                         strokeWidth: 2,
                         targetMarker: {
                             name: 'block',

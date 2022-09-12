@@ -147,18 +147,18 @@ class lib
 				<link rel="stylesheet" type="text/css" href="{$patch}lib/codemirror/dracula.css" />
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
 				   <table class="table"><tr>
-							<tr class='text-c' ><th>单据信息</th><td style='width:330px;text-align: left;'>
+							<tr  ><th style='width:90px;'>单据信息</th><td >
 							<span class="select-box"><select name="type" id="type" class="select"  datatype="*" >{$type}</select></span>
 							</td></tr>
-							<tr class='text-c' ><th>执行类型</th><td style='width:330px;text-align: left;'>
+							<tr  ><th>执行类型</th><td >
 							<span class="select-box"><select name="fun" id="act" class="select"  datatype="*" ><option value="">请选择</option><option value="before">before 步骤执行前动作</option>
                                     <option value="after">after 步骤执行后动作</option>
                                     <option value="cancel">cancel 执行取消动作</option>
 							</td></tr>
-							<th>执行代码</th><td style='width:330px;text-align: left;'>
+							<th>执行代码</th><td >
 								<textarea placeholder="" name='code' type="text/plain" style="width:100%;height:450px;display:inline-block;" id='codedata' ></textarea></td>
-							</tr><tr class='text-c' >
-							<td colspan=2>
+							</tr><tr  >
+							<td colspan=2 style="text-align:center">
 							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 						</table>
 					</form>{$tmp['js']}{$tmp['form']}
@@ -172,7 +172,7 @@ class lib
         theme: "dracula",	//设置主题
         matchBrackets: true,
     });
-    editor.setSize('auto',document.body.clientHeight - 140 +"px");
+    editor.setSize('auto',document.body.clientHeight - 250 +"px");
       $('#act').on('change',function(){
         var act = $('#act').val();
         $.ajax({
@@ -211,23 +211,23 @@ php;
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
 				<input type="hidden" name="id" value="{$info['id']}">
-				   <table class="table"><tr><th style='width:75px'>流程名称</th><td style='width:330px;text-align: left;'>
-							<input type="text" class="input-text" value="{$info['flow_name']}" name="flow_name"  datatype="*" ></td></tr><tr>
-							<th>流程类型</th><td style='width:330px;text-align: left;'>
+				   <table class="table"><tr><th style='width:75px'>流程名称</th><td>
+							<input type="text" class="input-text-full" value="{$info['flow_name']}" name="flow_name"  datatype="*" ></td></tr><tr>
+							<th>流程类型</th><td>
 							<span class="select-box"><select name="type"  class="smalls"  datatype="*" >{$type}</select></span>
 							</td></tr>
-							<tr><th style='width:75px'>单据过滤</th>
-							<td style='width:330px;text-align: left;'>
+							<tr><th>单据过滤</th>
+							<td>
 							过滤:<select name="is_field"  class="smalls"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select><br/>
-							字段:<input type="text" class="input-text" value="{$info['field_name']}" name="field_name"><br/>数值:<input type="text" class="input-text" value="{$info['field_value']}" name="field_value"   ></td></tr><tr>
+							字段:<input type="text" class="input-text-2" value="{$info['field_name']}" name="field_name"><br/>数值:<input type="text" class="input-text-2" value="{$info['field_value']}" name="field_value"   ></td></tr><tr>
 							<tr><th style='width:75px'>业务名称</th>
-							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['tmp']}" name="tmp" >*【title】</td></tr><tr>
+							<td ><input type="text" placeholder='模板标题展示：比如 合同审批：【title】 编号：【bill_no】' class="input-text-full"  value="{$info['tmp']}" name="tmp" ></td></tr><tr>
 							<tr><th style='width:75px'>排序值</th>
-							<td style='width:330px;text-align: left;'><input type="text" class="input-text" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr><tr>
-							<th>流程描述</th><td style='width:330px;text-align: left;'>
-								<textarea name='flow_desc'  datatype="*" style="width:100%;height:55px;">{$info['flow_desc']}</textarea></td>
-							</tr><tr class='text-c' >
-							<td colspan=2>
+							<td ><input type="text" class="input-text-full" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr><tr>
+							<th>流程描述</th><td >
+								<textarea name='flow_desc'  datatype="*" class='input-text-full'>{$info['flow_desc']}</textarea></td>
+							</tr><tr  >
+							<td colspan=2 style="text-align:center">
 							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 						</table>
 					</form>{$tmp['js']}{$tmp['form']}
@@ -274,7 +274,7 @@ php;
 								<input name='entrust_stime' value="{$info['entrust_stime']}" datatype="*" type="datetime-local"/> ~ <input value="{$info['entrust_etime']}" name='entrust_etime' datatype="*" type="datetime-local"/></td>
 							</tr><tr>
 							<th>委托备注</th><td style='width:330px;text-align: left;'><textarea name='entrust_con'  datatype="*" style="width:100%;height:55px;">{$info['entrust_con']}</textarea></td></tr>
-							<tr class='text-c' >
+							<tr  >
 							<td colspan=2>
 							<button  class="button" type="submit">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td>
 							</tr><tr><td style='width:330px;text-align: left;' colspan=2>
@@ -432,7 +432,7 @@ php;
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
 			<tr>
-			<th style='width:98%' class='text-c'>单据审批</th>
+			<th style='width:98%' >单据审批</th>
 			</tr>
 			<tr>
 			</thead>
@@ -512,7 +512,7 @@ php;
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
 			<tr>
-			<th style='width:98%' class='text-c'>单据审批</th>
+			<th style='width:98%' >单据审批</th>
 			</tr>
 			<tr>
 			</thead>
@@ -600,7 +600,7 @@ php;
 		<input type="hidden" value="{$sup}" name="sup">
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
-			<thead><tr><th style='width:98%' class='text-c'>单据审批</th></tr><tr></thead>
+			<thead><tr><th style='width:98%' >单据审批</th></tr><tr></thead>
 			<td style='height:80px'>
 				<table class="table table-border table-bordered table-bg">
 				<tr><th style='width:70px'>会签意见</th><td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td></tr>

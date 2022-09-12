@@ -425,3 +425,29 @@ ul li {
     display: none;
     text-decoration: none
 }
+
+.input-text-2{
+    border-radius: 0 2px 2px 0;
+    height: 30px;
+    width: 50%;
+    margin-top: 3px;
+    line-height: 1.3;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+    border-color: #dadada;
+}
+
+.input-text-full{
+    border-radius: 0 2px 2px 0;
+    height: 30px;
+    width: 98%;
+    margin-top: 3px;
+    line-height: 1.3;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+    border-color: #dadada;
+}
