@@ -100,38 +100,39 @@ class Tpl
 				return lib::tmp_check($info, self::WfCenter('Info', $wf_fid, $wf_type));
 			}
             /*对审批提交执行人进行权限校验*/
-            if($wf_op == 'ok' || $wf_op == 'back' || $wf_op == 'sign'){
-
-                $flowinfo = self::WfCenter('Info', $wf_fid, $wf_type);
-                $thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
-                $st = 0;
-                if ($flowinfo != -1) {
-                    if ($flowinfo['sing_st'] == 0) {
-                        $user = explode(",", $flowinfo['status']['sponsor_ids']);
-                        $user_name = $flowinfo['status']['sponsor_text'];
-                        if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
-                            if (in_array($thisuser['thisuid'], $user)) {
-                                $st = 1;
+            if($sup!=1){
+                if($wf_op == 'ok' || $wf_op == 'back' || $wf_op == 'sign'){
+                    $flowinfo = self::WfCenter('Info', $wf_fid, $wf_type);
+                    $thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
+                    $st = 0;
+                    if ($flowinfo != -1) {
+                        if ($flowinfo['sing_st'] == 0) {
+                            $user = explode(",", $flowinfo['status']['sponsor_ids']);
+                            $user_name = $flowinfo['status']['sponsor_text'];
+                            if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
+                                if (in_array($thisuser['thisuid'], $user)) {
+                                    $st = 1;
+                                }
                             }
-                        }
-                        if ($flowinfo['status']['auto_person'] == 5) {
-                            if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
-                                $st = 1;
+                            if ($flowinfo['status']['auto_person'] == 5) {
+                                if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
+                                    $st = 1;
+                                }
                             }
-                        }
-                    } else {
-                        if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
-                            $st = 1;
                         } else {
-                            $user_name = $flowinfo['sing_info']['uid'];
+                            if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
+                                $st = 1;
+                            } else {
+                                $user_name = $flowinfo['sing_info']['uid'];
+                            }
                         }
                     }
-                }
-                if ($post != '' && $st==0) {
-                    return unit::msg_return('对不起，您没有权限审核！', 1);
-                }
-                if($st==0){
-                    return '<script>var index = parent.layer.getFrameIndex(window.name);parent.layer.msg("对不起，您没有审核权限!");setTimeout("parent.layer.close(index)",1000);</script>';
+                    if ($post != '' && $st==0) {
+                        return unit::msg_return('对不起，您没有权限审核！', 1);
+                    }
+                    if($st==0){
+                        return '<script>var index = parent.layer.getFrameIndex(window.name);parent.layer.msg("对不起，您没有审核权限!");setTimeout("parent.layer.close(index)",1000);</script>';
+                    }
                 }
             }
 
@@ -266,7 +267,7 @@ class Tpl
 			foreach ($data as $k => $v) {
 				$status = ['未审核', '已审核'];
 				
-				$html .= '<tr class="text-c"><td>' . $v['id'] . '</td><td>' . $v['from_table'] . '</td><td>' . $v['flow_name'] . '</td><td>' . $status[$v['status']] . '</td><td>' . $v['user'] . '</td><td>' . date("Y-m-d H:i", $v['dateline']) . '</td><td><a  onclick=Tpflow.wfconfirm("' . $urls['wfapi'] . '?act=wfend",{"id":' . $v['id'] . '},"您确定要终止该工作流吗？");>终止</a>  |  ' . lib::tpflow_btn($v['from_id'], $v['from_table'], 100, self::WfCenter('Info', $v['from_id'], $v['from_table'])) . '</td></tr>';
+				$html .= '<tr class="text-c"><td>' . $v['id'] . '</td><td>' . $v['from_table'] . '</td><td>' . $v['flow_name'] . '</td><td>' . $status[$v['status']] . '</td><td>' . $v['flow_name'] . '</td><td>' . date("Y-m-d H:i", $v['dateline']) . '</td><td><a  onclick=Tpflow.wfconfirm("' . $urls['wfapi'] . '?act=wfend",{"id":' . $v['id'] . '},"您确定要终止该工作流吗？");>终止</a>  |  ' . lib::tpflow_btn($v['from_id'], $v['from_table'], 100, self::WfCenter('Info', $v['from_id'], $v['from_table'])) . '</td></tr>';
 			}
 			return lib::tmp_wfjk($html);
 		}
