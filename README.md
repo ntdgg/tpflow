@@ -127,7 +127,7 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 *  修改src/tpflow/config/common.php的配置文件
 *  博客教程 [官方博客](https://www.cojz8.com/ "官方博客")
 *  视频免费教程 [B站查看](https://www.bilibili.com/video/BV1VZ4y1A71Q)
-*   开源不易，知识付费  详细教程请购买文档 [购买](https://gadmin8.com/index/product.html)
+*   开源不易，知识付费  详细教程请购买文档 [购买](https://www.gadmin8.com/index/study)
 
 ## ⌛版权及严正声明
 
@@ -160,9 +160,9 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 
 > 演示站点：http://tpflow.cojz8.com/
 
-> 工作流手册：https://gadmin8.com/index/product.html  【付费】
+> 工作流手册：https://www.gadmin8.com/index/study  【付费】
 
-> 视频教程：https://gadmin8.com/index/product.html  【付费】
+> 视频教程：https://www.gadmin8.com/index/study  【付费】
 
 ---
 
