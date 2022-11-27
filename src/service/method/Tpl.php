@@ -100,39 +100,37 @@ class Tpl
 				return lib::tmp_check($info, self::WfCenter('Info', $wf_fid, $wf_type));
 			}
             /*对审批提交执行人进行权限校验*/
-            if($sup!=1){
-                if($wf_op == 'ok' || $wf_op == 'back' || $wf_op == 'sign'){
-                    $flowinfo = self::WfCenter('Info', $wf_fid, $wf_type);
-                    $thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
-                    $st = 0;
-                    if ($flowinfo != -1) {
-                        if ($flowinfo['sing_st'] == 0) {
-                            $user = explode(",", $flowinfo['status']['sponsor_ids']);
-                            $user_name = $flowinfo['status']['sponsor_text'];
-                            if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
-                                if (in_array($thisuser['thisuid'], $user)) {
-                                    $st = 1;
-                                }
-                            }
-                            if ($flowinfo['status']['auto_person'] == 5) {
-                                if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
-                                    $st = 1;
-                                }
-                            }
-                        } else {
-                            if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
+            if($wf_op == 'ok' || $wf_op == 'back' || $wf_op == 'sign'){
+                $flowinfo = self::WfCenter('Info', $wf_fid, $wf_type);
+                $thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
+                $st = 0;
+                if ($flowinfo != -1) {
+                    if ($flowinfo['sing_st'] == 0) {
+                        $user = explode(",", $flowinfo['status']['sponsor_ids']);
+                        $user_name = $flowinfo['status']['sponsor_text'];
+                        if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
+                            if (in_array($thisuser['thisuid'], $user)) {
                                 $st = 1;
-                            } else {
-                                $user_name = $flowinfo['sing_info']['uid'];
                             }
                         }
+                        if ($flowinfo['status']['auto_person'] == 5) {
+                            if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
+                                $st = 1;
+                            }
+                        }
+                    } else {
+                        if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
+                            $st = 1;
+                        } else {
+                            $user_name = $flowinfo['sing_info']['uid'];
+                        }
                     }
-                    if ($post != '' && $st==0) {
-                        return unit::msg_return('对不起，您没有权限审核！', 1);
-                    }
-                    if($st==0){
-                        return '<script>var index = parent.layer.getFrameIndex(window.name);parent.layer.msg("对不起，您没有审核权限!");setTimeout("parent.layer.close(index)",1000);</script>';
-                    }
+                }
+                if ($post != '' && $st==0) {
+                    return unit::msg_return('对不起，您没有权限审核！', 1);
+                }
+                if($st==0){
+                    return '<script>var index = parent.layer.getFrameIndex(window.name);parent.layer.msg("对不起，您没有审核权限!");setTimeout("parent.layer.close(index)",1000);</script>';
                 }
             }
 
@@ -201,7 +199,6 @@ class Tpl
 		if ($act == 'cancelflow') {
 			if (is_object(unit::LoadClass($data['bill_table'], $data['bill_id']))) {
 				$BillWork = (unit::LoadClass($data['bill_table'], $data['bill_id']))->cancel();
-
 				if ($BillWork['code'] == -1) {
 					return $BillWork;
 				}

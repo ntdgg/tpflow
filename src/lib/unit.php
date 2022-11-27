@@ -52,7 +52,7 @@ class unit
 	/**
 	 * 加载自定义事务驱动文件
 	 *
-	 * @param string $class 类
+	 * @param string $class 单据表名
 	 * @param int $id 单据对应的ID编号
 	 * @param int $run_id 运行中的流程ID
 	 * @param array $data 步骤类

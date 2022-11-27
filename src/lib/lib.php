@@ -211,21 +211,22 @@ php;
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
 				<input type="hidden" name="id" value="{$info['id']}">
-				   <table class="table"><tr><th style='width:75px'>流程名称</th><td>
+				   <table class="table">
+				   <tr><th style='width:75px'>业务名称</th>
+							<td ><input type="text" placeholder='模板标题展示：如合同审批：【title】 编号：【bill_no】' class="input-text-full"  value="{$info['tmp']}" name="tmp"></td></tr>
+				   <tr><th style='width:75px'>流程名称</th><td>
 							<input type="text" class="input-text-full" value="{$info['flow_name']}" name="flow_name"  datatype="*" ></td></tr><tr>
 							<th>流程类型</th><td>
 							<span class="select-box"><select name="type"  class="smalls"  datatype="*" >{$type}</select></span>
 							</td></tr>
 							<tr><th>单据过滤</th>
 							<td>
-							过滤:<select name="is_field"  class="smalls"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select><br/>
-							字段:<input type="text" class="input-text-2" value="{$info['field_name']}" name="field_name"><br/>数值:<input type="text" class="input-text-2" value="{$info['field_value']}" name="field_value"   ></td></tr><tr>
-							<tr><th style='width:75px'>业务名称</th>
-							<td ><input type="text" placeholder='模板标题展示：比如 合同审批：【title】 编号：【bill_no】' class="input-text-full"  value="{$info['tmp']}" name="tmp" ></td></tr><tr>
+							过滤:<select name="is_field"  class="smalls"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select>
+							　字段:<input type="text" class="input-text-2" style='width:140px' value="{$info['field_name']}" name="field_name">　数值:<input type="text" class="input-text-2" value="{$info['field_value']}" name="field_value"  style='width:140px' ></td></tr><tr>
 							<tr><th style='width:75px'>排序值</th>
-							<td ><input type="text" class="input-text-full" value="{$info['sort_order']}" name="sort_order"  datatype="*" ></td></tr><tr>
+							<td ><input type="text" class="input-text-full" value="{$info['sort_order']}" name="sort_order" ></td></tr><tr>
 							<th>流程描述</th><td >
-								<textarea name='flow_desc'  datatype="*" class='input-text-full'>{$info['flow_desc']}</textarea></td>
+								<textarea name='flow_desc'  class='input-text-full'>{$info['flow_desc']}</textarea></td>
 							</tr><tr  >
 							<td colspan=2 style="text-align:center">
 							<button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
