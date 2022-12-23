@@ -49,7 +49,7 @@ const ports = {
 // 起始节点
 const start_data = {
     inherit: 'rect', width: 60, height: 45, attrs: {
-        rect: {fill: '#fff', stroke: '#5F95FF', strokeWidth: 2, rx: 15, ry: 15},
+        rect: {fill: '#fff', stroke: '#252B3A', strokeWidth: 2, rx: 15, ry: 15},
         text: {text: '开始', fill: 'black', fontSize: 13},
     }, data: 'node-start', ports: {
         ...ports, items: [{
@@ -74,7 +74,7 @@ X6.Graph.registerNode('node-flow', flow_data);
 const gateway_node = {
     inherit: 'polygon', width: 65, height: 65, label: '网关', attrs: {
         body: {
-            fill: '#FFF', stroke: '#5F95FF', refPoints: '0,10 10,0 20,10 10,20',
+            fill: '#FFF', stroke: 'rgb(255, 213, 145)', refPoints: '0,10 10,0 20,10 10,20',
         },
     }, data: 'node-gateway', ports: {...ports}
 }
@@ -86,7 +86,7 @@ X6.Graph.registerNode('node-gateway', gateway_node);
 const msg_node = {
     inherit: 'rect', width: 50, height: 50, attrs: {
         body: {
-            stroke: '#5F95FF',
+            stroke: '#873bf4',
             fill: '#fff',
             rx: 15,
             ry: 15,
@@ -102,7 +102,7 @@ X6.Graph.registerNode('node-msg',msg_node);
 const cc_node = {
     inherit: 'rect', width: 50, height: 50, attrs: {
         body: {
-            stroke: '#5F95FF',
+            stroke: '#47C769',
             fill: '#fff',
             rx: 0,
             ry: 0,

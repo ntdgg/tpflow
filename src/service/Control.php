@@ -109,7 +109,7 @@ Class Control{
 		return (new Control())->mode->wfUserData($act,$map,$field,$order,$group,$page,$limit);
 	}
     /**
-     * Tpflow 6.0统一接口
+     * Tpflow 7.0统一接口
      * @param string $act 调用接口方法
      */
     static function wfMysend($page,$limit){

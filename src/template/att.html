@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tpflow工作流引擎 V6.0</title>
+    <title>Tpflow工作流引擎 V7.0</title>
     <link rel="stylesheet" href="/static/work/app.css">
-    <link rel="stylesheet" type="text/css" href="/static/work/workflow.5.0.css?v5.0"/>
+    <link rel="stylesheet" type="text/css" href="/static/work/app.css?v7.0"/>
 </head>
 <body>
 <div class="wrap">
@@ -16,13 +16,18 @@
                     <input type="hidden" name="process_condition" id="process_condition" value='{$one.process_tos}'>
                     <table class="table">
                         <tr>
+                            <th>步骤名称</th>
+                            <td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}"></td>
                             <th>节点ID</th>
                             <td width="240">{$one['id']}（{$one['process_type']}）</td>
-                            <th>步骤名称</th>
-                            <td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}">
-                            </td>
+
                         </tr>
                         <tr {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
+                            <th>调用方法</th>
+                            <td>
+                                <select class="smalls" name="wf_action_select" style="width: 40%;"><option value="1">自定义</option>{$wf_action_select|raw}</select>
+                                <input type="text" class="smalls" style="width: 50%;" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
+                            </td>
                             <th>权限管理</th>
                             <td>
                                 <select name="is_sing" class="smalls">
@@ -34,16 +39,8 @@
                                     <option value="2">不允许</option>
                                 </select>
                             </td>
-                            <th>调用方法</th>
-                            <td>
-                                <select class="smalls" name="wf_action_select" style="width: 40%;">
-                                    <option value="1">自定义</option>
-                                    {$wf_action_select|raw}
-                                </select>
-                                <input type="text" class="smalls" style="width: 50%;" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
-                            </td>
-                        </tr>
 
+                        </tr>
                         <tr id="node-process" {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
                             <th>步骤模式</th>
                             <td colspan='3'>
@@ -99,9 +96,9 @@
                                     </div>
                                     <div class="hide auto_person" id="auto_person_3">
                                         <a class="button" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=range_user&type_mode=user','60','95')">自由选择</a>
-                                        <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one['range_user_ids']}" datatype="*" nullmsg="请选择办理人员！">
-                                        <input type="hidden" name="range_user_text" id="range_user_text" value="{$one['range_user_text']}">
-                                        <span id='range_user_html'>{$one['range_user_text']}</span>
+                                        <input type="hidden" name="range_user_ids" id="range_user_ids" value="{$one['range_user_ids'] ?? ''}" datatype="*" nullmsg="请选择办理人员！">
+                                        <input type="hidden" name="range_user_text" id="range_user_text" value="{$one['range_user_text'] ?? ''}">
+                                        <span id='range_user_html'>{$one['range_user_text'] ?? ''}</span>
                                     </div>
                                     <div class="hide auto_person" id="auto_person_4">
                                         <a class="button" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_sponsor&type_mode=user','60','95')">指定人员</a>
@@ -126,7 +123,7 @@
                                 <hr/>
                                 <div class="" style="float: left;">
                                     <!--事务接受，即为当条件满足时，系统自动流转到下一个步骤，无需审核-->
-                                    当<<select class="smalls" name='work_auto'><option value="">字段值</option>{$from_html|raw}</select>>
+                                    当<<select class="smalls" name='work_auto' style="width: 130px"><option value="">字段值</option>{$from_html|raw}</select>>
                                     <select class="smalls" name="work_condition">
                                         <option value="=">等于</option>
                                         <option value=">">大于</option>
@@ -135,7 +132,7 @@
                                         <option value="<=">小于小于</option>
                                         <option value="<>">不等于</option>
                                     </select>
-                                    <input type="text" class="smalls" name="work_val" value="{$one['work_val']}">系统自动审批
+                                    <input type="text" class="smalls" name="work_val" value="{$one['work_val'] ?? ''}">系统自动审批
                                 </div>
                             </td>
                         </tr>
@@ -149,9 +146,6 @@
             </table>
             </div>
         </form>
-
-
-
     </div>
 </div>
 <script src="/static/work/jquery-1.7.2.min.js"></script>
@@ -166,7 +160,6 @@
     $("#range_user_ids").removeAttr("datatype");
     $("#auto_sponsor_ids").removeAttr("datatype");
     $("#auto_role_ids").removeAttr("datatype");
-
     if (process_type !='node-end') {
         if (apid == 3) {
             $("#range_user_ids").attr({datatype: "*", nullmsg: "请选择办理人员1"});
@@ -188,11 +181,10 @@
     $("[name='work_text']").find("[value='{$one['work_text']}']").attr("selected", true);
     $("[name='work_ids']").find("[value='{$one['work_ids']}']").attr("selected", true);
     $("[name='wf_mode']").find("[value='{$one['wf_mode']}']").attr("selected", true);
-    $("[name='work_auto']").find("[value='{$one['work_auto']}']").attr("selected", true);
+    $("[name='work_auto']").find("[value='{$one['work_auto'] ?? ''}']").attr("selected", true);
     $("[name='wf_action_select']").find("[value='{$one['wf_action']}']").attr("selected", true);
-    $("[name='work_condition']").find("[value='{$one['work_condition']}']").attr("selected", true);
+    $("[name='work_condition']").find("[value='{$one['work_condition'] ?? ''}']").attr("selected", true);
     $("[name='is_time']").find("[value='{$one['is_time']}']").attr("selected", true);
-
         $(function(){
         $("#form").Validform({
             tiptype:function(msg,o,cssctl){

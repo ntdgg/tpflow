@@ -67,7 +67,6 @@ class lib
 				if(!$btn_access){
                     return '';
                 }
-
                 $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'发起\',"' . $urls['wfdo'] . '?act=start&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '",35,30)>'.$btn_lang['start'].'</span>';
 
 				break;
@@ -134,12 +133,12 @@ class lib
 	 * 添加流程模板
 	 *
 	 **/
-	public static function tmp_event($url, $info, $type)
+	public static function tmp_event($url, $info)
 	{
 		if (!$info) {
-			$info['type'] = '';
+			$info = ['type'=>''];
 		}
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		$patch = unit::gconfig('static_url');
 		$view = <<<php
 				{$tmp['head']}
@@ -148,7 +147,8 @@ class lib
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
 				   <table class="table"><tr>
 							<tr  ><th style='width:90px;'>单据信息</th><td >
-							<span class="select-box"><select name="type" id="type" class="select"  datatype="*" >{$type}</select></span>
+							<span class="select-box">
+							    {$info['flow_name']}({$info['type']})({$info['id']})<input name='type'  type='hidden' value='{$info['type']}' id="type"></span>
 							</td></tr>
 							<tr  ><th>执行类型</th><td >
 							<span class="select-box"><select name="fun" id="act" class="select"  datatype="*" ><option value="">请选择</option><option value="before">before 步骤执行前动作</option>
@@ -196,17 +196,11 @@ php;
 	public static function tmp_add($url, $info, $type)
 	{
 		if (!$info) {
-			$info['id'] = '';
-			$info['flow_name'] = '';
-			$info['sort_order'] = '';
-			$info['flow_desc'] = '';
-			$info['type'] = '';
-            $info['field_name'] = '';
-            $info['field_value'] = '';
-            $info['is_field'] = 0;
-            $info['tmp'] = '';
+            $info = [
+                'id'=>'','flow_name'=>'','sort_order'=>'','flow_desc'=>'','type'=>'','field_name'=>'','field_value'=>'','is_field'=>'','tmp'=>''
+            ];
 		}
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		$view = <<<php
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
@@ -219,7 +213,7 @@ php;
 							<th>流程类型</th><td>
 							<span class="select-box"><select name="type"  class="smalls"  datatype="*" >{$type}</select></span>
 							</td></tr>
-							<tr><th>单据过滤</th>
+							<tr><th>发起条件</th>
 							<td>
 							过滤:<select name="is_field"  class="smalls"  datatype="*" ><option value="0">关闭</option><option value="1">开启</option></select>
 							　字段:<input type="text" class="input-text-2" style='width:140px' value="{$info['field_name']}" name="field_name">　数值:<input type="text" class="input-text-2" value="{$info['field_value']}" name="field_value"  style='width:140px' ></td></tr><tr>
@@ -248,7 +242,7 @@ php;
 	 **/
 	public static function tmp_entrust($info, $type, $user)
 	{
-		$tmp = self::commontmp('Tpflow V6.0 管理列表');
+		$tmp = self::commontmp('Tpflow V7.0 管理列表');
 		$urls = unit::gconfig('wf_url');
 		return <<<php
 				{$tmp['head']}
@@ -299,8 +293,7 @@ php;
 	 **/
 	public static function tmp_suser($url, $kid, $user, $type = 'user')
 	{
-		
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 		 {$tmp['head']}
 <article class="page-container">
@@ -375,7 +368,7 @@ php;
 	 **/
 	public static function tmp_wfjk($data)
 	{
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 		 {$tmp['head']}<div class="page-container"><table class="table"><thead><tr class="text-c"><th>工作流编号</th><th >工作流类型</th><th >工作流名称</th><th >当前状态</th><th >业务办理人</th><th >接收时间</th><th >操作</th></thead></tr>{$data}</table></div>{$tmp['js']}</body></html>
 php;
@@ -385,11 +378,10 @@ php;
 	{
 		$urls = unit::gconfig('wf_url');
 		$url = $urls['wfdo'] . '?act=start&wf_type=' . $info['wf_type'] . '&wf_fid=' . $info['wf_fid'];
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
         $op = '';
         if(count($flow)==1){
             $op_html = '<input type="hidden" value="'.$flow[0]['id'].'" name="wf_id">';
-
         }else{
             foreach ($flow as $k => $v) {
                 $op .= '<option value="' . $v['id'] . '">' . $v['flow_name'] . '</option>';
@@ -419,7 +411,7 @@ php;
 	public static function tmp_wfok($info, $flowinfo)
 	{
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_ok']}" method="post" name="form" id="wfform">
@@ -432,11 +424,9 @@ php;
 		<input type="hidden" value="{$flowinfo['flow_process']}" name="flow_process">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
-			<tr>
-			<th style='width:98%' >单据审批</th>
-			</tr>
-			<tr>
+			<tr><th style='width:98%' >单据审批</th></tr>
 			</thead>
+			<tr>
 			<td style='height:80px'>
 				<table class="table table-border table-bordered table-bg">
 				<tr>
@@ -503,7 +493,7 @@ php;
 			$op .= '<option value="' . $k . '">' . $v . '</option>';
 		}
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_back']}" method="post" name="form" id="wfform">
@@ -512,9 +502,7 @@ php;
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
 		<table class="table table-border table-bordered table-bg" style='width:98%'>
 			<thead>
-			<tr>
-			<th style='width:98%' >单据审批</th>
-			</tr>
+			<tr><th style='width:98%' >单据审批</th></tr>
 			<tr>
 			</thead>
 			<td style='height:80px'>
@@ -576,11 +564,18 @@ php;
 	 **/
 	public static function tmp_wfdesc($id, $process_data, $urlApi)
 	{
-		$tmp = self::commontmp('Tpflow V6.0 ');
         $data = json_decode($process_data,'true');
         return view(BEASE_URL.'/template/index.html',['surl'=>$urlApi,'id'=>$id,'x6'=>json_encode($data['x6'])]);
 	}
-	
+    /**
+     * 工作流程图
+     *
+     **/
+    public static function tmp_flowview($id, $process_data, $urlApi)
+    {
+        $data = json_decode($process_data,'true');
+        return view(BEASE_URL.'/template/view.html',['id'=>$id,'x6'=>json_encode($data['x6'])]);
+    }
 	/**
 	 * 工作流会签模板
 	 *
@@ -593,7 +588,7 @@ php;
 			$op .= '<option value="' . $v['id'] . '">' . $v['username'] . '</option>';
 		}
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_sign']}" method="post" name="form" id="wfform">
@@ -658,7 +653,7 @@ php;
 	 **/
 	public static function tmp_wfflow($process_data)
 	{
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 		 {$tmp['head']}<body  style="height: 100%; overflow: hidden;margin: 0px; padding: 0px;"><div class="panel layout-panel split-center" style="width:100%; cursor: default;" > <div  style="width:100%; height: 800px;" id="flowdesign_canvas"></div></div></div></body>
 </html>
@@ -678,7 +673,7 @@ php;
 	 **/
 	public static function tmp_index($url, $data, $html)
 	{
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		$html = <<<str
 		{head}
 		<div style='padding: 15px;'>
@@ -700,7 +695,7 @@ str;
 	 **/
 	public static function tmp_wfgl($data)
 	{
-		$tmp = self::commontmp('Tpflow V6.0 ');
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		$urls = unit::gconfig('wf_url');
 		return <<<php
 	{$tmp['head']}
@@ -716,6 +711,8 @@ php;
 	 **/
 	public static function tmp_check($info, $flowinfo)
 	{
+        $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
+        //tpflow_view
 		if (strpos($flowinfo['status']['wf_action'], '@') !== false) {
 			$urldata = explode("@", $flowinfo['status']['wf_action']);
 			$url = url(unit::gconfig('int_url') . '/' . $urldata[0] . '/' . $urldata[1], ['id' => $info['wf_fid'], $urldata[2] => $urldata[3]]).($urldata[4] ?? '');
@@ -737,9 +734,8 @@ php;
 		} else {
 			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
 		}
-		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,30)>✤ 审批历史</a> ';
-		$tmp = self::commontmp('Tpflow V6.0 ');
-		
+		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("审批历史","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
+		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 {$tmp['head']}
 <div class="page-container" style='width:100%;padding: 0px;'>
@@ -791,14 +787,13 @@ php;
         if(count($process_to_list) <= 1){
             $condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option>';
         }
-
         /*6.0.2增加方法接口*/
         $wf_action_select = '';
         $wf_class = unit::gconfig('wf_action') ?? '';
         if (class_exists($wf_class)) {
             $wf_action_select = (new $wf_class())->info($table);
         }
-        $tmp = self::commontmp('Tpflow V6.0 管理列表');
+        $tmp = self::commontmp('Tpflow V7.0 管理列表');
         return view(BEASE_URL.'/template/att.html',['urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
 	}
 	
@@ -809,15 +804,14 @@ php;
 	static function commontmp($title)
 	{
 		$patch = unit::gconfig('static_url');
-		$css = '<link rel="stylesheet" type="text/css" href="' . $patch . 'workflow.5.0.css?v5.0"/>';
+		$css = '<link rel="stylesheet" type="text/css" href="' . $patch . 'app.css?v7.0"/>';
 		$js = '<script type="text/javascript" src="' . $patch . 'jquery-1.7.2.min.js" ></script>
 	<script type="text/javascript" src="' . $patch . 'jsPlumb-1.3.16-all-min.js"></script>
 			<script type="text/javascript" src="' . $patch . 'lib/layer/2.4/layer.js" ></script>
 			<script type="text/javascript" src="' . $patch . 'workflow.5.0.js?v=11" ></script>
 			<script type="text/javascript" src="' . $patch . 'lib/Validform/5.3.2/Validform.min.js" ></script>
 			<script type="text/javascript" src="' . $patch . 'jquery-ui-1.9.2-min.js?" ></script>
-			<script type="text/javascript" src="' . $patch . 'multiselect2side.js" ></script>
-			<script type="text/javascript" src="' . $patch . 'lib/H5upload.js" ></script>';
+			<script type="text/javascript" src="' . $patch . 'multiselect2side.js" ></script>';
 		$head = '<html><title>' . $title . '</title><head>' . $css . '</head><body style="background-color: white;height: 92%;">';
 		$form = '<script type="text/javascript">
 			$(function(){

@@ -1,7 +1,7 @@
 <?php
 /**
  *+------------------
- * Tpflow 6.0 系统默认模板接口调用类
+ * Tpflow 7.0 系统默认模板接口调用类
  *+------------------
  */
 declare (strict_types = 1);
@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '6.0.7' );
+define('Tpflow_Ver', '7.0.0' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -81,6 +81,9 @@ use think\facade\Request;
 		if($act=='super_user'){
 			return unit::return_msg(Control::WfDescCenter($act,'',['kid'=>input('kid'),'type_mode'=>input('type_mode'),'key'=>input('key'),'type'=>input('type')]));
 		}
+        if($act=='quilklink'){
+            return unit::return_msg(Control::WfDescCenter($act,input('flow_id'),['process_id'=>input('process_id'),'fun'=>input('fun')]));
+        }
 	}
 	/**
 	 * Tpflow 5.0统一接口 流程管理
@@ -113,7 +116,10 @@ use think\facade\Request;
                 return unit::return_msg(Control::WfFlowCenter($act,$data));
 			 }
 		}
-        if($act=='del'){
+        if($act=='view'){
+            return unit::return_msg(Control::WfDescCenter($act,input('id')));
+        }
+        if($act=='del' || $act=='ver'){
             if (unit::is_post()) {
                 $data = input('post.');
                 return unit::return_msg(Control::WfFlowCenter($act,$data));

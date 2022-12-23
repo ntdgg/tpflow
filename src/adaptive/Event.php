@@ -69,7 +69,7 @@ class Event
 		);
 		if(@file_put_contents(root_path(). 'extend/'.$namespace.'/'.$class.'.php' , $str) === false)
 		{
-			return ['code'=>1,'data'=>'写入文件失败，请检查extend/event/目录是否有权限'];
+			return ['code'=>1,'data'=>'写入文件失败，请检查extend/'.$namespace.'/目录是否有权限'];
 		}
 		/*尝试一下代码错误*/
 		try {

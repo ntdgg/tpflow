@@ -1,6 +1,6 @@
 const {Stencil} = X6.Addon
 const {Rect, Circle, Polygon, Image, Cylinder} = X6.Shape
-const {DataUri} = X6.Addon
+const {DataUri} = X6.DataUri
 
 const graph = new X6.Graph({
     container: document.getElementById("main"),
@@ -21,7 +21,6 @@ const graph = new X6.Graph({
             },
         ],
     },
-    // 对齐线
     snapline: {
         enabled: true,
         sharp: true,
@@ -34,7 +33,7 @@ const graph = new X6.Graph({
         pannable: true,
     },
     width: '1000',
-    height: '800',
+    height: '900',
     panning: {
         enabled: true,
         eventTypes: ['leftMouseDown', 'rightMouseDown', 'mouseWheel'],
@@ -103,8 +102,8 @@ const graph = new X6.Graph({
     minimap: {
         enabled: true,
         container: document.getElementById('minimap'),
-        width: 198,
-        height: 198,
+        width: 150,
+        height: 150,
         padding: 10,
     }
 })
@@ -114,10 +113,10 @@ graph.centerContent()
 
 // 创建侧边栏
 const stencil = new Stencil({
-    title: '流程步骤',
+    title: '流程工具栏',
     target: graph,
-    stencilGraphWidth: 120,
-    stencilGraphHeight: document.body.offsetHeight - 105,
+    stencilGraphWidth: 110,
+    stencilGraphHeight: document.body.offsetHeight - 125,
     layoutOptions: {
         columns: 1,
         columnWidth: 80,
@@ -136,6 +135,19 @@ const showPorts = (ports, visible) => {
     for (let i = 0, len = ports.length; i < len; i = i + 1) {
         ports[i].style.visibility = visible ? 'visible' : 'hidden'
     }
+}
+const addtool = (node) => {
+    node.addTools({
+        name: 'button-remove',
+        args: {
+            offset: {x: 35, y: 15},
+            onClick({ view }) {
+                if(confirm("你确定删除步骤吗？")) {
+                    TFAPI.sPost(Tpflow_Server_Url+'?act=del',{"flow_id":Tpflow_Id,"id":node.data});
+                }
+            },
+        },
+    })
 }
 
 // 初始化事件
@@ -168,30 +180,31 @@ const initEvents = (domName) => {
             '.x6-port-body',
         )
         showPorts(ports, true)
-        node.addTools({
-            name: 'button-remove',
-            args: {
-                offset: {
-                    x: 35,
-                    y: 15
-                },
-                onClick({ view }) {
-                    if(confirm("你确定删除步骤吗？")) {
-                        TFAPI.sPost(Tpflow_Server_Url+'?act=del',{"flow_id":Tpflow_Id,"id":node.data});
-                    }
-                },
-            },
-        })
-
+        if(node.shape!='node-start' && node.shape!='node-end'){
+            addtool(node);
+        }
+        if(node.shape!='node-end' && node.shape!='node-msg' && node.shape!='node-cc'){
+            let gateway ='';
+            if(node.shape!='node-gateway'){
+                gateway = `<a class='wf_btn2' onclick="TFAPI.sAdd('gateway',${node.data})">网关</a>`;
+            }
+            var text = document.getElementById("tooltipText")
+            const p1 = graph.localToClient(node.store.data.position.x, node.store.data.position.y)
+            text.innerHTML=`<a class='wf_btn2' onclick="TFAPI.sAdd('node',${node.data})">步骤</a>  ${gateway}  <a class='wf_btn2' onclick="TFAPI.sAdd('msg',${node.data})">消息</a> <a onclick="TFAPI.sAdd('cc',${node.data})" class='wf_btn2'>抄送</a>`
+            text.style.display='block';
+            text.style.left=(p1.x-100).toString() + 'px';
+            text.style.top=(p1.y-50).toString() + 'px'
+        }
     })
+
     graph.on('node:mouseleave', ({node}) => {
         const ports = container.querySelectorAll(
             '.x6-port-body',
         )
         showPorts(ports, false)
         node.removeTools()
+        setTimeout("document.getElementById(\"tooltipText\").style.display=\"none\"", 3000 )//3秒后关系悬浮的
     })
-
     /*连接线鼠标移入事件*/
     graph.on('edge:mouseenter', ({edge}) => {
         edge.addTools({
@@ -221,7 +234,7 @@ const initEvents = (domName) => {
             layer.msg('结束节点');return;
         }
         var url = Tpflow_Server_Url + "?id=" + node.data + "&act=att";
-        TFAPI.lopen("属性设计", url, 50, 60);
+        TFAPI.lopen("属性设计", url, 50, 40);
     })
 
 }

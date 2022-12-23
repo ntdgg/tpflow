@@ -4,11 +4,13 @@ var TFAPI = {
         var reload = false;
         switch(act) {
             case 'zoomIn':
-                graph.zoom(0.1)
+                graph.zoom(-0.1)
+                graph.centerContent()
                 return;
                 break;
             case 'zoomOut':
-                graph.zoom(-0.1)
+                graph.centerContent()
+                graph.zoom(0.1)
                 return;
                 break;
             case 'save':
@@ -33,7 +35,6 @@ var TFAPI = {
                 var PostData = {"flow_id":Tpflow_Id};
                 break;
             case 'Refresh':
-
                 location.reload();return;
                 break;
             case 'Help':
@@ -89,4 +90,7 @@ var TFAPI = {
             }
         },'json');
     },
+    sAdd:function(act,id){
+        TFAPI.sPost(Tpflow_Server_Url+'?act=quilklink',{"flow_id":Tpflow_Id,"process_id":id,"fun":act},true);
+    }
 }

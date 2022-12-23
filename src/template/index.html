@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tpflow工作流引擎 V6.0</title>
+    <title>Tpflow工作流引擎 V7.0</title>
     <link rel="stylesheet" href="/static/work/app.css">
 </head>
+<style type="text/css">
+    .tooltiptext {
+        width: 260px;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        display: none;
+        opacity: 0.7;
+    }
+</style>
 <body>
 <div class="wrap">
     <div class="header">
-        Tpflow工作流引擎 V6.0
+        Tpflow工作流引擎 V7.0
     </div>
     <div class='toolbar'>
         <hr  style="margin: 0 5px;padding-top: 5px;border: none;border-bottom: solid 1px #DDD;clear: both;"/>
@@ -17,7 +30,6 @@
         <a onclick='TFAPI.sApi("Refresh")'>➲ 刷新</a>
         <hr  style="margin: 0 5px;padding-top: 5px;border: none;border-bottom: solid 1px #DDD;clear: both;"/>
         <a onclick='TFAPI.sApi("check")'>♢ 校验</a>
-        <a onclick='TFAPI.sApi("Help")'>§ 帮助</a>
         <a onclick='TFAPI.sApi()'>↓ 下载</a>
         <a onclick='TFAPI.sApi("Doc")'>© 版权</a>
         <a title="缩小" onclick='TFAPI.sApi("zoomIn")' style="z-index:9999;position: fixed;left: 97%;font-weight: 1000;">-</a>
@@ -29,6 +41,8 @@
         <div id="minimap" class="minimap"></div>
     </div>
 </div>
+    <div id="tooltipText" class="tooltiptext"></div>
+
 <script>
     const Tpflow_Id = {$id};
     const Tpflow_Server_Url = '{$surl}';
@@ -42,7 +56,7 @@
 <script>
     function resize(){
         const width=document.body.offsetWidth - 120;
-        const height=document.body.offsetHeight - 100;
+        const height=document.body.offsetHeight -120;
         graph.resize(width, height);
     }
     window.onresize = function (){

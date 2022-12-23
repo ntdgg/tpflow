@@ -94,6 +94,7 @@ class Tpl
 				'tpflow_sign' => $urls['wfdo'] . '?act=do&wf_op=sign&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
 				'tpflow_flow' => $urls['wfdo'] . '?act=do&wf_op=flow&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
 				'tpflow_log' => $urls['wfdo'] . '?act=do&wf_op=log&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
+                'tpflow_view' => $urls['wfapi'] . '?act=view&id=',
 				'tpflow_upload' => unit::gconfig('wf_upload_file')
 			];
 			if ($wf_op == 'check') {
@@ -249,6 +250,7 @@ class Tpl
 				} else {
 					$btn = "<a class='btn  radius size-S'> 运行中....</a>";
 				}
+                $btn .= " <a class='btn' onclick=Tpflow.wfconfirm('" . $urls['wfapi'] . '?act=ver' . "',{'id':" . $v['id'] . "},'您确定复刻新流程吗？')> 版本+</a>";
 				if ($v['status'] == 0) {
 					$btn .= "<a class='button' onclick=Tpflow.wfconfirm('" . $urls['wfapi'] . '?act=add' . "',{'id':" . $v['id'] . ",'status':1},'您确定要禁用该工作流吗？')> 禁用</a>";
 				} else {
@@ -278,6 +280,21 @@ class Tpl
 					$data['add_time'] = time();
 					unset($data['id']);
 					$ret = Flow::AddFlow($data);
+                    /*7.0自动添加开始节点，结束节点*/
+                    $star_flow = [
+                        'process_name'=>'开始',
+                        'flow_id' => $ret['data'], 'setleft' => '-250', 'settop' => '250',
+                        'process_type' => 'node-start', 'style' => '{"width":60,"height":45,"color":"#2d6dcc"}'
+                    ];
+                    $star_flow_id = Process::AddFlowProcess($star_flow);
+                    $end_flow = [
+                        'process_name'=>'结束',
+                        'flow_id' => $ret['data'], 'setleft' => '80', 'settop' => '250',
+                        'process_type' => 'node-end', 'style' => '{"width":60,"height":60,"color":"#2d6dcc"}'
+                    ];
+                    $end_flow_id = Process::AddFlowProcess($end_flow);
+                    Process::EditFlowProcess([['id', '=', $star_flow_id], ['flow_id', '=', $ret['data']]], ['process_to' => $end_flow_id, 'uptime' => time()]);
+                    /*7.0自动添加开始节点，结束节点*/
 				} else {
 					$ret = Flow::EditFlow($data);
 				}
@@ -309,11 +326,7 @@ class Tpl
 				}
 			}
 			$info = Flow::getWorkflow($data); //获取工作流详情
-			$type = '';
-			foreach (Info::get_wftype() as $k => $v) {
-				$type .= '<option value="' . $v['name'] . '">' . $v['title'] . '</option>';
-			}
-			return lib::tmp_event($urls['wfapi'] . '?act=event', $info, $type);
+			return lib::tmp_event($urls['wfapi'] . '?act=event', $info);
 		}
         if ($act == 'del') {
             if ($data != '' && !is_numeric($data)) {
@@ -336,6 +349,47 @@ class Tpl
                 }
                 return unit::msg_return('操作成功！');
 
+            }
+        }
+        if ($act == 'ver') {
+            if ($data != '' && !is_numeric($data)) {
+                //当前流程
+                $ret = Flow::find($data['id']);
+                unset($ret['id']);
+                $ret['flow_name'] = '【副本】'.$ret['flow_name'];
+                $ret['add_time'] = time();
+                $run_id = Flow::AddFlow($ret);
+                if($run_id['code']==1){
+                    return unit::msg_return('写入数据库失败！');
+                }
+                //处理步骤信息
+                $map[] = ['flow_id', '=', $data['id']];
+                $list = Process::SearchFlowProcess($map);
+                $ids = [];
+                foreach($list as $k=>$v){
+                    $pid = $v['id'];
+                    unset($v['id']);
+                    $v['flow_id'] = $run_id['data'];
+                    $id = Process::AddFlowProcess($v);
+                    $ids[$pid] = $id;
+                }
+                foreach($ids as $k=>$v){
+                    $pinfo = Process::find($k);
+                    if($pinfo['process_to'] != ''){
+                        $array = explode(',',$pinfo['process_to']);
+                        if(count($array)>1){
+                            foreach($array as $v2){
+                                $process_to_array[] = $ids[$v2];
+                            }
+                            $process_to = implode(',',$process_to_array);
+                            }else{
+                            $process_to = $ids[$pinfo['process_to']];
+                        }
+                        unset($process_to_array);
+                        Process::EditFlowProcess([['id', '=', $v]], ['process_to' => $process_to, 'uptime' => time()]);
+                    }
+                }
+                return unit::msg_return('操作成功！');
             }
         }
         if ($act == 'verUpdate') {
@@ -413,7 +467,7 @@ class Tpl
 		$urls = unit::gconfig('wf_url');
 		//流程添加，编辑，查看，删除
 		if ($act == 'welcome') {
-			return '<br/><br/><style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; }h1{ font-size: 40px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 26px }</style><div style="padding: 24px 48px;"> <h1>\﻿ (•◡•) / </h1><p> TpFlow v5.0正式版<br/><span style="font-size:16px;">PHP优秀的开源工作流引擎</span></p><span style="font-size:13px;">[ ©2018-2022 Guoguo <a href="https://www.cojz8.com/">TpFlow</a>  ]</span></div>';
+			return '<br/><br/><style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; }h1{ font-size: 40px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 26px }</style><div style="padding: 24px 48px;"> <h1>\﻿ (•◡•) / </h1><p> TpFlow v7.0正式版<br/><span style="font-size:16px;">PHP优秀的开源工作流引擎</span></p><span style="font-size:13px;">[ ©2018-2025 Guoguo <a href="https://www.cojz8.com/">TpFlow</a>  ]</span></div>';
 		}
 		if ($act == 'wfdesc') {
 			$one = Flow::getWorkflow($flow_id);
@@ -431,7 +485,13 @@ class Tpl
             $data = json_decode($process_data,true);
             return ['status' => 0, 'x6' => $data['x6']];
         }
-
+        if($act == 'view') {
+            $one = Flow::getWorkflow($flow_id);
+            if (!$one) {
+                return '未找到数据，请返回重试!';
+            }
+            return lib::tmp_flowview($one['id'], Flow::ProcessAll($flow_id), $urls['designapi']);
+        }
 		if ($act == 'save') {
 			return Flow::ProcessLink($flow_id, $data);
 		}
@@ -478,6 +538,85 @@ class Tpl
 				return ['data' => User::AjaxGet(trim($data['type']), $data['key']), 'code' => 1, 'msg' => '查询成功！'];
 			}
 		}
+
+        if($act=='quilklink'){
+            //$flow_id
+            $process_id = $data['process_id'];
+            $process_info = Process::find($process_id);
+            /*添加一个下级节点信息*/
+            if($data['fun']=='node'){
+                $data = [
+                    'process_name'=>'步骤',
+                    'flow_id' => $flow_id, 'setleft' => $process_info['setleft']+150, 'settop' => $process_info['settop'],
+                    'process_type' => 'node-flow','process_to'=>$process_info['process_to'], 'style' => '{"width":65,"height":45,"color":"#2d6dcc"}'
+                ];
+                $processid = Process::AddFlowProcess($data);
+                $datas = [
+                    'process_to' => $processid,
+                    'uptime' => time()
+                ];
+                Process::EditFlowProcess([['id', '=', $process_id], ['flow_id', '=', $flow_id]], $datas);
+                return ['code' => 0, 'msg' => '添加成功！', 'info' => ''];
+            }
+            if($data['fun']=='gateway'){
+                $data1 = [
+                    'process_name'=>'步骤',
+                    'flow_id' => $flow_id, 'setleft' => $process_info['setleft']+150, 'settop' => $process_info['settop']+150,
+                    'process_type' => 'node-flow','process_to'=>$process_info['process_to'], 'style' => '{"width":65,"height":45,"color":"#2d6dcc"}'
+                ];
+                $processid1 = Process::AddFlowProcess($data1);
+                $data2 = [
+                    'process_name'=>'步骤',
+                    'flow_id' => $flow_id, 'setleft' => $process_info['setleft']+150, 'settop' => $process_info['settop']-150,
+                    'process_type' => 'node-flow','process_to'=>$process_info['process_to'], 'style' => '{"width":65,"height":45,"color":"#2d6dcc"}'
+                ];
+                $processid2 = Process::AddFlowProcess($data2);
+                $datas = [
+                    'process_to' => $processid1.','.$processid2,
+                    'uptime' => time()
+                ];
+                Process::EditFlowProcess([['id', '=', $process_id], ['flow_id', '=', $flow_id]], $datas);
+                return ['code' => 0, 'msg' => '添加成功！', 'info' => ''];
+            }
+            if($data['fun']=='msg'){
+                $data = [
+                    'process_name'=>'消息',
+                    'flow_id' => $flow_id, 'setleft' => $process_info['setleft'], 'settop' => $process_info['settop']+150,
+                    'process_type' => 'node-msg','process_to'=>'', 'style' => '{"width":65,"height":45,"color":"#2d6dcc"}'
+                ];
+                $processid = Process::AddFlowProcess($data);
+                if($process_info['process_to']==''){
+                    $process_to = $processid;
+                }else{
+                    $process_to = $process_info['process_to'].','.$processid;
+                }
+                $datas = [
+                    'process_to' => $process_to,
+                    'uptime' => time()
+                ];
+                Process::EditFlowProcess([['id', '=', $process_id], ['flow_id', '=', $flow_id]], $datas);
+                return ['code' => 0, 'msg' => '添加成功！', 'info' => ''];
+            }
+            if($data['fun']=='cc'){
+                $data = [
+                    'process_name'=>'抄送',
+                    'flow_id' => $flow_id, 'setleft' => $process_info['setleft'], 'settop' => $process_info['settop']+150,
+                    'process_type' => 'node-cc','process_to'=>'', 'style' => '{"width":65,"height":45,"color":"#2d6dcc"}'
+                ];
+                $processid = Process::AddFlowProcess($data);
+                if($process_info['process_to']==''){
+                    $process_to = $processid;
+                }else{
+                    $process_to = $process_info['process_to'].','.$processid;
+                }
+                $datas = [
+                    'process_to' => $process_to,
+                    'uptime' => time()
+                ];
+                Process::EditFlowProcess([['id', '=', $process_id], ['flow_id', '=', $flow_id]], $datas);
+                return ['code' => 0, 'msg' => '添加成功！', 'info' => ''];
+            }
+        }
 		return $act . '参数出错';
 	}
 	
