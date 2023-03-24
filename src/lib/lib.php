@@ -73,7 +73,7 @@ class lib
 			case 1:
 				$st = 0;
 				$user_name = '';
-				if ($flowinfo != -1) {
+				if ($flowinfo != -1 && !empty($flowinfo)) {
 					if (!isset($flowinfo['status'])) {
 						if ($return == 1) {
 							return ['Url' => '', 'User' => '', 'status' => -1];
@@ -104,7 +104,9 @@ class lib
 					if ($return == 1) {
 						return ['Url' => '', 'User' => '', 'status' => 0];
 					}
-                    $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'</span>';
+                   $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'</span>';
+
+
 				}
 				if ($st == 1) {
 					if ($return == 1) {
@@ -115,7 +117,11 @@ class lib
 					if ($return == 1) {
 						return ['Url' => '', 'User' => $user_name, 'status' => 0];
 					}
-                    $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'[' . $user_name . ']</span>';
+                    if(empty($flowinfo)){
+                        $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
+                    }else{
+                        $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'[' . $user_name . ']</span>';
+                    }
 				}
 				break;
 			case 100:
@@ -783,9 +789,14 @@ php;
 		foreach ($from as $k => $v) {
 			$from_html .= '<option value="' . $k . '">' . $v . '</option>';
 		}
-        $condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option><option value="1">转出模式（符合执行）</option><option value="2">同步模式（均需办理）</option>';
+
         if(count($process_to_list) <= 1){
             $condition = '<option value="0">单线模式（流程为直线型单一办理模式）</option>';
+        }else{
+            if ($one['wf_mode'] <= 1) {
+                $wf_mode = '';
+            }
+            $condition = '<option value="1">转出模式（符合执行）</option><option value="2">同步模式（均需办理）</option><option value="3">自由步骤（选1办理）</option>';
         }
         /*6.0.2增加方法接口*/
         $wf_action_select = '';

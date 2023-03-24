@@ -130,21 +130,29 @@ class unit
 			return '<font color="red">流程终止</font>';
 		}
 		if ($wf_mode != 2) {
-			if ($npi['auto_person'] == 2) {
-				return '[协同]'.$npi['process_name'] . '(' . $npi['auto_xt_text'] . ')';
-			}
-			if ($npi['auto_person'] != 3) {
-				//非自由模式
-				return $npi['process_name'] . '(' . $npi['todo'] . ')';
-			} else {
-				$todu = "<select name='todo' id='todo'  class='select'  datatype='*' ><option value=''>请指定办理人员</option>";
-				$op = '';
-				foreach ($npi['todo']['ids'] as $k => $v) {
-					$op .= '<option value="' . $v . '*%*' . $npi['todo']['text'][$k] . '">' . $npi['todo']['text'][$k] . '</option>';
-				}
-				return $todu . $op . '</select>';;
-			}
-			$pr = '';
+            if ($wf_mode == 3) {
+                $bz = "<select name='npid' class='select'  datatype='*' ><option value=''>请选择下级步骤信息</option>";
+                foreach ($npi as $kk => $vv) {
+                    $bz .= '<option value="' . $vv['id'] . '">' . $vv['process_name'] .'</option>';
+                }
+                return $bz.'</select>';
+            }else {
+                if ($npi['auto_person'] == 2) {
+                    return '[协同]' . $npi['process_name'] . '(' . $npi['auto_xt_text'] . ')';
+                }
+                if ($npi['auto_person'] != 3) {
+                    //非自由模式
+                    return $npi['process_name'] . '(' . $npi['todo'] . ')';
+                } else {
+                    $todu = "<select name='todo' id='todo'  class='select'  datatype='*' ><option value=''>请指定办理人员</option>";
+                    $op = '';
+                    foreach ($npi['todo']['ids'] as $k => $v) {
+                        $op .= '<option value="' . $v . '*%*' . $npi['todo']['text'][$k] . '">' . $npi['todo']['text'][$k] . '</option>';
+                    }
+                    return $todu . $op . '</select>';;
+                }
+                $pr = '';
+            }
 		} else {
 			$pr = '[同步]';
 			$op = '';

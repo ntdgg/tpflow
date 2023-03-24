@@ -214,6 +214,8 @@ class Process
 			/* 加入同步模式 2为同步模式
 			 * 2019年1月28日14:30:52
 			 *1、加入同步模式    2、先获取本步骤信息 3、获取本步骤的模式   4、根据模式进行读取  5、获取下一步骤需要的信息
+			 * 2023年3月23日 3加入自由步骤模式
+			 * 获取全部步骤并输出；用户选择，下一步
 			 **/
 			switch ($nex['wf_mode']) {
 				case 0:
@@ -235,6 +237,12 @@ class Process
 				case 2:
 					$process = self::GetProcessInfos($nex_pid, $run_id);
 					break;
+                    //自由选择步骤
+                case 3:
+                    foreach ($nex_pid as $vv){
+                        $process[$vv]=self::GetProcessInfo($vv, $run_id);
+                    }
+                    break;
 			}
 		} else {
 			$process = ['auto_person' => '', 'id' => '', 'process_name' => 'END', 'todo' => '结束'];

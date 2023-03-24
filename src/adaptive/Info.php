@@ -232,18 +232,26 @@ class Info
 					$workflow ['process'] = $process;
 					$workflow ['sing_info'] = Run::FindRunSign([['id', '=', $result['sing_id']]]);
 				}
-				
+
+				//0 直线 1转出 2同步 3自由
 				if ($workflow['status']['wf_mode'] != 2) {
-                    if(($workflow ['nexprocess']['process_type'] ?? '')=='node-end'){
-                        $workflow['nexid'] = '';//终点节点，直接结束步骤
+                    /*自由模式*/
+                    if ($workflow['status']['wf_mode'] == 3) {
+                        $workflow['nexid'] = '-1';
                     }else{
-                        $workflow['nexid'] = $workflow ['nexprocess']['id'];//下一步骤
+                        if(($workflow ['nexprocess']['process_type'] ?? '')=='node-end'){
+                            $workflow['nexid'] = '';//终点节点，直接结束步骤
+                        }else{
+                            $workflow['nexid'] = $workflow ['nexprocess']['id'];//下一步骤
+                        }
                     }
 				} else {
 					$workflow['nexid'] = $workflow ['process']['process_to'];//下一步骤
 				}
 				$workflow['run_process'] = $info['id'];//运行的run_process步骤ID
-				$workflow['npi'] = unit::nexnexprocessinfo($workflow['status']['wf_mode'], $workflow['nexprocess']);//显示下一步骤的信息
+
+                $workflow['npi'] = unit::nexnexprocessinfo($workflow['status']['wf_mode'], $workflow['nexprocess']);//显示下一步骤的信息
+
 			}
 		}
 		
