@@ -64,7 +64,15 @@ class User
 	{
 		return (new User())->mode->AjaxGet($type, $keyword);
 	}
-	
+    /**
+     * 查询用户消息
+     *
+     */
+    public static function GetRoleInfo($id)
+    {
+        return (new User())->mode->GetRoleInfo($id);
+    }
+
 	/**
 	 * 查询用户消息
 	 *

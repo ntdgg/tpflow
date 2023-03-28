@@ -109,8 +109,17 @@ class Process
 		if ($info['auto_person'] == 6) { //事务接收者
 			$wf = Run::FindRunId($run_id);
 			$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $info['work_text']);
-			$info['todo'] = User::GetUserName($user_id);
-			$info['user_info'] = User::GetUserInfo($user_id);
+            //人员
+            if($info['work_ids']==1){
+                $info['todo'] = User::GetUserName($user_id);
+                $info['user_info'] = User::GetUserInfo($user_id);
+            }
+            //角色
+            if($info['work_ids']==2){
+                $user_info = User::GetRoleInfo($user_id);
+                $info['user_info'] = $user_info;
+                $info['todo'] = $user_info['username'];
+            }
 		}
 		return $info;
 	}
@@ -139,9 +148,19 @@ class Process
 			if ($v['auto_person'] == 6) { //事务接收者
 				$wf = Run::FindRunId($run_id);
 				$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $info[$k]['work_text']);
-				$user_info = User::GetUserInfo($user_id);
-				$info['user_info'] = $user_info;
-				$info[$k]['todo'] = $user_info['username'];
+                //人员
+                if($info['work_ids']==1){
+                    $user_info = User::GetUserInfo($user_id);
+                    $info['user_info'] = $user_info;
+                    $info[$k]['todo'] = $user_info['username'];
+                }
+                //角色
+                if($info['work_ids']==2){
+                    $user_info = User::GetRoleInfo($user_id);
+                    $info['user_info'] = $user_info;
+                    $info[$k]['todo'] = $user_info['username'];
+                }
+
 			}
 		}
 		return $info;
@@ -180,8 +199,18 @@ class Process
                     $user_id =implode(',',$user);
                 }
                 if ($has_msg['auto_person'] == 6) { //事务接收者
-                    $run = Run::FindRunId($run_id);
-                    $user_id = Bill::getbillvalue($run['from_table'], $run['from_id'], $has_msg['work_text']);
+                    //人员
+                    if($info['work_ids']==1){
+                        $run = Run::FindRunId($run_id);
+                        $user_id = Bill::getbillvalue($run['from_table'], $run['from_id'], $has_msg['work_text']);
+                    }
+                    //角色
+                    if($info['work_ids']==2){
+                        $run = Run::FindRunId($run_id);
+                        $role_id = Bill::getbillvalue($run['from_table'], $run['from_id'], $has_msg['work_text']);
+                        $user =User::searchRoleIds($role_id);
+                        $user_id =implode(',',$user);
+                    }
                 }
                 Cc::add(['from_id'=>$wf_fid,'from_table'=>$wf_type,'uid'=>unit::getuserinfo('uid'),'run_id'=>$run_id,'user_ids'=>$user_id,'auto_ids'=>$user_id,'auto_person'=>$has_msg['auto_person'],'process_id'=>$info['id'],'process_ccid'=>$v,'add_time'=>time(),'uptime'=>time()]);
                 unset($nex_pid[$k]);

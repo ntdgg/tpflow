@@ -83,11 +83,23 @@ class lib
 					if ($flowinfo['sing_st'] == 0) {
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						$user_name = $flowinfo['status']['sponsor_text'];
-						if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4 || $flowinfo['status']['auto_person'] == 6) {
-							if (in_array($thisuser['thisuid'], $user)) {
-								$st = 1;
-							}
+						if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4) {
+                                if (in_array($thisuser['thisuid'], $user)) {
+                                    $st = 1;
+                                }
 						}
+                        /*事务增加角色判断*/
+                        if ($flowinfo['status']['auto_person'] == 6) {
+                            if ($flowinfo['status']['word_type']==1) {
+                                if (in_array($thisuser['thisuid'], $user)) {
+                                    $st = 1;
+                                }
+                            }else{
+                                if (in_array($thisuser['thisrole'], $user)) {
+                                    $st = 1;
+                                }
+                            }
+                        }
 						if ($flowinfo['status']['auto_person'] == 5) {
 							if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
 								$st = 1;
@@ -105,8 +117,6 @@ class lib
 						return ['Url' => '', 'User' => '', 'status' => 0];
 					}
                    $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'</span>';
-
-
 				}
 				if ($st == 1) {
 					if ($return == 1) {
@@ -787,7 +797,9 @@ php;
 		}
 		$from_html = '';
 		foreach ($from as $k => $v) {
+            if(!in_array($k,['id','create_ip','create_os','is_delete','status','create_time','update_time','uptime'])){
 			$from_html .= '<option value="' . $k . '">' . $v . '</option>';
+            }
 		}
 
         if(count($process_to_list) <= 1){

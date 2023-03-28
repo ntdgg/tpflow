@@ -51,6 +51,16 @@ class AdapteeUser
 		$config = self::config('role');
 		return Db::name($config['db'])->field($config['field'])->select();
 	}
+
+    /**
+     * 查询用户消息
+     *
+     */
+    function GetRoleInfo($id)
+    {
+        $config = self::config('role');
+        return Db::name($config['db'])->where($config['key'], $id)->field($config['field'])->find();
+    }
 	
 	/**
 	 * 获取AJAX信息

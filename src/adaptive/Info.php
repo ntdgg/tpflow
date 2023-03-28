@@ -66,12 +66,23 @@ class Info
 	 */
 	public static function addWorkflowProcess($wf_id, $wf_process, $run_id, $uid, $todo = '')
 	{
+        $word_type = 1;
 		if ($wf_process['auto_person'] == 6 && $wf_process['process_type'] == 'node-start') { //事务人员
 			$wf = Run::FindRunId($run_id);
 			$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $wf_process['work_text']);
-			$user_info = User::GetUserInfo($user_id);
-			$wf_process['user_info'] = $user_info;
-			$wf_process['todo'] = $user_info['username'];
+            //人员
+            if($wf_process['work_ids']==1){
+                $user_info = User::GetUserInfo($user_id);
+                $wf_process['user_info'] = $user_info;
+                $wf_process['todo'] = $user_info['username'];
+            }
+            //角色
+            if($wf_process['work_ids']==2){
+                $user_info = User::GetRoleInfo($user_id);
+                $wf_process['user_info'] = $user_info;
+                $wf_process['todo'] = $user_info['username'];
+                $word_type = 2;
+            }
 		}
 		//非自由
 		if ($todo == '') {
@@ -110,6 +121,7 @@ class Info
 			'sponsor_ids' => $sponsor_ids,//办理人id
 			'sponsor_text' => $sponsor_text,//办理人信息
 			'auto_person' => $wf_process['auto_person'],//办理类别
+            'word_type'=>$word_type,
 			'js_time' => time(),
 			'dateline' => time(),
 			'is_sing' => $wf_process['is_sing'],
@@ -122,8 +134,6 @@ class Info
 		if ($wf_process['auto_person'] == 5) {
 			$sponsor_ids = '';
 		}
-
-
 		//取出当前所有授权信息
 		$map[] = ['old_user', 'in', [$sponsor_ids]];
 		$Raw = 'flow_process = 0 or flow_process=' . $wf_process['id'];
@@ -160,7 +170,6 @@ class Info
 		//根据表信息，判断当前流程是否还在运行  
 		$findwhere = [['from_id', '=', $wf_fid], ['from_table', '=', $wf_type], ['is_del', '=', 0], ['status', '=', 0]];
 		$count = Run::SearchRun($findwhere);//查询运行的流程
-
 		if (count($count) > 0) {
 			//查询运行中的步骤信息
 			$result = $count[0];
@@ -205,12 +214,10 @@ class Info
                     }
                 }
 			}
-
 			//4.0版本新增查找是否有代理审核人员，并给与权限，权限转换
 			$info = Entrust::change($info);
 			//拼接返回数据
 			if ($result) {
-
 				if ($result['is_sing'] != 1) {
 					$workflow ['sing_st'] = 0;//会签模式 
 					$workflow ['run_id'] = $result['id'];
