@@ -167,6 +167,7 @@ class TaskService
 		if (!$end_flow) {
 			return ['msg' => '更新单据信息出错~', 'code' => '-1'];
 		}
+        Log::AddrunLog($user_id, $FindRun['id'], ['wf_fid'=>$bill_id,'wf_type'=>$bill_table,'check_con'=>'取消审核','art'=>''], 'endflow');
 		return ['msg' => '终止成功~', 'code' => 0];
 	}
 	

@@ -47,6 +47,7 @@ class lib
 	public static function tpflow_btn($wf_fid, $wf_type, $status, $flowinfo, $return = 0)
 	{
         $btn_lang = unit::gconfig('wf_btn');
+        $btn_default = $btn_lang['approve'];
 		$urls = unit::gconfig('wf_url');
 		$thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
 		$url = ['url' => $urls['wfdo'] . '?act=do&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid];
@@ -81,6 +82,7 @@ class lib
                         $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
 					}
 					if ($flowinfo['sing_st'] == 0) {
+
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						$user_name = $flowinfo['status']['sponsor_text'];
 						if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4) {
@@ -108,6 +110,8 @@ class lib
 					} else {
 						if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
 							$st = 1;
+                            $user_name = $flowinfo['sing_info']['username'];
+                            $btn_default = $btn_lang['singapprove'];
 						} else {
 							$user_name = $flowinfo['sing_info']['uid'];
 						}
@@ -122,7 +126,7 @@ class lib
 					if ($return == 1) {
 						return ['Url' => $url['url'], 'User' => $user_name];
 					}
-                    $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>'.$btn_lang['approve'].'[' . $user_name . ']</span>';
+                    $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>'.$btn_default.'[' . $user_name . ']</span>';
 				} else {
 					if ($return == 1) {
 						return ['Url' => '', 'User' => $user_name, 'status' => 0];
@@ -424,8 +428,20 @@ php;
 	 * 工作流提交模板
 	 *
 	 **/
-	public static function tmp_wfok($info, $flowinfo)
+	public static function tmp_wfok($info, $flowinfo,$submit='')
 	{
+        if($info['wf_submit']=='sback'){
+            $preprocess = Process::GetPreProcessInfo($flowinfo['run_process']);
+            $op = '';
+            foreach ($preprocess as $k => $v) {
+                $op .= '<option value="' . $k . '">' . $v . '</option>';
+            }
+            $shyj = '不同意';
+            $tr ='<tr><td>回退步骤</td><td style="text-align:left"><select name="wf_backflow"  class="smalls"  datatype="*" ><option value="">请选择回退步骤</option>'.$op.'</select></td></tr>';
+        }else{
+            $shyj = '同意';
+            $tr = '<tr><th>下一步骤</th><td style="text-align:left">'.$flowinfo['npi'].'</td></tr>';
+        }
 		$sup = $_GET['sup'] ?? '';
 		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
@@ -447,13 +463,9 @@ php;
 				<table class="table table-border table-bordered table-bg">
 				<tr>
 				<th style='width:70px'>审批意见</th>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td>
+				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '{$shyj}'; }" onfocus="if(this.value == '{$shyj}'){this.value =''; this.style.color = '#000000'; }">{$shyj}</textarea> </td>
 				</tr>
-				<tr><th>下一步骤</th>
-				<td style="text-align:left">
-					{$flowinfo['npi']}
-				</td>
-				</tr>
+				{$tr}
 				<tr>
 				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='{$info['wf_submit']}' type='hidden'>
@@ -525,7 +537,7 @@ php;
 				<table class="table table-border table-bordered table-bg">
 				<tr>
 				<td style='width:70px'>回退意见</td>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td>
+				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '不同意'; }" onfocus="if(this.value == '不同意'){this.value =''; this.style.color = '#000000'; }">不同意</textarea> </td>
 				</tr>
 				<tr><td>回退步骤</td>
 				<td style="text-align:left"><select name="wf_backflow" id='backflow'  class="smalls"  datatype="*" onchange='find()'>

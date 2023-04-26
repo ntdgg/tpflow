@@ -164,7 +164,9 @@ class Run
 	 */
 	static function FindRunSign($where = [], $field = '*')
 	{
-		return (new Run())->mode->FindRunSign($where, $field);
+        $FindRunSign = (new Run())->mode->FindRunSign($where, $field);
+        $FindRunSign['username'] = User::GetUserName($FindRunSign['uid']);
+		return $FindRunSign;
 	}
 	
 	/**

@@ -157,6 +157,7 @@ class Tpl
 						return unit::msg_return($flowinfo['msg'], 1);
 					}
 				}
+
 				return lib::tmp_wfok($info, self::WfCenter('Info', $wf_fid, $wf_type));
 			}
 			if ($wf_op == 'back') {
@@ -221,6 +222,9 @@ class Tpl
 			if (!$bill_update) {
 				return unit::msg_return($data['msg'], 1);
 			}
+            $findwhere = [['from_id', '=', $data['bill_id']], ['from_table', '=', $data['bill_table']]];
+            $FindRun = Run::FindRun($findwhere);
+            Log::AddrunLog(unit::getuserinfo('uid'),$FindRun['id'] ?? '', ['wf_fid'=>$data['bill_id'],'wf_type'=>$data['bill_table'],'check_con'=>'取消审核','art'=>''], 'cancelflow');
 			return unit::msg_return('Success!');
 		}
 		return $act . '参数出错';

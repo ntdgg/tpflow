@@ -65,7 +65,7 @@ class Log
 	 */
 	static function RunLog($wf_fid, $wf_type)
 	{
-		$type = ['Send' => '流程发起', 'ok' => '同意提交', 'Back' => '退回修改', 'SupEnd' => '终止流程', 'Sing' => '会签提交', 'sok' => '会签同意', 'SingBack' => '会签退回', 'SingSing' => '会签再会签','CC' => '签阅'];
+		$type = ['Send' => '流程发起', 'ok' => '同意提交', 'Back' => '退回修改', 'SupEnd' => '终止流程', 'Sing' => '会签提交', 'sok' => '会签同意', 'SingBack' => '会签退回', 'SingSing' => '会签再会签','CC' => '签阅','endflow' => '终止流程','cancelflow' => '去除审批'];
 		$run_log = (new Log())->mode->SearchRunLog($wf_fid, $wf_type);
 		foreach ($run_log as $k => $v) {
 			$run_log[$k]['btn'] = $type[$v['btn']] ?? '按钮错误';
@@ -87,19 +87,21 @@ class Log
 	static function AddrunLog($uid, $run_id, $config, $btn)
 	{
 		$work_return = '';
-		if ($btn <> 'Send' && $btn <> 'SupEnd') {
+		if ($btn <> 'Send' && $btn <> 'SupEnd' && $btn <> 'endflow'&& $btn <> 'cancelflow') {
 			$work_return = Work::WorkApi($config);//在日志记录前加载节点钩子
 		}
 		if (!isset($config['art'])) {
 			$config['art'] = '';
 		}
 		//用户审批完成后的校验
-		if (is_object(unit::LoadClass($config['wf_type'], $config['wf_fid']))) {
-			$BillWork = (unit::LoadClass($config['wf_type'], $config['wf_fid'], $run_id))->after($btn);
-			if ($BillWork['code'] == -1) {
-				return $BillWork;
-			}
-		}
+        if ($btn <> 'cancelflow') {
+            if (is_object(unit::LoadClass($config['wf_type'], $config['wf_fid']))) {
+                $BillWork = (unit::LoadClass($config['wf_type'], $config['wf_fid'], $run_id))->after($btn);
+                if ($BillWork['code'] == -1) {
+                    return $BillWork;
+                }
+            }
+        }
 		$run_log_data = array(
 			'uid' => $uid,
 			'from_id' => $config['wf_fid'],
@@ -135,6 +137,4 @@ class Log
         );
         return (new Log())->mode->AddrunLog($run_log_data);
     }
-
-
 }

@@ -57,6 +57,6 @@ return [
     'kpi_out'=>300,//办理超时不得分，单位为分钟
     'kpi_base'=>1, //基础得分
     'wf_action'=>'\\sys\\Wfaction', //流程方法
-    'wf_btn'=>['start'=>'发起','noaccess'=>'无权','approve'=>'审核','sapprove'=>'超审']
+    'wf_btn'=>['start'=>'发起','noaccess'=>'无权','approve'=>'审核','sapprove'=>'超审','singapprove'=>'签审']
 ];
 
