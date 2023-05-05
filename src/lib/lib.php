@@ -93,7 +93,7 @@ class lib
                         /*事务增加角色判断*/
                         if ($flowinfo['status']['auto_person'] == 6) {
                             if ($flowinfo['status']['word_type']==1) {
-                                if (in_array($thisuser['thisuid'], $user)) {
+                                if (in_array($thisuser['thisrole'], $user)) {
                                     $st = 1;
                                 }
                             }else{
