@@ -648,8 +648,7 @@ class Tpl
 	function wfAccess($act, $data = '')
 	{
 		if ($act == 'log') {
-			echo Log::FlowLog($data['id'], $data['type']);
-			exit;
+			return Log::FlowLog($data['id'], $data['type']);
 		}
 		if ($act == 'btn') {
             $info = [];
