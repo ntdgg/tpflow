@@ -52,6 +52,15 @@ use think\facade\Request;
                 return unit::return_msg(Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]));
 			 }
 		}
+        //通过ajax方式调用
+        if($act=='ajax_do'){
+            $wf_op = input('wf_op') ?? 'check';
+            $ssing = input('ssing') ?? 'sing';
+            $submit = input('submit') ?? 'ok';
+            $data = Control::WfCenter($act,input('wf_fid'),input('wf_type'),['wf_op'=>$wf_op,'ssing'=>$ssing,'submit'=>$submit]);
+            return unit::return_msg($data);
+        }
+
         /*用户确认抄送*/
         if($act=='entCc'){
             return Control::WfCenter($act,input('id'));

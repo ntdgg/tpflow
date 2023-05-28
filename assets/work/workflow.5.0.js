@@ -30,6 +30,20 @@ var Tpflow = {
 			content: url
 		});
 	},
+	wopen : function(title,url) {
+		if (title == null || title === '') {
+			title=false;
+		}
+		layer.open({
+			type: 2,
+			area: ['550px', '320px'],
+			fix: false, //不固定
+			maxmin: true,
+			shade:0.4,
+			title: title,
+			content: url
+		});
+	},
 	lclose : function() {
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.close(index);

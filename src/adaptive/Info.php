@@ -297,7 +297,15 @@ class Info
             $arrMatches = [];
             preg_match_all($strPattern, $strSubject, $arrMatches);
             foreach($arrMatches[0] as $k1 => $v1){// Guoke 2021/11/25 17:08 官方BUG
-                $strSubject = str_ireplace(['【' . $v1 . '】'], [($bill_info[$v1] ?? ' sys field err ')], $strSubject);
+                //*增加模板变量*//
+                if (strpos($v1, '@') !== false) {
+                    $v1_array = explode("@", $v1);
+                    $v1_value = $bill_info[$v1_array[0]];
+                    $v1_rvalue = Bill::getbillvalue($v1_array[1],$v1_value,$v1_array[2]) ?? ' sys field err ';
+                    $strSubject = str_ireplace(['【' . $v1 . '】'], [$v1_rvalue], $strSubject);
+                }else{
+                    $strSubject = str_ireplace(['【' . $v1 . '】'], [($bill_info[$v1] ?? ' sys field err ')], $strSubject);
+                }
             }
             $result[$k]['tmp'] =$strSubject;
 			$result[$k]['user'] = rtrim($sponsor_text, ",");

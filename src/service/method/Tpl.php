@@ -80,6 +80,27 @@ class Tpl
         if ($act == 'entCc') {
             return Cc::ccCheck($wf_fid);
         }
+        if ($act == 'ajax_do') {
+            $urls = unit::gconfig('wf_url');
+            $sup = $_GET['sup'] ?? '';
+            $wf_op = $data['wf_op'];
+            $info = [
+                'wf_fid' => $wf_fid,
+                'wf_type' => $wf_type,
+                'wf_submit' => $data['submit'],
+                'tpflow_ok' => $urls['wfdo'] . '?act=do&wf_op=ok&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
+                'tpflow_back' => $urls['wfdo'] . '?act=do&wf_op=back&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
+                'tpflow_sign' => $urls['wfdo'] . '?act=do&wf_op=sign&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
+                'tpflow_flow' => $urls['wfdo'] . '?act=do&wf_op=flow&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
+                'tpflow_log' => $urls['wfdo'] . '?act=do&wf_op=log&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
+                'tpflow_view' => $urls['wfapi'] . '?act=view&id=',
+                'tpflow_upload' => unit::gconfig('wf_upload_file')
+            ];
+            if ($wf_op == 'check') {
+                return lib::tmp_check_ajax($info, self::WfCenter('Info', $wf_fid, $wf_type));
+            }
+
+        }
 		//流程审批
 		if ($act == 'do') {
 			$urls = unit::gconfig('wf_url');
@@ -97,6 +118,7 @@ class Tpl
                 'tpflow_view' => $urls['wfapi'] . '?act=view&id=',
 				'tpflow_upload' => unit::gconfig('wf_upload_file')
 			];
+
 			if ($wf_op == 'check') {
 				return lib::tmp_check($info, self::WfCenter('Info', $wf_fid, $wf_type));
 			}
@@ -648,7 +670,7 @@ class Tpl
 	function wfAccess($act, $data = '')
 	{
 		if ($act == 'log') {
-			return Log::FlowLog($data['id'], $data['type']);
+            return Log::FlowLog($data['id'], $data['type']);
 		}
 		if ($act == 'btn') {
             $info = [];
@@ -683,7 +705,7 @@ class Tpl
 				$tmpRaw .= "$p FIND_IN_SET('$v',f.sponsor_ids)";
 				$p=' or';
 			}
-            $mapRaw = '(f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ",f.sponsor_ids)) or (f.auto_person=5 and ($tmpRaw))";
+            $mapRaw = '(f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ",f.sponsor_ids)) or (f.auto_person=5 and ($tmpRaw))or (f.auto_person=6 and ($tmpRaw))";
 			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group,$page,$limit);
 
 		}

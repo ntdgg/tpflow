@@ -752,15 +752,15 @@ php;
 			}
 		}
 		if ($flowinfo['sing_st'] == 0) {
-			$html = '<a class="button" onclick=Tpflow.lopen("提交工作流","' . $info['tpflow_ok'] . '",45,42) style="background-color: #19be6b">√ 同意</a> ';
+			$html = '<a class="button" onclick=Tpflow.wopen("提交工作流","' . $info['tpflow_ok'] . '",45,42) style="background-color: #19be6b">√ 同意</a> ';
 			if ($flowinfo['status']['is_back'] != 2) {
-				$html .= '<a class="button"  onclick=Tpflow.lopen("工作流回退","' . $info['tpflow_back'] . '",45,42) style="background-color: #c9302c;">↺ 驳回</a> ';
+				$html .= '<a class="button"  onclick=Tpflow.wopen("工作流回退","' . $info['tpflow_back'] . '",45,42) style="background-color: #c9302c;">↺ 驳回</a> ';
 			}
 			if ($flowinfo['status']['is_sing'] != 2) {
-				$html .= '<a class="button"  onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=sing",45,42) style="background-color: #f37b1d;">⇅ 会签</a>';
+				$html .= '<a class="button"  onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=sing",45,42) style="background-color: #f37b1d;">⇅ 会签</a>';
 			}
 		} else {
-			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
+			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
 		}
 		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("审批历史","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
 		$tmp = self::commontmp('Tpflow V7.0 ');
@@ -773,7 +773,7 @@ php;
 <div class='TpflowForm' >
 	<div class='TpflowHead'>单据信息</div>
 	<div style='width:100%;overflow-y:scroll; height:100%;'>
-		<iframe src="{$url}" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="Tpflow.SetHeight()"></iframe>
+		<iframe src="{$url}&is_wf=1" id="iframepage" frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" onLoad="Tpflow.SetHeight()"></iframe>
 	</div>
 </div>
 {$tmp['js']}
@@ -781,7 +781,24 @@ php;
 </html>
 php;
 	}
-	
+
+    public static function tmp_check_ajax($info, $flowinfo)
+    {
+        $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
+        if ($flowinfo['sing_st'] == 0) {
+            $html = '<a class="button" onclick=Tpflow.lopen("提交工作流","' . $info['tpflow_ok'] . '",45,42) style="background-color: #19be6b">√ 同意</a> ';
+            if ($flowinfo['status']['is_back'] != 2) {
+                $html .= '<a class="button"  onclick=Tpflow.lopen("工作流回退","' . $info['tpflow_back'] . '",45,42) style="background-color: #c9302c;">↺ 驳回</a> ';
+            }
+            if ($flowinfo['status']['is_sing'] != 2) {
+                $html .= '<a class="button"  onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=sing",45,42) style="background-color: #f37b1d;">⇅ 会签</a>';
+            }
+        } else {
+            $html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
+        }
+        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("审批历史","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
+        return $html;
+    }
 	/**
 	 * 步骤属性模板
 	 *
