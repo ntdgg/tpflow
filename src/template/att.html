@@ -126,13 +126,14 @@
                                     <!--事务接受，即为当条件满足时，系统自动流转到下一个步骤，无需审核-->
                                     当<<select class="smalls" name='work_auto' style="width: 130px"><option value="">字段值</option>{$from_html|raw}</select>>
                                     <select class="smalls" name="work_condition">
-                                        <option value="=">等于</option>
+                                        <option value="=" >等于</option>
                                         <option value=">">大于</option>
                                         <option value="<">小于</option>
                                         <option value=">=">大于等于</option>
                                         <option value="<=">小于小于</option>
                                         <option value="<>">不等于</option>
                                     </select>
+
                                     <input type="text" class="smalls" name="work_val" value="{$one['work_val'] ?? ''}">系统自动审批
                                 </div>
                             </td>
@@ -149,6 +150,7 @@
         </form>
     </div>
 </div>
+<input value="{$one['work_condition'] ?? ''}" id="work_condition" type="hidden">
 <script src="/static/work/jquery-1.7.2.min.js"></script>
 <script src="/static/work/lib/layer/2.4/layer.js"></script>
 <script src="/static/work/tpflow.api.js"></script>
@@ -184,7 +186,7 @@
     $("[name='wf_mode']").find("[value='{$one['wf_mode']}']").attr("selected", true);
     $("[name='work_auto']").find("[value='{$one['work_auto'] ?? ''}']").attr("selected", true);
     $("[name='wf_action_select']").find("[value='{$one['wf_action']}']").attr("selected", true);
-    $("[name='work_condition']").find("[value='{$one['work_condition'] ?? ''}']").attr("selected", true);
+    $("[name='work_condition']").find("[value='"+$('#work_condition').val()+"']").attr("selected", true);
     $("[name='is_time']").find("[value='{$one['is_time']}']").attr("selected", true);
         $(function(){
         $("#form").Validform({

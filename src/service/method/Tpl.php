@@ -705,9 +705,8 @@ class Tpl
 				$tmpRaw .= "$p FIND_IN_SET('$v',f.sponsor_ids)";
 				$p=' or';
 			}
-            $mapRaw = '(f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ",f.sponsor_ids)) or (f.auto_person=5 and ($tmpRaw))or (f.auto_person=6 and ($tmpRaw))";
+            $mapRaw = '(f.auto_person != 6 and f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=5 and (' . $tmpRaw.'))or (f.auto_person=6 and f.word_type=1 and  FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=6 and f.word_type=2 and  ('.$tmpRaw.'))';
 			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group,$page,$limit);
-
 		}
 		return ['code' => 1, 'msg' => '查询成功', 'data' => $data];
 	}

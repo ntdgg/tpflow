@@ -93,7 +93,7 @@ class lib
                         /*事务增加角色判断*/
                         if ($flowinfo['status']['auto_person'] == 6) {
                             if ($flowinfo['status']['word_type']==1) {
-                                if (in_array($thisuser['thisrole'], $user)) {
+                                if (in_array($thisuser['thisuid'], $user)) {
                                     $st = 1;
                                 }
                             }else{
@@ -113,7 +113,7 @@ class lib
                             $user_name = $flowinfo['sing_info']['username'];
                             $btn_default = $btn_lang['singapprove'];
 						} else {
-							$user_name = $flowinfo['sing_info']['uid'];
+                            $user_name = $flowinfo['sing_info']['username'];
 						}
 					}
 				} else {
@@ -784,6 +784,69 @@ php;
 
     public static function tmp_check_ajax($info, $flowinfo)
     {
+        $thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
+        //权限判断
+        $st = 0;
+        if ($flowinfo != -1 && !empty($flowinfo)) {
+            if (!isset($flowinfo['status'])) {
+                $btnHtml =   -1;
+            }
+            if ($flowinfo['sing_st'] == 0) {
+                $user = explode(",", $flowinfo['status']['sponsor_ids']);
+                if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4) {
+                    if (in_array($thisuser['thisuid'], $user)) {
+                        $st = 1;
+                    }
+                }
+                /*事务增加角色判断*/
+                if ($flowinfo['status']['auto_person'] == 6) {
+                    if ($flowinfo['status']['word_type']==1) {
+                        if (in_array($thisuser['thisuid'], $user)) {
+                            $st = 1;
+                        }
+                    }else{
+                        if (in_array($thisuser['thisrole'], $user)) {
+                            $st = 1;
+                        }
+                    }
+                }
+                if ($flowinfo['status']['auto_person'] == 5) {
+                    if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
+                        $st = 1;
+                    }
+                }
+            } else {
+                if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
+                    $st = 1;
+                }
+            }
+        } else {
+            $btnHtml =   -1;
+        }
+        if ($st == 1) {
+            $btnHtml =   1;
+        } else {
+            if(empty($flowinfo)){
+                $btnHtml =   -1;
+            }else{
+                $btnHtml =   -1;
+            }
+        }
+        if(empty($flowinfo)){
+            return '';
+        }
+        if($btnHtml==-1){
+            $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
+            $html = '<a class="button"  style="background-color: #d4d4d4">√ 同意</a> ';
+            if ($flowinfo['status']['is_back'] != 2) {
+                $html .= '<a class="button"   style="background-color: #d4d4d4;">↺ 驳回</a> ';
+            }
+            if ($flowinfo['status']['is_sing'] != 2) {
+                $html .= '<a class="button"  style="background-color: #d4d4d4;">⇅ 会签</a>';
+            }
+            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("审批历史","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
+            return $html;
+        }
         $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
         if ($flowinfo['sing_st'] == 0) {
             $html = '<a class="button" onclick=Tpflow.lopen("提交工作流","' . $info['tpflow_ok'] . '",45,42) style="background-color: #19be6b">√ 同意</a> ';
@@ -826,7 +889,7 @@ php;
 		}
 		$from_html = '';
 		foreach ($from as $k => $v) {
-            if(!in_array($k,['id','create_ip','create_os','is_delete','status','create_time','update_time','uptime'])){
+            if(!in_array($k,['id','create_ip','create_os','is_delete','create_time','update_time','uptime'])){
 			$from_html .= '<option value="' . $k . '">' . $v . '</option>';
             }
 		}

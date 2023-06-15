@@ -216,6 +216,7 @@ class Info
 			}
 			//4.0版本新增查找是否有代理审核人员，并给与权限，权限转换
 			$info = Entrust::change($info);
+
 			//拼接返回数据
 			if ($result) {
 				if ($result['is_sing'] != 1) {
