@@ -30,13 +30,19 @@ var Tpflow = {
 			content: url
 		});
 	},
-	wopen : function(title,url) {
+	wopen : function(title,url,w,h) {
 		if (title == null || title === '') {
 			title=false;
 		}
+		if (w === null || w === '') {
+			w='550px';
+		}
+		if (h === null || h === '') {
+			h='320px';
+		}
 		layer.open({
 			type: 2,
-			area: ['550px', '320px'],
+			area: [w, h],
 			fix: false, //不固定
 			maxmin: true,
 			shade:0.4,

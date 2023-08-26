@@ -91,11 +91,11 @@ class AdapteeRun
         return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->whereRaw($mapRaw)->field($field)->limit($offset,(int)$limit)->order($order)->select();
     }
 
-    function dataRunMy($uid,$page,$limit)
+    function dataRunMy($uid,$page,$limit,$map)
     {
         $offset = ($page-1)*$limit;
-        $data = Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where('r.uid',$uid)->limit($offset,(int)$limit)->group('r.id')->order('r.id desc')->select()->toArray();
-        $count = Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where('r.uid',$uid)->group('r.id')->count();
+        $data = Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where('r.uid',$uid)->where($map)->limit($offset,(int)$limit)->group('r.id')->order('r.id desc')->select()->toArray();
+        $count = Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where('r.uid',$uid)->where($map)->group('r.id')->count();
         return ['data'=>$data,'count'=>$count];
     }
 	
@@ -103,6 +103,13 @@ class AdapteeRun
 	{
 		return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->field($field)->order($order)->group($group)->select();
 	}
+    /*获取会签数据信息*/
+    function dataRunSing($map, $mapRaw,$field, $order,$page,$limit){
+        $offset = ($page-1)*$limit;
+        $data =  Db::name('wf_run_sign')->alias('f')->join('wf_run_process f2', 'f2.id = f.run_flow_process')->join('wf_run r', 'f.run_id = r.id')->join('wf_flow w', 'r.flow_id = w.id')->where($map)->whereRaw($mapRaw)->field($field)->limit($offset,(int)$limit)->order($order)->select()->toArray();
+        $count =  Db::name('wf_run_sign')->alias('f')->join('wf_run_process f2', 'f2.id = f.run_flow_process')->join('wf_run r', 'f.run_id = r.id')->join('wf_flow w', 'r.flow_id = w.id')->where($map)->whereRaw($mapRaw)->field($field)->limit($offset,(int)$limit)->order($order)->count();
+        return ['data'=>$data,'count'=>$count];
+    }
 	
 	
 }

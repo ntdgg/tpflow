@@ -150,9 +150,24 @@ class Run
         }
     }
 
-    static function dataRunMy($uid,$page,$limit)
+    /**
+     * 会签数据
+     *
+     * @param array $where 查询条件
+     * @param array $data 数据信息
+     */
+    static function dataRunSing($map,$mapRaw, $field, $order, $group,$page,$limit)
     {
-        return (new Run())->mode->dataRunMy($uid,$page, $limit);
+        if ($group != '') {
+            //return (new Run())->mode->dataRunProcessGroup($map, $field, $order, $group);
+        } else {
+            return (new Run())->mode->dataRunSing($map,$mapRaw, $field, $order,$page,$limit);
+        }
+    }
+
+    static function dataRunMy($uid,$page,$limit,$map)
+    {
+        return (new Run())->mode->dataRunMy($uid,$page, $limit,$map);
     }
 
 	
@@ -187,6 +202,11 @@ class Run
 		if (!$run_sign) {
 			return false;
 		}
+        //加入消息接口Api
+        $msg_api = unit::gconfig('msg_api') ?? '';
+        if (class_exists($msg_api)) {
+            (new $msg_api())->sing_msg($config['wf_singflow'],$config['run_id']);
+        }
 		return $run_sign;
 	}
 	

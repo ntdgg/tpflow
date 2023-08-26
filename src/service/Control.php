@@ -112,8 +112,14 @@ Class Control{
      * Tpflow 7.0统一接口
      * @param string $act 调用接口方法
      */
-    static function wfMysend($page,$limit){
-        return (new Control())->mode->wfMysend($page,$limit);
+    static function wfMysend($page,$limit,$map){
+        return (new Control())->mode->wfMysend($page,$limit,$map);
     }
-	
+    /**
+     * Tpflow 7.0统一接口
+     * @param string $act 调用接口方法
+     */
+    static function wfMysing($page,$limit,$map){
+        return (new Control())->mode->wfMysing($page,$limit,$map);
+    }
 }

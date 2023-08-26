@@ -707,12 +707,18 @@ class Tpl
 			}
             $mapRaw = '(f.auto_person != 6 and f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=5 and (' . $tmpRaw.'))or (f.auto_person=6 and f.word_type=1 and  FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=6 and f.word_type=2 and  ('.$tmpRaw.'))';
 			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group,$page,$limit);
+
+            $data2 = Run::dataRunSing([],'(f.is_agree=0 and f.uid = ' . unit::getuserinfo('uid') . ')', $field, $order, $group,$page,$limit);
 		}
-		return ['code' => 1, 'msg' => '查询成功', 'data' => $data];
+		return ['code' => 1, 'msg' => '查询成功', 'data' => $data, 'data2' => $data2 ?? []];
 	}
 
-    function wfMysend($page,$limit){
-        $data = Run::dataRunMy(unit::getuserinfo('uid'),$page, $limit);
+    function wfMysend($page,$limit,$map){
+        $data = Run::dataRunMy(unit::getuserinfo('uid'),$page, $limit,$map);
+        return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
+    }
+    function wfMysing($page,$limit,$map){
+        $data = Run::dataRunSing($map,'(f.is_agree=1 and f.uid = ' . unit::getuserinfo('uid') . ')', '', '', '',$page,$limit);
         return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
     }
 	

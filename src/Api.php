@@ -170,9 +170,17 @@ use think\facade\Request;
 	public static function wfAccess($act='log',$data=''){
 		return Control::wfAccess($act,$data);
 	}
-
-    public static  function wfMysend($page=1,$limit=20){
-        return Control::wfMysend($page,$limit);
+    /**
+     * Tpflow 7.0 我发起的流程
+     */
+    public static  function wfMysend($page=1,$limit=20,$map=[]){
+        return Control::wfMysend($page,$limit,$map);
+    }
+    /**
+     * Tpflow 7.0 我的会签数据
+     */
+    public static  function wfMysing($page=1,$limit=20,$map=[]){
+        return Control::wfMysing($page,$limit,$map);
     }
 
 }

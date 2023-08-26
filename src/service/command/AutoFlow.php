@@ -122,7 +122,7 @@ class AutoFlow
             return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
         }
         //日志记录
-        $run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'ok');
+        $run_log = Log::AddrunLog(0, $config['run_id'], $config, 'ok');
         if (!$run_log) {
             return ['msg' => '消息记录失败，数据库错误！！！', 'code' => '-1'];
         }

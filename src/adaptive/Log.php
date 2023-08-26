@@ -69,7 +69,12 @@ class Log
 		$run_log = (new Log())->mode->SearchRunLog($wf_fid, $wf_type);
 		foreach ($run_log as $k => $v) {
 			$run_log[$k]['btn'] = $type[$v['btn']] ?? '按钮错误';
-			$run_log[$k]['user'] = User::GetUserName($v['uid']);
+            if($v['uid']==0){
+                $run_log[$k]['user'] = '系统';
+            }else{
+                $run_log[$k]['user'] = User::GetUserName($v['uid']);
+            }
+
 		}
 		return $run_log;
 	}
