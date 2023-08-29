@@ -53,16 +53,22 @@ class TaskFlow
 		 */
 		$xt_runprocess = Run::FindRunProcess(['id'=>$run_process]);//查找协同步骤的信息
 		if($xt_runprocess['auto_person']==2 && $xt_runprocess['sponsor_ids'] != ''){
-			$xt_ids = explode(",",$xt_runprocess['sponsor_ids']);
-			$xt_text = explode(",",$xt_runprocess['sponsor_text']);
-			foreach($xt_ids as $k=>$v){
-				if($v==$uid){
-					unset($xt_ids[$k]);
-					unset($xt_text[$k]);
-				}
-			}
-			$xt_text_val = implode(",", $xt_text);
-			$xt_ids_val = implode(",", $xt_ids);
+            //超审时，跳过所有办理人结束当前步骤
+            if($config['sup'] == '1') {
+                $xt_text_val = "";
+				$xt_ids_val = "";
+            }else{
+                $xt_ids = explode(",",$xt_runprocess['sponsor_ids']);
+                $xt_text = explode(",",$xt_runprocess['sponsor_text']);
+                foreach($xt_ids as $k=>$v){
+                    if($v==$uid){
+                        unset($xt_ids[$k]);
+                        unset($xt_text[$k]);
+                    }
+                }
+                $xt_text_val = implode(",", $xt_text);
+                $xt_ids_val = implode(",", $xt_ids);
+            }
 			//更新流程，将办理人删除
 			$up_process = Run::EditRunProcess(['id'=>$run_process],['sponsor_ids'=>$xt_ids_val,'sponsor_text'=>$xt_text_val,'updatetime'=>time()]);
 			if (!$up_process) {
@@ -77,6 +83,11 @@ class TaskFlow
 			}
 			//如果协同字段等于空，说明已经办理完成，并且下一步骤的人员也是空直接结束该业务
 			if($xt_ids_val =='' && $npid == ''){
+                //补充日志记录
+                $run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'ok');
+				if (!$run_log) {
+					return ['msg' => '消息记录失败，数据库错误！！！', 'code' => '-1'];
+				}
 				Flow::end_flow($run_id);
 				$end = Flow::end_process($run_process, $check_con);
 				$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
