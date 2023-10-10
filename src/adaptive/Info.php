@@ -66,7 +66,6 @@ class Info
 	 */
 	public static function addWorkflowProcess($wf_id, $wf_process, $run_id, $uid, $todo = '')
 	{
-        $word_type = 1;
 		if ($wf_process['auto_person'] == 6 && $wf_process['process_type'] == 'node-start') { //事务人员
 			$wf = Run::FindRunId($run_id);
 			$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $wf_process['work_text']);
@@ -81,7 +80,6 @@ class Info
                 $user_info = User::GetRoleInfo($user_id);
                 $wf_process['user_info'] = $user_info;
                 $wf_process['todo'] = $user_info['username'];
-                $word_type = 2;
             }
 		}
 		//非自由
@@ -121,7 +119,7 @@ class Info
 			'sponsor_ids' => $sponsor_ids,//办理人id
 			'sponsor_text' => $sponsor_text,//办理人信息
 			'auto_person' => $wf_process['auto_person'],//办理类别
-            'word_type'=>$word_type,
+            'word_type'=>$wf_process['work_ids'],
 			'js_time' => time(),
 			'dateline' => time(),
 			'is_sing' => $wf_process['is_sing'],

@@ -12,6 +12,7 @@ declare (strict_types=1);
 
 namespace tpflow\adaptive;
 
+use tpflow\exception\FlowException;
 use tpflow\lib\unit;
 
 class Process
@@ -108,7 +109,19 @@ class Process
 		}
 		if ($info['auto_person'] == 6) { //事务接收者
 			$wf = Run::FindRunId($run_id);
-			$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $info['work_text']);
+            try {
+                $user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $info['work_text']);
+            }catch (FlowException $e){
+                throw new FlowException($e->getError(),400,[
+                   'run_id'=>$run_id,
+                   'process_id'=>$pid,
+                   'from_table'=>$wf['from_table'],
+                   'from_id'=>$wf['from_id'],
+                    'process_info'=>$info
+                ]);
+            }
+
+
             //人员
             if($info['work_ids']==1){
                 $info['todo'] = User::GetUserName($user_id);
