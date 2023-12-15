@@ -23,23 +23,9 @@
 * 彻底释放整个信息管理系统的的活力，让系统更具可用性，智能应用型，便捷设计性。
 * Tpflow团队致力于打造中国最优秀的PHP工作流引擎。
 
-## 😍 奖励计划
-Tpflow千元开源奖励计划：https://gitee.com/ntdgg/tpflow/issues/I54XQ6
+## ❤ 特别推荐
 
-推荐阿里云服务器 [传送门](https://www.aliyun.com/minisite/goods?userCode=6y4qge6i "Demo")
-
-流之云演示平台：  [传送门](https://demo.gadmin8.com "Demo")
-
-## ☀️青年计划
-团队一直致力于中国PHP工作流引擎、业务表单引擎的研发和设计，至今已经有4个年头，2018年初正式立项研发工作流引擎，2019年获得开源中国GVP项目。TPFLOW、SFDP全部使用最宽松的开源MIT协议（可以应用于商业系统、个人系统均可，只需保留版权信息）;[使用声明](https://www.gadmin8.com/index/doc/show.html?id=9&pid=177)
-
-青年计划，为了PHP开源工作流引擎、业务表单引擎的进步，我们全面开启青年计划，服务更多青年学者，为开源做奉献，为工作流引擎做奉献！[前去申请](https://gadmin8.com/index/young.html)
-
-## ❤ 特别赞助商（赞助Tpflow可联系作者）
-| 芦虎导航| 绮风云| CRMEB  | 顶想云 |
-|--------|--|------|----------|
-| <a href='https://www.luhu.co/'><img src="https://statics.luhu.co/main/images/logo.svg" width="120px"> </a> | <a href='https://www.suidc.cn/'><img src="https://www.suidc.cn/static/qf_cloud/home/img/logo.svg" width="120px"> </a> | <a href='https://www.crmeb.com/'><img src="https://images.gitee.com/uploads/images/2021/1109/164354_0aafe3d2_892944.gif" width="120px"></a> | <a href='https://www.topthink.com/'><img src="https://www.topthink.com/asset/images/logo.e330c4.svg" width="120px"></a> |
-
+<a href='https://www.crmeb.com/'><img src="https://images.gitee.com/uploads/images/2021/1109/164354_0aafe3d2_892944.gif" width="120px"></a>  高品质开源商城系统40w+开发者的选择，值得托付
 
 
 
@@ -155,6 +141,26 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 *  博客教程 [官方博客](https://www.cojz8.com/ "官方博客")
 *  视频免费教程 [B站查看](https://www.bilibili.com/video/BV1VZ4y1A71Q)
 *   开源不易，知识付费  详细教程请购买文档 [购买](https://www.gadmin8.com/index/study)
+
+
+## 😍 奖励计划
+Tpflow千元开源奖励计划：https://gitee.com/ntdgg/tpflow/issues/I54XQ6
+
+推荐阿里云服务器 [传送门](https://www.aliyun.com/minisite/goods?userCode=6y4qge6i "Demo")
+
+流之云演示平台：  [传送门](https://demo.gadmin8.com "Demo")
+
+## ☀️青年计划
+团队一直致力于中国PHP工作流引擎、业务表单引擎的研发和设计，至今已经有4个年头，2018年初正式立项研发工作流引擎，2019年获得开源中国GVP项目。TPFLOW、SFDP全部使用最宽松的开源MIT协议（可以应用于商业系统、个人系统均可，只需保留版权信息）;[使用声明](https://www.gadmin8.com/index/doc/show.html?id=9&pid=177)
+
+青年计划，为了PHP开源工作流引擎、业务表单引擎的进步，我们全面开启青年计划，服务更多青年学者，为开源做奉献，为工作流引擎做奉献！[前去申请](https://gadmin8.com/index/young.html)
+
+## ❤ 特别赞助商（赞助Tpflow可联系作者）
+| 芦虎导航| 绮风云| CRMEB  | 顶想云 |
+|--------|--|------|----------|
+| <a href='https://www.luhu.co/'><img src="https://statics.luhu.co/main/images/logo.svg" width="120px"> </a> | <a href='https://www.suidc.cn/'><img src="https://www.suidc.cn/static/qf_cloud/home/img/logo.svg" width="120px"> </a> | <a href='https://www.crmeb.com/'><img src="https://images.gitee.com/uploads/images/2021/1109/164354_0aafe3d2_892944.gif" width="120px"></a> | <a href='https://www.topthink.com/'><img src="https://www.topthink.com/asset/images/logo.e330c4.svg" width="120px"></a> |
+
+
 
 ## ⌛版权及严正声明
 
