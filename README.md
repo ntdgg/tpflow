@@ -44,7 +44,6 @@ Tpflow千元开源奖励计划：https://gitee.com/ntdgg/tpflow/issues/I54XQ6
 
 
 ## ⭐快速体验指南
-code-galaxy一键快速部署：[传送门](https://console.code-galaxy.net/#/register?invite=hzwVOM "传送门") 注册后即可再应用市场一键安装Tpflow引擎
 
 宝塔一键安装指南：[传送门](https://www.gadmin8.com/index/doc/show.html?id=9&pid=185 "传送门")
 
@@ -111,6 +110,10 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 
 
 *   增加流程图
+
++ 提供基于 `Thinkphp8.0.X` 的样例Demo
++ 提供完整的设计手册
++ 支持PHP8.1
 
 
 ## ♨️6.0 新增得特性功能
