@@ -29,7 +29,7 @@ class AdapteeUser
 	function GetUser()
 	{
 		$config = self::config();
-		return Db::name($config['db'])->field($config['field'])->select();
+		return Db::name($config['db'])->whereRaw($config['whereRaw'])->field($config['field'])->select();
 	}
 
     /**
@@ -49,7 +49,7 @@ class AdapteeUser
 	function GetRole()
 	{
 		$config = self::config('role');
-		return Db::name($config['db'])->field($config['field'])->select();
+		return Db::name($config['db'])->whereRaw($config['whereRaw'])->field($config['field'])->select();
 	}
 
     /**
@@ -72,11 +72,11 @@ class AdapteeUser
 		if ($type == 'user') {
 			$config = self::config();
 			$map[] = [$config['searchwhere'], 'like', '%' . $keyword . '%'];
-			return Db::name($config['db'])->where($map)->field($config['field'])->select();
+			return Db::name($config['db'])->where($map)->whereRaw($config['whereRaw'])->field($config['field'])->select();
 		} else {
 			$config = self::config('role');
 			$map[] = [$config['searchwhere'], 'like', '%' . $keyword . '%'];
-			return Db::name($config['db'])->where($map)->field($config['field'])->select();
+			return Db::name($config['db'])->where($map)->whereRaw($config['whereRaw'])->field($config['field'])->select();
 		}
 	}
 	
@@ -89,7 +89,19 @@ class AdapteeUser
 		$config = self::config();
 		return Db::name($config['db'])->where($config['key'], $id)->field($config['field'])->find();
 	}
-	
+
+    /**
+     * 查询用户消息
+     *
+     */
+    function GetUserInfos($ids)
+    {
+        $user_array = [];
+        $config = self::config();
+        $data = Db::name($config['db'])->where($config['key'],'in', $ids)->column($config['getfield']);
+        return implode(',',array_column($data, 'username'));
+    }
+
 	/**
 	 * 查询用户名称
 	 *
@@ -99,5 +111,23 @@ class AdapteeUser
 		$config = self::config();
 		return Db::name($config['db'])->where($config['key'], $uid)->value($config['getfield']);
 	}
+
+    /**
+     * 查询用户名称
+     *
+     */
+    function GetRoleInfoByuid($uid)
+    {
+        $config = self::config();
+        $role_id =  Db::name($config['db'])->where($config['key'], $uid)->value((unit::gconfig('user_role'))[1]);
+        $rc = self::config('role');
+        $now_role_id =  Db::name($rc['db'])->where($rc['key'], $role_id)->field($rc['field'].','.(unit::gconfig('user_role'))[0])->find();
+        $has = Db::name($rc['db'])->where($rc['key'], $now_role_id[(unit::gconfig('user_role'))[0]])->field($rc['field'])->find();
+        if(!$has){
+            return $now_role_id;
+        }else{
+            return $has;
+        }
+    }
 	
 }

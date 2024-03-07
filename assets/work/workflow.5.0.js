@@ -326,7 +326,7 @@ var Tpflow = {
 	},
 	DClick : function(id) {
 		var url = Server_Url+"?id="+id+"&act=att";
-		Tpflow.lopen("属性设计",url,50,60);
+		Tpflow.lopen("属性设计",url,80,80);
 		event.stopPropagation();
 	},
 	cc :function(id){

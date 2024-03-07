@@ -51,7 +51,7 @@ class lib
 		$urls = unit::gconfig('wf_url');
 		$thisuser = ['thisuid' => unit::getuserinfo('uid'), 'thisrole' => unit::getuserinfo('role')];
 		$url = ['url' => $urls['wfdo'] . '?act=do&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid];
-        $ccHtml = Cc::ccStatus($wf_type,$wf_fid);
+        $ccHtml = Cc::ccStatus($wf_type,$wf_fid,$return);
 		switch ($status) {
 			case 0:
                 $start_flow = (array)unit::gconfig('start_flow');// Guoke 2021/11/26 16:55 修复空数据下报错
@@ -82,7 +82,6 @@ class lib
                         $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
 					}
 					if ($flowinfo['sing_st'] == 0) {
-
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
 						$user_name = $flowinfo['status']['sponsor_text'];
 						if ($flowinfo['status']['auto_person'] == 2 ||$flowinfo['status']['auto_person'] == 3 || $flowinfo['status']['auto_person'] == 4) {
@@ -102,13 +101,13 @@ class lib
                                 }
                             }
                         }
-						if ($flowinfo['status']['auto_person'] == 5) {
+                        if ($flowinfo['status']['auto_person'] == 5 || $flowinfo['status']['auto_person'] == 7) {
 							if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
 								$st = 1;
 							}
 						}
 					} else {
-						if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
+                        if (in_array($thisuser['thisuid'], explode(",", $flowinfo['sing_info']['uid']))) {
 							$st = 1;
                             $user_name = $flowinfo['sing_info']['username'];
                             $btn_default = $btn_lang['singapprove'];
@@ -147,7 +146,10 @@ class lib
 			default:
                 $btnHtml = '';
 		}
-        return $btnHtml.$ccHtml;
+
+        if ($return == 0) {
+            return $btnHtml . $ccHtml;
+        }
 	}
 	/**
 	 * 添加流程模板
@@ -325,6 +327,7 @@ php;
 			</table>
 </article>
 {$tmp['js']}
+<style>.ms2side__div{height:100%;}</style>
 <script type="text/javascript">
 	function call_back(){
 			var nameText = [];
@@ -454,16 +457,10 @@ php;
 		<input type="hidden" value="{$sup}" name="sup">
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
 		<input type="hidden" value="{$flowinfo['flow_process']}" name="flow_process">
-		<table class="table table-border table-bordered table-bg" style='width:98%'>
-			<thead>
-			<tr><th style='width:98%' >单据审批</th></tr>
-			</thead>
+		<table class="table table-border table-bordered table-bg" style='width:95%; margin:15px auto 0 auto'>
 			<tr>
-			<td style='height:80px'>
-				<table class="table table-border table-bordered table-bg">
-				<tr>
 				<th style='width:70px'>审批意见</th>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '{$shyj}'; }" onfocus="if(this.value == '{$shyj}'){this.value =''; this.style.color = '#000000'; }">{$shyj}</textarea> </td>
+            <td><textarea name='check_con'  datatype="*" style="width:100%;height:100px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '{$shyj}'; }" onfocus="if(this.value == '{$shyj}'){this.value =''; this.style.color = '#000000'; }">{$shyj}</textarea> </td>
 				</tr>
 				{$tr}
 				<tr>
@@ -475,9 +472,6 @@ php;
 				</td>
 				</tr>
 				</table>
-			</td>
-			</tr>
-		</table>
 </form>
 </div>
 {$tmp['js']}
@@ -528,16 +522,10 @@ php;
 		<input type="hidden" value="{$flowinfo['run_id']}" name="run_id" id='run_id'>
 		<input type="hidden" value="{$sup}" name="sup">
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
-		<table class="table table-border table-bordered table-bg" style='width:98%'>
-			<thead>
-			<tr><th style='width:98%' >单据审批</th></tr>
+		<table class="table table-border table-bordered table-bg" style='width:95%; margin:15px auto 0 auto'>
 			<tr>
-			</thead>
-			<td style='height:80px'>
-				<table class="table table-border table-bordered table-bg">
-				<tr>
 				<td style='width:70px'>回退意见</td>
-				<td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '不同意'; }" onfocus="if(this.value == '不同意'){this.value =''; this.style.color = '#000000'; }">不同意</textarea> </td>
+            <td><textarea name='check_con'  datatype="*" style="width:100%;height:100px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '不同意'; }" onfocus="if(this.value == '不同意'){this.value =''; this.style.color = '#000000'; }">不同意</textarea> </td>
 				</tr>
 				<tr><td>回退步骤</td>
 				<td style="text-align:left"><select name="wf_backflow" id='backflow'  class="smalls"  datatype="*" onchange='find()'>
@@ -552,9 +540,6 @@ php;
 				</td>
 				</tr>
 				</table>
-			</td>
-			</tr>
-		</table>
 </form>
 </div>
 {$tmp['js']}
@@ -593,16 +578,25 @@ php;
 	public static function tmp_wfdesc($id, $process_data, $urlApi)
 	{
         $data = json_decode($process_data,'true');
-        return view(BEASE_URL.'/template/index.html',['surl'=>$urlApi,'id'=>$id,'x6'=>json_encode($data['x6'])]);
+        $static_url = unit::gconfig('static_url');
+        return view(BEASE_URL.'/template/index.html',['static_url'=>$static_url,'surl'=>$urlApi,'id'=>$id,'x6'=>json_encode($data['x6'])]);
 	}
     /**
      * 工作流程图
      *
      **/
-    public static function tmp_flowview($id, $process_data, $urlApi)
+    public static function tmp_flowview($id, $process_data, $dataid)
     {
         $data = json_decode($process_data,'true');
-        return view(BEASE_URL.'/template/view.html',['id'=>$id,'x6'=>json_encode($data['x6'])]);
+        foreach ($data['x6'] as $k=>$v){
+            foreach ($v as $kk=>$vv) {
+                if(isset($vv['id']) && $vv['id']=="Tpflow-{$dataid}"){
+                    $data['x6'][$k][$kk]['attrs']['body'] = ['fill'=>'#2ECC71', 'stroke'=>'#000'];
+                }
+            }
+        }
+        $static_url = unit::gconfig('static_url');
+        return view(BEASE_URL.'/template/view.html',['static_url'=>$static_url,'id'=>$id,'x6'=>json_encode($data['x6'])]);
     }
 	/**
 	 * 工作流会签模板
@@ -612,6 +606,7 @@ php;
 	{
 		$UserDb = User::GetUser();
 		$op = '';
+        $urls = unit::gconfig('wf_url');
 		foreach ($UserDb as $k => $v) {
 			$op .= '<option value="' . $v['id'] . '">' . $v['username'] . '</option>';
 		}
@@ -623,15 +618,15 @@ php;
 		<input type="hidden" value="{$flowinfo['run_id']}" name="run_id" id='run_id'>
 		<input type="hidden" value="{$sup}" name="sup">
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
-		<table class="table table-border table-bordered table-bg" style='width:98%'>
-			<thead><tr><th style='width:98%' >单据审批</th></tr><tr></thead>
-			<td style='height:80px'>
-				<table class="table table-border table-bordered table-bg">
-				<tr><th style='width:70px'>会签意见</th><td><textarea name='check_con'  datatype="*" style="width:100%;height:55px;"onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td></tr>
+		<table class="table table-border table-bordered table-bg" style='width:95%; margin:15px auto 0 auto'>
+            <tr>
+            <th style='width:70px'>会签意见</th>
+            <td><textarea name='check_con'  datatype="*" style="width:100%;height:100px;"onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td></tr>
 				<tr><th>会签接收人</th>
 				<td style="text-align:left">
-				<select name="wf_singflow" id='singflow'  class="smalls"  datatype="*" >
-					<option value="">请选择会签人</option>{$op}</select>
+					 <input type="hidden" name="wf_singflow" id="auto_sponsor_ids" value="" datatype="*" nullmsg="请选择会签接收人">
+                     <input type="text"  id="auto_sponsor_text" placeholder='点击右侧按钮选择会签接收人' value="" class='smalls' style="width: 350px;">
+					<a class="button" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_sponsor&type_mode=user','60','95')">指定人员</a>
 				</td>
 				</tr>
 				<tr>
@@ -642,8 +637,6 @@ php;
 				</td>
 				</tr>
 				</table>
-			</td></tr>
-		</table>
 </form>
 </div>
 {$tmp['js']}
@@ -739,7 +732,7 @@ php;
 	 **/
 	public static function tmp_check($info, $flowinfo)
 	{
-        $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
+        $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'].'&dataid='.$info['wf_fid'];
         //tpflow_view
 		if (strpos($flowinfo['status']['wf_action'], '@') !== false) {
 			$urldata = explode("@", $flowinfo['status']['wf_action']);
@@ -755,15 +748,15 @@ php;
 			}
 		}
 		if ($flowinfo['sing_st'] == 0) {
-			$html = '<a class="button" onclick=Tpflow.wopen("提交工作流","' . $info['tpflow_ok'] . '","550px","320px") style="background-color: #19be6b">√ 同意</a> ';
+			$html = '<a class="button" onclick=Tpflow.wopen("提交工作流","' . $info['tpflow_ok'] . '","650px","420px") style="background-color: #19be6b">√ 同意</a> ';
 			if ($flowinfo['status']['is_back'] != 2) {
-				$html .= '<a class="button"  onclick=Tpflow.wopen("工作流回退","' . $info['tpflow_back'] . '","550px","320px") style="background-color: #c9302c;">↺ 驳回</a> ';
+				$html .= '<a class="button"  onclick=Tpflow.wopen("工作流回退","' . $info['tpflow_back'] . '","650px","420px") style="background-color: #c9302c;">↺ 驳回</a> ';
 			}
 			if ($flowinfo['status']['is_sing'] != 2) {
-				$html .= '<a class="button"  onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=sing","550px","320px") style="background-color: #f37b1d;">⇅ 会签</a>';
+				$html .= '<a class="button"  onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=sing","650px","420px") style="background-color: #f37b1d;">⇅ 会签</a>';
 			}
 		} else {
-			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok","550px","320px")>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback","550px","320px")>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing","550px","320px")>⇅ 再会签</a>';
+			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok","650px","420px")>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback","650px","420px")>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing","650px","420px")>⇅ 再会签</a>';
 		}
 		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
 		$tmp = self::commontmp('Tpflow V7.0 ');
@@ -813,7 +806,7 @@ php;
                         }
                     }
                 }
-                if ($flowinfo['status']['auto_person'] == 5) {
+                if ($flowinfo['status']['auto_person'] == 5 || $flowinfo['status']['auto_person'] == 7) {
                     if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
                         $st = 1;
                     }
@@ -872,6 +865,8 @@ php;
 	public static function tmp_wfatt($one, $from, $process_to_list,$table='')
 	{
 		$urls = unit::gconfig('wf_url');
+        $static_url = unit::gconfig('static_url');
+
 		$wf_action = $one['wf_action'] ?? 'view';
 		if ($one['process_type'] != 'node-start') {
 			$process_type = '<option value="3">自由选择</option>';
@@ -912,7 +907,8 @@ php;
             $wf_action_select = (new $wf_class())->info($table);
         }
         $tmp = self::commontmp('Tpflow V7.0 管理列表');
-        return view(BEASE_URL.'/template/att.html',['urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
+        $static_url = unit::gconfig('static_url');
+        return view(BEASE_URL.'/template/att.html',['static_url'=>$static_url,'urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
 	}
 	
 	/**

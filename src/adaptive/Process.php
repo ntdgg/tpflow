@@ -107,6 +107,12 @@ class Process
 		if ($info['auto_person'] == 5) { //办理角色
 			$info['todo'] = $info['auto_role_text'];
 		}
+        if ($info['auto_person'] == 7) { //办理角色
+            $wfrun = Run::FindRunId($run_id);//运行步骤信息
+            $uid = Bill::getbillvalue($wfrun['from_table'], $wfrun['from_id'],'uid');//找出发起人的步骤信息//(unit::gconfig('user_role'))[1]
+            $role_info = User::GetRoleInfoByuid($uid);
+            $info['todo'] = $role_info['username'];
+        }
 		if ($info['auto_person'] == 6) { //事务接收者
 			$wf = Run::FindRunId($run_id);
             try {
@@ -158,6 +164,12 @@ class Process
 			if ($v['auto_person'] == 5) { //办理角色
 				$info[$k]['todo'] = $v['auto_role_text'];
 			}
+            if ($v['auto_person'] == 7) { //办理角色
+                $wfrun = Run::FindRunId($run_id);//运行步骤信息
+                $uid = Bill::getbillvalue($wfrun['from_table'], $wfrun['from_id'],'uid');//找出发起人的步骤信息//(unit::gconfig('user_role'))[1]
+                $role_info = User::GetRoleInfoByuid($uid);
+                $info['todo'] = $role_info['username'];
+            }
 			if ($v['auto_person'] == 6) { //事务接收者
 				$wf = Run::FindRunId($run_id);
 				$user_id = Bill::getbillvalue($wf['from_table'], $wf['from_id'], $info[$k]['work_text']);
@@ -184,7 +196,7 @@ class Process
      *
      * @param int $pid 步骤编号
      */
-    static function findMsg($info,$run_id,$wf_type='', $wf_fid='')
+    static function findMsg($info,$run_id,$wf_type='', $wf_fid='',$is_Add=0)
     {
         if($info['process_to']==''){
             return $info['process_to'];
@@ -193,14 +205,17 @@ class Process
         foreach ($nex_pid as $k=>$v){
             $has_msg = (new Process())->mode->find($v);
             if($has_msg['process_type']=='node-msg'){
+                if($is_Add==1){
                 Msg::add(['uid'=>unit::getuserinfo('uid'),'run_id'=>$run_id,'process_id'=>$info['id'],'process_msgid'=>$v,'add_time'=>time(),'uptime'=>time()]);
+                }
                 unset($nex_pid[$k]);
             }
             /*如果有抄送节点，将信息传递给抄送节点*/
             if($has_msg['process_type']=='node-cc'){
                 if ($has_msg['auto_person'] == 2) { //自由选择
-                    $user_id = $has_msg['auto_sponsor_ids'];
+                    $user_id = $has_msg['auto_xt_ids'];//huiqian
                 }
+
                 if ($has_msg['auto_person'] == 3) { //自由选择
                     $user_id = $has_msg['auto_sponsor_ids'];
                 }
@@ -208,6 +223,10 @@ class Process
                     $user_id = $has_msg['auto_sponsor_ids'];
                 }
                 if ($has_msg['auto_person'] == 5) { //办理角色
+                    $user =User::searchRoleIds($has_msg['auto_role_ids']);
+                    $user_id =implode(',',$user);
+                }
+                if ($info['auto_person'] == 7) { //办理角色
                     $user =User::searchRoleIds($has_msg['auto_role_ids']);
                     $user_id =implode(',',$user);
                 }
@@ -225,7 +244,13 @@ class Process
                         $user_id =implode(',',$user);
                     }
                 }
-                Cc::add(['from_id'=>$wf_fid,'from_table'=>$wf_type,'uid'=>unit::getuserinfo('uid'),'run_id'=>$run_id,'user_ids'=>$user_id,'auto_ids'=>$user_id,'auto_person'=>$has_msg['auto_person'],'process_id'=>$info['id'],'process_ccid'=>$v,'add_time'=>time(),'uptime'=>time()]);
+                if($is_Add==1) {
+                    $ccId = Cc::add(['from_id' => $wf_fid, 'from_table' => $wf_type, 'uid' => unit::getuserinfo('uid'), 'run_id' => $run_id, 'user_ids' => $user_id, 'auto_ids' => $user_id, 'auto_person' => $has_msg['auto_person'], 'process_id' => $info['id'], 'process_ccid' => $v, 'add_time' => time(), 'uptime' => time()]);
+                    $msg_api = unit::gconfig('msg_api') ?? '';
+                    if (class_exists($msg_api)) {
+                        (new $msg_api())->sendCc($ccId);
+                    }
+                }
                 unset($nex_pid[$k]);
             }
         }
@@ -321,6 +346,9 @@ class Process
 				if ($v['auto_person'] == 5) { //办理角色
 					$todo = $v['auto_role_text'];
 				}
+                if ($v['auto_person'] == 7) { //办理角色
+                    $todo = '';
+                }
 				if ($v['auto_person'] == 6) { //办理角色
 					$todo = '';
 				}
@@ -372,8 +400,8 @@ class Process
 	 */
 	static function run_check($id)
 	{
-		$data = Run::FindRunProcessId($id);
-		return $data['status'];
+        $data = Run::FindRunProcess([['run_id','=',$id],['status','=',0]]);
+		return $data['status'] ?? 0;
 	}
 	
 	/**

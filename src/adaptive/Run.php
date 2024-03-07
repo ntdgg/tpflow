@@ -165,6 +165,11 @@ class Run
         }
     }
 
+    static function dataRunCc($page,$limit,$map)
+    {
+        return (new Run())->mode->dataRunCc($page, $limit,$map);
+    }
+
     static function dataRunMy($uid,$page,$limit,$map)
     {
         return (new Run())->mode->dataRunMy($uid,$page, $limit,$map);
@@ -180,7 +185,7 @@ class Run
 	static function FindRunSign($where = [], $field = '*')
 	{
         $FindRunSign = (new Run())->mode->FindRunSign($where, $field);
-        $FindRunSign['username'] = User::GetUserName($FindRunSign['uid']);
+        $FindRunSign['username'] = User::GetUserInfos($FindRunSign['uid']);
 		return $FindRunSign;
 	}
 	
@@ -196,6 +201,7 @@ class Run
 			'run_flow' => $config['flow_id'],
 			'run_flow_process' => $config['run_process'],
 			'uid' => $config['wf_singflow'],
+            'sign_uids' => $config['wf_singflow'],
 			'dateline' => time()
 		];
 		$run_sign = (new Run())->mode->AddRunSing($data);
@@ -216,9 +222,9 @@ class Run
 	 * @param array $sing_sign 会签数据
 	 * @param string $check_con 提交意见
 	 */
-	static function EndRunSing($sing_sign, $check_con)
+	static function EndRunSing($sing_sign, $check_con,$xt_ids_val='')
 	{
-		return (new Run())->mode->EndRunSing($sing_sign, $check_con);
+		return (new Run())->mode->EndRunSing($sing_sign, $check_con,$xt_ids_val);
 	}
 	
 	/**

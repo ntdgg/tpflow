@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Tpflow工作流引擎 V7.0</title>
-    <link rel="stylesheet" href="/static/work/app.css">
+    <link rel="stylesheet" href="{$static_url}app.css">
 </head>
 <body>
 <div class="wrap">
     <div class="content" id="main"></div>
 </div>
-<script src="/static/work/tpflow.x6.js"></script>
-<script src="/static/work/app.js"></script>
-<script src="/static/work/tpflow.node.js"></script>
+<script src="{$static_url}tpflow.x6.js"></script>
+<script src="{$static_url}app.js"></script>
+<script src="{$static_url}tpflow.node.js"></script>
 <script>
     graph.fromJSON({$x6|raw});
     graph.centerContent()

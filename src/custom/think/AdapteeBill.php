@@ -34,9 +34,8 @@ class AdapteeBill
 	
 	function getbillvalue($bill_table, $bill_id, $bill_field)
 	{
-
 		$result = Db::name($bill_table)->where('id', $bill_id)->value($bill_field);
-		if (!$result) {
+		if ($result =='') {
             throw new FlowException('流程未找到审批人',400,[
                'bill_table'=>$bill_table,
                'bill_id'=>$bill_id,

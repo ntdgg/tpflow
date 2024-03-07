@@ -81,6 +81,15 @@ class User
 	{
 		return (new User())->mode->GetUserInfo($id);
 	}
+
+    /**
+     * 查询用户消息
+     *
+     */
+    public static function GetUserInfos($ids)
+    {
+        return (new User())->mode->GetUserInfos($ids);
+    }
 	
 	/**
 	 * 查询用户名称
@@ -90,4 +99,13 @@ class User
 	{
 		return (new User())->mode->GetUserName($uid);
 	}
+
+    /**
+     *  根据用户id 获取上级的用户角色信息
+     *
+     * */
+    public static  function GetRoleInfoByuid($uid){
+        return (new User())->mode->GetRoleInfoByuid($uid);
+    }
+
 }

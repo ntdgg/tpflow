@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Tpflow工作流引擎 V7.0</title>
-    <link rel="stylesheet" href="/static/work/app.css">
-    <link rel="stylesheet" type="text/css" href="/static/work/app.css?v7.0"/>
+    <link rel="stylesheet" href="{$static_url}app.css">
+    <link rel="stylesheet" type="text/css" href="{$static_url}app.css?v7.0"/>
 </head>
 <body>
 <div class="wrap">
@@ -14,7 +14,7 @@
                     <input type="hidden" name="flow_id" value="{$one['flow_id']}"/>
                     <input type="hidden" name="process_id" value="{$one['id']}"/>
                     <input type="hidden" name="process_condition" id="process_condition" value='{$one.process_tos}'>
-                    <table class="table">
+                    <table class="table" style="width: 98%; margin: 10px auto 0 auto">
                         <tr>
                             <th>步骤名称</th>
                             <td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}"></td>
@@ -86,6 +86,7 @@
                                     <option value="4">指定人员</option>
                                     <option value="5">指定角色</option>
                                     <option value="6">事务接受</option>
+                                    <option value="7">发起人上级[角色]</option>
                                 </select>
                                 <div style="margin-left: 100px;">
                                     <div class="hide auto_person" id="auto_person_2">
@@ -119,6 +120,10 @@
                                                 <option value="2">角色</option>
                                             </select>
                                     </div>
+                                    <div class="hide auto_person" id="auto_person_7">
+                                        根据发起人的上级角色办理业务
+                                        <br/>
+                                    </div>
 
                                 </div>
                                 <hr/>
@@ -151,11 +156,11 @@
     </div>
 </div>
 <input value="{$one['work_condition'] ?? ''}" id="work_condition" type="hidden">
-<script src="/static/work/jquery-1.7.2.min.js"></script>
-<script src="/static/work/lib/layer/2.4/layer.js"></script>
-<script src="/static/work/tpflow.api.js"></script>
-<script src="/static/work/workflow.5.0.js"></script>
-<script type="text/javascript" src="/static/work/lib/Validform/5.3.2/Validform.min.js" ></script>
+<script src="{$static_url}jquery-1.7.2.min.js"></script>
+<script src="{$static_url}lib/layer/2.4/layer.js"></script>
+<script src="{$static_url}tpflow.api.js"></script>
+<script src="{$static_url}workflow.5.0.js"></script>
+<script type="text/javascript" src="{$static_url}lib/Validform/5.3.2/Validform.min.js" ></script>
 <script type="text/javascript">
     var apid = {$one['auto_person']};
     var process_type = "{$one['process_type']}";

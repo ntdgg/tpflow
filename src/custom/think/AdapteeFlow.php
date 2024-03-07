@@ -56,6 +56,7 @@ class AdapteeFlow
 	{
 		$table_schema = empty($table_schema) ? unit::gconfig('database') : $table_schema;
 		$table_name = unit::gconfig('prefix') . $table_name;
+
 		$fieldName = $field === true ? 'allField' : $field;
 		$cacheKeyName = 'db_' . $table_schema . '_' . $table_name . '_' . $fieldName;
 		$param = [

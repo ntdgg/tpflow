@@ -104,6 +104,13 @@ class Info
 				$sponsor_text = $wf_process['user_info']['username'];
 				$sponsor_ids = $wf_process['user_info']['id'];
 			}
+            if ($wf_process['auto_person'] == 7) { //办理人上一级角色
+                $wfrun = Run::FindRunId($run_id);//运行步骤信息
+                $uid = Bill::getbillvalue($wfrun['from_table'], $wfrun['from_id'],'uid');//找出发起人的步骤信息//(unit::gconfig('user_role'))[1]
+                $role_info = User::GetRoleInfoByuid($uid);
+                $sponsor_text = $role_info['username'];
+                $sponsor_ids = $role_info['id'];
+            }
 		} else {
 			$todo = explode("*%*", $todo);
 			$sponsor_text = $todo[1];

@@ -70,11 +70,15 @@ class TaskService
 		if (!$wf_process_log) {
 			return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
 		}
-		//更新单据状态
-		$bill_update = Bill::updatebill($wf_type, $wf_fid, 1);
-		if (!$bill_update) {
-			return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
-		}
+        /*如果步骤已经完成，则不再更新表单*/
+        $run_check = Process::run_check($wf_run);//校验流程状态
+        if ($run_check <> 2) {
+            //更新单据状态
+            $bill_update = Bill::updatebill($wf_type, $wf_fid, 1);
+            if (!$bill_update) {
+                return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
+            }
+        }
 		Log::AddrunLog($uid, $wf_run, ['wf_id' => $wf_id, 'wf_fid' => $wf_fid, 'wf_type' => $wf_type, 'check_con' => $check_con], 'Send');
         Kpi::Add($wf_type,$wf_fid);//添加入绩效
 		return ['run_id' => $wf_run, 'msg' => 'success', 'code' => '1'];

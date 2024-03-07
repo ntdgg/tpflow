@@ -43,13 +43,17 @@ class SupFlow
 		
 		$run_flow_process_id = Run::FindRunProcess([['run_id', '=', $wfid], ['run_flow_process', '=', $wfinfo['run_flow_process']]]);
 		$end = Flow::end_process([$run_flow_process_id['id']], $config['check_con']);
+        /*判断是否有会签，结束会签流程*/
+        if($wfinfo['is_sing']==1){
+            Run::EndRunSing($wfinfo['sing_id'], $config['check_con']);//结束当前会签
+        }
 		Log::AddrunLog($uid, $wfid, $config, 'SupEnd');
 		
 		if (!$end) {
 			return ['msg' => '结束流程错误！！！', 'code' => '-1'];
 		}
 		//更新单据状态
-		$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);;
+		$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 0);;
 		if (!$bill_update) {
 			return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
 		}

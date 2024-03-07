@@ -79,16 +79,29 @@ class AdapteeRun
 	{
 		return Db::name('wf_run_sign')->insertGetId($data);
 	}
-	
-	function EndRunSing($sing_sign, $check_con)
+	/*增加协同的uids*/
+	function EndRunSing($sing_sign, $check_con,$xt_ids_val)
 	{
-		return Db::name('wf_run_sign')->where('id', $sing_sign)->update(['is_agree' => 1, 'content' => $check_con, 'dateline' => time()]);
+        $is_agree = 0;
+        if($xt_ids_val==''){
+            $is_agree = 1;
+            $xt_ids_val = Db::name('wf_run_sign')->where('id', $sing_sign)->value('sign_uids');
+        }
+		return Db::name('wf_run_sign')->where('id', $sing_sign)->update(['uid'=>$xt_ids_val,'is_agree' => $is_agree, 'content' => $check_con, 'dateline' => time()]);
 	}
+
+    function dataRunCc($page,$limit,$map,$field='f.*')
+    {
+        $offset = ($page-1)*$limit;
+        $data = Db::name('wf_run_process_cc')->alias('f')->join('wf_run r', 'f.run_id = r.id')->where($map)->field($field)->limit($offset,(int)$limit)->group('r.id')->order('r.id desc')->select()->toArray();
+        $count = Db::name('wf_run_process_cc')->alias('f')->join('wf_run r', 'f.run_id = r.id')->where($map)->field($field)->group('r.id')->count();
+        return ['data'=>$data,'count'=>$count];
+    }
 
     function dataRunProcess($map, $mapRaw,$field, $order,$page,$limit)
     {
         $offset = ($page-1)*$limit;
-        return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->where($map)->whereRaw($mapRaw)->field($field)->limit($offset,(int)$limit)->order($order)->select();
+        return Db::name('wf_run_process')->alias('f')->join('wf_flow w', 'f.run_flow = w.id')->join('wf_run r', 'f.run_id = r.id')->join('wf_flow_process fr', 'f.run_flow_process = fr.id')->where($map)->whereRaw($mapRaw)->field($field)->limit($offset,(int)$limit)->order($order)->select();
     }
 
     function dataRunMy($uid,$page,$limit,$map)

@@ -42,7 +42,7 @@ class SignFlow
 		//结束当前流程，给个会签标志
 		Run::EditRun($run_id, ['is_sing' => 1, 'sing_id' => $sid, 'endtime' => time()]);
 		//结束process
-		Flow::end_process($run_process, $check_con);
+		Flow::end_process($run_process, $check_con,1);
 		//加入会签
 		Log::AddrunLog($uid, $run_id, $config, 'Sing');
 		//日志记录
@@ -58,37 +58,48 @@ class SignFlow
 	 **/
 	public function doSignEnt($config, $uid, $wf_actionid)
 	{
+
 		$sing_id = Process::get_sing_id($config['run_id']);
-		Run::EndRunSing($sing_id, $config['check_con']);//结束当前会签
+        $sign_uid = Run::FindRunSign([['id','=',$sing_id]], 'uid');
+        $xt_ids = explode(",",$sign_uid['uid']);
+        foreach($xt_ids as $k=>$v){
+            if($v==$uid){
+                unset($xt_ids[$k]);
+            }
+        }
+        $xt_ids_val = implode(",", $xt_ids);
+		Run::EndRunSing($sing_id, $config['check_con'],$xt_ids_val);//结束当前会签
 		if ($wf_actionid == "sok") {//提交处理
-			if ($config['npid'] != '') {
-				/*
-				 * 2019年1月27日21:20:13
-				 ***/
-				$nex_pid = explode(",", $config['npid']);
-				foreach ($nex_pid as $v) {
-					$wf_process = Process::GetProcessInfo($v, $config['run_id']);
-					$process_id = Info::addWorkflowProcess($config['flow_id'], $wf_process, $config['run_id'], $uid);
-				}
-                $runinfo = run::FindRun([['id','=',$config['run_id']]]);
-                /*以最后一条步骤的run_process_id 为准*/
-                if($runinfo['run_flow_process'] != $config['npid']){
-                    $pre_n = Run::FindRunProcessId($runinfo['run_flow_process']);
-                    if($pre_n['status']==2){
-                        Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
-                    }else{
-                        Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' =>$runinfo['run_flow_process']]);
+            if($xt_ids_val==''){
+                if ($config['npid'] != '') {
+                    /*
+                     * 2019年1月27日21:20:13
+                     ***/
+                    $nex_pid = explode(",", $config['npid']);
+                    foreach ($nex_pid as $v) {
+                        $wf_process = Process::GetProcessInfo($v, $config['run_id']);
+                        $process_id = Info::addWorkflowProcess($config['flow_id'], $wf_process, $config['run_id'], $uid);
                     }
-                }else{
-                    Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
+                    $runinfo = run::FindRun([['id','=',$config['run_id']]]);
+                    /*以最后一条步骤的run_process_id 为准*/
+                    if($runinfo['run_flow_process'] != $config['npid']){
+                        $pre_n = Run::FindRunProcessId($runinfo['run_flow_process']);
+                         if(!isset($pre_n) || $pre_n['status']==2){
+                            Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
+                        }else{
+                            Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' =>$runinfo['run_flow_process']]);
+                        }
+                    }else{
+                        Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
+                    }
+                } else {
+                    $bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
+                    if (!$bill_update) {
+                        return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
+                    }
+                    Run::EditRun($config['run_id'], ['is_sing' => 0, 'status' => 1]);
                 }
-			} else {
-				$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
-				if (!$bill_update) {
-					return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
-				}
-				Run::EditRun($config['run_id'], ['is_sing' => 0, 'status' => 1]);
-			}
+            }
 			$run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'sok');
 			if (!$run_log) {
 				return ['msg' => '消息记录失败，数据库错误！！！', 'code' => '-1'];
@@ -97,7 +108,6 @@ class SignFlow
 		} else if ($wf_actionid == "sback") {//退回处理
 			//判断是否是第一步，第一步：更新单据，发起修改，不是第一步，写入新的工作流
 			$wf_backflow = $config['wf_backflow'];//退回的步骤ID，如果等于0则默认是第一步
-			
 			if ($wf_backflow == 0) {
 				$back = true;
 			} else {

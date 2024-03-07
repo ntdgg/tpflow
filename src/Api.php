@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '7.0.6' );
+define('Tpflow_Ver', '7.0.7' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -41,7 +41,6 @@ use think\facade\Request;
             return unit::return_msg(Control::WfCenter($act,'','',['bill_table'=>input('bill_table'),'bill_id'=>input('bill_id')]));
 		}
 		if($act=='do'){
-
 			$wf_op = input('wf_op') ?? 'check';
 			$ssing = input('ssing') ?? 'sing';
 			$submit = input('submit') ?? 'ok';
@@ -127,7 +126,7 @@ use think\facade\Request;
 			 }
 		}
         if($act=='view'){
-            return unit::return_msg(Control::WfDescCenter($act,input('id')));
+            return unit::return_msg(Control::WfDescCenter($act,input('id'),input('dataid')));
         }
         if($act=='del' || $act=='ver'){
             if (unit::is_post()) {
@@ -155,7 +154,7 @@ use think\facade\Request;
 	 * 调用 tpflow\adaptive\Control 的核心适配器进行API接口的调用
      * @return array 返回类型
 	 */
-	 public static function wfUserData($act='userFlow',$map=[],$field='',$order='',$group='',$page=1,$limit=20){
+    public static function wfUserData($act='userFlow',$map=[],$field='',$order='',$group='',$page=1,$limit=20){
 		return Control::wfUserData($act,$map,$field,$order,$group,$page,$limit);
 	}
 	 
@@ -181,6 +180,13 @@ use think\facade\Request;
      */
     public static  function wfMysing($page=1,$limit=20,$map=[]){
         return Control::wfMysing($page,$limit,$map);
+    }
+    /**
+     * Tpflow 7.0 我的抄送数据
+     * f.auto_ids（我的抄送待办）  f.user_ids(获取我的抄送，包括已办)
+     */
+    public static  function wfMycc($page=1,$limit=20,$map=[]){
+        return Control::wfMycc($page,$limit,$map);
     }
 
 }

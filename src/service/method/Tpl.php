@@ -149,23 +149,23 @@ class Tpl
                             }
                         }
 
-                        if ($flowinfo['status']['auto_person'] == 5) {
+                        if ($flowinfo['status']['auto_person'] == 5 || $flowinfo['status']['auto_person'] == 7) {
                             if(!empty(array_intersect((array)$thisuser['thisrole'], $user))){// Guoke 2021/11/26 13:30 扩展多多用户组的支持
                                 $st = 1;
                             }
                         }
                     } else {
-                        if ($flowinfo['sing_info']['uid'] == $thisuser['thisuid']) {
+                        if (in_array($thisuser['thisuid'], explode(",", $flowinfo['sing_info']['uid']))) {
                             $st = 1;
                         } else {
                             $user_name = $flowinfo['sing_info']['uid'];
                         }
                     }
                 }
-                if ($post != '' && $st==0) {
+                if ($post != '' && $st==0 && $sup !=1) {
                     return unit::msg_return('对不起，您没有权限审核！', 1);
                 }
-                if($st==0){
+                if($st==0 && $sup !=1){
                     return '<script>var index = parent.layer.getFrameIndex(window.name);parent.layer.msg("对不起，您没有审核权限!");setTimeout("parent.layer.close(index)",1000);</script>';
                 }
             }
@@ -529,7 +529,25 @@ class Tpl
             if (!$one) {
                 return '未找到数据，请返回重试!';
             }
-            return lib::tmp_flowview($one['id'], Flow::ProcessAll($flow_id), $urls['designapi']);
+            $run = Run::FindRun([['flow_id', '=', $one['id']],['from_id', '=', $data]]);
+            /*没有运行步骤*/
+            if(!isset($run)){
+                $nid = '';
+            }
+            if(isset($run) && $run['status']==1){
+                $flow_process_end = Process::SearchFlowProcess([['flow_id', '=', $flow_id], ['is_del', '=', 0]]);
+                foreach ($flow_process_end as $value) {
+                    if ($value['process_type'] == 'node-end') {
+                        $nid = $value['id'];
+                        break;
+                    }
+                }
+            }
+
+            if(isset($run) && $run['status']==0){
+                $nid = $run['run_flow_process'];//结束步骤
+            }
+            return lib::tmp_flowview($one['id'], Flow::ProcessAll($flow_id), $nid);
         }
 		if ($act == 'save') {
 			return Flow::ProcessLink($flow_id, $data);
@@ -705,8 +723,11 @@ class Tpl
 				$tmpRaw .= "$p FIND_IN_SET('$v',f.sponsor_ids)";
 				$p=' or';
 			}
-            $mapRaw = '(f.auto_person != 6 and f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=5 and (' . $tmpRaw.'))or (f.auto_person=6 and f.word_type=1 and  FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=6 and f.word_type=2 and  ('.$tmpRaw.'))';
-			$data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group,$page,$limit);
+            $mapRaw = '(f.auto_person != 7 and f.auto_person != 6 and f.auto_person != 5 and FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=5 and (' . $tmpRaw.'))or (f.auto_person=6 and f.word_type=1 and  FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.sponsor_ids)) or (f.auto_person=7  and  ('.$tmpRaw.')) or (f.auto_person=6 and f.word_type=2 and  ('.$tmpRaw.'))';
+            if($map[0][0]=='f.status' && $map[0][2]==2){
+                $mapRaw = $mapRaw.' or (fr.auto_person=2 and FIND_IN_SET(' . unit::getuserinfo('uid') . ',fr.auto_xt_ids))';
+            }
+            $data = Run::dataRunProcess($map,$mapRaw, $field, $order, $group,$page,$limit);
 
             $data2 = Run::dataRunSing([],'(f.is_agree=0 and f.uid = ' . unit::getuserinfo('uid') . ')', $field, $order, $group,$page,$limit);
 		}
@@ -717,8 +738,12 @@ class Tpl
         $data = Run::dataRunMy(unit::getuserinfo('uid'),$page, $limit,$map);
         return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
     }
+    function wfMycc($page,$limit,$map){
+        $data = Run::dataRunCc($page, $limit,$map);
+        return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
+    }
     function wfMysing($page,$limit,$map){
-        $data = Run::dataRunSing($map,'(f.is_agree=1 and f.uid = ' . unit::getuserinfo('uid') . ')', '', '', '',$page,$limit);
+        $data = Run::dataRunSing($map,'(f.is_agree=1 and f.uid = ' . unit::getuserinfo('uid') . ')', '', 'f.id desc', '',$page,$limit);
         return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
     }
 	

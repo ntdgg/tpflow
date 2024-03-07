@@ -83,7 +83,7 @@ class AutoFlow
                     }
                     //更新单据信息
                     Flow::up($run_id, $npid);
-                    $end = Flow::end_process($run_process_id, '系统：自动执行步骤信息！');
+                    $end = Flow::end_process($run_process_id, '系统：自动执行步骤信息！',1);
                     //记录下一个流程->消息记录
                     $this->Run($log, $uid);
                 } else {
@@ -97,7 +97,7 @@ class AutoFlow
                 //结束该流程
                 $end = Flow::end_flow($run_id);
                 /*自动执行该步骤*/
-                $end = Flow::end_process($run_process_id, '系统：自动执行步骤信息！');
+                $end = Flow::end_process($run_process_id, '系统：自动执行步骤信息！',1);
                 //更新单据状态
                 $bill_update = Bill::updatebill($wfrun['from_table'], $wfrun['from_id'], 2);
                 if (!$bill_update) {

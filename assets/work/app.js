@@ -188,23 +188,23 @@ const initEvents = (domName) => {
             if(node.shape!='node-gateway'){
                 gateway = `<a class='wf_btn2' onclick="TFAPI.sAdd('gateway',${node.data})">网关</a>`;
             }
-            var text = document.getElementById("tooltipText")
-            const p1 = graph.localToClient(node.store.data.position.x, node.store.data.position.y)
-            text.innerHTML=`<a class='wf_btn2' onclick="TFAPI.sAdd('node',${node.data})">步骤</a>  ${gateway}  <a class='wf_btn2' onclick="TFAPI.sAdd('msg',${node.data})">消息</a> <a onclick="TFAPI.sAdd('cc',${node.data})" class='wf_btn2'>抄送</a>`
+            var text = document.getElementById("tooltipText");
+            const p1 = graph.localToClient(node.store.data.position.x, node.store.data.position.y);
+            text.innerHTML=`<a class='wf_btn2' onclick="TFAPI.sAdd('node',${node.data})">步骤</a>  ${gateway}  <a class='wf_btn2' onclick="TFAPI.sAdd('msg',${node.data})">消息</a> <a onclick="TFAPI.sAdd('cc',${node.data})" class='wf_btn2'>抄送</a>`;
             text.style.display='block';
             text.style.left=(p1.x-100).toString() + 'px';
             text.style.top=(p1.y-50).toString() + 'px'
         }
-    })
+    });
 
     graph.on('node:mouseleave', ({node}) => {
         const ports = container.querySelectorAll(
             '.x6-port-body',
-        )
-        showPorts(ports, false)
-        node.removeTools()
+        );
+        showPorts(ports, false);
+        node.removeTools();
         setTimeout("document.getElementById(\"tooltipText\").style.display=\"none\"", 3000 )//3秒后关系悬浮的
-    })
+    });
     /*连接线鼠标移入事件*/
     graph.on('edge:mouseenter', ({edge}) => {
         edge.addTools({
@@ -218,26 +218,26 @@ const initEvents = (domName) => {
                 },
             },
         })
-    })
+    });
     graph.on('edge:connected', ({ isNew, edge }) => {
         TFAPI.sApi('save');
-    })
+    });
     graph.on('edge:removed', ({ isNew, edge }) => {
         TFAPI.sApi('save');
-    })
+    });
     graph.on('edge:mouseleave', ({edge}) => {
         edge.removeTools()
-    })
+    });
     /*双击节点事件*/
     graph.on('node:dblclick', ({e, x, y, node, view}) => {
         if(node.shape=='node-end'){
             layer.msg('结束节点');return;
         }
         var url = Tpflow_Server_Url + "?id=" + node.data + "&act=att";
-        TFAPI.lopen("属性设计", url, 50, 40);
+        TFAPI.lopen("属性设计", url, 70, 85);
     })
 
-}
+};
 const initKeyboard = () => {
     graph.bindKey(['ctrl+1', 'meta+1'], () => {
         const zoom = graph.zoom()
