@@ -33,6 +33,8 @@
 
 宝塔一键安装指南：[传送门](https://www.gadmin8.com/index/doc/show.html?id=9&pid=185 "传送门")
 
+PHP低代码开发平台：[传送门](https://www.gadmin8.com/ "传送门")
+
 ## ⭐交流群
 
 交流群①：532797225  （已满）
@@ -172,16 +174,12 @@ Tpflow千元开源奖励计划：https://gitee.com/ntdgg/tpflow/issues/I54XQ6
 
 ## ✨ 鸣谢  Thanks
 
-- 感谢 [JetBrains](https://www.jetbrains.com) 提供生产力巨高的 `PHPStorm`和`WebStorm`
 > 排名不分先后
 
 - [top-think/think](https://github.com/top-think/think)
-- [jsplumb](https://jsplumbtoolkit.com)
 - [Layui](https://www.layui.com)
-- [luhu 专业导航](https://www.luhu.co)
 - [CCflow 国内最优秀的开源流程引擎](https://gitee.com/opencc/ccflow?_from=gitee_search)
 - [leipi 优秀的表单设计器，流程引擎](http://www.leipi.org.cn)
-- [woocms wooadmin 便捷高效的快速建站,后台开发框架](https://wooadmin.cn/)
 
 
 
