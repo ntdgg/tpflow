@@ -125,7 +125,7 @@ class lib
 					if ($return == 1) {
 						return ['Url' => $url['url'], 'User' => $user_name];
 					}
-                    $btnHtml =   '<span class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>'.$btn_default.'[' . $user_name . ']</span>';
+                    $btnHtml =   '<span title="' . $user_name . '"  class="btn" onclick=Tpflow.lopen(\'审核单据信息：' . $wf_fid . '\',"' . $url['url'] . '",100,100)>'.$btn_default.'</span>';
 				} else {
 					if ($return == 1) {
 						return ['Url' => '', 'User' => $user_name, 'status' => 0];
@@ -133,7 +133,7 @@ class lib
                     if(empty($flowinfo)){
                         $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
                     }else{
-                        $btnHtml =   '<span class="btn">'.$btn_lang['noaccess'].'[' . $user_name . ']</span>';
+                        $btnHtml =   '<span title="' . $user_name . '" class="btn">'.$btn_lang['noaccess'].'</span>';
                     }
 				}
 				break;
@@ -625,7 +625,7 @@ php;
 				<tr><th>会签接收人</th>
 				<td style="text-align:left">
 					 <input type="hidden" name="wf_singflow" id="auto_sponsor_ids" value="" datatype="*" nullmsg="请选择会签接收人">
-                     <input type="text"  id="auto_sponsor_text" placeholder='点击右侧按钮选择会签接收人' value="" class='smalls' style="width: 350px;">
+                     <input type="text"  id="auto_sponsor_text" autocomplete="off"  placeholder='点击右侧按钮选择会签接收人' value="" class='smalls' style="width: 350px;">
 					<a class="button" onclick="Tpflow.lopen('办理人','{$urls['designapi']}?act=super_user&kid=auto_sponsor&type_mode=user','60','95')">指定人员</a>
 				</td>
 				</tr>
@@ -758,7 +758,7 @@ php;
 		} else {
 			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok","650px","420px")>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback","650px","420px")>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing","650px","420px")>⇅ 再会签</a>';
 		}
-		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
+		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #1890ff;">❤ 流程图</a> ';
 		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 {$tmp['head']}
@@ -840,7 +840,7 @@ php;
             if ($flowinfo['status']['is_sing'] != 2) {
                 $html .= '<a class="button"  style="background-color: #d4d4d4;">⇅ 会签</a>';
             }
-            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
+            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #1890ff;">❤ 流程图</a> ';
             return $html;
         }
         $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
@@ -855,7 +855,7 @@ php;
         } else {
             $html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
         }
-        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3963bc;">❤ 流程图</a> ';
+        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #1890ff;">❤ 流程图</a> ';
         return $html;
     }
 	/**
@@ -910,7 +910,22 @@ php;
         $static_url = unit::gconfig('static_url');
         return view(BEASE_URL.'/template/att.html',['static_url'=>$static_url,'urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
 	}
-	
+
+    static function tmp_wffrom($one, $from){
+        $urls = unit::gconfig('wf_url');
+        $static_url = unit::gconfig('static_url');
+        $from_html = [];
+        foreach ($from as $k => $v) {
+            if(!in_array($k,['id','create_ip','create_os','is_delete','create_time','update_time','uptime'])){
+                $from_html[$k]=  $v;
+            }
+        }
+        $tmp = self::commontmp('Tpflow V7.0 管理列表');
+        $static_url = unit::gconfig('static_url');
+        return view(BEASE_URL.'/template/flow_field.html',['static_url'=>$static_url,'urls'=>$urls,'from_html'=>$from_html]);
+
+    }
+
 	/**
 	 * 公用模板方法
 	 *

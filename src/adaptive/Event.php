@@ -74,7 +74,7 @@ class Event
 		/*尝试一下代码错误*/
 		try {
 			$className = unit::gconfig('wf_work_namespace') . $class;
-			new $className(1,1);
+			new $className(1);
 		}catch (\Throwable $e) {
 			return ['code'=>1,'data'=>'错误代码：'.$e->getMessage().'<br/>错误行号：'.$e->getLine().'<br/>错误文件：'.$e->getFile()];
 		}

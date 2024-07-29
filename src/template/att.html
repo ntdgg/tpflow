@@ -20,13 +20,12 @@
                             <td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}"></td>
                             <th>节点ID</th>
                             <td width="240">{$one['id']}（{$one['process_type']}）</td>
-
                         </tr>
                         <tr {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
                             <th>调用方法</th>
                             <td>
                                 <select class="smalls" name="wf_action_select" style="width: 40%;"><option value="1">自定义</option>{$wf_action_select|raw}</select>
-                                <input type="text" class="smalls" style="width: 50%;" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
+                                <input type="text" class="smalls" style="width:120px" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
                             </td>
                             <th>权限管理</th>
                             <td>
@@ -39,7 +38,15 @@
                                     <option value="2">不允许</option>
                                 </select>
                             </td>
-
+                        </tr>
+                        <tr>
+                            <th>表单限制</th>
+                            <td colspan='3'>
+                                <span id='form_set_hide_html'>{$one.form_set_hide ?? ''}</span>
+                                <input type="hidden" name="form_set_hide" id="form_set_hide" value="{$one.form_set_hide ?? ''}">
+                                <input type="hidden" name="form_set_hide_text" id="form_set_hide_text" value="{$one.form_set_hide_text ?? ''}">
+                                <a class="button" onclick="Tpflow.lopen('设置字段','{$urls['designapi']}?act=from_set&kid=from_set&flow_id={$one['id']}','60','95')">设置字段</a>
+                            </td>
                         </tr>
                         <tr id="node-process" {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
                             <th>步骤模式</th>

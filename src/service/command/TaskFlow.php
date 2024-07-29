@@ -83,17 +83,17 @@ class TaskFlow
 			}
 			//如果协同字段等于空，说明已经办理完成，并且下一步骤的人员也是空直接结束该业务
 			if($xt_ids_val =='' && $npid == ''){
-                //补充日志记录
+                $end = Flow::end_process($run_process, $check_con,1);
+                $bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
+				Flow::end_flow($run_id);
+				if (!$bill_update) {
+					return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
+				}
+				//补充日志记录
                 $run_log = Log::AddrunLog($uid, $config['run_id'], $config, 'ok');
                 if (!$run_log) {
                     return ['msg' => '消息记录失败，数据库错误！！！', 'code' => '-1'];
                 }
-				Flow::end_flow($run_id);
-				$end = Flow::end_process($run_process, $check_con,1);
-				$bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);
-				if (!$bill_update) {
-					return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
-				}
 				return ['msg' => 'success!', 'code' => '0'];
 			}
 			/*如果不等于空，则返回继续办理*/

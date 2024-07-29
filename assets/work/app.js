@@ -180,7 +180,7 @@ const initEvents = (domName) => {
             '.x6-port-body',
         )
         showPorts(ports, true)
-        if(node.shape!='node-start' && node.shape!='node-end'){
+        if(node.shape!='node-start'){
             addtool(node);
         }
         if(node.shape!='node-end' && node.shape!='node-msg' && node.shape!='node-cc'){

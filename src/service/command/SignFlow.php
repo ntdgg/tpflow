@@ -75,22 +75,11 @@ class SignFlow
                     /*
                      * 2019年1月27日21:20:13
                      ***/
+					Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
                     $nex_pid = explode(",", $config['npid']);
                     foreach ($nex_pid as $v) {
                         $wf_process = Process::GetProcessInfo($v, $config['run_id']);
                         $process_id = Info::addWorkflowProcess($config['flow_id'], $wf_process, $config['run_id'], $uid);
-                    }
-                    $runinfo = run::FindRun([['id','=',$config['run_id']]]);
-                    /*以最后一条步骤的run_process_id 为准*/
-                    if($runinfo['run_flow_process'] != $config['npid']){
-                        $pre_n = Run::FindRunProcessId($runinfo['run_flow_process']);
-                         if(!isset($pre_n) || $pre_n['status']==2){
-                            Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
-                        }else{
-                            Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' =>$runinfo['run_flow_process']]);
-                        }
-                    }else{
-                        Run::EditRun($config['run_id'], ['is_sing' => 0, 'run_flow_process' => $config['npid']]);
                     }
                 } else {
                     $bill_update = Bill::updatebill($config['wf_type'], $config['wf_fid'], 2);

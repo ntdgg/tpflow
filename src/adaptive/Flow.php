@@ -334,6 +334,10 @@ class Flow
 			foreach ($process_condition as $value) {
 				$value = intval($value);
 				if ($value > 0) {
+                    //如果没有节点则跳过执行
+                    if(!isset($datas['process_in_set_' . $value])){
+                        continue;
+                    }
 					$condition = trim($datas['process_in_set_' . $value], "@wf@");
 					if ($condition == '') {
 						return ['code' => 1, 'msg' => '转出条件必须设置！!', 'info' => ''];
@@ -372,6 +376,8 @@ class Flow
 			'auto_xt_ids' => $datas['auto_xt_ids'],  //20210526 新增协同模式
 			'is_sing' => $datas['is_sing'],
 			'is_back' => $datas['is_back'],
+            'form_set_hide'=>$datas['form_set_hide'],
+            'form_set_hide_text'=>$datas['form_set_hide_text'],
 			'out_condition' => json_encode($out_condition)
 		];
 		if (isset($datas["process_to"])) {

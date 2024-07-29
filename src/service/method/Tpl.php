@@ -576,6 +576,12 @@ class Tpl
             $one = Flow::getWorkflow($info['info']['flow_id']);
 			return lib::tmp_wfatt($info['info'], $info['from'], $info['process_to_list'],$one['type']);
 		}
+        if ($act == 'from_set') {
+            $info = Flow::ProcessAttView($flow_id);
+            $one = Flow::getWorkflow($info['info']['flow_id']);
+            return lib::tmp_wffrom($info['info'], $info['from']);
+
+        }
 		if ($act == 'super_user') {
 			if ($data['type_mode'] == 'user') {
 				$info = User::GetUser();
@@ -743,7 +749,7 @@ class Tpl
         return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
     }
     function wfMysing($page,$limit,$map){
-        $data = Run::dataRunSing($map,'(f.is_agree=1 and f.uid = ' . unit::getuserinfo('uid') . ')', '', 'f.id desc', '',$page,$limit);
+        $data = Run::dataRunSing($map,'(f.is_agree=1 and FIND_IN_SET(' . unit::getuserinfo('uid') . ',f.uid))', '', 'f.id desc', '',$page,$limit);
         return ['code' => 1, 'msg' => '查询成功', 'data' => $data['data'], 'count' => $data['count']];
     }
 	

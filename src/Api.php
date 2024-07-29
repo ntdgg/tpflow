@@ -10,7 +10,7 @@ namespace tpflow;
 
 define('BEASE_URL', realpath ( dirname ( __FILE__ ) ) );
 
-define('Tpflow_Ver', '7.0.7' );
+define('Tpflow_Ver', '7.0.6' );
 //引用适配器核心控制
 use tpflow\service\Control;
 //引用工具类
@@ -90,6 +90,10 @@ use think\facade\Request;
 		if($act=='super_user'){
 			return unit::return_msg(Control::WfDescCenter($act,'',['kid'=>input('kid'),'type_mode'=>input('type_mode'),'key'=>input('key'),'type'=>input('type')]));
 		}
+        if($act=='from_set'){
+            return unit::return_msg(Control::WfDescCenter($act,input('flow_id')));
+        }
+
         if($act=='quilklink'){
             return unit::return_msg(Control::WfDescCenter($act,input('flow_id'),['process_id'=>input('process_id'),'fun'=>input('fun')]));
         }
