@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tpflow工作流引擎 V7.0</title>
+    <link rel="stylesheet" href="{$static_url}app.css">
+    <link rel="stylesheet" type="text/css" href="{$static_url}app.css?v7.0"/>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+
+            <table  class="table" style="width: 98%; margin: 10px auto 0 auto">
+                <tr><td colspan="4">
+                    <a class="button" type="button" onclick='call_back()'>确定</a>
+                    <a class="button" type="button" id="dialog_close">取消</a></td></tr>
+                <tr>
+                    <th lay-data="{field:'name',width:100,fixed:'left'}">字段中文</th>
+                    <th lay-data="{field:'field',width:110}">字段英文</th>
+                    <th lay-data="{field:'name_type',width:100}">字段隐藏</th>
+                </tr>
+                {volist name='from_html' id='k'}
+                <tr  style="text-align: center">
+                    <td ><a>{$key}</a></td>
+                    <td><a>{$k}</a></td>
+                    <td><input name="hide" value="{$key}|{$k}" type="checkbox"> </td>
+                </tr>
+                {/volist}
+            </table>
+        </div>
+        <div class="layui-col-md12">
+
+        </div>
+    </div>
+</div>
+<script src="{$static_url}jquery-1.7.2.min.js"></script>
+<script src="{$static_url}lib/layer/2.4/layer.js"></script>
+<script src="{$static_url}tpflow.api.js"></script>
+<script src="{$static_url}workflow.5.0.js"></script>
+<script type="text/javascript" src="{$static_url}lib/Validform/5.3.2/Validform.min.js" ></script>
+<script>
+    function call_back(){
+        let keyData = [];
+        let kData = [];
+        document.querySelectorAll('input[name="hide"]:checked').forEach(box => {
+            // 使用 '|' 符号分割 value 的值
+            let parts = box.value.split('|');
+            // 添加到对应的数组
+            if(parts.length === 2) {
+                keyData.push(parts[0]);
+                kData.push(parts[1]);
+            }
+        });
+        parent.layer.msg('设置成功');
+        parent.$('#form_set_hide').val(keyData.join(','));
+        parent.$('#form_set_hide_html').html(kData.join(','));
+        parent.$('#form_set_hide_text').val(kData.join(','));
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+    $("#dialog_close").on("click",function(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    });
+</script>
+</body>
+</html>

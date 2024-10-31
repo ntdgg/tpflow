@@ -470,11 +470,11 @@ class Flow
         Kpi::Run($run_process);
         //如果isOk==1审批通过，判断是否有签阅和消息节点
         if($isok==1){
-        $run_process_info = Run::FindRunProcessId($run_process);
-        $process_info = process::find($run_process_info['run_flow_process']);
-        $run_info = Run::FindRunId($run_process_info['run_id']);
-        /*读取下个步骤的节点信息*/
-        $process_to = Process::findMsg($process_info,$run_process_info['run_id'],$run_info['from_table'], $run_info['from_id'],1);
+            $run_process_info = Run::FindRunProcessId($run_process);
+            $process_info = process::find($run_process_info['run_flow_process']);
+            $run_info = Run::FindRunId($run_process_info['run_id']);
+            /*读取下个步骤的节点信息*/
+            $process_to = Process::findMsg($process_info,$run_process_info['run_id'],$run_info['from_table'], $run_info['from_id'],1);
         }
 		return Run::EditRunProcess([['id', 'in', $run_process]], ['status' => 2, 'remark' => $check_con, 'bl_time' => time()]);
 	}

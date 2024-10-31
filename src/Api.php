@@ -90,6 +90,7 @@ use think\facade\Request;
 		if($act=='super_user'){
 			return unit::return_msg(Control::WfDescCenter($act,'',['kid'=>input('kid'),'type_mode'=>input('type_mode'),'key'=>input('key'),'type'=>input('type')]));
 		}
+
         if($act=='from_set'){
             return unit::return_msg(Control::WfDescCenter($act,input('flow_id')));
         }
@@ -131,6 +132,9 @@ use think\facade\Request;
 		}
         if($act=='view'){
             return unit::return_msg(Control::WfDescCenter($act,input('id'),input('dataid')));
+        }
+        if($act=='signature'){
+            return unit::return_msg(Control::WfDescCenter($act,'',['id'=>input('id')]));
         }
         if($act=='del' || $act=='ver'){
             if (unit::is_post()) {

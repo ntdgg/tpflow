@@ -123,6 +123,7 @@ class SignFlow
 			}
 			//日志记录
 		} else if ($wf_actionid == "ssing") {//会签
+            Run::EndRunSing($sing_id, $config['check_con']);//结束当前会签
 			//日志记录
 			Log::AddrunLog($uid, $config['run_id'], $config, 'SingSing');
 			$sid = Run::AddRunSing($config);

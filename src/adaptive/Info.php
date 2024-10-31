@@ -262,6 +262,8 @@ class Info
 					$workflow['nexid'] = $workflow ['process']['process_to'];//下一步骤
 				}
 				$workflow['run_process'] = $info['id'];//运行的run_process步骤ID
+                $wf_flow = Flow::GetFlowInfo($info['run_flow']);
+                $workflow['is_signature'] = $wf_flow['is_signature'];//运行的run_process步骤ID
 
                 $workflow['npi'] = unit::nexnexprocessinfo($workflow['status']['wf_mode'], $workflow['nexprocess']);//显示下一步骤的信息
 

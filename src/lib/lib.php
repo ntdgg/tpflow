@@ -241,6 +241,8 @@ php;
 							　字段:<input type="text" class="input-text-2" style='width:140px' value="{$info['field_name']}" name="field_name">　数值:<input type="text" class="input-text-2" value="{$info['field_value']}" name="field_value"  style='width:140px' ></td></tr><tr>
 							<tr><th style='width:75px'>排序值</th>
 							<td ><input type="text" class="input-text-full" value="{$info['sort_order']}" name="sort_order" ></td></tr><tr>
+                            <tr><th>是否签名</th>
+							<td><select name="is_signature"  class="smalls"  datatype="*" ><option value="0">关闭手写签名</option><option value="1">开启手写签名</option></select></td></tr><tr>
 							<th>流程描述</th><td >
 								<textarea name='flow_desc'  class='input-text-full'>{$info['flow_desc']}</textarea></td>
 							</tr><tr  >
@@ -447,6 +449,10 @@ php;
         }
 		$sup = $_GET['sup'] ?? '';
 		$tmp = self::commontmp('Tpflow V7.0 ');
+        $signaturebtn = '';
+        if($flowinfo['is_signature']==1){
+            $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_ok']}" method="post" name="form" id="wfform">
@@ -466,6 +472,9 @@ php;
 				<tr>
 				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='{$info['wf_submit']}' type='hidden'>
+						<span id="signature_ent_sign" style="height:38px;padding-left: 10px;"><img width="100px" height="0px" src="" onclick="sfdp.view_img("")"></span>
+						<input type="hidden" readonly="" autocomplete="off" value="" name="signature" placeholder="签名信息" id="signature_ent" class="layui-input">
+						{$signaturebtn}
 						<button  class="button" type="submit"> 提交同意</button>
 						<a class="button" id='backbton' onclick='Tpflow.lclose()' style="background-color:#666 !important">取消</a> 
 						<a class="button" onclick=Tpflow.wopen("上传","{$info['tpflow_upload']}?id=upload",'140px','150px') style="background-color: #19be6b">附件</a>
@@ -516,6 +525,10 @@ php;
 		}
 		$sup = $_GET['sup'] ?? '';
 		$tmp = self::commontmp('Tpflow V7.0 ');
+        $signaturebtn = '';
+        if($flowinfo['is_signature']==1){
+            $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_back']}" method="post" name="form" id="wfform">
@@ -535,6 +548,9 @@ php;
 				<tr>
 				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='back' type='hidden'>
+						<span id="signature_ent_sign" style="height:38px;padding-left: 10px;"><img width="100px" height="0px" src="" onclick="sfdp.view_img("")"></span>
+						<input type="hidden" readonly="" autocomplete="off" value="" name="signature" placeholder="签名信息" id="signature_ent" class="layui-input">
+						{$signaturebtn}
 						<button  class="button" type="submit"> 提交回退</button>
 						<a class="button" id='backbton' onclick='Tpflow.lclose()' style="background-color:#666 !important">取消</a> 
 				</td>
@@ -612,6 +628,10 @@ php;
 		}
 		$sup = $_GET['sup'] ?? '';
 		$tmp = self::commontmp('Tpflow V7.0 ');
+        $signaturebtn = '';
+        if($flowinfo['is_signature']==1){
+            $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_sign']}" method="post" name="form" id="wfform">
@@ -632,6 +652,9 @@ php;
 				<tr>
 				<td colspan=2 style='text-align:center'>
 						<input id='submit_to_save' name='submit_to_save' value='{$sing}' type='hidden'>
+						<span id="signature_ent_sign" style="height:38px;padding-left: 10px;"><img width="100px" height="0px" src="" onclick="sfdp.view_img("")"></span>
+						<input type="hidden" readonly="" autocomplete="off" value="" name="signature" placeholder="签名信息" id="signature_ent" class="layui-input">
+						{$signaturebtn}
 						<button  class="button" type="submit">会签</button>
 						<a class="button" id='backbton' onclick='Tpflow.lclose()' style="background-color:#666 !important">取消</a> 
 				</td>
@@ -758,7 +781,7 @@ php;
 		} else {
 			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok","650px","420px")>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback","650px","420px")>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing","650px","420px")>⇅ 再会签</a>';
 		}
-		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #1890ff;">❤ 流程图</a> ';
+		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
 		$tmp = self::commontmp('Tpflow V7.0 ');
 		return <<<php
 {$tmp['head']}
@@ -840,7 +863,7 @@ php;
             if ($flowinfo['status']['is_sing'] != 2) {
                 $html .= '<a class="button"  style="background-color: #d4d4d4;">⇅ 会签</a>';
             }
-            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #1890ff;">❤ 流程图</a> ';
+            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
             return $html;
         }
         $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
@@ -855,7 +878,7 @@ php;
         } else {
             $html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
         }
-        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #1890ff;">❤ 流程图</a> ';
+        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
         return $html;
     }
 	/**
@@ -923,6 +946,218 @@ php;
         $tmp = self::commontmp('Tpflow V7.0 管理列表');
         $static_url = unit::gconfig('static_url');
         return view(BEASE_URL.'/template/flow_field.html',['static_url'=>$static_url,'urls'=>$urls,'from_html'=>$from_html]);
+
+    }
+
+    static function signature($id){
+        $patch = unit::gconfig('static_url');
+        return <<<php
+		<script src="{$patch}lib/signature_pad.umd.js"></script>
+		<style>
+		*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  width: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: 0;
+  padding: 32px 16px;
+}
+
+.signature-pad {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+  max-width: 700px;
+  max-height: 460px;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.signature-pad::before,
+.signature-pad::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  width: 40%;
+  height: 10px;
+  bottom: 10px;
+  background: transparent;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.signature-pad::before {
+  left: 20px;
+  -webkit-transform: skew(-3deg) rotate(-3deg);
+          transform: skew(-3deg) rotate(-3deg);
+}
+
+.signature-pad::after {
+  right: 20px;
+  -webkit-transform: skew(3deg) rotate(3deg);
+          transform: skew(3deg) rotate(3deg);
+}
+
+.signature-pad--body {
+  position: relative;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border: 1px solid #f4f4f4;
+}
+
+.signature-pad--body
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+}
+
+.signature-pad--footer {
+  color: #C3C3C3;
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 8px;
+}
+
+.signature-pad--actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 8px;
+}
+
+.signature-pad--actions .column {
+  padding: .1em;
+}
+
+.signature-pad--actions .button {
+  margin: .2em;
+}
+
+
+@media (max-width: 480px) {
+  .signature-pad--actions .button {
+    display: block;
+    width: 100%;
+    min-height: 2em;
+  }
+}
+</style>
+</head>
+<body>
+    <div id="signature-pad" class="signature-pad">
+    <div class="signature-pad--body">
+      <canvas></canvas>
+    </div>
+    <div class="signature-pad--footer">
+      <div class="description">使用鼠标或者触屏签名</div>
+      <div class="signature-pad--actions">
+        <div class="column">
+          <button type="button" class="button clear" data-action="clear">清除</button>
+          <button type="button" class="button" data-action="undo">撤回</button>
+        </div>
+        <div class="column">
+          <button type="button" class="button save" data-action="save-png">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+const wrapper = document.getElementById("signature-pad");
+const clearButton = wrapper.querySelector("[data-action=clear]");
+const undoButton = wrapper.querySelector("[data-action=undo]");
+const savePNGButton = wrapper.querySelector("[data-action=save-png]");
+const canvas = wrapper.querySelector("canvas");
+const signaturePad = new SignaturePad(canvas, {
+  backgroundColor: 'rgb(255, 255, 255)'
+});
+
+function resizeCanvas() {
+  const ratio =  Math.max(window.devicePixelRatio || 1, 1);
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = canvas.offsetHeight * ratio;
+  canvas.getContext("2d").scale(ratio, ratio);
+  signaturePad.fromData(signaturePad.toData());
+}
+window.onresize = resizeCanvas;
+resizeCanvas();
+
+function dataURLToBlob(dataURL) {
+  const parts = dataURL.split(';base64,');
+  const contentType = parts[0].split(":")[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], { type: contentType });
+}
+
+clearButton.addEventListener("click", () => {
+  signaturePad.clear();
+});
+
+undoButton.addEventListener("click", () => {
+  const data = signaturePad.toData();
+  if (data) {
+    data.pop(); // remove the last dot or line
+    signaturePad.fromData(data);
+  }
+});
+
+savePNGButton.addEventListener("click", () => {
+  if (signaturePad.isEmpty()) {
+    alert("Please provide a signature first.");
+  } else {
+    const dataURL = signaturePad.toDataURL();
+     parent.$('#{$id}').val(dataURL);
+     parent.$('#{$id}_sign').html('<img src="'+dataURL+'" width="100px" onclick=sfdp.view_img("'+dataURL+'")>');
+    parent.layer.close(parent.layer.getFrameIndex(window.name));
+  }
+});
+
+</script>
+</body>
+</html>
+php;
 
     }
 

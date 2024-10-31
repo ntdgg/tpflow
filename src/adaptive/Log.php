@@ -47,7 +47,11 @@ class Log
 				if ($v['art'] <> '') {
 					$down = '附件：<a class="btn btn-success" href="/uploads/' . $v['art'] . '" target="download">下载</a>';
 				}
-				$html .= '<tr><td>' . $v['user'] . '</td><td>' . $v['content'] . $down . '</td><td>' . $v['btn'] . '</td><td>' . date('m-d H:i', $v['dateline']) . '</td></tr>';
+                $img = '';
+                if($v['signature']!=''){
+                    $img = '<img width="100px"  src="'.$v['signature'].'" alt="签章">';
+                }
+				$html .= '<tr><td>' . $v['user'] . $img .'</td><td>' . $v['content'] . $down . '</td><td>' . $v['btn'] . '</td><td>' . date('m-d H:i', $v['dateline']) . '</td></tr>';
 			}
 			$html .= '</table>';
 			return $html;
@@ -116,6 +120,7 @@ class Log
 			'work_info' => $work_return,
 			'art' => $config['art'],
 			'btn' => $btn,
+            'signature'=>$config['signature'] ?? '',
 			'dateline' => time()
 		);
 		return (new Log())->mode->AddrunLog($run_log_data);

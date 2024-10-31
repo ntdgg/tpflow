@@ -94,6 +94,7 @@ class Tpl
                 'tpflow_flow' => $urls['wfdo'] . '?act=do&wf_op=flow&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
                 'tpflow_log' => $urls['wfdo'] . '?act=do&wf_op=log&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
                 'tpflow_view' => $urls['wfapi'] . '?act=view&id=',
+                'tpflow_signature' => $urls['wfapi'] . '?act=signature&id=',
                 'tpflow_upload' => unit::gconfig('wf_upload_file')
             ];
             if ($wf_op == 'check') {
@@ -116,6 +117,7 @@ class Tpl
 				'tpflow_flow' => $urls['wfdo'] . '?act=do&wf_op=flow&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
 				'tpflow_log' => $urls['wfdo'] . '?act=do&wf_op=log&wf_type=' . $wf_type . '&wf_fid=' . $wf_fid . '&sup=' . $sup,
                 'tpflow_view' => $urls['wfapi'] . '?act=view&id=',
+                'tpflow_signature' => $urls['wfapi'] . '?act=signature&id=',
 				'tpflow_upload' => unit::gconfig('wf_upload_file')
 			];
 
@@ -601,6 +603,9 @@ class Tpl
 				return ['data' => User::AjaxGet(trim($data['type']), $data['key']), 'code' => 1, 'msg' => '查询成功！'];
 			}
 		}
+        if ($act == 'signature') {
+           return lib::signature($data['id']);
+        }
 
         if($act=='quilklink'){
             //$flow_id

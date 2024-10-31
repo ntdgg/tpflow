@@ -58,7 +58,7 @@ class Jwt
 				if ($flow['code'] == 1) {
 					return unit::msg_return('Success!');
 				} else {
-					return unit::msg_return($flow['msg'], 1);
+					return unit::msg_return($flow['msg'], -1);
 				}
 			}
             $flow = Flow::getWorkflowByType($wf_type);
