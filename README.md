@@ -7,9 +7,9 @@
   <h4 align="center">
     致 力 于 企 业 信 息 化 解 决 方 案
   </h4> 
-<span align="center">
+<div align="center">
 [预 览](http://tpflow.gadmin8.com)   |   [官 网](http://www.gadmin8.com/)   |   [群聊](https://jq.qq.com/?_wv=1027&k=uIJZE54F) |   [文档](https://gadmin8.com/index/product.html) |   [Gadmin产品](http://gadmin8.com)
- <span/> 
+ </div>
 
 [![GitHub stars](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
 [![GitHub forks](https://img.shields.io/badge/Tpflow-6.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
