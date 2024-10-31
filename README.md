@@ -2,7 +2,7 @@
 <br/>
 <br/>
   <h1 align="center">
-    Tpflow 工作流引擎 v7.0
+    Tpflow 工作流引擎 v8.0
   </h1>
   <h4 align="center">
     致 力 于 企 业 信 息 化 解 决 方 案
@@ -16,7 +16,6 @@
 [![GitHub forks](https://img.shields.io/badge/Tpflow-6.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
 [![GitHub license](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo=)](https://gitee.com/ntdgg/tpflow)
 [![OSCS Status](https://www.oscs1024.com/platform/badge/ntdgg/tpflow.svg?size=small)](https://saas-examining-report-1257309290.cos.ap-beijing.myqcloud.com/saas/task_pdf/ntdgg_tpflow_20221026155151.pdf)
-[![Star](https://gitcode.com/liuzhiyun/tpflow/star/badge.svg)](https://gitcode.com/liuzhiyun/tpflow/overview) 
 </div>
 
 * TpFlow工作流引擎是一套规范化的流程管理系统，基于业务而驱动系统生命力的一套引擎。
