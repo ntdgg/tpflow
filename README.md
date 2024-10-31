@@ -13,7 +13,7 @@
 
  </div>
 
-<div style="text-align:center">
+<div align="center">
 
 [![GitHub stars](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
 [![GitHub forks](https://img.shields.io/badge/Tpflow-6.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
