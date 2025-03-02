@@ -26,6 +26,9 @@ use tpflow\adaptive\Run;
 use tpflow\adaptive\Log;
 use tpflow\adaptive\Kpi;
 
+//引用TP的ORM类
+use think\facade\Db;
+
 class TaskService
 {
 	/**
@@ -48,6 +51,9 @@ class TaskService
 		if (!$getbill) {
 			return ['msg' => '单据不存在！', 'code' => '-1'];
 		}
+        if($getbill['status'] <> 0){
+            return ['msg' => '单据已处理，请勿重复提交！', 'code' => '-1'];
+        }
 		//根据流程获取流程第一个步骤
 		$wf_process = Process::getWorkflowProcess($wf_id);
 		if (!$wf_process) {
@@ -60,28 +66,39 @@ class TaskService
 				return $BillWork;
 			}
 		}
-		//满足要求，发起流程
-		$wf_run = Info::addWorkflowRun($wf_id, $wf_process['id'], $wf_fid, $wf_type, $uid);
-		if (!$wf_run) {
-			return ['msg' => '流程发起失败，数据库操作错误！！', 'code' => '-1'];
-		}
-		//添加流程步骤日志
-		$wf_process_log = Info::addWorkflowProcess($wf_id, $wf_process, $wf_run, $uid);
-		if (!$wf_process_log) {
-			return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
-		}
-        /*如果步骤已经完成，则不再更新表单*/
-        $run_check = Process::run_check($wf_run);//校验流程状态
-        if ($run_check <> 2) {
-            //更新单据状态
-            $bill_update = Bill::updatebill($wf_type, $wf_fid, 1);
-            if (!$bill_update) {
+        //增加数据库事物
+        try{
+            Db::startTrans();
+            //满足要求，发起流程
+            $wf_run = Info::addWorkflowRun($wf_id, $wf_process['id'], $wf_fid, $wf_type, $uid);
+            if (!$wf_run) {
+                return ['msg' => '流程发起失败，数据库操作错误！！', 'code' => '-1'];
+            }
+            //添加流程步骤日志
+            $wf_process_log = Info::addWorkflowProcess($wf_id, $wf_process, $wf_run, $uid);
+            if (!$wf_process_log) {
                 return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
             }
+            /*如果步骤已经完成，则不再更新表单*/
+            $run_check = Process::run_check($wf_run);//校验流程状态
+            if ($run_check <> 2) {
+                //更新单据状态
+                $bill_update = Bill::updatebill($wf_type, $wf_fid, 1);
+                if (!$bill_update) {
+                    return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
+                }
+            }
+            Log::AddrunLog($uid, $wf_run, ['wf_id' => $wf_id, 'wf_fid' => $wf_fid, 'wf_type' => $wf_type, 'check_con' => $check_con], 'Send');
+            Kpi::Add($wf_type,$wf_fid);//添加入绩效
+            Db::commit();
+            return ['run_id' => $wf_run, 'msg' => 'success', 'code' => '1'];
+        }catch(\Exception $e){
+            Db::rollback();
+            //回滚事物
+            return ['msg' => '发起异常：'.$e->getMessage().'<br/>错误文件及行数：'.$e->getFile().' '.$e->getLine(), 'code' => '-1'];
         }
-		Log::AddrunLog($uid, $wf_run, ['wf_id' => $wf_id, 'wf_fid' => $wf_fid, 'wf_type' => $wf_type, 'check_con' => $check_con], 'Send');
-        Kpi::Add($wf_type,$wf_fid);//添加入绩效
-		return ['run_id' => $wf_run, 'msg' => 'success', 'code' => '1'];
+
+
 	}
 	
 	/**
@@ -108,24 +125,34 @@ class TaskService
 				return $BillWork;
 			}
 		}
-		if ($config['sing_st'] == 0) {
-			$run_check = Process::run_check($config['run_process']);//校验流程状态
-			if ($run_check == 2) {
-				return ['msg' => '该业务已办理，请勿重复提交！', 'code' => '-1'];
-			}
-			if ($wf_actionid == "ok") {//提交处理
-				$ret = $this->doTask($config, $uid);
-			} else if ($wf_actionid == "back") {//退回处理
-				$ret = $this->doBack($config, $uid);
-			} else if ($wf_actionid == "sing") {//会签
-				$ret = $this->doSing($config, $uid);
-			} else { //通过
-				return ['msg' => '参数信息不全！', 'code' => '-1'];
-			}
-		}else{
-			$ret = $this->doSignEnt($config, $uid, $wf_actionid);
-		}
-		return $ret;
+        //增加数据库事物
+        try{
+            Db::startTrans();
+                if ($config['sing_st'] == 0) {
+                    $run_check = Process::run_check($config['run_process']);//校验流程状态
+                    if ($run_check == 2) {
+                        return ['msg' => '该业务已办理，请勿重复提交！', 'code' => '-1'];
+                    }
+                    if ($wf_actionid == "ok") {//提交处理
+                        $ret = $this->doTask($config, $uid);
+                    } else if ($wf_actionid == "back") {//退回处理
+                        $ret = $this->doBack($config, $uid);
+                    } else if ($wf_actionid == "sing") {//会签
+                        $ret = $this->doSing($config, $uid);
+                    } else { //通过
+                        return ['msg' => '参数信息不全！', 'code' => '-1'];
+                    }
+                } else {
+                    $ret = $this->doSignEnt($config, $uid, $wf_actionid);
+                }
+            Db::commit();
+            return $ret;
+        } catch (\Exception $e) {
+            Db::rollback();
+            //回滚事物
+            return ['msg' => '运行异常：'.$e->getMessage().'<br/>错误文件及行数：'.$e->getFile().' '.$e->getLine(), 'code' => '-1'];
+        }
+
 	}
 	
 	/**
@@ -160,20 +187,27 @@ class TaskService
 		//终止流程及步骤
 		$findwhere = [['from_id', '=', $bill_id], ['from_table', '=', $bill_table]];
 		$FindRun = Run::FindRun($findwhere);
-		if (!$FindRun) {
-			return ['msg' => '没有找到流程~', 'code' => '-1'];
-		}
-		$end_flow = Flow::end_flow($FindRun['id']);
-		if (!$end_flow) {
-			return ['msg' => '结束流程失败~', 'code' => '-1'];
-		}
-		Bill::updatebill($bill_table, $bill_id, 0);
-		if (!$end_flow) {
-			return ['msg' => '更新单据信息出错~', 'code' => '-1'];
-		}
-        Log::AddrunLog($user_id, $FindRun['id'], ['wf_fid'=>$bill_id,'wf_type'=>$bill_table,'check_con'=>'取消审核','art'=>''], 'endflow');
-		return ['msg' => '终止成功~', 'code' => 0];
-	}
+        if (!$FindRun) {
+            return ['msg' => '没有找到流程~', 'code' => '-1'];
+        }
+        try {
+            Db::startTrans();
+                $end_flow = Flow::end_flow($FindRun['id']);
+                if (!$end_flow) {
+                    return ['msg' => '结束流程失败~', 'code' => '-1'];
+                }
+                Bill::updatebill($bill_table, $bill_id, 0);
+                if (!$end_flow) {
+                    return ['msg' => '更新单据信息出错~', 'code' => '-1'];
+                }
+                Log::AddrunLog($user_id, $FindRun['id'], ['wf_fid' => $bill_id, 'wf_type' => $bill_table, 'check_con' => '取消审核', 'art' => ''], 'endflow');
+                return ['msg' => '终止成功~', 'code' => 0];
+            Db::commit();
+        } catch (\Exception $e) {
+            Db::rollback();
+            return ['msg' => '运行异常：' . $e->getMessage() . '<br/>错误文件及行数：' . $e->getFile() . ' ' . $e->getLine(), 'code' => '-1'];
+        }
+    }
 	
 	/**
 	 * 普通流程通过

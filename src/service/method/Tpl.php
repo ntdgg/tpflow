@@ -508,7 +508,7 @@ class Tpl
 		$urls = unit::gconfig('wf_url');
 		//流程添加，编辑，查看，删除
 		if ($act == 'welcome') {
-			return '<br/><br/><style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; }h1{ font-size: 40px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 26px }</style><div style="padding: 24px 48px;"> <h1>\﻿ (•◡•) / </h1><p> TpFlow v7.0正式版<br/><span style="font-size:16px;">PHP优秀的开源工作流引擎</span></p><span style="font-size:13px;">[ ©2018-2025 Guoguo <a href="https://www.cojz8.com/">TpFlow</a>  ]</span></div>';
+			return '<br/><br/><style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; }h1{ font-size: 40px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 26px }</style><div style="padding: 24px 48px;"> <h1>\﻿ (•◡•) / </h1><p> TpFlow v8.0正式版<br/><span style="font-size:16px;">PHP优秀的开源工作流引擎</span></p><span style="font-size:13px;">[ ©2018-2025 Guoguo <a href="https://www.cojz8.com/">TpFlow</a>  ]</span></div>';
 		}
 		if ($act == 'wfdesc') {
 			$one = Flow::getWorkflow($flow_id);

@@ -20,7 +20,7 @@ var Tpflow = {
 		if (h === null || h === '') {
 			h=($(window).height());
 		}
-		layer.open({
+		layui.layer.open({
 			type: 2,
 			area: [w+'%', h+'%'],
 			fix: false, //不固定
@@ -40,7 +40,7 @@ var Tpflow = {
 		if (h === null || h === '') {
 			h='320px';
 		}
-		layer.open({
+		layui.layer.open({
 			type: 2,
 			area: [w, h],
 			fix: false, //不固定
@@ -56,11 +56,11 @@ var Tpflow = {
 	},
 	common_return : function(data) {
 		if (data.code === 0) {
-			layer.msg(data.msg,{icon:1,time: 1500},function(){
+			layui.layer.msg(data.msg,{icon:1,time: 1500},function(){
 				parent.location.reload(); // 父页面刷新
 			});
 		} else {
-			layer.alert(data.msg, {title: "错误信息", icon: 2});
+			layui.layer.alert(data.msg, {title: "错误信息", icon: 2});
 		}
 	},
 	Init : function(processData) {

@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tpflow工作流引擎 V7.0</title>
-    <link rel="stylesheet" href="/static/work/app.css">
+    <title>Tpflow工作流引擎 V8.0</title>
+    <link rel="stylesheet" href="{$static_url}app.css">
+    <link rel="stylesheet" href="{$static_url}lib/layui/css/layui.css">
 </head>
 <style type="text/css">
     .tooltiptext {
@@ -21,7 +22,7 @@
 <body>
 <div class="wrap">
     <div class="header">
-        Tpflow工作流引擎 V7.0
+        Tpflow工作流引擎 V8.0
     </div>
     <div class='toolbar'>
         <hr  style="margin: 0 5px;padding-top: 5px;border: none;border-bottom: solid 1px #DDD;clear: both;"/>
@@ -48,11 +49,11 @@
     const Tpflow_Server_Url = '{$surl}';
 </script>
 <script src="{$static_url}jquery-1.7.2.min.js"></script>
-<script src="{$static_url}lib/layer/2.4/layer.js"></script>
+<script src="{$static_url}lib/layui/layui.js?v=2.9.23"></script>
 <script src="{$static_url}tpflow.x6.js"></script>
-<script src="{$static_url}app.js"></script>
-<script src="{$static_url}tpflow.node.js"></script>
-<script src="{$static_url}tpflow.api.js"></script>
+<script src="{$static_url}app.js?v=8.0.2"></script>
+<script src="{$static_url}tpflow.node.js?v=8.0.2"></script>
+<script src="{$static_url}tpflow.api.js?v=8.0.2"></script>
 <script>
     function resize(){
         const width=document.body.offsetWidth - 120;
@@ -63,7 +64,7 @@
         resize()
     }
     resize();
-    stencil.load([startNode, flowNode, judgeNode, msg_node,ccNode, linkNode ])
+    stencil.load([startNode, flowNode,aiNode, judgeNode, msg_node,ccNode, linkNode])
     graph.fromJSON({$x6|raw});
 </script>
 </body>

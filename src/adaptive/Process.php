@@ -126,8 +126,6 @@ class Process
                     'process_info'=>$info
                 ]);
             }
-
-
             //人员
             if($info['work_ids']==1){
                 $info['todo'] = User::GetUserName($user_id);
@@ -140,6 +138,9 @@ class Process
                 $info['todo'] = $user_info['username'];
             }
 		}
+        if ($info['auto_person'] ==8) { //办理人员
+            $info['todo'] = 'Ai审批';
+        }
 		return $info;
 	}
 	

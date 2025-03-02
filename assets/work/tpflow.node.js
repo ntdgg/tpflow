@@ -3,7 +3,7 @@ const ports = {
         top: {
             position: 'top', attrs: {
                 circle: {
-                    r: 4, magnet: true, stroke: '#D06269', strokeWidth: 1, fill: '#fff', style: {
+                    r: 4, magnet: true, stroke: '#ff0013', strokeWidth: 1, fill: '#fff', style: {
                         visibility: 'hidden',
                     },
                 },
@@ -11,7 +11,7 @@ const ports = {
         }, right: {
             position: 'right', attrs: {
                 circle: {
-                    r: 4, magnet: true, stroke: '#D06269', strokeWidth: 1, fill: '#fff', style: {
+                    r: 4, magnet: true, stroke: '#ff0013', strokeWidth: 1, fill: '#fff', style: {
                         visibility: 'hidden',
                     },
                 },
@@ -19,7 +19,7 @@ const ports = {
         }, bottom: {
             position: 'bottom', attrs: {
                 circle: {
-                    r: 4, magnet: true, stroke: '#D06269', strokeWidth: 1, fill: '#fff', style: {
+                    r: 4, magnet: true, stroke: '#ff0013', strokeWidth: 1, fill: '#fff', style: {
                         visibility: 'hidden',
                     },
                 },
@@ -27,7 +27,7 @@ const ports = {
         }, left: {
             position: 'left', attrs: {
                 circle: {
-                    r: 4, magnet: true, stroke: '#D06269', strokeWidth: 1, fill: '#fff', style: {
+                    r: 4, magnet: true, stroke: '#ff0013', strokeWidth: 1, fill: '#fff', style: {
                         visibility: 'hidden',
                     },
                 },
@@ -147,5 +147,15 @@ const link_node = {
         }
     }]
 }
-
 X6.Graph.registerEdge('link_node', link_node);
+
+const ai_node =  {
+    inherit: 'circle', width: 60, height: 60, label: 'A i', attrs: {
+        body: {
+            fill: 'rgb(255,255,255)', stroke: 'rgb(56,72,175)',
+        }
+    }, data: 'node-ai', ports: {...ports}
+}
+const aiNode = new Circle(ai_node)
+
+X6.Graph.registerNode('node-ai', ai_node);

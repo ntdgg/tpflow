@@ -13,7 +13,7 @@ code {
 }
 
 .app-stencil {
-    width: 120px;
+    width: 100px;
     border: 1px solid #f0f0f0;
     position: relative;
 }
@@ -36,7 +36,7 @@ code {
     height: 100%;
 }
 .header {
-    font-weight: 700;
+    font-weight: 800;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,7 +46,8 @@ code {
     background: #fafbfc;
     border-bottom: 1px solid #dfe3e8;
     position: relative;
-    color: rgba(0, 0, 0, 0.45);
+    font-size: 18px;
+    color: #000000;
 }
 .text {
     font-size: 24px;
@@ -97,20 +98,18 @@ code {
 }
 .minimap {
     position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 200px;
-    height: 200px;
+    right: 10px;
+    bottom: 45px;
+    width: 100px;
+    height: 100px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fafbfc;
 }
-
 
 
 ::-webkit-scrollbar {
     width: 3px;
-    height: 10px;
+    height: 5px;
 }
 ::-webkit-scrollbar-button,
 ::-webkit-scrollbar-button:vertical {

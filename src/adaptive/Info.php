@@ -14,6 +14,7 @@ namespace tpflow\adaptive;
 
 use tpflow\lib\unit;
 use tpflow\service\command\AutoFlow;
+use tpflow\service\command\AiFlow;
 
 class Info
 {
@@ -111,6 +112,10 @@ class Info
                 $sponsor_text = $role_info['username'];
                 $sponsor_ids = $role_info['id'];
             }
+            if ($wf_process['auto_person'] == 8) {
+                $sponsor_ids = 0;
+                $sponsor_text = 'Ai审核专家';
+            }
 		} else {
 			$todo = explode("*%*", $todo);
 			$sponsor_text = $todo[1];
@@ -160,6 +165,9 @@ class Info
         if($doAuto['code']!=0){
             return false;
         }
+        /*2025-02-27 加入Ai审核专家*/
+        $aiFlow = (new AiFlow())->doAuto($wf_process['id'],$run_id,$process_id);
+
 		return $process_id;
 	}
 	
@@ -296,6 +304,24 @@ class Info
             $bill_info = Bill::getbill($v['from_table'],$v['from_id']);
 			$result[$k]['flow_name'] = $Flow['flow_name'];
 			$process = Run::SearchRunProcess([['run_id', '=', $v['id']], ['run_flow_process', '=', $v['run_flow_process']]]);
+            $wf_action = $process[0]['wf_action'] ?? '';
+            if($wf_action!=''){
+                if (strpos($wf_action, '@') !== false) {
+                    $urldata = explode("@", $wf_action);
+                    $url = url(unit::gconfig('int_url') . '/' . $urldata[0] . '/' . $urldata[1], ['id' => $v['from_id'], $urldata[2] => $urldata[3]]).($urldata[4] ?? '');
+                }else if(strpos($flowinfo['status']['wf_action'], '%') !== false){
+                    //增加了自定义网址
+                    $url = str_replace("%", "", $wf_action).$v['from_id'];
+                } else {
+                    if (strpos($flowinfo['status']['wf_action'], '/') !== false) {
+                        $url = url(unit::gconfig('int_url') . '/' . $wf_action, ['id' => $v['from_id']]);
+                    }else{
+                        $url = url(unit::gconfig('int_url') . '/' . $v['from_table'] . '/' . $wf_action, ['id' => $v['from_id']]);
+                    }
+                }
+            }else{
+                $url = '';
+            }
 			$sponsor_text = '';
 			foreach ($process as $p => $s) {
 				$sponsor_text .= $s['sponsor_text'] . ',';
@@ -320,7 +346,10 @@ class Info
                 }
             }
             $result[$k]['tmp'] =$strSubject;
+            $result[$k]['url'] =$url;
 			$result[$k]['user'] = rtrim($sponsor_text, ",");
+
+
 		}
 		return $result;
 	}

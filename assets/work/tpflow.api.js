@@ -17,17 +17,13 @@ var TFAPI = {
                 var PostData = {"flow_id":Tpflow_Id,"process_info":JSON.stringify(graph.toJSON().cells)};//获取到步骤信息
                 break;
             case 'delAll':
-                if(!confirm("你确定清空全部吗？")){//delAll会自动保存，添加确认步骤更安全
+                if(!confirm("你确定清空全部节点吗？")){//delAll会自动保存，添加确认步骤更安全
                     return;
                 }
                 var PostData = {"flow_id":Tpflow_Id};
                 reload = true;
                 break;
-            case 'att':
-                return ;
-                break;
             case 'add':
-                //Tpflow.sPost(Server_Url+'?act=save',{"flow_id":Tpflow_Id,"process_info":Tpflow.GetJProcessData()},false);
                 var PostData = {"flow_id":Tpflow_Id};
                 reload = true;
                 break;
@@ -68,6 +64,19 @@ var TFAPI = {
             maxmin: true,
             shade:0.4,
             title: title,
+            content: url
+        });
+    },
+    attset:function(url){
+        layer.open({
+            type: 2,
+            title: '流程节点设置',
+            offset: 'r',
+            anim: 'slideLeft', // 从右往左
+            area: ['720px', '100%'],
+            shade: 0.1,
+            shadeClose: true,
+            id: 'flow-att',
             content: url
         });
     },

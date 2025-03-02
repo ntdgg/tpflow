@@ -15,6 +15,7 @@ use tpflow\adaptive\Cc;
 use tpflow\adaptive\Process;
 use tpflow\adaptive\User;
 use tpflow\adaptive\Bill;
+use tpflow\lib\DoubaoAPI;
 
 class lib
 {
@@ -46,6 +47,7 @@ class lib
 	 **/
 	public static function tpflow_btn($wf_fid, $wf_type, $status, $flowinfo, $return = 0)
 	{
+        //增加异常捕获功能
         $btn_lang = unit::gconfig('wf_btn');
         $btn_default = $btn_lang['approve'];
 		$urls = unit::gconfig('wf_url');
@@ -79,7 +81,7 @@ class lib
 						if ($return == 1) {
 							return ['Url' => '', 'User' => '', 'status' => -1];
 						}
-                        $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程故障，请联系管理员重置流程！")>Info:Flow Err</span>';
+                        $btnHtml =   '<span class="btn" onclick=javascript:alert("提示：当前流程可执行步骤为空，请联系管理员重置流程！！")>ERR:Flow Err</span>';
 					}
 					if ($flowinfo['sing_st'] == 0) {
 						$user = explode(",", $flowinfo['status']['sponsor_ids']);
@@ -160,7 +162,7 @@ class lib
 		if (!$info) {
 			$info = ['type'=>''];
 		}
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		$patch = unit::gconfig('static_url');
 		$view = <<<php
 				{$tmp['head']}
@@ -222,7 +224,7 @@ php;
                 'id'=>'','flow_name'=>'','sort_order'=>'','flow_desc'=>'','type'=>'','field_name'=>'','field_value'=>'','is_field'=>'','tmp'=>''
             ];
 		}
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		$view = <<<php
 				{$tmp['head']}
 				<form action="{$url}" method="post" name="form" id="form" style="padding: 10px;">
@@ -266,7 +268,7 @@ php;
 	 **/
 	public static function tmp_entrust($info, $type, $user)
 	{
-		$tmp = self::commontmp('Tpflow V7.0 管理列表');
+		$tmp = self::commontmp('Tpflow V8.0 管理列表');
 		$urls = unit::gconfig('wf_url');
 		return <<<php
 				{$tmp['head']}
@@ -317,7 +319,7 @@ php;
 	 **/
 	public static function tmp_suser($url, $kid, $user, $type = 'user')
 	{
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		return <<<php
 		 {$tmp['head']}
 <article class="page-container">
@@ -393,7 +395,7 @@ php;
 	 **/
 	public static function tmp_wfjk($data)
 	{
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		return <<<php
 		 {$tmp['head']}<div class="page-container"><table class="table"><thead><tr class="text-c"><th>工作流编号</th><th >工作流类型</th><th >工作流名称</th><th >当前状态</th><th >业务办理人</th><th >接收时间</th><th >操作</th></thead></tr>{$data}</table></div>{$tmp['js']}</body></html>
 php;
@@ -403,7 +405,7 @@ php;
 	{
 		$urls = unit::gconfig('wf_url');
 		$url = $urls['wfdo'] . '?act=start&wf_type=' . $info['wf_type'] . '&wf_fid=' . $info['wf_fid'];
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
         $op = '';
         if(count($flow)==1){
             $op_html = '<input type="hidden" value="'.$flow[0]['id'].'" name="wf_id">';
@@ -448,7 +450,7 @@ php;
             $tr = '<tr><th>下一步骤</th><td style="text-align:left">'.$flowinfo['npi'].'</td></tr>';
         }
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
         $signaturebtn = '';
         if($flowinfo['is_signature']==1){
             $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
@@ -524,7 +526,7 @@ php;
 			$op .= '<option value="' . $k . '">' . $v . '</option>';
 		}
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
         $signaturebtn = '';
         if($flowinfo['is_signature']==1){
             $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
@@ -627,7 +629,7 @@ php;
 			$op .= '<option value="' . $v['id'] . '">' . $v['username'] . '</option>';
 		}
 		$sup = $_GET['sup'] ?? '';
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
         $signaturebtn = '';
         if($flowinfo['is_signature']==1){
             $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
@@ -697,7 +699,7 @@ php;
 	 **/
 	public static function tmp_wfflow($process_data)
 	{
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		return <<<php
 		 {$tmp['head']}<body  style="height: 100%; overflow: hidden;margin: 0px; padding: 0px;"><div class="panel layout-panel split-center" style="width:100%; cursor: default;" > <div  style="width:100%; height: 800px;" id="flowdesign_canvas"></div></div></div></body>
 </html>
@@ -717,7 +719,7 @@ php;
 	 **/
 	public static function tmp_index($url, $data, $html)
 	{
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		$html = <<<str
 		{head}
 		<div style='padding: 15px;'>
@@ -739,7 +741,7 @@ str;
 	 **/
 	public static function tmp_wfgl($data)
 	{
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		$urls = unit::gconfig('wf_url');
 		return <<<php
 	{$tmp['head']}
@@ -782,7 +784,7 @@ php;
 			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok","650px","420px")>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback","650px","420px")>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing","650px","420px")>⇅ 再会签</a>';
 		}
 		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
-		$tmp = self::commontmp('Tpflow V7.0 ');
+		$tmp = self::commontmp('Tpflow V8.0 ');
 		return <<<php
 {$tmp['head']}
 <div class="page-container" style='width:100%;padding: 0px;'>
@@ -929,7 +931,7 @@ php;
         if (class_exists($wf_class)) {
             $wf_action_select = (new $wf_class())->info($table);
         }
-        $tmp = self::commontmp('Tpflow V7.0 管理列表');
+        $tmp = self::commontmp('Tpflow V8.0 管理列表');
         $static_url = unit::gconfig('static_url');
         return view(BEASE_URL.'/template/att.html',['static_url'=>$static_url,'urls'=>$urls,'one'=>$one,'wf_action'=>$wf_action,'process_type'=>$process_type,'from_html'=>$from_html,'condition'=>$condition,'wf_mode'=>$wf_mode,'process_to_html'=>$process_to_html,'tmp'=>$tmp,'wf_action_select'=>$wf_action_select]);
 	}
@@ -943,7 +945,7 @@ php;
                 $from_html[$k]=  $v;
             }
         }
-        $tmp = self::commontmp('Tpflow V7.0 管理列表');
+        $tmp = self::commontmp('Tpflow V8.0 管理列表');
         $static_url = unit::gconfig('static_url');
         return view(BEASE_URL.'/template/flow_field.html',['static_url'=>$static_url,'urls'=>$urls,'from_html'=>$from_html]);
 
@@ -1168,10 +1170,11 @@ php;
 	static function commontmp($title)
 	{
 		$patch = unit::gconfig('static_url');
-		$css = '<link rel="stylesheet" type="text/css" href="' . $patch . 'app.css?v7.0"/>';
+		$css = '<link rel="stylesheet" type="text/css" href="' . $patch . 'app.css?v8.0"/>
+		<link rel="stylesheet" type="text/css" href="' . $patch . 'lib/layui/css/layui.css?2.9.24"/>';
 		$js = '<script type="text/javascript" src="' . $patch . 'jquery-1.7.2.min.js" ></script>
 	<script type="text/javascript" src="' . $patch . 'jsPlumb-1.3.16-all-min.js"></script>
-			<script type="text/javascript" src="' . $patch . 'lib/layer/2.4/layer.js" ></script>
+			<script type="text/javascript" src="' . $patch . 'lib/layui/layui.js?2.9.24" ></script>
 			<script type="text/javascript" src="' . $patch . 'workflow.5.0.js?v=11" ></script>
 			<script type="text/javascript" src="' . $patch . 'lib/Validform/5.3.2/Validform.min.js" ></script>
 			<script type="text/javascript" src="' . $patch . 'jquery-ui-1.9.2-min.js?" ></script>

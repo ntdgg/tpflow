@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tpflow工作流引擎 V7.0</title>
+    <title>Tpflow工作流引擎 V8.0</title>
     <link rel="stylesheet" href="{$static_url}app.css">
-    <link rel="stylesheet" type="text/css" href="{$static_url}app.css?v7.0"/>
+    <link rel="stylesheet" type="text/css" href="{$static_url}app.css?v8.0"/>
+    <link rel="stylesheet" href="{$static_url}lib/layui/css/layui.css">
+    <style>
+        .table th {
+            padding: 9px 5px;
+        }
+    </style>
 </head>
 <body>
 <div class="wrap">
@@ -16,41 +22,51 @@
                     <input type="hidden" name="process_condition" id="process_condition" value='{$one.process_tos}'>
                     <table class="table" style="width: 98%; margin: 10px auto 0 auto">
                         <tr>
-                            <th>步骤名称</th>
-                            <td><input type="text" class="smalls" name="process_name" value="{$one['process_name']}"></td>
+                            <th style="width: 15%;">步骤名称</th>
+                            <td style="width: 85%;"><input type="text" class="smalls" name="process_name" value="{$one['process_name']}"></td>
+
+                        </tr>
+                        <tr>
                             <th>节点ID</th>
                             <td width="240">{$one['id']}（{$one['process_type']}）</td>
                         </tr>
-                        <tr {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
+                        <tr {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')or($one.process_type == 'node-ai')"}style="display: none"{/if}>
                             <th>调用方法</th>
                             <td>
                                 <select class="smalls" name="wf_action_select" style="width: 40%;"><option value="1">自定义</option>{$wf_action_select|raw}</select>
                                 <input type="text" class="smalls" style="width:120px" name="wf_action" value="{$wf_action}"> <a target="_blank" href="//gadmin8.com/index/product.html">?</a>
                             </td>
-                            <th>权限管理</th>
-                            <td>
-                                <select name="is_sing" class="smalls">
-                                    <option value="1">允许会签</option>
-                                    <option value="2">禁止会签</option>
-                                </select>
-                                <select name="is_back" class="smalls">
-                                    <option value="1">允许回退</option>
-                                    <option value="2">不允许</option>
-                                </select>
-                            </td>
+                        </tr>
+                        <tr {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')or($one.process_type == 'node-ai')"}style="display: none"{/if}>
+                        <th>权限管理</th>
+                        <td>
+                            <select name="is_sing" class="smalls">
+                                <option value="1">允许会签</option>
+                                <option value="2">禁止会签</option>
+                            </select>
+                            <select name="is_back" class="smalls">
+                                <option value="1">允许回退</option>
+                                <option value="2">不允许</option>
+                            </select>
+                        </td>
                         </tr>
                         <tr>
-                            <th>表单限制</th>
-                            <td colspan='3'>
+                            <th>{if condition="($one.process_type == 'node-ai')"}
+                                审核内容
+                                {else /}
+                                表单限制
+                                {/if}
+                            </th>
+                            <td >
                                 <span id='form_set_hide_html'>{$one.form_set_hide ?? ''}</span>
                                 <input type="hidden" name="form_set_hide" id="form_set_hide" value="{$one.form_set_hide ?? ''}">
                                 <input type="hidden" name="form_set_hide_text" id="form_set_hide_text" value="{$one.form_set_hide_text ?? ''}">
                                 <a class="button" onclick="Tpflow.lopen('设置字段','{$urls['designapi']}?act=from_set&kid=from_set&flow_id={$one['id']}','60','95')">设置字段</a>
                             </td>
                         </tr>
-                        <tr id="node-process" {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')"}style="display: none"{/if}>
+                        <tr id="node-process" {if condition="($one.process_type == 'node-cc')or($one.process_type == 'node-msg')or($one.process_type == 'node-ai')"}style="display: none"{/if}>
                             <th>步骤模式</th>
-                            <td colspan='3'>
+                            <td >
                                 <select name="wf_mode" id="wf_mode_id" datatype="*" nullmsg="请选择步骤模式" onchange="Tpflow.onchange(this,'wf_mode');" class="smalls">
                                     {$condition|raw}
                                 </select>
@@ -68,7 +84,7 @@
                             </td>
                         </tr>
                         <tr id='wf_mode_2' {$wf_mode|raw}>
-                            <td colspan=4>
+                            <td colspan=2>
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -82,10 +98,19 @@
                                 </table>
                             </td>
                         </tr>
-
+                        {if condition="($one.process_type == 'node-ai')"}
+                        <tr id="node-user">
+                            <th>AI审核人<br>（AI提示词）</th>
+                            <td>
+                                <input type="hidden" class="smalls" name="auto_person" value="8">
+                                <input type="hidden" class="smalls" name="auto_sponsor_ids" value="0">
+                                <textarea name="auto_sponsor_text"  type="text/plain" style="width:100%;height:60px;">{$one['auto_sponsor_text']}</textarea>
+                            </td>
+                        </tr>
+                        {else /}
                         <tr id="node-user">
                             <th>办理人员</th>
-                            <td colspan='3'>
+                            <td >
                                 <select class="smalls" name="auto_person" id="auto_person_id" datatype="*" nullmsg="请选择办理人员或者角色！" onchange="Tpflow.onchange(this,'auto_person');" style="float: left;">
                                     <option value="">请选择</option>
                                     {$process_type|raw}
@@ -150,21 +175,22 @@
                                 </div>
                             </td>
                         </tr>
+                        {/if}
+                        <tr>
+                            <td  style="text-align:center" colspan="2">
+                                <button class="button" type="submit">保存</button>
+                                <span class="button" onclick="close_iframe()" style="background: #ccc;margin-left: 10px;">取消</span>
+                            </td>
+                        </tr>
                     </table>
-            <table class="table">
-                <tr>
-                    <td  style="text-align:center">
-                        <button class="button" type="submit">保存</button>
-                    </td>
-                </tr>
-            </table>
             </div>
         </form>
     </div>
 </div>
+
 <input value="{$one['work_condition'] ?? ''}" id="work_condition" type="hidden">
 <script src="{$static_url}jquery-1.7.2.min.js"></script>
-<script src="{$static_url}lib/layer/2.4/layer.js"></script>
+<script src="{$static_url}lib/layui/layui.js?v=2.9.23"></script>
 <script src="{$static_url}tpflow.api.js"></script>
 <script src="{$static_url}workflow.5.0.js"></script>
 <script type="text/javascript" src="{$static_url}lib/Validform/5.3.2/Validform.min.js" ></script>
@@ -201,19 +227,34 @@
     $("[name='work_condition']").find("[value='"+$('#work_condition').val()+"']").attr("selected", true);
     $("[name='is_time']").find("[value='{$one['is_time']}']").attr("selected", true);
         $(function(){
-        $("#form").Validform({
-            tiptype:function(msg,o,cssctl){
-                if (o.type == 3){
-                    layer.msg(msg, {time: 800});
+            $("#form").Validform({
+                tiptype:function(msg,o,cssctl){
+                    if (o.type == 3){
+                        layer.msg(msg, {time: 800});
+                    }
+                },
+                ajaxPost:true,
+                showAllError:true,
+                callback:function(ret){
+                    if (ret.code === 0) {
+
+                        layer.msg(ret.msg,{icon:1,time: 3000},function(){
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            parent.TFAPI.sReload();
+                        });
+                    } else {
+                        layer.alert(ret.msg, {title: "错误信息", icon: 2});
+                    }
                 }
-            },
-            ajaxPost:true,
-            showAllError:true,
-            callback:function(ret){
-                Tpflow.common_return(ret);
-            }
-        });
+            });
     });
+    //关闭弹窗并刷新画布
+    function close_iframe(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+        parent.TFAPI.sReload();
+    }
 </script>
 </body>
 </html>

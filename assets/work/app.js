@@ -102,9 +102,9 @@ const graph = new X6.Graph({
     minimap: {
         enabled: true,
         container: document.getElementById('minimap'),
-        width: 150,
-        height: 150,
-        padding: 10,
+        width: 100,
+        height: 100,
+        padding: 5,
     }
 })
 
@@ -115,12 +115,12 @@ graph.centerContent()
 const stencil = new Stencil({
     title: '流程工具栏',
     target: graph,
-    stencilGraphWidth: 110,
-    stencilGraphHeight: document.body.offsetHeight - 125,
+    stencilGraphWidth: 100,
+    stencilGraphHeight: document.body.offsetHeight - 115,
     layoutOptions: {
         columns: 1,
         columnWidth: 80,
-        rowHeight: 80,
+        rowHeight: 70,
         marginY: 20,
     }
 })
@@ -140,7 +140,7 @@ const addtool = (node) => {
     node.addTools({
         name: 'button-remove',
         args: {
-            offset: {x: 35, y: 15},
+            offset: {x: 55, y: 35},
             onClick({ view }) {
                 if(confirm("你确定删除步骤吗？")) {
                     TFAPI.sPost(Tpflow_Server_Url+'?act=del',{"flow_id":Tpflow_Id,"id":node.data});
@@ -234,10 +234,12 @@ const initEvents = (domName) => {
             layer.msg('结束节点');return;
         }
         var url = Tpflow_Server_Url + "?id=" + node.data + "&act=att";
-        TFAPI.lopen("属性设计", url, 70, 85);
+        TFAPI.attset(url);
     })
 
 };
+
+
 const initKeyboard = () => {
     graph.bindKey(['ctrl+1', 'meta+1'], () => {
         const zoom = graph.zoom()

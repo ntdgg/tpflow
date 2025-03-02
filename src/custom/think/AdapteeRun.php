@@ -61,7 +61,7 @@ class AdapteeRun
 	
 	function SearchRunProcess($where = [], $field = '*')
 	{
-		return Db::name('wf_run_process')->where($where)->field($field)->select();
+		return Db::name('wf_run_process')->where($where)->field($field)->select()->toArray();
 	}
 	
 	function EditRunProcess($where = [], $data = [])
