@@ -2,10 +2,14 @@
 /**
 *+------------------
 * Tpflow 配置文件夹
+*+------------------
+* Copyright (c) 2006~2018 http://cojz8.cn All rights reserved.
+*+------------------
+* Author: guoguo(1838188896@qq.com)
 *+------------------ 
 */
 return [
-	'version'=>'6.0.8',//当前版本
+	'version'=>'7.0.7',//当前版本
 	'database'=>config('database.connections.mysql.database'),//数据库名称
 	'prefix'=>config('database.connections.mysql.prefix'),//数据库前缀
 	'int_url'=>'/index',//使用工作流的模块名称
@@ -17,12 +21,14 @@ return [
 	'work_table'=>'[work]',//特定的表前缀，用于接入工作流的实体表
 	/*用户信息配置*/
 	'user' => [
-		'db'=>'soft_user', //表名
+		'db'=>'user', //表名
 		'key'=>'id', //主键
-		'getfield'=>'username',//获取用户名称
-		'field'=>'id,username',//查询筛选字段 用于设计器的选人
-		'searchwhere'=>'username'//查询筛选字段 用于设计器where匹配
+		'getfield'=>"username",//获取用户名称
+		'field'=>"id,username",//查询筛选字段 用于设计器的选人
+		'searchwhere'=>'username',//查询筛选字段 用于设计器where匹配
+        'whereRaw'=>'status=0'
 	],
+    'user_role' => ['pid','role'],//第一个角色表的上级id字段；第二个字段，用户表的角色字段
 	'wf_url' => [
 		'wfdo'=>"/index/wf/wfdo.html",
 		'start'=>"/index/wf/wfstart.html", //表名
@@ -31,11 +37,12 @@ return [
 	],
 	/*角色信息配置*/
 	'role' => [
-		'db'=>'soft_role', //表名
+		'db'=>'role', //表名
 		'key'=>'id', //主键
 		'getfield'=>'name',//获取用户名称
 		'field'=>'id,name as username',//查询筛选字段 用于设计器的选人
-		'searchwhere'=>'name'//查询筛选字段 用于设计器where匹配
+		'searchwhere'=>'name',//查询筛选字段 用于设计器where匹配
+        'whereRaw'=>'status=1'
 	],
 	/*工作流类别信息配置*/
 	'wf_type_mode'=>0,//工作流类别模式 0为数据库驱动，1自定义模式
@@ -51,12 +58,25 @@ return [
 	'wf_work_namespace'=>'\\bill\\',//事务驱动命名空间
 	'wf_access_control'=>3,//工作流权限控制（终止和去审），1、所有人均可终止；2、单据发起人可以终止；3、指定uid可以终止；
 	'wf_access_control_uid' => [1,2,3],//可以控制
-	'wf_upload_file' => '/index/common/upload',//附件上传接口
+	'wf_upload_file' => '/gadmin/common/upload',//附件上传接口
 	'msg_api' => '\\sys\\Msg',//消息推送接口
     'kpi_open'=>1,//是否开启绩效
     'kpi_out'=>300,//办理超时不得分，单位为分钟
     'kpi_base'=>1, //基础得分
     'wf_action'=>'\\sys\\Wfaction', //流程方法
-    'wf_btn'=>['start'=>'发起','noaccess'=>'无权','approve'=>'审核','sapprove'=>'超审','singapprove'=>'签审']
+    'wf_btn'=>['start'=>'发起','noaccess'=>'无权','approve'=>'审核','sapprove'=>'超审','singapprove'=>'签审'],
+    'wf_ai_type'=>'doubao',
+    'wf_ai'=>[
+        'doubao'=>[
+            'key'=>'',
+            'model'=>'',
+            'url'=>''
+        ],
+        'qianfan'=>[
+            'key'=>'',
+            'model'=>'',
+            'url'=>''
+        ],
+    ],
 ];
 
