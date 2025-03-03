@@ -30,14 +30,14 @@
 * Tpflow团队致力于打造中国最优秀的PHP工作流引擎。
 
 
-## ✈添加老锅
-<p align="center">
-<img src="https://www.gadmin8.com/ewm/gzh.jpg"  />
+### ✈添加老锅
+<p align="left">
+<img src="https://www.gadmin8.com/ewm/gzh.jpg" width="130px" />
 </p>
 
-## ✈在线客服
-<p align="center">
-<img src="https://www.gadmin8.com//ewm/kf.png"  />
+### ✈在线客服
+<p align="left">
+<img src="https://www.gadmin8.com//ewm/kf.png"  width="130px"/>
 </p>
 
 ## ⭐快速体验指南
@@ -54,7 +54,7 @@ PHP低代码开发平台：[传送门](https://www.gadmin8.com/ "传送门")
 
 Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/article/148 "加群条件")
 
-手册：https://gadmin8.com/index/product.html  【付费】
+手册：https://gadmin8.com/index/doc/show.html?id=12  【免费】
 
 ## ❤  [流之云科技](https://liuzhiyun.com) —— 旗下作品
 
