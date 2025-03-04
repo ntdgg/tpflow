@@ -18,7 +18,7 @@
 
 
 [![GitHub stars](https://img.shields.io/badge/license-Mit-yellowgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
-[![GitHub forks](https://img.shields.io/badge/Tpflow-6.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
+[![GitHub forks](https://img.shields.io/badge/Tpflow-8.0-brightgreen?style=flat-square&logo=github)](https://gitee.com/ntdgg/tpflow)
 [![GitHub license](https://img.shields.io/badge/Language-PHP8-orange?style=flat-square&logo=)](https://gitee.com/ntdgg/tpflow)
 [![OSCS Status](https://www.oscs1024.com/platform/badge/ntdgg/tpflow.svg?size=small)](https://saas-examining-report-1257309290.cos.ap-beijing.myqcloud.com/saas/task_pdf/ntdgg_tpflow_20221026155151.pdf)
 [![Star](https://gitcode.com/liuzhiyun/tpflow/star/badge.svg)](https://gitcode.com/liuzhiyun/tpflow/overview) 
@@ -166,6 +166,7 @@ Vip交流群：1062040103  加群条件：[申请加群](https://www.cojz8.com/a
 
 
 ## 😍 奖励计划
+
 Tpflow千元开源奖励计划：https://gitee.com/ntdgg/tpflow/issues/I54XQ6
 
 推荐阿里云服务器 [传送门](https://www.aliyun.com/minisite/goods?userCode=6y4qge6i "Demo")
@@ -226,7 +227,7 @@ Tpflow 遵循 MIT 开源协议发布，并提供免费使用。
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2018-2022 by Tpflow (http://cojz8.com)
+版权所有Copyright © 2018-2025 by Tpflow (http://cojz8.com)
 
 All rights reserved。
 
