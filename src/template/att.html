@@ -100,11 +100,11 @@
                         </tr>
                         {if condition="($one.process_type == 'node-ai')"}
                         <tr id="node-user">
-                            <th>AI审核人<br>（AI提示词）</th>
+                            <th>AI - model</th>
                             <td>
                                 <input type="hidden" class="smalls" name="auto_person" value="8">
                                 <input type="hidden" class="smalls" name="auto_sponsor_ids" value="0">
-                                <textarea name="auto_sponsor_text"  type="text/plain" style="width:100%;height:60px;">{$one['auto_sponsor_text']}</textarea>
+                                <input name="auto_sponsor_text"  placeholder="请输入AI模型名称/如果没填写，则调用默认模型" type="text" class="smalls" style="width:100%;" value="{$one['auto_sponsor_text']}" datatype="*" nullmsg="Ai模型不能为空！">
                             </td>
                         </tr>
                         {else /}

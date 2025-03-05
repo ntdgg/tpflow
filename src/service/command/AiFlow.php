@@ -66,15 +66,22 @@ class AiFlow
         //调用AI服务
         $wf_ai_type = unit::gconfig('wf_ai_type');
         $config = unit::gconfig('wf_ai');
+
+
+        $ai_model = $wf_process['auto_sponsor_text'];
+        if($ai_model==''){
+            $ai_model = $config[$wf_ai_type]['model'];
+        }
+
         //豆包服务
         if($wf_ai_type=='doubao'){
             $doubaoModelAPI = new DoubaoAPI($config[$wf_ai_type]['url'], $config[$wf_ai_type]['key']);
-            $res =  $doubaoModelAPI->callModelAPI($config[$wf_ai_type]['model'], $law_question);
+            $res =  $doubaoModelAPI->callModelAPI($ai_model, $law_question);
         }
         //千帆服务
         if($wf_ai_type=='qianfan'){
             $doubaoModelAPI = new QianFan($config[$wf_ai_type]['url'], $config[$wf_ai_type]['key']);
-            $res =  $doubaoModelAPI->callModelAPI($config[$wf_ai_type]['model'], $law_question);
+            $res =  $doubaoModelAPI->callModelAPI($ai_model, $law_question);
         }
 
         $check_con = '';
