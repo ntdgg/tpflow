@@ -309,11 +309,11 @@ class Info
                 if (strpos($wf_action, '@') !== false) {
                     $urldata = explode("@", $wf_action);
                     $url = url(unit::gconfig('int_url') . '/' . $urldata[0] . '/' . $urldata[1], ['id' => $v['from_id'], $urldata[2] => $urldata[3]]).($urldata[4] ?? '');
-                }else if(strpos($flowinfo['status']['wf_action'], '%') !== false){
+                }else if(strpos($wf_action, '%') !== false){
                     //增加了自定义网址
                     $url = str_replace("%", "", $wf_action).$v['from_id'];
                 } else {
-                    if (strpos($flowinfo['status']['wf_action'], '/') !== false) {
+                    if (strpos($wf_action, '/') !== false) {
                         $url = url(unit::gconfig('int_url') . '/' . $wf_action, ['id' => $v['from_id']]);
                     }else{
                         $url = url(unit::gconfig('int_url') . '/' . $v['from_table'] . '/' . $wf_action, ['id' => $v['from_id']]);
