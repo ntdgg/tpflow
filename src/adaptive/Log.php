@@ -69,7 +69,7 @@ class Log
 	 */
 	static function RunLog($wf_fid, $wf_type)
 	{
-		$type = ['Send' => '流程发起', 'ok' => '同意提交', 'Back' => '退回修改', 'SupEnd' => '终止流程', 'Sing' => '会签提交', 'sok' => '会签同意', 'SingBack' => '会签退回', 'SingSing' => '会签再会签','CC' => '签阅','endflow' => '终止流程','cancelflow' => '去除审批'];
+		$type = ['Send' => '流程发起', 'ok' => '同意提交', 'Back' => '退回修改', 'SupEnd' => '终止流程', 'Sing' => '会签提交', 'sok' => '会签同意', 'SingBack' => '会签退回', 'SingSing' => '会签再会签','CC' => '签阅','endflow' => '终止流程','cancelflow' => '去除审批','ai' => 'ai审批'];
 		$run_log = (new Log())->mode->SearchRunLog($wf_fid, $wf_type);
 		foreach ($run_log as $k => $v) {
 			$run_log[$k]['btn'] = $type[$v['btn']] ?? '按钮错误';

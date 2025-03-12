@@ -48,51 +48,53 @@ class AiFlow
         return ['msg' => '没有Ai步骤信息', 'code' => 0];
     }
     public function autoRun($run_process_id,$wfrun,$wf_process){
-        $uid = unit::getuserinfo('uid');
+        $uid = 0;//ai智能体用户id
         $userinfo = ['uid' => unit::getuserinfo('uid'), 'role' => unit::getuserinfo('role')];
         $info = Info::workflowInfo($wfrun['from_id'], $wfrun['from_table'], $userinfo);//查找查找步骤信息
         $npid = $info['nexid'];
         $run_id = $info['run_id'];
 
-
         $bill = Bill::getbill($wfrun['from_table'], $wfrun['from_id']);
         //拼接法律问题
         $law_question = '';
         $fields = explode(',', $wf_process['form_set_hide']);
-        $fields_text = explode(',', $wf_process['form_set_hide_text']);
-        foreach ($fields as $k => $v) {
-            $law_question.= $fields_text[$k]. ':'. ($bill[$v] ?? '-').'';
-        }
-        //调用AI服务
-        $wf_ai_type = unit::gconfig('wf_ai_type');
-        $config = unit::gconfig('wf_ai');
-
-
-        $ai_model = $wf_process['auto_sponsor_text'];
-        if($ai_model==''){
-            $ai_model = $config[$wf_ai_type]['model'];
-        }
-
-        //豆包服务
-        if($wf_ai_type=='doubao'){
-            $doubaoModelAPI = new DoubaoAPI($config[$wf_ai_type]['url'], $config[$wf_ai_type]['key']);
-            $res =  $doubaoModelAPI->callModelAPI($ai_model, $law_question);
-        }
-        //千帆服务
-        if($wf_ai_type=='qianfan'){
-            $doubaoModelAPI = new QianFan($config[$wf_ai_type]['url'], $config[$wf_ai_type]['key']);
-            $res =  $doubaoModelAPI->callModelAPI($ai_model, $law_question);
-        }
-
-        $check_con = '';
-        if($res['code']==0){
-            $result = [];
-            foreach ($res['msg'] as $key => $value) {
-                $result[] = "$key:$value";
-            }
-            $check_con = implode(' ', $result);
+        if ($wf_process['form_set_hide']=='') {
+            $check_con = '没有设置审核字段信息，不能进行自动审核！';
         }else{
-            $check_con = $res['msg'];
+            $fields_text = explode(',', $wf_process['form_set_hide_text']);
+            foreach ($fields as $k => $v) {
+                $law_question.= $fields_text[$k]. ':'. ($bill[$v] ?? '-').'';
+            }
+            //调用AI服务
+            $wf_ai_type = unit::gconfig('wf_ai_type');
+            $config = unit::gconfig('wf_ai');
+
+            $ai_model = $wf_process['auto_sponsor_text'];
+            if($ai_model==''){
+                $ai_model = $config[$wf_ai_type]['model'];
+            }
+
+            //豆包服务
+            if($wf_ai_type=='doubao'){
+                $doubaoModelAPI = new DoubaoAPI($config[$wf_ai_type]['url'], $config[$wf_ai_type]['key']);
+                $res =  $doubaoModelAPI->callModelAPI($ai_model, $law_question);
+            }
+            //千帆服务
+            if($wf_ai_type=='qianfan'){
+                $doubaoModelAPI = new QianFan($config[$wf_ai_type]['url'], $config[$wf_ai_type]['key']);
+                $res =  $doubaoModelAPI->callModelAPI($ai_model, $law_question);
+            }
+
+            $check_con = '';
+            if($res['code']==0){
+                $result = [];
+                foreach ($res['msg'] as $key => $value) {
+                    $result[] = "$key:$value";
+                }
+                $check_con = implode(' ', $result);
+            }else{
+                $check_con = $res['msg'];
+            }
         }
         $log = ['npid'=>$info['nexid'],'run_id'=>$info['run_id'],'flow_id'=>$wfrun['flow_id'],'wf_type'=>$wfrun['from_table'],'wf_fid'=>$wfrun['from_id'],'check_con'=>$check_con,'art'=>'','run_process'=>$info['run_process']];
         if ($npid != '') {//判断是否为最后
@@ -118,7 +120,7 @@ class AiFlow
             if (!$bill_update) {
                 return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
             }
-            Log::AddrunLog($uid, $run_id, $log, 'ok');
+            Log::AddrunLog($uid, $run_id, $log, 'ai');
             if (!$end) {
                 return ['msg' => '结束流程错误！！！', 'code' => '-1'];
             }
@@ -137,7 +139,7 @@ class AiFlow
             return ['msg' => '流程步骤操作记录失败，数据库错误！！！', 'code' => '-1'];
         }
         //日志记录
-        $run_log = Log::AddrunLog(0, $config['run_id'], $config, 'ok');
+        $run_log = Log::AddrunLog(0, $config['run_id'], $config, 'ai');
         if (!$run_log) {
             return ['msg' => '消息记录失败，数据库错误！！！', 'code' => '-1'];
         }
