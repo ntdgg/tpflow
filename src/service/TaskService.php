@@ -190,19 +190,19 @@ class TaskService
         if (!$FindRun) {
             return ['msg' => '没有找到流程~', 'code' => '-1'];
         }
+        Db::startTrans();
         try {
-            Db::startTrans();
                 $end_flow = Flow::end_flow($FindRun['id']);
                 if (!$end_flow) {
                     return ['msg' => '结束流程失败~', 'code' => '-1'];
                 }
-                Bill::updatebill($bill_table, $bill_id, 0);
+                $end_flow = Bill::updatebill($bill_table, $bill_id, 0);
                 if (!$end_flow) {
                     return ['msg' => '更新单据信息出错~', 'code' => '-1'];
                 }
                 Log::AddrunLog($user_id, $FindRun['id'], ['wf_fid' => $bill_id, 'wf_type' => $bill_table, 'check_con' => '取消审核', 'art' => ''], 'endflow');
-                return ['msg' => '终止成功~', 'code' => 0];
             Db::commit();
+            return ['msg' => '终止成功~', 'code' => 0];
         } catch (\Exception $e) {
             Db::rollback();
             return ['msg' => '运行异常：' . $e->getMessage() . '<br/>错误文件及行数：' . $e->getFile() . ' ' . $e->getLine(), 'code' => '-1'];

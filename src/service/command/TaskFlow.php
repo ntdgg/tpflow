@@ -47,6 +47,26 @@ class TaskFlow
 			$todo = '';
 		}
 		$data = Flow::getflowprocess($config['flow_process']);//获取设计器中的步骤信息
+        // 如果有设置触发规则，则触发该规则
+        $trigger_class = \tpflow\lib\unit::gconfig('trigger_fun') ?? '';
+        if (class_exists($trigger_class)) {
+            $trigger_fun = new $trigger_class();
+            // 灵动规则
+            if(!empty($data['rule_name']) && $trigger_fun->checkRule($data['rule_name'])) {
+                $rule_run = $trigger_fun->run($data['rule_name']);
+                if($rule_run['code'] !== 0){
+                    return ['msg' => '灵动规则触发失败！', 'code' => '-1'];
+                }
+            }
+            // 触发器规则
+            if(!empty($data['trigger_name']) && $trigger_fun->checkRule($data['trigger_name'],1)) {
+                $rule_run = $trigger_fun->run($data['trigger_name'],1,$config['wf_fid']);
+                if($rule_run['code'] !== 0){
+                    return ['msg' => '触发器规则触发失败！', 'code' => '-1'];
+                }
+            }
+        }
+
 		/*
 		 * 2021.05.26
 		 * 协同模式

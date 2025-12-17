@@ -376,7 +376,9 @@ class Flow
 			'is_back' => $datas['is_back'],
             'form_set_hide'=>$datas['form_set_hide'],
             'form_set_hide_text'=>$datas['form_set_hide_text'],
-			'out_condition' => json_encode($out_condition)
+			'out_condition' => json_encode($out_condition),
+            'rule_name' => $datas['rule_name'] ?? '', // 灵动规则名称
+            'trigger_name' => $datas['trigger_name'] ?? '' // 触发器名称
 		];
 		if (isset($datas["process_to"])) {
 			$data['process_to'] = unit::ids_parse($datas['process_to']);

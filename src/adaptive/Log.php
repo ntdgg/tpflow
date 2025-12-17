@@ -14,6 +14,8 @@ namespace tpflow\adaptive;
 
 use tpflow\lib\unit;
 
+use think\facade\Db;
+
 class Log
 {
 	
@@ -111,6 +113,18 @@ class Log
                 }
             }
         }
+
+        if($btn=='Send'){
+            $run_flow_process = 0;//开始节点
+            $process_name = '发起流程';
+        }else{
+            //找出运行表的步骤信息
+            $run_flow_process = Db::name('wf_run_process')->where('run_id', $run_id)->order('id desc')->value('run_flow_process');
+            $flow_process_info = Process::find($run_flow_process);
+            $process_name = $flow_process_info['process_name'] ?? '';
+        }
+
+
 		$run_log_data = array(
 			'uid' => $uid,
 			'from_id' => $config['wf_fid'],
@@ -121,6 +135,8 @@ class Log
 			'art' => $config['art'],
 			'btn' => $btn,
             'signature'=>$config['signature'] ?? '',
+            'run_process_id'=>(int)$run_flow_process,
+            'run_process_name'=>$process_name,
 			'dateline' => time()
 		);
 		return (new Log())->mode->AddrunLog($run_log_data);

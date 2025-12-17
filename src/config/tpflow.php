@@ -12,37 +12,37 @@ return [
 	'version'=>'7.0.7',//当前版本
 	'database'=>config('database.connections.mysql.database'),//数据库名称
 	'prefix'=>config('database.connections.mysql.prefix'),//数据库前缀
-	'int_url'=>'/index',//使用工作流的模块名称
-	'gateway_mode' =>1,//1,默认使用Tp的助手函数
+	'int_url'=>'/gadmin',//使用工作流的模块名称
+	'gateway_mode' =>2,//1,默认使用Tp的助手函数
     'start_flow'=>['gongdan','lunwen','zhuanli'],//流程发起控制，填写 table 则只有填写人可以发起工作流
 	'gateway_action' =>'\\sys\\Gateway',//自定义方法返回数据 命名空间 中的GetUserInfo
-	'user_id' =>'uid',//用户的session名称
-	'role_id' =>'role',//用户角色的session名称
+	'user_id' =>'softId',//用户的session名称 
+	'role_id' =>'sfotRoleId',//用户角色的session名称 
 	'work_table'=>'[work]',//特定的表前缀，用于接入工作流的实体表
 	/*用户信息配置*/
 	'user' => [
-		'db'=>'user', //表名
+		'db'=>'soft_user', //表名
 		'key'=>'id', //主键
-		'getfield'=>"username",//获取用户名称
-		'field'=>"id,username",//查询筛选字段 用于设计器的选人
+		'getfield'=>"CONCAT(username,'(',realname,')') as username",//获取用户名称
+		'field'=>"id,CONCAT(username,'(',realname,')') as username",//查询筛选字段 用于设计器的选人
 		'searchwhere'=>'username',//查询筛选字段 用于设计器where匹配
-        'whereRaw'=>'status=0'
+        'whereRaw'=>'is_delete=0 and status=1'
 	],
     'user_role' => ['pid','role'],//第一个角色表的上级id字段；第二个字段，用户表的角色字段
 	'wf_url' => [
-		'wfdo'=>"/index/wf/wfdo.html",
-		'start'=>"/index/wf/wfstart.html", //表名
-		'wfapi'=>"/index/wf/wfapi.html", //表名
-		'designapi'=>"/index/wf/designapi.html", //表名
+		'wfdo'=>"/gadmin/wf/wfdo.html",
+		'start'=>"/gadmin/wf/wfstart.html", //表名
+		'wfapi'=>"/gadmin/wf/wfapi.html", //表名
+		'designapi'=>"/gadmin/wf/designapi.html", //表名
 	],
 	/*角色信息配置*/
 	'role' => [
-		'db'=>'role', //表名
+		'db'=>'soft_role', //表名
 		'key'=>'id', //主键
 		'getfield'=>'name',//获取用户名称
 		'field'=>'id,name as username',//查询筛选字段 用于设计器的选人
 		'searchwhere'=>'name',//查询筛选字段 用于设计器where匹配
-        'whereRaw'=>'status=1'
+        'whereRaw'=>'status=2'
 	],
 	/*工作流类别信息配置*/
 	'wf_type_mode'=>0,//工作流类别模式 0为数据库驱动，1自定义模式
@@ -64,6 +64,7 @@ return [
     'kpi_out'=>300,//办理超时不得分，单位为分钟
     'kpi_base'=>1, //基础得分
     'wf_action'=>'\\sys\\Wfaction', //流程方法
+    'trigger_fun'=>'\\sys\\TriggerFun', //触发器方法
     'wf_btn'=>['start'=>'发起','noaccess'=>'无权','approve'=>'审核','sapprove'=>'超审','singapprove'=>'签审'],
     'wf_ai_type'=>'doubao',
     'wf_ai'=>[

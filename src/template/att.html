@@ -167,13 +167,21 @@
                                         <option value=">">大于</option>
                                         <option value="<">小于</option>
                                         <option value=">=">大于等于</option>
-                                        <option value="<=">小于小于</option>
+                                        <option value="<=">小于等于</option>
                                         <option value="<>">不等于</option>
                                     </select>
 
                                     <input type="text" class="smalls" name="work_val" value="{$one['work_val'] ?? ''}">系统自动审批
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <th>灵动规则名称</th>
+                            <td><input type="text" class="smalls" name="rule_name" value="{$one['rule_name']}"></td>
+                        </tr>
+                        <tr>
+                            <th>触发器名称</th>
+                            <td><input type="text" class="smalls" name="trigger_name" value="{$one['trigger_name']}"></td>
                         </tr>
                         {/if}
                         <tr>

@@ -415,6 +415,12 @@ php;
             }
             $op_html = '<tr><th>选择工作流</th><td style="text-align:left"><select name="wf_id"  class="smalls "  datatype="*" ><option value="">请选择工作流</option>'.$op.'</select></td></tr><tr>';
         }
+        $phrase_style = $phrase_html = '';
+        $wf_class = unit::gconfig('wf_action') ?? '';
+        if (class_exists($wf_class)) {
+            [$phrase_style,$phrase_html] = (new $wf_class())->getPhrase();
+            $tmp['head'].=$phrase_style;
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$url}" method="post" name="form" id="form">
@@ -423,6 +429,7 @@ php;
 		    {$op_html}
 			<th>审核意见</th><td style="text-align:left"><textarea name='check_con' style="resize:none;width:98%;height:60px" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '上报业务'; }" onfocus="if(this.value == '上报业务'){this.value =''; this.style.color = '#000000'; }">上报业务</textarea>
 			</td></tr>
+			{$phrase_html}
 			<tr><td colspan='2' style='text-align:center'><button  class="button" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>&nbsp;&nbsp;<button  class="button" style="background-color:#666 !important" type="button" onclick="Tpflow.lclose()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button></td></tr>
 		</table>
 	</form>{$tmp['js']}{$tmp['form']}
@@ -455,6 +462,12 @@ php;
         if($flowinfo['is_signature']==1){
             $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
         }
+        $phrase_style = $phrase_html = '';
+        $wf_class = unit::gconfig('wf_action') ?? '';
+        if (class_exists($wf_class)) {
+            [$phrase_style,$phrase_html] = (new $wf_class())->getPhrase();
+            $tmp['head'].=$phrase_style;
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_ok']}" method="post" name="form" id="wfform">
@@ -470,6 +483,7 @@ php;
 				<th style='width:70px'>审批意见</th>
             <td><textarea name='check_con'  datatype="*" style="width:100%;height:100px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '{$shyj}'; }" onfocus="if(this.value == '{$shyj}'){this.value =''; this.style.color = '#000000'; }">{$shyj}</textarea> </td>
 				</tr>
+				{$phrase_html}
 				{$tr}
 				<tr>
 				<td colspan=2 style='text-align:center'>
@@ -531,6 +545,12 @@ php;
         if($flowinfo['is_signature']==1){
             $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
         }
+        $phrase_style = $phrase_html = '';
+        $wf_class = unit::gconfig('wf_action') ?? '';
+        if (class_exists($wf_class)) {
+            [$phrase_style,$phrase_html] = (new $wf_class())->getPhrase();
+            $tmp['head'].=$phrase_style;
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_back']}" method="post" name="form" id="wfform">
@@ -539,10 +559,11 @@ php;
 		<input type="hidden" value="{$flowinfo['run_process']}" name="run_process">
 		<table class="table table-border table-bordered table-bg" style='width:95%; margin:15px auto 0 auto'>
 			<tr>
-				<td style='width:70px'>回退意见</td>
+				<th style='width:70px'>回退意见</td>
             <td><textarea name='check_con'  datatype="*" style="width:100%;height:100px;" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '不同意'; }" onfocus="if(this.value == '不同意'){this.value =''; this.style.color = '#000000'; }">不同意</textarea> </td>
 				</tr>
-				<tr><td>回退步骤</td>
+				{$phrase_html}
+				<tr><th>回退步骤</td>
 				<td style="text-align:left"><select name="wf_backflow" id='backflow'  class="smalls"  datatype="*" onchange='find()'>
 					<option value="">请选择回退步骤</option>{$op}</select>
 				</td>
@@ -634,6 +655,12 @@ php;
         if($flowinfo['is_signature']==1){
             $signaturebtn = '<a  onclick=Tpflow.wopen("签名信息","'.$info['tpflow_signature'].'signature_ent","610px","360px") class="button"  style="background-color:#345f9e !important"> 手写签名</a>';
         }
+        $phrase_style = $phrase_html = '';
+        $wf_class = unit::gconfig('wf_action') ?? '';
+        if (class_exists($wf_class)) {
+            [$phrase_style,$phrase_html] = (new $wf_class())->getPhrase();
+            $tmp['head'].=$phrase_style;
+        }
 		return <<<php
 		 {$tmp['head']}
 		<form action="{$info['tpflow_sign']}" method="post" name="form" id="wfform">
@@ -644,6 +671,7 @@ php;
             <tr>
             <th style='width:70px'>会签意见</th>
             <td><textarea name='check_con'  datatype="*" style="width:100%;height:100px;"onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '同意'; }" onfocus="if(this.value == '同意'){this.value =''; this.style.color = '#000000'; }">同意</textarea> </td></tr>
+				{$phrase_html}
 				<tr><th>会签接收人</th>
 				<td style="text-align:left">
 					 <input type="hidden" name="wf_singflow" id="auto_sponsor_ids" value="" datatype="*" nullmsg="请选择会签接收人">
@@ -783,7 +811,7 @@ php;
 		} else {
 			$html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.wopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok","650px","420px")>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.wopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback","650px","420px")>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.wopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing","650px","420px")>⇅ 再会签</a>';
 		}
-		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
+		$html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #4788FE;">❤ 流程图</a> ';
 		$tmp = self::commontmp('Tpflow V8.0 ');
 		return <<<php
 {$tmp['head']}
@@ -865,7 +893,7 @@ php;
             if ($flowinfo['status']['is_sing'] != 2) {
                 $html .= '<a class="button"  style="background-color: #d4d4d4;">⇅ 会签</a>';
             }
-            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
+            $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #4788FE;">❤ 流程图</a> ';
             return $html;
         }
         $tpflow_view = $info['tpflow_view'].$flowinfo['status']['run_flow'];
@@ -880,7 +908,7 @@ php;
         } else {
             $html = '<a class="button" style="background-color: #19be6b" onclick=Tpflow.lopen("会签提交","' . $info['tpflow_ok'] . '&submit=sok",45,42)>↷ 会签提交</a> <a class="button" style="background-color: #c9302c;"  onclick=Tpflow.lopen("会签回退","' . $info['tpflow_ok'] . '&submit=sback",45,42)>↶ 会签回退</a> <a class="button" style="background-color: #f37b1d;" onclick=Tpflow.lopen("工作流会签","' . $info['tpflow_sign'] . '&ssing=ssing",45,42)>⇅ 再会签</a>';
         }
-        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #3848AF;">❤ 流程图</a> ';
+        $html .= ' <a class="button" onclick=Tpflow.lopen("审批历史","' . $info['tpflow_log'] . '",50,40)>✤ 审批历史</a>  <a class="button" onclick=Tpflow.lopen("流程图","' . $tpflow_view. '",50,80) style="background-color: #4788FE;">❤ 流程图</a> ';
         return $html;
     }
 	/**
